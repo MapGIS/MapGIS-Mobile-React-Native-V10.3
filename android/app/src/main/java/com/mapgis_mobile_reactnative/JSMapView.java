@@ -41,7 +41,6 @@ public class JSMapView extends ReactContextBaseJavaModule {
     private static final String SINGLE_TAP_EVENT = "com.mapgis.RN.JSMapview.single_tap_event";
 
 
-
     @Override
     public String getName(){return "JSMapView";}
 
@@ -91,17 +90,6 @@ public class JSMapView extends ReactContextBaseJavaModule {
 
 
 
-    @ReactMethod
-    public void refresh(String mapViewId,Promise promise){
-        try{
-            m_mapView = mapViewList.get(mapViewId);
-            m_mapView.refresh();
-            promise.resolve(true);
-        }catch (Exception e){
-            promise.reject(e);
-        }
-    }
-
     /**
      * 加载地图
      * @param mapViewId
@@ -120,5 +108,75 @@ public class JSMapView extends ReactContextBaseJavaModule {
         }
     }
 
+    @ReactMethod
+    public void refresh(String mapViewId,Promise promise){
+        try{
+            m_mapView = mapViewList.get(mapViewId);
+            m_mapView.refresh();
+            promise.resolve(true);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
 
+    @ReactMethod
+    public void mapPointToViewPoint(String mapViewId,String pointID,Promise promise) {
+        try{
+            m_mapView = mapViewList.get(mapViewId);
+
+            promise.resolve(true);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+
+    /**
+     * 设置地图中心点
+     * @param mapViewId
+     * @param centerID
+     * @param promise
+     */
+    @ReactMethod
+    public void setMapCenter(String mapViewId,String centerID,Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            Dot point2D = JSDot.m_Point2DList.get(centerID);
+            mapView.panToCenter(point2D,false);
+            Log.d("setMapCenter:centerID",""+centerID);
+            promise.resolve(true);
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
+
+    /**
+     * 获取地图的中心点
+     * @param mapViewId
+     * @param promise
+     */
+    @ReactMethod
+    public void getMapCenter(String mapViewId,Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            Dot centerDot = mapView.getCenterPoint();
+
+            String dotId=JSDot.registerId(centerDot);
+            WritableMap map= Arguments.createMap();
+            map.putString("dotID",dotId);
+            map.putDouble("x",centerDot.getX());
+            map.putDouble("y",centerDot.getY());
+            Log.d("getMapCenter:",""+centerDot.x+centerDot.y);
+            Log.d("getMapCenter:centerID",""+dotId);
+            promise.resolve(map);
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
 }

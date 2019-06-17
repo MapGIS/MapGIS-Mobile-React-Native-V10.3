@@ -14,35 +14,41 @@ export default class Dot {
   async createObj() {
     try {
       if (typeof arguments[0] === 'number' && typeof arguments[1] === 'number') {
-        var { DotId } = await X.createObjByXY(arguments[0], arguments[1]);
-        var point2D = new Dot();
-        point2D._SMDotId = point2DId;
-        return point2D;
+        var { point2DId } = await X.createObjByXY(arguments[0], arguments[1]);
+        var dot = new Dot();
+        dot._MGDotId = point2DId;
+        return dot;
       } else {
         var { point2DId } = await X.createObj();
-        var point2D = new Dot();
-        point2D._SMDotId = point2DId;
-        return point2D;
+        var dot = new Dot();
+        dot._MGDotId = point2DId;
+        return dot;
       }
     } catch (e) {
       console.error(e);
     }
   }
-  
-  
+
+  /**
+   * 获取X坐标
+   * @returns {Promise<*>}
+   */
   async getX() {
     try {
-      let x = await X.getX(this._SMDotId);
+      let x = await X.getX(this._MGDotId);
       return x;
     } catch (e) {
       console.error(e);
     }
   }
-  
+
+  /**
+   * 获取Y坐标
+   * @returns {Promise<*>}
+   */
   async getY() {
     try {
-      let y = await X.getY(this._SMDotId);
-        console.log('Dot y: ' + y);
+      let y = await X.getY(this._MGDotId);
       return y;
     } catch (e) {
       console.error(e);

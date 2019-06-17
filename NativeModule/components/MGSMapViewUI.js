@@ -26,7 +26,7 @@ import MapView from '../MapView.js';
     _onChange(event){
         console.log("has onGetInstance:"+event.nativeEvent.mapViewId);
         this.mapView = new MapView();
-        this.mapView._SMMapViewId = event.nativeEvent.mapViewId;
+        this.mapView._MGMapViewId = event.nativeEvent.mapViewId;
         this.props.onGetInstance(this.mapView);
 
  }
