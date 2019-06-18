@@ -14,10 +14,13 @@ import com.facebook.react.bridge.WritableMap;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * @content 视图对象Native组件
+ * @author fjl 2019-6-18 下午2:52:36
+ */
 public class JSPointF extends ReactContextBaseJavaModule {
     public static final String REACT_CLASS = "JSPointF";
-    public static Map<String, PointF> m_Point2DList = new HashMap<String, PointF>();
+    public static Map<String, PointF> mPointfList = new HashMap<String, PointF>();
     PointF m_Point2D;
 
     public JSPointF(ReactApplicationContext context) {
@@ -30,22 +33,22 @@ public class JSPointF extends ReactContextBaseJavaModule {
     }
 
     public static PointF getObjFromList(String id){
-        return m_Point2DList.get(id);
+        return mPointfList.get(id);
     }
 
 
     public static String registerId(PointF obj) {
-        for (Map.Entry entry : m_Point2DList.entrySet()) {
+        for (Map.Entry entry : mPointfList.entrySet()) {
             if (obj.equals(entry.getValue())) {
                 String id = (String) entry.getKey();
-                m_Point2DList.put(id, obj);
+                mPointfList.put(id, obj);
                 return (String) entry.getKey();
             }
         }
 
         Calendar calendar = Calendar.getInstance();
         String id = Long.toString(calendar.getTimeInMillis());
-        m_Point2DList.put(id, obj);
+        mPointfList.put(id, obj);
         return id;
     }
 

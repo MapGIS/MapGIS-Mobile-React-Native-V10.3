@@ -1,8 +1,5 @@
 package com.mapgis_mobile_reactnative;
-/**
- * @content 地图视图组件
- * @author fjl 2019-6-16 下午2:52:36
- */
+
 import android.content.Context;
 import android.graphics.PointF;
 import android.support.annotation.Nullable;
@@ -19,6 +16,7 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.zondy.mapgis.android.mapview.MapView;
 import com.zondy.mapgis.core.geometry.Dot;
+import com.zondy.mapgis.core.geometry.Rect;
 
 import java.io.File;
 import java.util.Calendar;
@@ -26,7 +24,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by will on 2016/6/16.
+ * @content 地图视图组件
+ * @author fjl 2019-6-16 下午2:52:36
  */
 public class JSMapView extends ReactContextBaseJavaModule {
     private static MapView curMapView=null;
@@ -120,35 +119,76 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void mapPointToViewPoint(String mapViewId,String pointID,Promise promise) {
+    public void forceRefresh(String mapViewId,Promise promise){
         try{
             m_mapView = mapViewList.get(mapViewId);
-
+            m_mapView.forceRefresh();
             promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
     }
 
-
-    /**
-     * 设置地图中心点
-     * @param mapViewId
-     * @param centerID
-     * @param promise
-     */
     @ReactMethod
-    public void setMapCenter(String mapViewId,String centerID,Promise promise)
-    {
-        try {
-            MapView mapView = mapViewList.get(mapViewId);
-            Dot point2D = JSDot.m_Point2DList.get(centerID);
-            mapView.panToCenter(point2D,false);
-            Log.d("setMapCenter:centerID",""+centerID);
-            promise.resolve(true);
+    public void mapPointToViewPoint(String mapViewId,String dotID,Promise promise) {
+        try{
+            m_mapView = mapViewList.get(mapViewId);
+            Dot dot = JSDot.m_Point2DList.get(dotID);
+           PointF pointf =  m_mapView.mapPointToViewPoint(dot);
+
+            String pointFId = JSPointF.registerId(pointf);
+            WritableMap map= Arguments.createMap();
+            map.putString("pointFId",pointFId);
+            map.putDouble("x",pointf.x);
+            map.putDouble("y",pointf.y);
+            promise.resolve(map);
+        }catch (Exception e){
+            promise.reject(e);
         }
-        catch (Exception e)
-        {
+    }
+
+    @ReactMethod
+    public void viewPointToMapPoint(String mapViewId,String pointFID,Promise promise) {
+        try{
+            m_mapView = mapViewList.get(mapViewId);
+            PointF pointf = JSPointF.mPointfList.get(pointFID);
+            Dot dot =  m_mapView.viewPointToMapPoint(pointf);
+
+            String dotID = JSDot.registerId(dot);
+            WritableMap map= Arguments.createMap();
+            map.putString("dotID",dotID);
+            map.putDouble("x",dot.getX());
+            map.putDouble("y",dot.getY());
+            promise.resolve(map);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getResolution(String mapViewId,Promise promise) {
+        try{
+            m_mapView = mapViewList.get(mapViewId);
+            double resolution = m_mapView.getResolution();
+
+            WritableMap map= Arguments.createMap();
+            map.putDouble("resolution",resolution);
+            promise.resolve(map);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getMaxResolution(String mapViewId,Promise promise) {
+        try{
+            m_mapView = mapViewList.get(mapViewId);
+            double maxResolution = m_mapView.getMaxResolution();
+
+            WritableMap map= Arguments.createMap();
+            map.putDouble("maxResolution",maxResolution);
+            promise.resolve(map);
+        }catch (Exception e){
             promise.reject(e);
         }
     }
@@ -176,6 +216,525 @@ public class JSMapView extends ReactContextBaseJavaModule {
         }
         catch (Exception e)
         {
+            promise.reject(e);
+        }
+    }
+
+    /**
+     * 设置地图中心点
+     * @param mapViewId
+     * @param centerID
+     * @param promise
+     */
+    @ReactMethod
+    public void setMapCenter(String mapViewId,String centerID,Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            Dot point2D = JSDot.m_Point2DList.get(centerID);
+            mapView.panToCenter(point2D,false);
+            Log.d("setMapCenter:centerID",""+centerID);
+            promise.resolve(true);
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getDispRange(String mapViewId,Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            Rect rect = mapView.getDispRange();
+
+            String rectId = JSRect.registerId(rect);
+            WritableMap map = Arguments.createMap();
+            map.putString("rectId",rectId);
+            promise.resolve(map);
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
+    @ReactMethod
+    public void moveMap(String mapViewId,float mx, float my, boolean animated,Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            mapView.moveMap(mx,my,animated);
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void zoomToCenter(String mapViewId,String centerPoint, double resolution, boolean animated,Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            Dot dot = JSDot.m_Point2DList.get(centerPoint);
+            mapView.zoomToCenter(dot,resolution,animated);
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void zoomToRange(String mapViewId,String dispRange, boolean animated,Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            Rect rect = JSRect.mRectList.get(dispRange);
+            mapView.zoomToRange(rect,animated);
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void zoomIn(String mapViewId, boolean animated,Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            mapView.zoomIn(animated);
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void zoomOut(String mapViewId, boolean animated,Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            mapView.zoomOut(animated);
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void restore(String mapViewId, boolean animated,Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            mapView.restore(animated);
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void setRotateCenterAndAngle(String mapViewId,String rotateCenter,float rotateAngle, boolean animated,Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            Dot dot = JSDot.m_Point2DList.get(rotateCenter);
+            mapView.setRotateCenterAndAngle(dot,rotateAngle,animated);
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void setRotateAngle(String mapViewId,float rotateAngle,boolean animated,Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            mapView.setRotateAngle(rotateAngle,animated);
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void rotate(String mapViewId,float rotation, float pivotX, float pivotY,boolean animated,Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            mapView.rotate(rotation,pivotX,pivotY,animated);
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getRotateCenter(String mapViewId,Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            Dot centerDot = mapView.getRotateCenter();
+
+            String dotId=JSDot.registerId(centerDot);
+            WritableMap map= Arguments.createMap();
+            map.putString("dotID",dotId);
+            map.putDouble("x",centerDot.getX());
+            map.putDouble("y",centerDot.getY());
+            promise.resolve(map);
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getRotateAngle(String mapViewId,Promise promise) {
+        try{
+            m_mapView = mapViewList.get(mapViewId);
+            double rotateAngle = m_mapView.getRotateAngle();
+
+            WritableMap map= Arguments.createMap();
+            map.putDouble("rotateAngle",rotateAngle);
+            promise.resolve(map);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void setSlopeAngle(String mapViewId,float slopeAngle,boolean animated,Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            mapView.setSlopeAngle(slopeAngle,animated);
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getSlopeAngle(String mapViewId,Promise promise) {
+        try{
+            m_mapView = mapViewList.get(mapViewId);
+            double slopeAngle = m_mapView.getSlopeAngle();
+
+            WritableMap map= Arguments.createMap();
+            map.putDouble("slopeAngle",slopeAngle);
+            promise.resolve(map);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void stopAnimation(String mapViewId,Promise promise){
+        try{
+            m_mapView = mapViewList.get(mapViewId);
+            m_mapView.stopAnimation();
+            promise.resolve(true);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void setMaxTextureCacheSize(String mapViewId,int size,Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            mapView.setMaxTextureCacheSize(size);
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getMaxTextureCacheSize(String mapViewId,Promise promise) {
+        try{
+            m_mapView = mapViewList.get(mapViewId);
+            int MaxTextureCacheSize = m_mapView.getMaxTextureCacheSize();
+
+            WritableMap map= Arguments.createMap();
+            map.putInt("MaxTextureCacheSize",MaxTextureCacheSize);
+            promise.resolve(map);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void clearTextureCache(String mapViewId,Promise promise){
+        try{
+            m_mapView = mapViewList.get(mapViewId);
+            m_mapView.clearTextureCache();
+
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void setSupportTransparency(String mapViewId,boolean support,Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            mapView.setSupportTransparency(support);
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void isSupportTransparency(String mapViewId,Promise promise) {
+        try{
+            m_mapView = mapViewList.get(mapViewId);
+            boolean isSupportTransparency = m_mapView.isSupportTransparency();
+
+            WritableMap map= Arguments.createMap();
+            map.putBoolean("isSupportTransparency",isSupportTransparency);
+
+            promise.resolve(map);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void setShowNorthArrow(String mapViewId,boolean show,Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            mapView.setShowNorthArrow(show);
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void isShowNorthArrow(String mapViewId,Promise promise) {
+        try{
+            m_mapView = mapViewList.get(mapViewId);
+            boolean isShowNorthArrow = m_mapView.isShowNorthArrow();
+
+            WritableMap map= Arguments.createMap();
+            map.putBoolean("isShowNorthArrow",isShowNorthArrow);
+
+            promise.resolve(map);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void setNorthArrowPosition(String mapViewId,String pointFID,Promise promise) {
+        try{
+            m_mapView = mapViewList.get(mapViewId);
+            PointF pointf = JSPointF.mPointfList.get(pointFID);
+            m_mapView.setNorthArrowPosition(pointf);
+
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getNorthArrowPosition(String mapViewId,Promise promise) {
+        try{
+            m_mapView = mapViewList.get(mapViewId);
+
+            PointF pointf =  m_mapView.getNorthArrowPosition();
+
+            String pointFId = JSPointF.registerId(pointf);
+            WritableMap map= Arguments.createMap();
+            map.putString("pointFId",pointFId);
+            map.putDouble("x",pointf.x);
+            map.putDouble("y",pointf.y);
+            promise.resolve(map);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void setNorthArrowImage(String mapViewId,String bitmapID,Promise promise) {
+        try{
+            m_mapView = mapViewList.get(mapViewId);
+//            PointF pointf = JSPointF.mPointfList.get(pointFID);
+//            m_mapView.setNorthArrowImage(pointf);
+
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void setShowLogo(String mapViewId,boolean show,Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            mapView.setShowLogo(show);
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void isShowLogo(String mapViewId,Promise promise) {
+        try{
+            m_mapView = mapViewList.get(mapViewId);
+            boolean isShowLogo = m_mapView.isShowLogo();
+
+            WritableMap map= Arguments.createMap();
+            map.putBoolean("isShowLogo",isShowLogo);
+
+            promise.resolve(map);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void setLogoPoistion(String mapViewId,int position,Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            mapView.setLogoPoistion(position);
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getLogoPoistion(String mapViewId,Promise promise) {
+        try{
+            m_mapView = mapViewList.get(mapViewId);
+            int LogoPoistion = m_mapView.getLogoPoistion();
+
+            WritableMap map= Arguments.createMap();
+            map.putInt("LogoPoistion",LogoPoistion);
+
+            promise.resolve(map);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    public void setShowScaleBar(String mapViewId,boolean show,Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            mapView.setShowScaleBar(show);
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void isShowScaleBar(String mapViewId,Promise promise) {
+        try{
+            m_mapView = mapViewList.get(mapViewId);
+            boolean isShowScaleBar = m_mapView.isShowScaleBar();
+
+            WritableMap map= Arguments.createMap();
+            map.putBoolean("isShowScaleBar",isShowScaleBar);
+
+            promise.resolve(map);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void setScaleBarPoistion(String mapViewId,String pointFID,Promise promise) {
+        try{
+            m_mapView = mapViewList.get(mapViewId);
+            PointF pointf = JSPointF.mPointfList.get(pointFID);
+            m_mapView.setScaleBarPoistion(pointf);
+
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getScaleBarPoistion(String mapViewId,Promise promise) {
+        try{
+            m_mapView = mapViewList.get(mapViewId);
+
+            PointF pointf =  m_mapView.getScaleBarPoistion();
+
+            String pointFId = JSPointF.registerId(pointf);
+            WritableMap map= Arguments.createMap();
+            map.putString("pointFId",pointFId);
+            map.putDouble("x",pointf.x);
+            map.putDouble("y",pointf.y);
+            promise.resolve(map);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void setSkyImage(String mapViewId,String bitmapID,Promise promise) {
+        try{
+            m_mapView = mapViewList.get(mapViewId);
+//            PointF pointf = JSPointF.mPointfList.get(pointFID);
+//            m_mapView.setNorthArrowImage(pointf);
+
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    public void setSkySceneEnabled(String mapViewId,boolean enabled,Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            mapView.setSkySceneEnabled(enabled);
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void isSkySceneEnabled(String mapViewId,Promise promise) {
+        try{
+            m_mapView = mapViewList.get(mapViewId);
+            boolean isSkySceneEnabled = m_mapView.isSkySceneEnabled();
+
+            WritableMap map= Arguments.createMap();
+            map.putBoolean("isSkySceneEnabled",isSkySceneEnabled);
+
+            promise.resolve(map);
+        }catch (Exception e){
             promise.reject(e);
         }
     }
