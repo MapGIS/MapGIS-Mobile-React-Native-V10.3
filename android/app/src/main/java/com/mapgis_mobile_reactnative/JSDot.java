@@ -13,7 +13,10 @@ import com.zondy.mapgis.core.geometry.Dot;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * @content 点对象Native组件
+ * @author fjl 2019-6-18 下午2:52:36
+ */
 public class JSDot extends ReactContextBaseJavaModule {
     public static final String REACT_CLASS = "JSDot";
     public static Map<String, Dot> m_Point2DList = new HashMap<String, Dot>();

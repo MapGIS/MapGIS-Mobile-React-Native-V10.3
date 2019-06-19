@@ -14,6 +14,7 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.facebook.react.uimanager.ThemedReactContext;
+import com.mapgis_mobile_reactnative.utils.ConvertUtil;
 import com.zondy.mapgis.android.mapview.MapView;
 import com.zondy.mapgis.core.geometry.Dot;
 import com.zondy.mapgis.core.geometry.Rect;
@@ -33,7 +34,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     Context m_Context = null;
     MapView m_mapView;
     ReactContext mReactContext;
-    String m_PointName;
+
 
 
     private static final String DOUBLE_TAP_EVENT = "com.mapgis.RN.JSMapview.double_tap_event";
@@ -87,7 +88,32 @@ public class JSMapView extends ReactContextBaseJavaModule {
         return mapViewList.get(id);
     }
 
+    public void setBackGroundColor(String mapViewId,String color,Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            mapView.setBackGroundColor(ConvertUtil.ColorRGBAToInt(color));
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
 
+    @ReactMethod
+    public void getBackGroundColor(String mapViewId,Promise promise) {
+        try{
+            m_mapView = mapViewList.get(mapViewId);
+            int color = m_mapView.getBackGroundColor();
+            String strColor = ConvertUtil.ColorIntToRGBA(color);
+
+            WritableMap map= Arguments.createMap();
+            map.putString("color",strColor);
+            promise.resolve(map);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
 
     /**
      * 加载地图
@@ -738,4 +764,262 @@ public class JSMapView extends ReactContextBaseJavaModule {
             promise.reject(e);
         }
     }
+
+    public void setZoomControlsEnabled(String mapViewId,boolean enabled,Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            mapView.setZoomControlsEnabled(enabled);
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void isZoomControlsEnabled(String mapViewId,Promise promise) {
+        try{
+            m_mapView = mapViewList.get(mapViewId);
+            boolean isZoomControlsEnabled = m_mapView.isZoomControlsEnabled();
+
+            WritableMap map= Arguments.createMap();
+            map.putBoolean("isZoomControlsEnabled",isZoomControlsEnabled);
+
+            promise.resolve(map);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    public void setMapPanGesturesEnabled(String mapViewId,boolean enabled,Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            mapView.setMapPanGesturesEnabled(enabled);
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void isMapPanGesturesEnabled(String mapViewId,Promise promise) {
+        try{
+            m_mapView = mapViewList.get(mapViewId);
+            boolean isMapPanGesturesEnabled = m_mapView.isMapPanGesturesEnabled();
+
+            WritableMap map= Arguments.createMap();
+            map.putBoolean("isMapPanGesturesEnabled",isMapPanGesturesEnabled);
+
+            promise.resolve(map);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    public void setMapZoomGesturesEnabled(String mapViewId,boolean enabled,Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            mapView.setMapZoomGesturesEnabled(enabled);
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void isMapZoomGesturesEnabled(String mapViewId,Promise promise) {
+        try{
+            m_mapView = mapViewList.get(mapViewId);
+            boolean isMapZoomGesturesEnabled = m_mapView.isMapZoomGesturesEnabled();
+
+            WritableMap map= Arguments.createMap();
+            map.putBoolean("isMapZoomGesturesEnabled",isMapZoomGesturesEnabled);
+
+            promise.resolve(map);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    public void setMapRotateGesturesEnabled(String mapViewId,boolean enabled,Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            mapView.setMapRotateGesturesEnabled(enabled);
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void isMapRotateGesturesEnabled(String mapViewId,Promise promise) {
+        try{
+            m_mapView = mapViewList.get(mapViewId);
+            boolean isMapRotateGesturesEnabled = m_mapView.isMapRotateGesturesEnabled();
+
+            WritableMap map= Arguments.createMap();
+            map.putBoolean("isMapRotateGesturesEnabled",isMapRotateGesturesEnabled);
+
+            promise.resolve(map);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    public void setMapSlopeGesturesEnabled(String mapViewId,boolean enabled,Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            mapView.setMapSlopeGesturesEnabled(enabled);
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void isMapSlopeGesturesEnabled(String mapViewId,Promise promise) {
+        try{
+            m_mapView = mapViewList.get(mapViewId);
+            boolean isMapSlopeGesturesEnabled = m_mapView.isMapSlopeGesturesEnabled();
+
+            WritableMap map= Arguments.createMap();
+            map.putBoolean("isMapSlopeGesturesEnabled",isMapSlopeGesturesEnabled);
+
+            promise.resolve(map);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    public void setDoubleTapZooming(String mapViewId,boolean enabled,Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            mapView.setDoubleTapZooming(enabled);
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void isDoubleTapZooming(String mapViewId,Promise promise) {
+        try{
+            m_mapView = mapViewList.get(mapViewId);
+            boolean isDoubleTapZooming = m_mapView.isDoubleTapZooming();
+
+            WritableMap map= Arguments.createMap();
+            map.putBoolean("isDoubleTapZooming",isDoubleTapZooming);
+
+            promise.resolve(map);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    public void setTwoFingerTapZooming(String mapViewId,boolean enabled,Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            mapView.setTwoFingerTapZooming(enabled);
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void isTwoFingerTapZooming(String mapViewId,Promise promise) {
+        try{
+            m_mapView = mapViewList.get(mapViewId);
+            boolean isTwoFingerTapZooming = m_mapView.isTwoFingerTapZooming();
+
+            WritableMap map= Arguments.createMap();
+            map.putBoolean("isTwoFingerTapZooming",isTwoFingerTapZooming);
+
+            promise.resolve(map);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    public void setPanEndAnimating(String mapViewId,boolean enabled,Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            mapView.setPanEndAnimating(enabled);
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void isPanEndAnimating(String mapViewId,Promise promise) {
+        try{
+            m_mapView = mapViewList.get(mapViewId);
+            boolean isPanEndAnimating = m_mapView.isPanEndAnimating();
+
+            WritableMap map= Arguments.createMap();
+            map.putBoolean("isPanEndAnimating",isPanEndAnimating);
+
+            promise.resolve(map);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    public void setLabelRenderAnimating(String mapViewId,boolean enabled,Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            mapView.setLabelRenderAnimating(enabled);
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void isLabelRenderAnimating(String mapViewId,Promise promise) {
+        try{
+            m_mapView = mapViewList.get(mapViewId);
+            boolean isLabelRenderAnimating = m_mapView.isLabelRenderAnimating();
+
+            WritableMap map= Arguments.createMap();
+            map.putBoolean("isLabelRenderAnimating",isLabelRenderAnimating);
+
+            promise.resolve(map);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void setTapListener(String mapViewId,Promise promise) {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            MapListener mapListener = new MapListener(m_mapView,mReactContext);
+            m_mapView.setTapListener(mapListener);
+            promise.resolve(true);
+
+            Log.d("addTapListener:",""+true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
 }

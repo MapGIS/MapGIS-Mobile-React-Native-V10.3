@@ -946,6 +946,124 @@ export default class JSMapView {
       console.error(e);
     }
   }
+
+  /**
+   * 添加单击事件监听
+   * @returns {Promise<void>}
+   */
+  async setTapListener() {
+    try {
+      await MV.setTapListener(this._MGMapViewId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 添加长按事件监听
+   * @returns {Promise<void>}
+   */
+    async setLongTapListener() {
+    try {
+      await MV.setLongTapListener(this._MGMapViewId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+  /**
+   * 添加双击事件监听
+   * @returns {Promise<void>}
+   */
+  async setDoubleTapListener() {
+    try {
+      await MV.setDoubleTapListener(this._MGMapViewId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 添加触摸事件监听
+   * @returns {Promise<void>}
+   */
+  async setTouchListener() {
+    try {
+      await MV.setTouchListener(this._MGMapViewId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 添加地图视图级别改变的监听
+   * @returns {Promise<void>}
+   */
+  async setZoomChangedListener() {
+    try {
+      await MV.setZoomChangedListener(this._MGMapViewId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 添加地图视图中心点变化的监听
+   * @returns {Promise<void>}
+   */
+  async setCenterChangedListener() {
+    try {
+      await MV.setCenterChangedListener(this._MGMapViewId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 添加地图视图旋转角度变化的监听
+   * @returns {Promise<void>}
+   */
+  async setRotateChangedListener() {
+    try {
+      await MV.setRotateChangedListener(this._MGMapViewId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 地图视图动画的监听
+   * @returns {Promise<void>}
+   */
+  async setAnimationListener() {
+    try {
+      await MV.setAnimationListener(this._MGMapViewId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+  /**
+   * 地图视图刷新的监听
+   * @returns {Promise<void>}
+   */
+  async setRefreshListener() {
+    try {
+      await MV.setRefreshListener(this._MGMapViewId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+  /**
+   * 地图视图地图加载的监听
+   * @returns {Promise<void>}
+   */
+  async setMapLoadListener() {
+    try {
+      await MV.setMapLoadListener(this._MGMapViewId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   }
 
 
