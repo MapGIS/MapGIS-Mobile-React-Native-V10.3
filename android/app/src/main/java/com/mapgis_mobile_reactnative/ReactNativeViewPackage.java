@@ -24,6 +24,9 @@ public class ReactNativeViewPackage implements ReactPackage {
         List<NativeModule> modules = new ArrayList<>();
         modules.add(new JSMapView(reactContext));
         modules.add(new JSDot(reactContext));
+        modules.add(new JSImage(reactContext));
+        modules.add(new JSPointF(reactContext));
+        modules.add(new JSRect(reactContext));
         return modules;
     }
 

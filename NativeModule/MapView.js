@@ -570,11 +570,11 @@ export default class JSMapView {
 
   /**
    * 设置指北针图标
-   * @param bitmap 指北针图标位图
+   * @param image 指北针图标位图
    */
-  async setNorthArrowImage(bitmap) {
+  async setNorthArrowImage(image) {
     try {
-      // await MV.setNorthArrowImage(this._MGMapViewId,show);
+      await MV.setNorthArrowImage(this._MGMapViewId,image._MGImageId);
     } catch (e) {
       console.error(e);
     }
@@ -690,11 +690,11 @@ export default class JSMapView {
 
   /**
    * 设置天空图片
-   * @param bitmap 天空图片
+   * @param image 天空图片
    */
-  async setSkyImage(bitmap) {
+  async setSkyImage(image) {
     try {
-      await MV.setSkyImage(this._MGMapViewId,bitmap);
+      await MV.setSkyImage(this._MGMapViewId,image._MGImageId);
     } catch (e) {
       console.error(e);
     }
