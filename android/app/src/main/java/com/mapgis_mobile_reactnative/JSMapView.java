@@ -41,10 +41,6 @@ public class JSMapView extends ReactContextBaseJavaModule {
     public static final String PHONE_SDCARD_PATH = Environment.getExternalStorageDirectory().getPath();
 
 
-    private static final String DOUBLE_TAP_EVENT = "com.mapgis.RN.JSMapview.double_tap_event";
-    private static final String SINGLE_TAP_EVENT = "com.mapgis.RN.JSMapview.single_tap_event";
-
-
     @Override
     public String getName(){return "JSMapView";}
 
@@ -129,8 +125,15 @@ public class JSMapView extends ReactContextBaseJavaModule {
     public void loadFromFile(String mapViewId,String strMapPath,Promise promise){
         try{
             m_mapView = mapViewList.get(mapViewId);
-            final String strRootPath = android.os.Environment.getExternalStorageDirectory().getPath() + File.separator + "MapGIS Mobile 2D Sample" + File.separator;
+            com.zondy.mapgis.android.environment.Environment.requestAuthorization(m_mapView.getContext(),new com.zondy.mapgis.android.environment.Environment.AuthorizeCallback()
+            {
+                @Override
+                public void onComplete() {
+                }
+            });
+            String strRootPath = PHONE_SDCARD_PATH + File.separator;
             m_mapView.loadFromFile(strRootPath + strMapPath);
+            Log.d("loadFromFile:",strRootPath + strMapPath);
             promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
@@ -1022,7 +1025,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
             m_mapView.setTapListener(mapListener);
             promise.resolve(true);
 
-            Log.e("setTapListener:",""+true);
+            Log.d("setTapListener:",""+true);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -1050,7 +1053,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
             m_mapView.setDoubleTapListener(mapListener);
             promise.resolve(true);
 
-            Log.e("setDoubleTapListener:",""+true);
+            Log.d("setDoubleTapListener:",""+true);
         } catch (Exception e) {
             promise.reject(e);
         }

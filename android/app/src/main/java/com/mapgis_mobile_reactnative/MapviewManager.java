@@ -27,7 +27,7 @@ public class MapviewManager extends SimpleViewManager<MapView> {
     public static final String RN_MAPVIEW_CLASS = "MapviewGetInstance";
     private ThemedReactContext mContext;
     private MapView mMapView;
-    N_R_EventSender n_r_eventSender=new N_R_EventSender();
+    N_R_EventSender n_r_eventSender = new N_R_EventSender();
     @Override
     public String getName() {
         return RN_MAPVIEW_CLASS;
@@ -45,6 +45,18 @@ public class MapviewManager extends SimpleViewManager<MapView> {
         return mMapView;
     }
 
+
+    @ReactProp(name="returnId")
+    public void returnId(MapView view, boolean b){
+        Log.e("returnId:",""+b);
+        //向JS返回MapView的ID
+        mContext.getJSModule(RCTEventEmitter.class).receiveEvent(
+                view.getId(),
+                "topChange",
+                n_r_eventSender.createSender()
+        );
+    }
+
     @ReactProp(name = "strMapPath")
     public void loadMap(final MapView mapView, final  String strMapPath) {
 
@@ -59,21 +71,6 @@ public class MapviewManager extends SimpleViewManager<MapView> {
             }
         });
     }
-
-
-
-    @ReactProp(name="returnId")
-    public void returnId(MapView view, boolean b){
-        Log.e("returnId:",""+b);
-        //向JS返回MapView的ID
-        mContext.getJSModule(RCTEventEmitter.class).receiveEvent(
-                view.getId(),
-                "topChange",
-                n_r_eventSender.createSender()
-        );
-    }
-
-
 
 
 }

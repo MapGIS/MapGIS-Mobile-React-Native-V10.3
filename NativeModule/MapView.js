@@ -196,8 +196,6 @@ export default class JSMapView {
     }
   }
 
-
-
   /**
    *   * 移动地图（单位像素） 如果传入的mx = 5 、 my = 0，则系统将可视区域向右移动，所以地图将显示为向左移动5 个像素。 如果传入的mx =
    * 0 、 my = 5，则系统将可视区域向下移动，所以地图显示为向上移动了5 个像素。
@@ -267,7 +265,7 @@ export default class JSMapView {
    */
   async zoomIn(animated) {
     try {
-      await MV.zoomIn(this._MGMapViewIdanimated);
+      await MV.zoomIn(this._MGMapViewId,animated);
     } catch (e) {
       console.error(e);
     }
@@ -280,7 +278,7 @@ export default class JSMapView {
    */
   async zoomOut(animated) {
     try {
-      await MV.zoomOut(this._MGMapViewIdanimated);
+      await MV.zoomOut(this._MGMapViewId,animated);
     } catch (e) {
       console.error(e);
     }
