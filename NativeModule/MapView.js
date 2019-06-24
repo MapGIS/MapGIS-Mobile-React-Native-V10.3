@@ -7,6 +7,7 @@ let MV = NativeModules.JSMapView;
 import Dot from './Dot.js';
 import PointF from './PointF.js';
 import Rect from './Rect.js';
+import Map from './Map.js';
 /**
  * @class MapView
  * @description 地图显示控件容器类。
@@ -52,6 +53,20 @@ export default class JSMapView {
     }
   }
 
+  /**
+   * 获取地图对象
+   * @return 成功返回地图对象,失败返回空
+   */
+  async getMap() {
+    try {
+      var { mapID } =  await MV.getMap(this._MGMapViewId);
+      var map = new Map();
+      map._MGMapId = mapID;
+      return map;
+    } catch (e) {
+      console.error(e);
+    }
+  }
   /**
    * 地图刷新
    * @returns {Promise<void>}

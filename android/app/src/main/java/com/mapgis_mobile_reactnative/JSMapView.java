@@ -141,6 +141,25 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void getMap(String mapViewId,Promise promise) {
+        try{
+            m_mapView = mapViewList.get(mapViewId);
+            int color = m_mapView.getBackGroundColor();
+            String strColor = ConvertUtil.ColorIntToRGBA(color);
+
+            com.zondy.mapgis.core.map.Map Map = m_mapView.getMap();
+
+            String mapID = JSMap.registerId(Map);
+            WritableMap map= Arguments.createMap();
+
+            map.putString("mapID",mapID);
+            promise.resolve(map);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
     public void refresh(String mapViewId,Promise promise){
         try{
             m_mapView = mapViewList.get(mapViewId);
