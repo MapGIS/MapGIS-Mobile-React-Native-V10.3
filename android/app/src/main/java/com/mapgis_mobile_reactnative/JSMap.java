@@ -1,5 +1,7 @@
 package com.mapgis_mobile_reactnative;
 
+import android.util.Log;
+
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -7,6 +9,7 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.android.mapview.MapView;
+import com.zondy.mapgis.core.geometry.Dot;
 import com.zondy.mapgis.core.geometry.Rect;
 import com.zondy.mapgis.core.map.Map;
 import com.zondy.mapgis.core.map.MapLayer;
@@ -360,6 +363,160 @@ public class JSMap extends ReactContextBaseJavaModule {
 
             promise.resolve(result);
         }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void moveToBottom(String MapId,int index,Promise promise){
+        try{
+            Map map = getObjFromList(MapId);
+
+            map.moveToBottom(index);
+
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void moveToTop(String MapId,int index,Promise promise){
+        try{
+            Map map = getObjFromList(MapId);
+            boolean result =  map.moveToTop(index);
+
+            promise.resolve(result);
+
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void moveToDown(String MapId,int index,Promise promise){
+        try{
+            Map map = getObjFromList(MapId);
+
+            boolean result =  map.moveToDown(index);
+
+            promise.resolve(result);
+
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+    @ReactMethod
+    public void moveToUp(String MapId,int index,Promise promise){
+        try{
+          Map map = getObjFromList(MapId);
+          boolean result =   map.moveToUp(index);
+
+            promise.resolve(result);
+
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void move(String MapId,int fromIndex,int toIndex,Promise promise){
+        try{
+            Map map = getObjFromList(MapId);
+            boolean result = map.move(fromIndex,toIndex);
+
+            promise.resolve(result);
+
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void SetRotateCenter(String MapId,String centerID,Promise promise)
+    {
+        try {
+            Map map = getObjFromList(MapId);
+            Dot point2D = JSDot.m_Point2DList.get(centerID);
+            map.SetRotateCenter(point2D);
+
+            promise.resolve(true);
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void GetRotateCenter(String MapId,Promise promise)
+    {
+        try {
+            Map Map = getObjFromList(MapId);
+            Dot centerDot = Map.GetRotateCenter();
+
+            String dotId=JSDot.registerId(centerDot);
+            WritableMap map= Arguments.createMap();
+            map.putString("dotID",dotId);
+            map.putDouble("x",centerDot.getX());
+            map.putDouble("y",centerDot.getY());
+
+            promise.resolve(map);
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void SetRotateAngle(String MapLayerId,double angle,Promise promise){
+        try{
+            Map map = getObjFromList(MapLayerId);
+            map.SetRotateAngle(angle);
+
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void GetRotateAngle(String MapId,Promise promise){
+        try{
+            Map map = getObjFromList(MapId);
+            double rotateAngle = map.GetRotateAngle();
+
+            promise.resolve(rotateAngle);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void setViewRange(String MapLayerId,String rectID,Promise promise){
+        try{
+            Map map = getObjFromList(MapLayerId);
+            Rect rect = JSRect.mRectList.get(rectID);
+            map.setViewRange(rect);
+
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getViewRange(String MapId,Promise promise)
+    {
+        try {
+            Map Map = getObjFromList(MapId);
+            Rect rect = Map.getViewRange();
+
+            String rectId = JSRect.registerId(rect);
+            WritableMap map = Arguments.createMap();
+            map.putString("rectId",rectId);
+            promise.resolve(map);
+        }
+        catch (Exception e)
+        {
             promise.reject(e);
         }
     }
