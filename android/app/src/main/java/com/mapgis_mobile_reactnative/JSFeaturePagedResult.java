@@ -1,5 +1,7 @@
 package com.mapgis_mobile_reactnative;
 
+import android.util.Log;
+
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -8,6 +10,7 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.android.internal.chart.json.GsonUtil;
+import com.zondy.mapgis.core.attr.Field;
 import com.zondy.mapgis.core.attr.Fields;
 import com.zondy.mapgis.core.featureservice.Feature;
 import com.zondy.mapgis.core.featureservice.FeaturePagedResult;
@@ -123,10 +126,16 @@ public class JSFeaturePagedResult extends ReactContextBaseJavaModule {
         try{
             FeaturePagedResult FeaturePagedResult = getObjFromList(FeaturePagedResultId);
             Fields fields =  FeaturePagedResult.getFields();
+            Field filed = fields.getField((short) 1);
+            if(filed != null)
+            {
+                Log.e("f:", "filed:"+filed);
+                Log.e("f:", "Fields:"+  filed.getFieldName());
+            }
 
-            String jsonfields = GsonUtil.format(fields);
+            String FieldsJson = GsonUtil.format(fields);
             WritableMap map = Arguments.createMap();
-            map.putString("jsonAttributes",jsonfields);
+            map.putString("FieldsJson",FieldsJson);
             promise.resolve(map);
 
         }catch (Exception e){

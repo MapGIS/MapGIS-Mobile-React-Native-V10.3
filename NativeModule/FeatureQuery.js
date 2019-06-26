@@ -15,12 +15,12 @@ export default class FeatureQuery {
      * @memberOf FeatureQuery
      * @returns {Promise.<FeatureQuery>}
      */
-    async createObjByProperty(layerID) {
+    async createObjByProperty(layer) {
         try {
-            var {FeatureQueryId} = await F.createObj();
-            var featurePagedResult = new FeatureQuery();
-            featurePagedResult._MGFeatureQueryId = FeatureQueryId;
-            return featurePagedResult;
+            var {FeatureQueryId} = await F.createObjByProperty(layer._MGMapLayerId);
+            var featureQuery = new FeatureQuery();
+            featureQuery._MGFeatureQueryId = FeatureQueryId;
+            return featureQuery;
         } catch (e) {
             console.error(e);
         }
@@ -217,6 +217,10 @@ export default class FeatureQuery {
         }
     }
 
+    /**
+     * 要素查询
+     * @returns {Promise<FeaturePagedResult>}
+     */
     async query() {
         try {
             let {featurePageResultHandle} = await F.query(this._MGFeatureQueryId);
@@ -227,23 +231,29 @@ export default class FeatureQuery {
             console.error(e);
         }
     }
+
     /**
-     * 要素转Graphic
-     * @returns {Promise<Array>}
+     * 要素查询
+     *
+     * @param vectorLayer 矢量图层
+     * @param strWhereClause 属性条件
+     * @param queryBound 空间范围
+     * @param spatialRel 空间过滤条件
+     * @param returnGeometry 是否返回几何数据标志
+     * @param returnAttribute 是否返回属性数据标志
+     * @param strOutFields 返回的属性字段信息
+     * @param pageSize 每页结果数目
      */
-    async toGraphics() {
+    async query(Layer,strWhereClause,queryBound,spatialRel,returnGeometry,returnAttribute,returnGeoInfo,strOutFields,pageSize)
+    {
         try {
-            var objArr = [];
-            var {values} = await F.toGraphics(this._MGFeatureQueryId);
-            for (var i = 0; i < values.length - 1; i++) {
-                var graphic = new Graphic();
-                graphic._MGGraphicId = values[i];
-                objArr.push(graphic);
-            }
-            return objArr;
+            let {featurePageResultHandle} = await F.query(this._MGFeatureQueryId,Layer._MGMapLayerId,strWhereClause,queryBound._MGQueryBoundId,spatialRel,returnGeometry,
+                returnAttribute,returnGeoInfo,strOutFields,pageSize);
+            var featurePagedResult = new FeaturePagedResult();
+            featurePagedResult._MGFeaturePagedResultId = featurePageResultHandle;
+            return featurePagedResult;
         } catch (e) {
             console.error(e);
         }
     }
-
 }

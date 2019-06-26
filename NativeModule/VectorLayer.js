@@ -56,7 +56,7 @@ export default class VectorLayer extends MapLayer{
    */
   async setSymbolShow(symbolShow) {
     try {
-      await ML.setSymbolShow(this._MGMapLayerId, symbolShow);
+      await ML.setSymbolShow(this._MGVectorLayerId, symbolShow);
     } catch (e) {
       console.error(e);
     }
@@ -82,7 +82,7 @@ export default class VectorLayer extends MapLayer{
    */
   async setTransparency(transparency) {
     try {
-      await ML.setTransparency(this._MGMapLayerId, transparency);
+      await VL.setTransparency(this._MGVectorLayerId, transparency);
     } catch (e) {
       console.error(e);
     }

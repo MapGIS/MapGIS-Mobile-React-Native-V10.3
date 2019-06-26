@@ -31,6 +31,10 @@ public class ReactNativeViewPackage implements ReactPackage {
         modules.add(new JSMap(reactContext));
         modules.add(new JSMapLayer(reactContext));
         modules.add(new JSVectorLayer(reactContext));
+        modules.add(new JSQueryBound(reactContext));
+        modules.add(new JSFeaturePagedResult(reactContext));
+        modules.add(new JSFeature(reactContext));
+        modules.add(new JSFeatureQuery(reactContext));
         return modules;
     }
 

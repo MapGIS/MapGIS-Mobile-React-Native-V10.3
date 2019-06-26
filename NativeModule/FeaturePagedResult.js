@@ -78,8 +78,8 @@ export default class FeaturePagedResult {
      */
     async getFields() {
         try {
-            let {jsonFields} = await FP.getFields(this._MGFeaturePagedResultId);
-            return jsonFields;
+            let {FieldsJson} = await FP.getFields(this._MGFeaturePagedResultId);
+            return FieldsJson;
         } catch (e) {
             console.error(e);
         }

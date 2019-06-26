@@ -148,8 +148,8 @@ public class JSMapView extends ReactContextBaseJavaModule {
             String strColor = ConvertUtil.ColorIntToRGBA(color);
 
             com.zondy.mapgis.core.map.Map Map = m_mapView.getMap();
-
             String mapID = JSMap.registerId(Map);
+            Log.d("mapID:", mapID);
             WritableMap map= Arguments.createMap();
 
             map.putString("mapID",mapID);

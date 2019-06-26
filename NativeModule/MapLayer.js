@@ -212,7 +212,7 @@ export default class MapLayer {
      */
     async getRange() {
         try {
-            var { rectId} = await M.getRange(this._MGMapId);
+            var { rectId} = await M.getRange(this._MGMapLayerId);
             var rect = new Rect();
             rect._MGRectId = rectId;
             return rect;
