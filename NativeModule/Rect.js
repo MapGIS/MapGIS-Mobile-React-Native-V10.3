@@ -14,14 +14,14 @@ export default class Rect {
   async createObj() {
     try {
       if (typeof arguments[0] === 'number' && typeof arguments[1] === 'number'&& typeof arguments[2] === 'number'&& typeof arguments[3] === 'number') {
-        var { reactId } = await X.createObjByXY(arguments[0], arguments[1],arguments[2], arguments[3]);
+        var { RectId } = await X.createObjByXY(arguments[0], arguments[1],arguments[2], arguments[3]);
         var rect = new Rect();
-        rect._MGRectId = reactId;
+        rect._MGRectId = RectId;
         return rect;
       } else {
-        var { reactId } = await X.createObj();
+        var { RectId } = await X.createObj();
         var rect = new Rect();
-        rect._MGRectId = reactId;
+        rect._MGRectId = RectId;
         return rect;
       }
     } catch (e) {

@@ -216,9 +216,9 @@ export default class Map {
      */
     async getLayer(index) {
         try {
-            var { MapLayerId} = await M.getLayer(this._MGMapId);
+            var { MapLayerId} = await M.getLayer(this._MGMapId,index);
             var mapLayer = new MapLayer();
-            mapLayer._MGRectId = MapLayerId;
+            mapLayer._MGMapLayerId = MapLayerId;
             return mapLayer;
         } catch (e) {
             console.error(e);

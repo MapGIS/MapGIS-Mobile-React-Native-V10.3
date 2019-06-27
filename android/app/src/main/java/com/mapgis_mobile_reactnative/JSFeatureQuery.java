@@ -289,30 +289,30 @@ public class JSFeatureQuery extends ReactContextBaseJavaModule {
         }
     }
 
-    @ReactMethod
-    public void query(String FeatureQueryId,String vectorLayerID,String strWhereClause,String queryBoundID,int spatialRel,boolean returnGeometry,boolean returnAttribute,boolean returnGeoInfo,String strOutFields,int pageSize,Promise promise)
-    {
-        try {
-            FeatureQuery featureQuery = getObjFromList(FeatureQueryId);
-//            VectorLayer vectorLayer = JSVectorLayer.mVectorLayerList.get(vectorLayerID);
-            MapLayer mapLayer = JSMapLayer.mMapLayerList.get(vectorLayerID);
-            if(mapLayer instanceof VectorLayer )
-            {
-               return;
-            }
-            com.zondy.mapgis.core.featureservice.FeatureQuery.QueryBound queryBound = JSQueryBound.mQueryBoundList.get(queryBoundID);
-
-            FeaturePagedResult featurePagedResult =  FeatureQuery.query((VectorLayer) mapLayer,strWhereClause,queryBound,spatialRel,returnGeometry,returnAttribute,returnGeoInfo,strOutFields,pageSize);
-
-            String featurePageResultHandle = JSFeaturePagedResult.registerId(featurePagedResult);
-            WritableMap map = Arguments.createMap();
-            map.putString("featurePageResultHandle",featurePageResultHandle);
-            promise.resolve(map);
-        }
-        catch (Exception e)
-        {
-            promise.reject(e);
-        }
-    }
+//    @ReactMethod
+//    public void query(String FeatureQueryId,String vectorLayerID,String strWhereClause,String queryBoundID,int spatialRel,boolean returnGeometry,boolean returnAttribute,boolean returnGeoInfo,String strOutFields,int pageSize,Promise promise)
+//    {
+//        try {
+//            FeatureQuery featureQuery = getObjFromList(FeatureQueryId);
+////            VectorLayer vectorLayer = JSVectorLayer.mVectorLayerList.get(vectorLayerID);
+//            MapLayer mapLayer = JSMapLayer.mMapLayerList.get(vectorLayerID);
+//            if(mapLayer instanceof VectorLayer )
+//            {
+//               return;
+//            }
+//            com.zondy.mapgis.core.featureservice.FeatureQuery.QueryBound queryBound = JSQueryBound.mQueryBoundList.get(queryBoundID);
+//
+//            FeaturePagedResult featurePagedResult =  FeatureQuery.query((VectorLayer) mapLayer,strWhereClause,queryBound,spatialRel,returnGeometry,returnAttribute,returnGeoInfo,strOutFields,pageSize);
+//
+//            String featurePageResultHandle = JSFeaturePagedResult.registerId(featurePagedResult);
+//            WritableMap map = Arguments.createMap();
+//            map.putString("featurePageResultHandle",featurePageResultHandle);
+//            promise.resolve(map);
+//        }
+//        catch (Exception e)
+//        {
+//            promise.reject(e);
+//        }
+//    }
 
 }

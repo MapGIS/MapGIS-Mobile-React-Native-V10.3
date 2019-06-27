@@ -244,16 +244,16 @@ export default class FeatureQuery {
      * @param strOutFields 返回的属性字段信息
      * @param pageSize 每页结果数目
      */
-    async query(Layer,strWhereClause,queryBound,spatialRel,returnGeometry,returnAttribute,returnGeoInfo,strOutFields,pageSize)
-    {
-        try {
-            let {featurePageResultHandle} = await F.query(this._MGFeatureQueryId,Layer._MGMapLayerId,strWhereClause,queryBound._MGQueryBoundId,spatialRel,returnGeometry,
-                returnAttribute,returnGeoInfo,strOutFields,pageSize);
-            var featurePagedResult = new FeaturePagedResult();
-            featurePagedResult._MGFeaturePagedResultId = featurePageResultHandle;
-            return featurePagedResult;
-        } catch (e) {
-            console.error(e);
-        }
-    }
+    // async query(Layer,strWhereClause,queryBound,spatialRel,returnGeometry,returnAttribute,returnGeoInfo,strOutFields,pageSize)
+    // {
+    //     try {
+    //         let {featurePageResultHandle} = await F.query(this._MGFeatureQueryId,Layer._MGMapLayerId,strWhereClause,queryBound._MGQueryBoundId,spatialRel,returnGeometry,
+    //             returnAttribute,returnGeoInfo,strOutFields,pageSize);
+    //         var featurePagedResult = new FeaturePagedResult();
+    //         featurePagedResult._MGFeaturePagedResultId = featurePageResultHandle;
+    //         return featurePagedResult;
+    //     } catch (e) {
+    //         console.error(e);
+    //     }
+    // }
 }

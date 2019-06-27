@@ -1,5 +1,7 @@
 package com.mapgis_mobile_reactnative;
 
+import android.util.Log;
+
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -69,15 +71,17 @@ public class JSQueryBound extends ReactContextBaseJavaModule {
         }
     }
 
-
-
     @ReactMethod
     public void setRect(String QueryBoundId,String rectID,Promise promise){
         try{
             Rect rect = JSRect.mRectList.get(rectID);
             FeatureQuery.QueryBound queryBoundNew = new  FeatureQuery.QueryBound(rect);
             mQueryBoundList.put(QueryBoundId,queryBoundNew);
-
+            Log.e("rect:",""+rect.getXMin() + rect.getYMax());
+            for(String key:mQueryBoundList.keySet())
+            {
+                Log.e("Attributes:",""+"Key: "+key+" Value: "+mQueryBoundList.get(key));
+            }
         }catch (Exception e){
             promise.reject(e);
         }

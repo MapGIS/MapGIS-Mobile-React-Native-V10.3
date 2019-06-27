@@ -1,5 +1,7 @@
 package com.mapgis_mobile_reactnative;
 
+import android.util.Log;
+
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -85,6 +87,11 @@ public class JSFeature extends ReactContextBaseJavaModule {
         try{
             Feature feature = getObjFromList(FeatureId);
             HashMap<String, String> Attributes =  feature.getAttributes();
+
+            for(String key:Attributes.keySet())
+            {
+                Log.e("Attributes:",""+"Key: "+key+" Value: "+Attributes.get(key));
+            }
 
             String jsonAttributes = GsonUtil.format(Attributes);
             WritableMap map = Arguments.createMap();

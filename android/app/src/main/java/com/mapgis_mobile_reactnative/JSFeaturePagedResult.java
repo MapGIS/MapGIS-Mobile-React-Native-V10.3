@@ -105,6 +105,9 @@ public class JSFeaturePagedResult extends ReactContextBaseJavaModule {
             FeaturePagedResult FeaturePagedResult = getObjFromList(FeaturePagedResultId);
             List<Feature> featureList =  FeaturePagedResult.getPage(pageNum);
 
+            Log.d("FeaturePagedResult:",""+FeaturePagedResult);
+            Log.d("FeaturePagedResult:",""+featureList.size());
+
             String featureID = "";
             WritableArray arr = Arguments.createArray();
             for (int i = 0; i < featureList.size();i++)
@@ -113,8 +116,9 @@ public class JSFeaturePagedResult extends ReactContextBaseJavaModule {
                 featureID= JSFeature.registerId(feature);
                 arr.pushString(featureID);
             }
-
-            promise.resolve(arr);
+            WritableMap map = Arguments.createMap();
+            map.putArray("values",arr);
+            promise.resolve(map);
 
         }catch (Exception e){
             promise.reject(e);
