@@ -8,6 +8,8 @@ import Dot from './Dot.js';
 import PointF from './PointF.js';
 import Rect from './Rect.js';
 import Map from './Map.js';
+import GraphicsOverlay from './GraphicsOverlay.js';
+import GraphicsOverlays from './GraphicsOverlays.js';
 /**
  * @class MapView
  * @description 地图显示控件容器类。
@@ -433,12 +435,11 @@ export default class JSMapView {
    */
   async getGraphicsOverlay() {
     try {
-      // var { point2DId, x, y } = await MV.getGraphicsOverlay(this._MGMapViewId);
-      // var dot = new Dot();
-      // dot._MGDotId = point2DId;
-      // dot.x = x;
-      // dot.y = y;
-      // return dot;
+      var { GraphicsOverlayID} = await MV.getGraphicsOverlay(this._MGMapViewId);
+      var graphicsOverlay = new GraphicsOverlay();
+      graphicsOverlay._MGGraphicsOverlayId = GraphicsOverlayID;
+
+      return graphicsOverlay;
     } catch (e) {
       console.error(e);
     }
@@ -446,17 +447,14 @@ export default class JSMapView {
 
   /**
    * 获取图形覆盖物列表的集合
-   *
    * @return 图形覆盖物列表的集合
    */
   async getGraphicsOverlays() {
     try {
-      // var { point2DId, x, y } = await MV.getGraphicsOverlays(this._MGMapViewId);
-      // var dot = new Dot();
-      // dot._MGDotId = point2DId;
-      // dot.x = x;
-      // dot.y = y;
-      // return dot;
+      var { GraphicsOverlaysID } = await MV.getGraphicsOverlays(this._MGMapViewId);
+      var graphicsOverlays = new GraphicsOverlays();
+      graphicsOverlays._MGGraphicsOverlaysId = GraphicsOverlaysID;
+      return graphicsOverlays;
     } catch (e) {
       console.error(e);
     }
