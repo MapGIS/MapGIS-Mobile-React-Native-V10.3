@@ -80,11 +80,10 @@ export default class GraphicsOverlay {
     /**
      * 添加一个图形
      * @param graphic
-     * @return 成功返回 1 ,失败返回0
      */
     async addGraphic(graphic) {
         try {
-            await X.addGraphic(this._MGGraphicsOverlayId,graphic._MGGraphicId);
+            await X.addGraphic(this._MGGraphicsOverlayId, graphic._MGGraphicId);
         } catch (e) {
             console.error(e);
         }
@@ -95,7 +94,7 @@ export default class GraphicsOverlay {
      */
     async addGraphics(graphicArray) {
         try {
-            await X.addGraphics(this._MGGraphicsOverlayId,graphicArray);
+            await X.addGraphics(this._MGGraphicsOverlayId, graphicArray);
         } catch (e) {
             console.error(e);
         }
@@ -106,7 +105,7 @@ export default class GraphicsOverlay {
      */
     async removeGraphic(graphic) {
         try {
-            await X.removeGraphic(this._MGGraphicsOverlayId,graphic._MGGraphicId);
+            await X.removeGraphic(this._MGGraphicsOverlayId, graphic._MGGraphicId);
         } catch (e) {
             console.error(e);
         }
@@ -118,7 +117,7 @@ export default class GraphicsOverlay {
     async removeGraphics(graphicArray) {
         try {
 
-            await X.removeGraphic(this._MGGraphicsOverlayId,graphicArray);
+            await X.removeGraphic(this._MGGraphicsOverlayId, graphicArray);
         } catch (e) {
             console.error(e);
         }

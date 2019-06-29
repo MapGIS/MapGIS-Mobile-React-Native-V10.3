@@ -46,24 +46,12 @@ export default class GraphicImage extends Graphic{
    */
   async setImage(image) {
     try {
-      await GI.setCenterAndRadius(this._MGGraphicImageId, image._MGImageId);
+      await GI.setImage(this._MGGraphicImageId, image._MGImageId);
     } catch (e) {
       console.error(e);
     }
   }
 
-  /**
-   * 设置图片url
-   * @param base64Url
-   * @returns {Promise<void>}
-   */
-  async setImage(base64Url) {
-    try {
-      await GI.setImage(this._MGGraphicImageId, base64Url);
-    } catch (e) {
-      console.error(e);
-    }
-  }
 
   /**
    * 设置位置

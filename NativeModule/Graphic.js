@@ -80,7 +80,7 @@ export default class Graphic {
      */
     async getCenterPoint() {
         try {
-            var { point2DId, x, y } = await G.getCenterPoint(this._MGGraphicId);
+            var {point2DId, x, y} = await G.getCenterPoint(this._MGGraphicId);
             var dot = new Dot();
             dot._MGDotId = point2DId;
             dot.x = x;
@@ -97,7 +97,7 @@ export default class Graphic {
      */
     async getBoundingRect() {
         try {
-            var { rectId} = await G.getBoundingRect(this._MGGraphicId);
+            var {rectId} = await G.getBoundingRect(this._MGGraphicId);
             var rect = new Rect();
             rect._MGRectId = rectId;
             return rect;
@@ -152,9 +152,9 @@ export default class Graphic {
      * @param value
      * @returns {Promise<void>}
      */
-    async setAttributeValue(name,value) {
+    async setAttributeValue(name, value) {
         try {
-            await G.setAttributeValue(this._MGGraphicId, name,value);
+            await G.setAttributeValue(this._MGGraphicId, name, value);
         } catch (e) {
             console.error(e);
         }
@@ -179,7 +179,7 @@ export default class Graphic {
      */
     async getAttributeName(index) {
         try {
-            let attributeName = await G.getAttributeName(this._MGGraphicId,index);
+            let attributeName = await G.getAttributeName(this._MGGraphicId, index);
             return attributeName;
         } catch (e) {
             console.error(e);
@@ -193,8 +193,8 @@ export default class Graphic {
      */
     async getAttributeValue(name) {
         try {
-            let attributeName = await G.getAttributeName(this._MGGraphicId,name);
-            return attributeName;
+            let attributeValue = await G.getAttributeName(this._MGGraphicId, name);
+            return attributeValue;
         } catch (e) {
             console.error(e);
         }
@@ -207,13 +207,13 @@ export default class Graphic {
      */
     async removeAttribute(name) {
         try {
-             await G.removeAttribute(this._MGGraphicId,name);
+            await G.removeAttribute(this._MGGraphicId, name);
         } catch (e) {
             console.error(e);
         }
     }
 
-    async removeAllAttributes(name) {
+    async removeAllAttributes() {
         try {
             await G.removeAllAttributes(this._MGGraphicId);
         } catch (e) {

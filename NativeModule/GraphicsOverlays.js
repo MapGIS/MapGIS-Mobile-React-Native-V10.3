@@ -7,7 +7,6 @@ import {NativeModules} from 'react-native';
 let X = NativeModules.JSGraphicsOverlays;
 import Graphic from './Graphic.js';
 import GraphicsOverlay from './GraphicsOverlay.js';
-import Feature from "./Feature";
 
 export default class GraphicsOverlays {
     /**
@@ -31,7 +30,7 @@ export default class GraphicsOverlays {
      */
     async add(graphicsOverlay) {
         try {
-            await X.setName(this._MGGraphicsOverlaysId, graphicsOverlay._MGGraphicsOverlayId);
+            await X.add(this._MGGraphicsOverlaysId, graphicsOverlay._MGGraphicsOverlayId);
         } catch (e) {
             console.error(e);
         }
@@ -58,21 +57,7 @@ export default class GraphicsOverlays {
      */
     async indexOf(graphicsOverlay) {
         try {
-            let index = await X.getState(this._MGGraphicsOverlaysId,graphicsOverlay._MGGraphicsOverlayId);
-
-            return index;
-        } catch (e) {
-            console.error(e);
-        }
-    }
-    /**
-     * 根据名称获取图形覆盖物的索引
-     * @param graphicsOverlay
-     * @returns {Promise<*|NavigationPreloadState>}
-     */
-    async indexOf(graphicLayerName) {
-        try {
-            let index = await X.getState(this._MGGraphicsOverlaysId,graphicLayerName);
+            let index = await X.getState(this._MGGraphicsOverlaysId, graphicsOverlay._MGGraphicsOverlayId);
 
             return index;
         } catch (e) {
@@ -86,9 +71,9 @@ export default class GraphicsOverlays {
      */
     async getGraphicsOverlay(index) {
         try {
-            let {GraphicsOverlayID} = await X.getCount(this._MGGraphicsOverlaysId,index);
+            let {GraphicsOverlayID} = await X.getGraphicsOverlay(this._MGGraphicsOverlaysId, index);
             var graphicsOverlay = new GraphicsOverlay();
-            graphicsOverlay._MGGraphicsOverlayId  = GraphicsOverlayID;
+            graphicsOverlay._MGGraphicsOverlayId = GraphicsOverlayID;
 
             return graphicsOverlay;
         } catch (e) {
@@ -120,9 +105,9 @@ export default class GraphicsOverlays {
      * @param graphicsOverlay 图形覆盖物
      * @returns {Promise<*|NavigationPreloadState>}
      */
-    async insert(index,graphicsOverlay) {
+    async insert(index, graphicsOverlay) {
         try {
-            let result = await X.insert(this._MGGraphicsOverlaysId,index,graphicsOverlay._MGGraphicsOverlayId);
+            let result = await X.insert(this._MGGraphicsOverlaysId, index, graphicsOverlay._MGGraphicsOverlayId);
 
             return result;
         } catch (e) {
@@ -136,11 +121,10 @@ export default class GraphicsOverlays {
      * @param toIndex
      * @returns {Promise<*>}
      */
-    async move(fromIndex,toIndex) {
+    async move(fromIndex, toIndex) {
         try {
-            let result = await X.move(this._MGGraphicsOverlaysId,fromIndex,toIndex);
+            await X.move(this._MGGraphicsOverlaysId, fromIndex, toIndex);
 
-            return result;
         } catch (e) {
             console.error(e);
         }
@@ -153,7 +137,7 @@ export default class GraphicsOverlays {
      */
     async remove(index) {
         try {
-            await X.move(this._MGGraphicsOverlaysId,index);
+            await X.remove(this._MGGraphicsOverlaysId, index);
         } catch (e) {
             console.error(e);
         }
@@ -166,7 +150,7 @@ export default class GraphicsOverlays {
      */
     async remove(graphicsOverlay) {
         try {
-            await X.move(this._MGGraphicsOverlaysId,graphicsOverlay._MGGraphicsOverlayId);
+            await X.move(this._MGGraphicsOverlaysId, graphicsOverlay._MGGraphicsOverlayId);
         } catch (e) {
             console.error(e);
         }

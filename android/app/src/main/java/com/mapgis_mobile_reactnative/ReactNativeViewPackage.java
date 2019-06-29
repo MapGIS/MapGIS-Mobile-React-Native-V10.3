@@ -35,6 +35,9 @@ public class ReactNativeViewPackage implements ReactPackage {
         modules.add(new JSFeaturePagedResult(reactContext));
         modules.add(new JSFeature(reactContext));
         modules.add(new JSFeatureQuery(reactContext));
+        modules.add(new JSGraphic(reactContext));
+        modules.add(new JSGraphicsOverlay(reactContext));
+        modules.add(new JSGraphicsOverlays(reactContext));
         return modules;
     }
 

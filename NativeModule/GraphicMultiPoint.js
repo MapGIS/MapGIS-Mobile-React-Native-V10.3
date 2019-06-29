@@ -89,9 +89,9 @@ export default class GraphicMultiPoint extends Graphic{
    *获取指定索引的坐标点
    * @returns {Promise<Dot>}
    */
-  async getPoint() {
+  async getPoint(index) {
     try {
-      let {dotID} = await GM.getPoint(this._MGGraphicMultiPointId);
+      let {dotID} = await GM.getPoint(this._MGGraphicMultiPointId,index);
       var dot = new Dot();
       dot._MGDotId = dotID;
       return dot;

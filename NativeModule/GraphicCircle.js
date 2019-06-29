@@ -55,9 +55,9 @@ export default class GraphicCircle extends Graphic{
    * @param point
    * @returns {Promise<void>}
    */
-  async setCenterAndRadius(point) {
+  async setCenterPoint(point) {
     try {
-      await GC.setCenterAndRadius(this._MGGraphicCircleId, point._MGDotId);
+      await GC.setCenterPoint(this._MGGraphicCircleId, point._MGDotId);
     } catch (e) {
       console.error(e);
     }

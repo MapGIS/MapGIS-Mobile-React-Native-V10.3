@@ -28,9 +28,9 @@ export default class GraphicPolylin extends Graphic{
   async createObj() {
     try {
       var { GraphicPolylinId } = await GP.createObj();
-      var graphicCircle = new GraphicPolylin();
-      graphicCircle._MGGraphicPolylinId = GraphicPolylinId;
-      return graphicCircle;
+      var graphicPolylin = new GraphicPolylin();
+      graphicPolylin._MGGraphicPolylinId = GraphicPolylinId;
+      return graphicPolylin;
     } catch (e) {
       console.error(e);
     }
