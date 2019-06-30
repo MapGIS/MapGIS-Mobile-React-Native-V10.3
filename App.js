@@ -108,7 +108,7 @@ export default class App extends Component {
         await this.mapView.setNorthArrowImage(img);
     }
 
-//测试
+  //测试
     test = async () => {
         // await this.mapView.restore(false);
         // await this.mapView.zoomIn(false);
@@ -139,8 +139,7 @@ export default class App extends Component {
         console.log("featurePagedResult:" + await featurePagedResult._MGFeaturePagedResultId);
         var pagecount = await featurePagedResult.getPageCount();
         var getTotalFeatureCount = await featurePagedResult.getTotalFeatureCount();
-        // var Fields =  await featurePagedResult.getFields();
-        // console.log("getFields:"+Fields);
+
         var featureLst =  await featurePagedResult.getPage(3);
         for(var i = 0;i < featureLst.length;i++)
         {

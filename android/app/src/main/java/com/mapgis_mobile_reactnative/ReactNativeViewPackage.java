@@ -38,6 +38,13 @@ public class ReactNativeViewPackage implements ReactPackage {
         modules.add(new JSGraphic(reactContext));
         modules.add(new JSGraphicsOverlay(reactContext));
         modules.add(new JSGraphicsOverlays(reactContext));
+        modules.add(new JSGraphicCircle(reactContext));
+        modules.add(new JSGraphicImage(reactContext));
+        modules.add(new JSGraphicMultiPoint(reactContext));
+        modules.add(new JSGraphicPoint(reactContext));
+        modules.add(new JSGraphicPolygon(reactContext));
+        modules.add(new JSGraphicPolylin(reactContext));
+        modules.add(new JSGraphicText(reactContext));
         return modules;
     }
 
