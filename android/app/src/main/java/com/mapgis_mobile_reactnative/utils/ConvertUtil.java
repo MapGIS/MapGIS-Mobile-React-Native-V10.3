@@ -46,10 +46,10 @@ public class ConvertUtil
 				String strs[] = strs1.split(",");
 				if (strs != null && strs.length == 4)
 				{
-					red = Integer.parseInt(strs[0]);
-					green = Integer.parseInt(strs[1]);
-					blue = Integer.parseInt(strs[2]);
-					alpha = Integer.parseInt(strs[3]);
+					red = (int) Double.parseDouble(strs[0]);
+					green = (int) Double.parseDouble(strs[1]);
+					blue = (int) Double.parseDouble(strs[2]);
+					alpha = (int) Double.parseDouble(strs[3]);
 				}
 			}
 		}

@@ -96,6 +96,7 @@ public class JSFeatureQuery extends ReactContextBaseJavaModule {
         try{
             FeatureQuery FeatureQuery = getObjFromList(FeatureQueryId);
             FeatureQuery.setWhereClause(setWhereClause);
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -107,6 +108,7 @@ public class JSFeatureQuery extends ReactContextBaseJavaModule {
             FeatureQuery FeatureQuery = getObjFromList(FeatureQueryId);
             com.zondy.mapgis.core.featureservice.FeatureQuery.QueryBound queryBound = JSQueryBound.mQueryBoundList.get(queryBoundID);
             FeatureQuery.setQueryBound(queryBound);
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -132,6 +134,7 @@ public class JSFeatureQuery extends ReactContextBaseJavaModule {
         try{
             FeatureQuery FeatureQuery = getObjFromList(FeatureQueryId);
             FeatureQuery.setSpatialFilterRelationship(spatialRel);
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -156,6 +159,7 @@ public class JSFeatureQuery extends ReactContextBaseJavaModule {
         try{
             FeatureQuery FeatureQuery = getObjFromList(FeatureQueryId);
             FeatureQuery.setReturnGeometry(returnGeometry);
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -180,6 +184,7 @@ public class JSFeatureQuery extends ReactContextBaseJavaModule {
         try{
             FeatureQuery FeatureQuery = getObjFromList(FeatureQueryId);
             FeatureQuery.setReturnAttribute(returnAttribute);
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -204,6 +209,7 @@ public class JSFeatureQuery extends ReactContextBaseJavaModule {
         try{
             FeatureQuery FeatureQuery = getObjFromList(FeatureQueryId);
             FeatureQuery.setReturnGeoInfo(returnGeoInfo);
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -228,6 +234,7 @@ public class JSFeatureQuery extends ReactContextBaseJavaModule {
         try{
             FeatureQuery FeatureQuery = getObjFromList(FeatureQueryId);
             FeatureQuery.setOutFields(outFields);
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -252,6 +259,7 @@ public class JSFeatureQuery extends ReactContextBaseJavaModule {
         try{
             FeatureQuery FeatureQuery = getObjFromList(FeatureQueryId);
             FeatureQuery.setPageSize(pageSize);
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }

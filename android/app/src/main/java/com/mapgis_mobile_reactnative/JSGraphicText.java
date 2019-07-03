@@ -74,7 +74,7 @@ public class JSGraphicText extends JSGraphic {
             GraphicText graphicText = getObjFromList(GraphicTextId);
             Dot dot = JSDot.getObjFromList(dotID);
             graphicText.setPoint(dot);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -86,7 +86,7 @@ public class JSGraphicText extends JSGraphic {
         try{
             GraphicText graphicText = getObjFromList(GraphicTextId);
             graphicText.setText(text);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -97,7 +97,7 @@ public class JSGraphicText extends JSGraphic {
         try{
             GraphicText graphicText = getObjFromList(GraphicTextId);
             graphicText.setFontSize(fontSize);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -108,7 +108,7 @@ public class JSGraphicText extends JSGraphic {
         try{
             GraphicText graphicText = getObjFromList(GraphicTextId);
             graphicText.setSlope(isSlope);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -200,7 +200,7 @@ public class JSGraphicText extends JSGraphic {
             GraphicText graphicText = getObjFromList(GraphicTextId);
             PointF pointf = JSPointF.getObjFromList(pointfID);
             graphicText.setAnchorPoint(pointf);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }

@@ -75,6 +75,7 @@ public class JSGraphicsOverlays extends ReactContextBaseJavaModule {
             GraphicsOverlays graphicsOverlays = getObjFromList(GraphicsOverlaysId);
             GraphicsOverlay graphicsOverlay = JSGraphicsOverlay.mGraphicsOverlayList.get(graphicsOverlayId);
             graphicsOverlays.add(graphicsOverlay);
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -168,7 +169,7 @@ public class JSGraphicsOverlays extends ReactContextBaseJavaModule {
         try{
             GraphicsOverlays graphicsOverlays = getObjFromList(GraphicsOverlaysId);
            graphicsOverlays.move(fromIndex,toIndex);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -179,7 +180,7 @@ public class JSGraphicsOverlays extends ReactContextBaseJavaModule {
         try{
             GraphicsOverlays graphicsOverlays = getObjFromList(GraphicsOverlaysId);
             graphicsOverlays.remove(index);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -190,7 +191,7 @@ public class JSGraphicsOverlays extends ReactContextBaseJavaModule {
         try{
             GraphicsOverlays graphicsOverlays = getObjFromList(GraphicsOverlaysId);
             graphicsOverlays.removeAll();
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }

@@ -1,5 +1,8 @@
 package com.mapgis_mobile_reactnative;
 
+import android.graphics.Color;
+import android.util.Log;
+
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -8,6 +11,13 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.mapgis_mobile_reactnative.utils.ConvertUtil;
 import com.zondy.mapgis.android.graphic.Graphic;
+import com.zondy.mapgis.android.graphic.GraphicCircle;
+import com.zondy.mapgis.android.graphic.GraphicImage;
+import com.zondy.mapgis.android.graphic.GraphicMultiPoint;
+import com.zondy.mapgis.android.graphic.GraphicPoint;
+import com.zondy.mapgis.android.graphic.GraphicPolygon;
+import com.zondy.mapgis.android.graphic.GraphicPolylin;
+import com.zondy.mapgis.android.graphic.GraphicStippleLine;
 import com.zondy.mapgis.android.graphic.GraphicType;
 import com.zondy.mapgis.android.graphic.GraphicsOverlay;
 import com.zondy.mapgis.android.mapview.MapView;
@@ -88,18 +98,22 @@ public class JSGraphic extends ReactContextBaseJavaModule {
         try{
             Graphic Graphic = getObjFromList(GraphicId);
             Graphic.setState(state);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
     }
 
-
+    @ReactMethod
     public void setColor(String GraphicId,String color,Promise promise)
     {
         try {
-            Graphic Graphic = getObjFromList(GraphicId);
-            Graphic.setColor(ConvertUtil.ColorRGBAToInt(color));
+//            Graphic Graphic = getObjFromList(GraphicId);
+            Graphic graphic = getGraphicByID(GraphicId);
+            Log.d("color:", "--" + color);
+            graphic.setColor(-ConvertUtil.ColorRGBAToInt(color));
+
+            promise.resolve(true);
         }
         catch (Exception e)
         {
@@ -178,7 +192,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
         try{
             Graphic Graphic = getObjFromList(GraphicId);
             Graphic.setPointByPixel(pixel);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -201,7 +215,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
         try{
             Graphic Graphic = getObjFromList(GraphicId);
             Graphic.setAttributeValue(name,value);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -261,5 +275,42 @@ public class JSGraphic extends ReactContextBaseJavaModule {
             promise.reject(e);
         }
     }
+    public Graphic getGraphicByID(String graphicID) {
+        Graphic graphic = JSGraphic.mGraphicList.get(graphicID);
+        Log.e("graphic:", "" + graphic);
+        Log.e("graphicID:", "" + graphicID);
+        if (graphic != null) {
+            return graphic;
 
+        }
+        GraphicImage graphicImage = JSGraphicImage.mGraphicImageList.get(graphicID);
+        if (graphicImage != null) {
+            return graphicImage;
+        }
+        GraphicCircle graphicCircle = JSGraphicCircle.mGraphicCircleList.get(graphicID);
+        if (graphicCircle != null) {
+            return graphicCircle;
+        }
+        GraphicMultiPoint graphicMultiPoint = JSGraphicMultiPoint.mGraphicMultiPointList.get(graphicID);
+        if (graphicMultiPoint != null) {
+            return graphicMultiPoint;
+        }
+        GraphicPoint graphicPoint = JSGraphicPoint.mGraphicPointList.get(graphicID);
+        if (graphicPoint != null) {
+            return graphicPoint;
+        }
+        GraphicPolygon graphicPolygon = JSGraphicPolygon.mGraphicPolygonList.get(graphicID);
+        if (graphicPolygon != null) {
+            return graphicPolygon;
+        }
+        GraphicPolylin graphicPolylin = JSGraphicPolylin.mGraphicPolylinList.get(graphicID);
+        if (graphicPolylin != null) {
+            return graphicPolylin;
+        }
+        GraphicStippleLine graphicStippleLine = JSGraphicStippleLine.mGraphicStippleLineList.get(graphicID);
+        if (graphicStippleLine != null) {
+            return graphicStippleLine;
+        }
+        return graphic;
+    }
 }

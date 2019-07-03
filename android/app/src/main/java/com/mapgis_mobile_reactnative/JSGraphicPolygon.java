@@ -105,7 +105,7 @@ public class JSGraphicPolygon extends JSGraphic {
             }
 
             graphicPolygon.setPoints(dotLst,intList);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -151,7 +151,7 @@ public class JSGraphicPolygon extends JSGraphic {
         try{
             GraphicPolygon graphicPolygon = getObjFromList(GraphicPolygonId);
             graphicPolygon.setBorderlineWidth(width);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -162,7 +162,7 @@ public class JSGraphicPolygon extends JSGraphic {
         try {
             GraphicPolygon graphicPolygon = getObjFromList(GraphicPolygonId);
             graphicPolygon.setBorderlineColor(ConvertUtil.ColorRGBAToInt(color));
-
+            promise.resolve(true);
         }
         catch (Exception e)
         {

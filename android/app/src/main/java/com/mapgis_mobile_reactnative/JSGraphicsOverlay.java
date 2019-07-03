@@ -11,6 +11,13 @@ import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.android.graphic.Graphic;
+import com.zondy.mapgis.android.graphic.GraphicCircle;
+import com.zondy.mapgis.android.graphic.GraphicImage;
+import com.zondy.mapgis.android.graphic.GraphicMultiPoint;
+import com.zondy.mapgis.android.graphic.GraphicPoint;
+import com.zondy.mapgis.android.graphic.GraphicPolygon;
+import com.zondy.mapgis.android.graphic.GraphicPolylin;
+import com.zondy.mapgis.android.graphic.GraphicStippleLine;
 import com.zondy.mapgis.android.graphic.GraphicsOverlay;
 import com.zondy.mapgis.core.featureservice.FeatureQuery;
 
@@ -37,7 +44,7 @@ public class JSGraphicsOverlay extends ReactContextBaseJavaModule {
         return REACT_CLASS;
     }
 
-    public static GraphicsOverlay getObjFromList(String id){
+    public static GraphicsOverlay getObjFromList(String id) {
         return mGraphicsOverlayList.get(id);
     }
 
@@ -58,82 +65,117 @@ public class JSGraphicsOverlay extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void createObj(Promise promise){
-        try{
+    public void createObj(Promise promise) {
+        try {
             GraphicsOverlay GraphicsOverlay = new GraphicsOverlay();
             String GraphicsOverlayId = registerId(GraphicsOverlay);
 
             WritableMap map = Arguments.createMap();
-            map.putString("GraphicsOverlayId",GraphicsOverlayId);
+            map.putString("GraphicsOverlayId", GraphicsOverlayId);
             promise.resolve(map);
-        }catch (Exception e){
+        } catch (Exception e) {
             promise.reject(e);
         }
     }
 
 
     @ReactMethod
-    public void setName(String GraphicsOverlayId,String name,Promise promise){
-        try{
+    public void setName(String GraphicsOverlayId, String name, Promise promise) {
+        try {
             GraphicsOverlay graphicsOverlay = getObjFromList(GraphicsOverlayId);
             graphicsOverlay.setName(name);
-        }catch (Exception e){
+            promise.resolve(true);
+        } catch (Exception e) {
             promise.reject(e);
         }
     }
 
 
     @ReactMethod
-    public void getName(String GraphicsOverlayId,Promise promise){
-        try{
+    public void getName(String GraphicsOverlayId, Promise promise) {
+        try {
             GraphicsOverlay graphicsOverlay = getObjFromList(GraphicsOverlayId);
             String name = graphicsOverlay.getName();
 
             promise.resolve(name);
-        }catch (Exception e){
+        } catch (Exception e) {
             promise.reject(e);
         }
     }
+
     @ReactMethod
-    public void getState(String GraphicsOverlayId,Promise promise){
-        try{
+    public void getState(String GraphicsOverlayId, Promise promise) {
+        try {
             GraphicsOverlay graphicsOverlay = getObjFromList(GraphicsOverlayId);
             int state = graphicsOverlay.getState();
 
             promise.resolve(state);
-        }catch (Exception e){
+        } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void setState(String GraphicsOverlayId,int state,Promise promise){
-        try{
+    public void setState(String GraphicsOverlayId, int state, Promise promise) {
+        try {
             GraphicsOverlay graphicsOverlay = getObjFromList(GraphicsOverlayId);
             graphicsOverlay.setState(state);
-        }catch (Exception e){
+            promise.resolve(true);
+        } catch (Exception e) {
             promise.reject(e);
         }
     }
+
     @ReactMethod
-    public void addGraphic(String GraphicsOverlayId,String  graphicID,Promise promise){
-        try{
+    public void addGraphic(String GraphicsOverlayId, String graphicID, Promise promise) {
+        try {
             GraphicsOverlay graphicsOverlay = getObjFromList(GraphicsOverlayId);
             Graphic graphic = JSGraphic.mGraphicList.get(graphicID);
-            graphicsOverlay.addGraphic(graphic);
-        }catch (Exception e){
+            Log.d("graphic:", "" + graphic);
+            if (graphic != null) {
+                graphicsOverlay.addGraphic(graphic);
+            }
+            GraphicImage graphicImage = JSGraphicImage.mGraphicImageList.get(graphicID);
+            if (graphicImage != null) {
+                graphicsOverlay.addGraphic(graphicImage);
+            }
+            GraphicCircle GraphicCircle = JSGraphicCircle.mGraphicCircleList.get(graphicID);
+            if (GraphicCircle != null) {
+                graphicsOverlay.addGraphic(GraphicCircle);
+            }
+            GraphicMultiPoint GraphicMultiPoint = JSGraphicMultiPoint.mGraphicMultiPointList.get(graphicID);
+            if (GraphicMultiPoint != null) {
+                graphicsOverlay.addGraphic(GraphicMultiPoint);
+            }
+            GraphicPoint GraphicPoint = JSGraphicPoint.mGraphicPointList.get(graphicID);
+            if (GraphicPoint != null) {
+                graphicsOverlay.addGraphic(GraphicPoint);
+            }
+            GraphicPolygon GraphicPolygon = JSGraphicPolygon.mGraphicPolygonList.get(graphicID);
+            if (GraphicPolygon != null) {
+                graphicsOverlay.addGraphic(GraphicPolygon);
+            }
+            GraphicPolylin GraphicPolylin = JSGraphicPolylin.mGraphicPolylinList.get(graphicID);
+            if (GraphicPolylin != null) {
+                graphicsOverlay.addGraphic(GraphicPolylin);
+            }
+            GraphicStippleLine GraphicStippleLine = JSGraphicStippleLine.mGraphicStippleLineList.get(graphicID);
+            if (GraphicStippleLine != null) {
+                graphicsOverlay.addGraphic(GraphicStippleLine);
+            }
+            promise.resolve(true);
+        } catch (Exception e) {
             promise.reject(e);
         }
     }
+
     @ReactMethod
-    public void addGraphics(String GraphicsOverlayId, ReadableArray graphiceArray, Promise promise){
-        try{
+    public void addGraphics(String GraphicsOverlayId, ReadableArray graphiceArray, Promise promise) {
+        try {
             GraphicsOverlay graphicsOverlay = getObjFromList(GraphicsOverlayId);
             ArrayList<Graphic> graphicLst = new ArrayList();
-            if(graphicsOverlay != null)
-            {
-                for(int i = 0; i < graphiceArray.size();i++)
-                {
+            if (graphicsOverlay != null) {
+                for (int i = 0; i < graphiceArray.size(); i++) {
                     ReadableMap innerMap = graphiceArray.getMap(i);
                     String keyStr = innerMap.getString("_MGGraphicId");
                     Graphic graphic = JSGraphic.getObjFromList(keyStr);
@@ -142,40 +184,84 @@ public class JSGraphicsOverlay extends ReactContextBaseJavaModule {
             }
 
             graphicsOverlay.addGraphics(graphicLst);
-        }catch (Exception e){
+            promise.resolve(true);
+        } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void removeGraphic(String GraphicsOverlayId,String graphicID,Promise promise){
-        try{
+    public void removeGraphic(String GraphicsOverlayId, String graphicID, Promise promise) {
+        try {
             GraphicsOverlay graphicsOverlay = getObjFromList(GraphicsOverlayId);
             Graphic graphic = JSGraphic.getObjFromList(graphicID);
             graphicsOverlay.removeGraphic(graphic);
-        }catch (Exception e){
+            promise.resolve(true);
+        } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void removeGraphics(String GraphicsOverlayId,ReadableArray graphiceArray,Promise promise){
-        try{
+    public void removeGraphics(String GraphicsOverlayId, ReadableArray graphiceArray, Promise promise) {
+        try {
             GraphicsOverlay graphicsOverlay = getObjFromList(GraphicsOverlayId);
             ArrayList<Graphic> graphicLst = new ArrayList();
-            if(graphicsOverlay != null)
-            {
-                for(int i = 0; i < graphiceArray.size();i++)
-                {
+            if (graphicsOverlay != null) {
+                for (int i = 0; i < graphiceArray.size(); i++) {
                     ReadableMap innerMap = graphiceArray.getMap(i);
                     String keyStr = innerMap.getString("_MGGraphicId");
-                    Graphic graphic = JSGraphic.getObjFromList(keyStr);
-                    graphicLst.add(graphic);
+//                    Graphic graphic = JSGraphic.getObjFromList(keyStr);
+                    Graphic graphic = getGraphicByID(keyStr);
+
+                    if(graphic != null)
+                    {
+                        graphicLst.add(graphic);
+                    }
                 }
             }
             graphicsOverlay.removeGraphics(graphicLst);
-        }catch (Exception e){
+            promise.resolve(true);
+        } catch (Exception e) {
             promise.reject(e);
         }
+    }
+
+    public Graphic getGraphicByID(String graphicID) {
+        Graphic graphic = JSGraphic.mGraphicList.get(graphicID);
+        Log.e("graphic:", "" + graphic);
+        if (graphic != null) {
+            return graphic;
+
+        }
+        GraphicImage graphicImage = JSGraphicImage.mGraphicImageList.get(graphicID);
+        if (graphicImage != null) {
+            return graphicImage;
+        }
+        GraphicCircle graphicCircle = JSGraphicCircle.mGraphicCircleList.get(graphicID);
+        if (graphicCircle != null) {
+            return graphicCircle;
+        }
+        GraphicMultiPoint graphicMultiPoint = JSGraphicMultiPoint.mGraphicMultiPointList.get(graphicID);
+        if (graphicMultiPoint != null) {
+            return graphicMultiPoint;
+        }
+        GraphicPoint graphicPoint = JSGraphicPoint.mGraphicPointList.get(graphicID);
+        if (graphicPoint != null) {
+            return graphicPoint;
+        }
+        GraphicPolygon graphicPolygon = JSGraphicPolygon.mGraphicPolygonList.get(graphicID);
+        if (graphicPolygon != null) {
+            return graphicPolygon;
+        }
+        GraphicPolylin graphicPolylin = JSGraphicPolylin.mGraphicPolylinList.get(graphicID);
+        if (graphicPolylin != null) {
+            return graphicPolylin;
+        }
+        GraphicStippleLine graphicStippleLine = JSGraphicStippleLine.mGraphicStippleLineList.get(graphicID);
+        if (graphicStippleLine != null) {
+            return graphicStippleLine;
+        }
+        return graphic;
     }
 }

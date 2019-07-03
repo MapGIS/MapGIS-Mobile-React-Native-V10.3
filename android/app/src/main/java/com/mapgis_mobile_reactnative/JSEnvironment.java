@@ -89,6 +89,7 @@ public class JSEnvironment extends ReactContextBaseJavaModule {
         try{
             String path = JSMapView.PHONE_SDCARD_PATH + File.separator + strPath;
             Environment.setSystemLibraryPath(path);
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }

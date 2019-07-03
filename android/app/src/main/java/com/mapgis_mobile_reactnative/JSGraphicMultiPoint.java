@@ -92,7 +92,7 @@ public class JSGraphicMultiPoint extends JSGraphic {
             }
 
             GraphicMultiPoint.setPoints(dotLst);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -155,7 +155,7 @@ public class JSGraphicMultiPoint extends JSGraphic {
         try{
             GraphicMultiPoint GraphicMultiPoint = getObjFromList(GraphicMultiPointId);
             GraphicMultiPoint.setPointSize(size);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -180,7 +180,7 @@ public class JSGraphicMultiPoint extends JSGraphic {
             GraphicMultiPoint GraphicMultiPoint = getObjFromList(GraphicMultiPointId);
             Dot dot = JSDot.getObjFromList(dotID);
             GraphicMultiPoint.appendPoint(dot);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -201,7 +201,7 @@ public class JSGraphicMultiPoint extends JSGraphic {
                 }
                 GraphicMultiPoint.appendPoints(dotLst);
             }
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -213,7 +213,7 @@ public class JSGraphicMultiPoint extends JSGraphic {
             GraphicMultiPoint GraphicMultiPoint = getObjFromList(GraphicMultiPointId);
             Dot dot = JSDot.getObjFromList(dotID);
             GraphicMultiPoint.updatePoint(index,dot);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -224,7 +224,7 @@ public class JSGraphicMultiPoint extends JSGraphic {
         try{
             GraphicMultiPoint GraphicMultiPoint = getObjFromList(GraphicMultiPointId);
            GraphicMultiPoint.removePoint(index);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -235,7 +235,7 @@ public class JSGraphicMultiPoint extends JSGraphic {
         try{
             GraphicMultiPoint GraphicMultiPoint = getObjFromList(GraphicMultiPointId);
             GraphicMultiPoint.removeAllPoints();
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -247,7 +247,7 @@ public class JSGraphicMultiPoint extends JSGraphic {
             GraphicMultiPoint GraphicMultiPoint = getObjFromList(GraphicMultiPointId);
             Dot dot = JSDot.getObjFromList(dotID);
             GraphicMultiPoint.insertPoint(index,dot);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }

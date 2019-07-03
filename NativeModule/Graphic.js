@@ -58,7 +58,7 @@ export default class Graphic {
      */
     async setColor(color) {
         try {
-            await G.setState(this._MGGraphicId, color);
+            await G.setColor(this._MGGraphicId, color);
         } catch (e) {
             console.error(e);
         }

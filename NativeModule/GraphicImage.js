@@ -60,7 +60,7 @@ export default class GraphicImage extends Graphic{
    */
   async setPoint(point) {
     try {
-      await GI.setImage(this._MGGraphicImageId, point._MGDotId);
+      await GI.setPoint(this._MGGraphicImageId, point._MGDotId);
     } catch (e) {
       console.error(e);
     }

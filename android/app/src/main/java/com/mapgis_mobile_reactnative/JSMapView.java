@@ -18,6 +18,8 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.mapgis_mobile_reactnative.utils.ConvertUtil;
+import com.zondy.mapgis.android.graphic.GraphicsOverlay;
+import com.zondy.mapgis.android.graphic.GraphicsOverlays;
 import com.zondy.mapgis.android.mapview.MapView;
 import com.zondy.mapgis.core.geometry.Dot;
 import com.zondy.mapgis.core.geometry.Rect;
@@ -87,12 +89,13 @@ public class JSMapView extends ReactContextBaseJavaModule {
     public static MapView getObjById(String id){
         return mapViewList.get(id);
     }
-
+    @ReactMethod
     public void setBackGroundColor(String mapViewId,String color,Promise promise)
     {
         try {
             MapView mapView = mapViewList.get(mapViewId);
             mapView.setBackGroundColor(ConvertUtil.ColorRGBAToInt(color));
+            promise.resolve(true);
         }
         catch (Exception e)
         {
@@ -317,6 +320,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
         try {
             MapView mapView = mapViewList.get(mapViewId);
             mapView.moveMap(mx,my,animated);
+            promise.resolve(true);
         }
         catch (Exception e)
         {
@@ -331,6 +335,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
             MapView mapView = mapViewList.get(mapViewId);
             Dot dot = JSDot.m_Point2DList.get(centerPoint);
             mapView.zoomToCenter(dot,resolution,animated);
+            promise.resolve(true);
         }
         catch (Exception e)
         {
@@ -345,6 +350,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
             MapView mapView = mapViewList.get(mapViewId);
             Rect rect = JSRect.mRectList.get(dispRange);
             mapView.zoomToRange(rect,animated);
+            promise.resolve(true);
         }
         catch (Exception e)
         {
@@ -358,6 +364,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
         try {
             MapView mapView = mapViewList.get(mapViewId);
             mapView.zoomIn(animated);
+            promise.resolve(true);
         }
         catch (Exception e)
         {
@@ -371,6 +378,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
         try {
             MapView mapView = mapViewList.get(mapViewId);
             mapView.zoomOut(animated);
+            promise.resolve(true);
         }
         catch (Exception e)
         {
@@ -384,6 +392,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
         try {
             MapView mapView = mapViewList.get(mapViewId);
             mapView.restore(animated);
+            promise.resolve(true);
         }
         catch (Exception e)
         {
@@ -398,6 +407,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
             MapView mapView = mapViewList.get(mapViewId);
             Dot dot = JSDot.m_Point2DList.get(rotateCenter);
             mapView.setRotateCenterAndAngle(dot,rotateAngle,animated);
+            promise.resolve(true);
         }
         catch (Exception e)
         {
@@ -411,6 +421,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
         try {
             MapView mapView = mapViewList.get(mapViewId);
             mapView.setRotateAngle(rotateAngle,animated);
+            promise.resolve(true);
         }
         catch (Exception e)
         {
@@ -424,6 +435,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
         try {
             MapView mapView = mapViewList.get(mapViewId);
             mapView.rotate(rotation,pivotX,pivotY,animated);
+            promise.resolve(true);
         }
         catch (Exception e)
         {
@@ -471,6 +483,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
         try {
             MapView mapView = mapViewList.get(mapViewId);
             mapView.setSlopeAngle(slopeAngle,animated);
+            promise.resolve(true);
         }
         catch (Exception e)
         {
@@ -504,11 +517,50 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void getGraphicsOverlay(String mapViewId,Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            GraphicsOverlay graphicsOverlay = mapView.getGraphicsOverlay();
+
+            String GraphicsOverlayID = JSGraphicsOverlay.registerId(graphicsOverlay);
+            WritableMap map= Arguments.createMap();
+            map.putString("GraphicsOverlayID",GraphicsOverlayID);
+            Log.d("GraphicsOverlayID:",GraphicsOverlayID);
+            promise.resolve(map);
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getGraphicsOverlays(String mapViewId,Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            GraphicsOverlays graphicsOverlays = mapView.getGraphicsOverlays();
+
+            String GraphicsOverlaysID = JSGraphicsOverlays.registerId(graphicsOverlays);
+            WritableMap map= Arguments.createMap();
+            map.putString("GraphicsOverlaysID",GraphicsOverlaysID);
+
+            promise.resolve(map);
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
     public void setMaxTextureCacheSize(String mapViewId,int size,Promise promise)
     {
         try {
             MapView mapView = mapViewList.get(mapViewId);
             mapView.setMaxTextureCacheSize(size);
+            promise.resolve(true);
         }
         catch (Exception e)
         {
@@ -535,7 +587,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
         try{
             m_mapView = mapViewList.get(mapViewId);
             m_mapView.clearTextureCache();
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -547,6 +599,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
         try {
             MapView mapView = mapViewList.get(mapViewId);
             mapView.setSupportTransparency(support);
+            promise.resolve(true);
         }
         catch (Exception e)
         {
@@ -575,6 +628,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
         try {
             MapView mapView = mapViewList.get(mapViewId);
             mapView.setShowNorthArrow(show);
+            promise.resolve(true);
         }
         catch (Exception e)
         {
@@ -603,7 +657,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
             m_mapView = mapViewList.get(mapViewId);
             PointF pointf = JSPointF.mPointfList.get(pointFID);
             m_mapView.setNorthArrowPosition(pointf);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -635,7 +689,8 @@ public class JSMapView extends ReactContextBaseJavaModule {
             m_mapView.setNorthArrowImage(bitmap);
 //            Bitmap mBitmap = BitmapFactory.decodeResource(mReactContext.getResources(), android.R.drawable.alert_dark_frame);
 //            m_mapView.setNorthArrowImage(mBitmap);
-            Log.e("setNorthArrowImage","setNorthArrowImage() run!!!");
+            Log.d("setNorthArrowImage","setNorthArrowImage() run!!!");
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -647,6 +702,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
         try {
             MapView mapView = mapViewList.get(mapViewId);
             mapView.setShowLogo(show);
+            promise.resolve(true);
         }
         catch (Exception e)
         {
@@ -675,6 +731,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
         try {
             MapView mapView = mapViewList.get(mapViewId);
             mapView.setLogoPoistion(position);
+            promise.resolve(true);
         }
         catch (Exception e)
         {
@@ -702,6 +759,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
         try {
             MapView mapView = mapViewList.get(mapViewId);
             mapView.setShowScaleBar(show);
+            promise.resolve(true);
         }
         catch (Exception e)
         {
@@ -730,6 +788,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
             m_mapView = mapViewList.get(mapViewId);
             PointF pointf = JSPointF.mPointfList.get(pointFID);
             m_mapView.setScaleBarPoistion(pointf);
+            promise.resolve(true);
 
         }catch (Exception e){
             promise.reject(e);
@@ -760,6 +819,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
             m_mapView = mapViewList.get(mapViewId);
             Bitmap bitmap = JSImage.mBitmapList.get(bitmapID);
             m_mapView.setSkyImage(bitmap);
+            promise.resolve(true);
 
         }catch (Exception e){
             promise.reject(e);
@@ -771,6 +831,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
         try {
             MapView mapView = mapViewList.get(mapViewId);
             mapView.setSkySceneEnabled(enabled);
+            promise.resolve(true);
         }
         catch (Exception e)
         {
@@ -798,6 +859,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
         try {
             MapView mapView = mapViewList.get(mapViewId);
             mapView.setZoomControlsEnabled(enabled);
+            promise.resolve(true);
         }
         catch (Exception e)
         {
@@ -825,6 +887,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
         try {
             MapView mapView = mapViewList.get(mapViewId);
             mapView.setMapPanGesturesEnabled(enabled);
+            promise.resolve(true);
         }
         catch (Exception e)
         {
@@ -852,6 +915,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
         try {
             MapView mapView = mapViewList.get(mapViewId);
             mapView.setMapZoomGesturesEnabled(enabled);
+            promise.resolve(true);
         }
         catch (Exception e)
         {
@@ -879,6 +943,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
         try {
             MapView mapView = mapViewList.get(mapViewId);
             mapView.setMapRotateGesturesEnabled(enabled);
+            promise.resolve(true);
         }
         catch (Exception e)
         {
@@ -906,6 +971,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
         try {
             MapView mapView = mapViewList.get(mapViewId);
             mapView.setMapSlopeGesturesEnabled(enabled);
+            promise.resolve(true);
         }
         catch (Exception e)
         {
@@ -933,6 +999,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
         try {
             MapView mapView = mapViewList.get(mapViewId);
             mapView.setDoubleTapZooming(enabled);
+            promise.resolve(true);
         }
         catch (Exception e)
         {
@@ -960,6 +1027,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
         try {
             MapView mapView = mapViewList.get(mapViewId);
             mapView.setTwoFingerTapZooming(enabled);
+            promise.resolve(true);
         }
         catch (Exception e)
         {
@@ -987,6 +1055,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
         try {
             MapView mapView = mapViewList.get(mapViewId);
             mapView.setPanEndAnimating(enabled);
+            promise.resolve(true);
         }
         catch (Exception e)
         {
@@ -1014,6 +1083,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
         try {
             MapView mapView = mapViewList.get(mapViewId);
             mapView.setLabelRenderAnimating(enabled);
+            promise.resolve(true);
         }
         catch (Exception e)
         {

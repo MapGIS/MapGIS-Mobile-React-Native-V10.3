@@ -72,7 +72,7 @@ public class JSMapLayer extends ReactContextBaseJavaModule {
         try{
             MapLayer mapLayer = getObjFromList(MapLayerId);
             mapLayer.setName(name);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -107,7 +107,7 @@ public class JSMapLayer extends ReactContextBaseJavaModule {
         try{
             MapLayer mapLayer = getObjFromList(MapLayerId);
             mapLayer.setURL(url);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -131,7 +131,7 @@ public class JSMapLayer extends ReactContextBaseJavaModule {
         try{
             MapLayer mapLayer = getObjFromList(MapLayerId);
             mapLayer.setState((LayerState) Enumeration.parse(LayerState.class, state));
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -142,7 +142,7 @@ public class JSMapLayer extends ReactContextBaseJavaModule {
         try{
             MapLayer mapLayer = getObjFromList(MapLayerId);
             mapLayer.setVisible(state);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -175,7 +175,7 @@ public class JSMapLayer extends ReactContextBaseJavaModule {
         try{
             MapLayer mapLayer = getObjFromList(MapLayerId);
             mapLayer.setMinScale(MinScale);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -197,7 +197,7 @@ public class JSMapLayer extends ReactContextBaseJavaModule {
         try{
             MapLayer mapLayer = getObjFromList(MapLayerId);
             mapLayer.setMaxScale(MaxScale);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -219,7 +219,7 @@ public class JSMapLayer extends ReactContextBaseJavaModule {
         try{
             MapLayer mapLayer = getObjFromList(MapLayerId);
             mapLayer.setWeight(Weight);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }

@@ -1,11 +1,14 @@
 package com.mapgis_mobile_reactnative;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.PointF;
+import android.util.Log;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.mapgis_mobile_reactnative.utils.ConvertUtil;
@@ -24,10 +27,11 @@ import java.util.Map;
 public class JSGraphicImage extends JSGraphic {
     public static final String REACT_CLASS = "JSGraphicImage";
     public static Map<String, GraphicImage> mGraphicImageList = new HashMap<String, GraphicImage>();
-
+    ReactContext mReactContext;
 
     public JSGraphicImage(ReactApplicationContext context) {
         super(context);
+        mReactContext = context;
     }
 
     @Override
@@ -70,12 +74,13 @@ public class JSGraphicImage extends JSGraphic {
     }
 
     @ReactMethod
-    public void setImage(String GraphicImageId,String imageID,double radius,Promise promise){
+    public void setImage(String GraphicImageId,String imageID,Promise promise){
         try{
             GraphicImage GraphicImage = getObjFromList(GraphicImageId);
             Bitmap bitmap = JSImage.getObjFromList(imageID);
+            Log.d("bitmap:",imageID +bitmap);
             GraphicImage.setImage(bitmap);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -86,8 +91,9 @@ public class JSGraphicImage extends JSGraphic {
         try{
             GraphicImage GraphicImage = getObjFromList(GraphicImageId);
             Dot dot = JSDot.getObjFromList(dotID);
-            GraphicImage.setPoint(dot);
 
+            GraphicImage.setPoint(dot);
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -99,7 +105,7 @@ public class JSGraphicImage extends JSGraphic {
             GraphicImage GraphicImage = getObjFromList(GraphicImageId);
             PointF pointf = JSPointF.getObjFromList(pointfID);
             GraphicImage.setAnchorPoint(pointf);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -127,7 +133,7 @@ public class JSGraphicImage extends JSGraphic {
         try{
             GraphicImage GraphicImage = getObjFromList(GraphicImageId);
             GraphicImage.setAlpha(alpha);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -138,7 +144,7 @@ public class JSGraphicImage extends JSGraphic {
         try{
             GraphicImage GraphicImage = getObjFromList(GraphicImageId);
             GraphicImage.setRotateAngle(rotateAngle);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -149,7 +155,7 @@ public class JSGraphicImage extends JSGraphic {
         try{
             GraphicImage GraphicImage = getObjFromList(GraphicImageId);
             GraphicImage.setSlope(IsSlope);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }

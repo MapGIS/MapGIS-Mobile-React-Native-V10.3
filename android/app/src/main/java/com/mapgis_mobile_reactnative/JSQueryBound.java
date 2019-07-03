@@ -77,11 +77,13 @@ public class JSQueryBound extends ReactContextBaseJavaModule {
             Rect rect = JSRect.mRectList.get(rectID);
             FeatureQuery.QueryBound queryBoundNew = new  FeatureQuery.QueryBound(rect);
             mQueryBoundList.put(QueryBoundId,queryBoundNew);
+
             Log.e("rect:",""+rect.getXMin() + rect.getYMax());
             for(String key:mQueryBoundList.keySet())
             {
                 Log.e("Attributes:",""+"Key: "+key+" Value: "+mQueryBoundList.get(key));
             }
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -94,7 +96,7 @@ public class JSQueryBound extends ReactContextBaseJavaModule {
             Dot dot  = JSDot.m_Point2DList.get(dotID);
             FeatureQuery.QueryBound queryBoundNew = new  FeatureQuery.QueryBound(dot,dx,dy);
             mQueryBoundList.put(QueryBoundId,queryBoundNew);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -113,7 +115,7 @@ public class JSQueryBound extends ReactContextBaseJavaModule {
             }
             FeatureQuery.QueryBound queryBoundNew = new  FeatureQuery.QueryBound(dots);
             mQueryBoundList.put(QueryBoundId,queryBoundNew);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }

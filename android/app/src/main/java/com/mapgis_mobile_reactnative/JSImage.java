@@ -95,7 +95,7 @@ public class JSImage extends ReactContextBaseJavaModule {
         try{
             Bitmap bitmap = getObjFromList(imageId);
             bitmap = getBitmapFromByte(base64UrlToImage(base64Url));
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }

@@ -72,7 +72,7 @@ public class JSMap extends ReactContextBaseJavaModule {
         try{
             Map map = getObjFromList(MapLayerId);
             map.setName(name);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -83,7 +83,7 @@ public class JSMap extends ReactContextBaseJavaModule {
         try{
             Map map = getObjFromList(MapLayerId);
             map.setDescription(Description);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -95,7 +95,7 @@ public class JSMap extends ReactContextBaseJavaModule {
             Map map = getObjFromList(MapLayerId);
             Rect rect = JSRect.mRectList.get(rectID);
             map.setEntireRange(rect);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -106,7 +106,7 @@ public class JSMap extends ReactContextBaseJavaModule {
         try{
             Map map = getObjFromList(MapLayerId);
             map.setMinScale(MinScale);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -117,7 +117,7 @@ public class JSMap extends ReactContextBaseJavaModule {
         try{
             Map map = getObjFromList(MapLayerId);
             map.setMaxScale(MaxScale);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -128,7 +128,7 @@ public class JSMap extends ReactContextBaseJavaModule {
         try{
             Map map = getObjFromList(MapLayerId);
             map.setFixedScalesCount(FixedScalesCount);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -139,7 +139,7 @@ public class JSMap extends ReactContextBaseJavaModule {
         try{
             Map map = getObjFromList(MapLayerId);
             map.setFixedScale(index,scale);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -150,7 +150,7 @@ public class JSMap extends ReactContextBaseJavaModule {
         try{
             Map map = getObjFromList(MapLayerId);
             map.setIsCustomEntireRange(IsCustomEntireRange);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -270,7 +270,7 @@ public class JSMap extends ReactContextBaseJavaModule {
             Map map = getObjFromList(MapId);
             MapLayer mapLayer = JSMapLayer.mMapLayerList.get(layerID);
             map.append(mapLayer);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -282,7 +282,7 @@ public class JSMap extends ReactContextBaseJavaModule {
             Map map = getObjFromList(MapId);
             MapLayer mapLayer = JSMapLayer.mMapLayerList.get(layerID);
             map.insert(index,mapLayer);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -294,7 +294,7 @@ public class JSMap extends ReactContextBaseJavaModule {
             Map map = getObjFromList(MapId);
             MapLayer mapLayer = JSMapLayer.mMapLayerList.get(layerID);
             map.remove(mapLayer);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -305,7 +305,7 @@ public class JSMap extends ReactContextBaseJavaModule {
         try{
             Map map = getObjFromList(MapId);
             map.remove(fromIndex,count);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -315,7 +315,7 @@ public class JSMap extends ReactContextBaseJavaModule {
         try{
             Map map = getObjFromList(MapId);
             map.remove(index);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -325,7 +325,7 @@ public class JSMap extends ReactContextBaseJavaModule {
         try{
             Map map = getObjFromList(MapId);
             map.removeAll();
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -337,7 +337,7 @@ public class JSMap extends ReactContextBaseJavaModule {
             Map map = getObjFromList(MapId);
             MapLayer mapLayer = JSMapLayer.mMapLayerList.get(layerID);
             map.dragOut(mapLayer);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -349,7 +349,7 @@ public class JSMap extends ReactContextBaseJavaModule {
             Map map = getObjFromList(MapId);
             MapLayer mapLayer = JSMapLayer.mMapLayerList.get(layerID);
             map.dragIn(index,mapLayer);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -373,7 +373,7 @@ public class JSMap extends ReactContextBaseJavaModule {
             Map map = getObjFromList(MapId);
 
             map.moveToBottom(index);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -386,7 +386,7 @@ public class JSMap extends ReactContextBaseJavaModule {
             boolean result =  map.moveToTop(index);
 
             promise.resolve(result);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -473,7 +473,7 @@ public class JSMap extends ReactContextBaseJavaModule {
         try{
             Map map = getObjFromList(MapLayerId);
             map.SetRotateAngle(angle);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -497,7 +497,7 @@ public class JSMap extends ReactContextBaseJavaModule {
             Map map = getObjFromList(MapLayerId);
             Rect rect = JSRect.mRectList.get(rectID);
             map.setViewRange(rect);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }

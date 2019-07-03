@@ -72,7 +72,7 @@ public class JSGraphicPolylin extends JSGraphic {
         try{
             GraphicPolylin graphicPolylin = getObjFromList(GraphicPolylinId);
             graphicPolylin.setLineWidth(width);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -108,7 +108,7 @@ public class JSGraphicPolylin extends JSGraphic {
             GraphicPolylin graphicPolylin = getObjFromList(GraphicPolylinId);
             Bitmap bitmap = JSImage.getObjFromList(imageID);
             graphicPolylin.setFillTexture(bitmap);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }

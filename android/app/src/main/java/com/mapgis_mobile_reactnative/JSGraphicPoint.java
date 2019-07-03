@@ -76,7 +76,7 @@ public class JSGraphicPoint extends JSGraphic {
             GraphicPoint graphicPoint = getObjFromList(GraphicPointId);
             Dot dot = JSDot.getObjFromList(dotID);
             graphicPoint.setPoint(dot);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -118,7 +118,7 @@ public class JSGraphicPoint extends JSGraphic {
         try{
             GraphicPoint graphicPoint = getObjFromList(GraphicPointId);
             graphicPoint.setSize(size);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }

@@ -72,7 +72,7 @@ public class JSGraphicCircle extends JSGraphic {
             GraphicCircle GraphicCircle = getObjFromList(GraphicCircleId);
             Dot dot = JSDot.getObjFromList(dotID);
             GraphicCircle.setCenterAndRadius(dot,radius);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -84,7 +84,7 @@ public class JSGraphicCircle extends JSGraphic {
             GraphicCircle GraphicCircle = getObjFromList(GraphicCircleId);
             Dot dot = JSDot.getObjFromList(dotID);
             GraphicCircle.setCenterPoint(dot);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -95,7 +95,7 @@ public class JSGraphicCircle extends JSGraphic {
         try{
             GraphicCircle GraphicCircle = getObjFromList(GraphicCircleId);
             GraphicCircle.setRadius(radius);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -118,7 +118,7 @@ public class JSGraphicCircle extends JSGraphic {
         try{
             GraphicCircle GraphicCircle = getObjFromList(GraphicCircleId);
             GraphicCircle.setBorderlineWidth(width);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -141,6 +141,7 @@ public class JSGraphicCircle extends JSGraphic {
         try {
             GraphicCircle GraphicCircle = getObjFromList(GraphicCircleId);
             GraphicCircle.setBorderlineColor(ConvertUtil.ColorRGBAToInt(color));
+            promise.resolve(true);
         }
         catch (Exception e)
         {
@@ -167,7 +168,7 @@ public class JSGraphicCircle extends JSGraphic {
         try{
             GraphicCircle GraphicCircle = getObjFromList(GraphicCircleId);
             GraphicCircle.setRadiusByPixel(pixel);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }

@@ -86,7 +86,7 @@ public class JSVectorLayer extends JSMapLayer {
         try{
             VectorLayer VectorLayer = getObjFromList(VectorLayerId);
             VectorLayer.setSymbolShow(symbolShow);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -109,7 +109,7 @@ public class JSVectorLayer extends JSMapLayer {
         try{
             VectorLayer VectorLayer = getObjFromList(VectorLayerId);
             VectorLayer.setTransparency(transparency);
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
