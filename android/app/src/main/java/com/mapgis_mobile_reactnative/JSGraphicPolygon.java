@@ -1,5 +1,7 @@
 package com.mapgis_mobile_reactnative;
 
+import android.util.Log;
+
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -24,7 +26,7 @@ import java.util.Map;
  * @content 区图形对象Native组件
  * @author fjl 2019-6-30 下午2:52:36
  */
-public class JSGraphicPolygon extends JSGraphic {
+public class JSGraphicPolygon extends JSGraphicMultiPoint {
     public static final String REACT_CLASS = "JSGraphicPolygon";
     public static Map<String, GraphicPolygon> mGraphicPolygonList = new HashMap<String, GraphicPolygon>();
 
@@ -97,12 +99,24 @@ public class JSGraphicPolygon extends JSGraphic {
                     ReadableMap readable = pointArray.getMap(i);
                     String keyStr = readable.getString("_MGDotId");
                     dotLst.append (JSDot.getObjFromList(keyStr));
+                    Log.e("dotLst:", "" + JSDot.getObjFromList(keyStr).x);
                 }
-                for(int j =0; j < circlesArray.size();j++)
+                if(circlesArray != null)
                 {
-                    intList.append( circlesArray.getInt(j));
+                    for(int j =0; j < circlesArray.size();j++)
+                    {
+                        intList.append( circlesArray.getInt(j));
+                    }
+                }
+                else
+                {
+                    intList.append(dotLst.size());
                 }
             }
+
+            Log.e("graphicPolygon:", "" + graphicPolygon);
+            Log.e("GraphicPolygonId:", "" + GraphicPolygonId);
+            Log.e("circlesArray:", "" + circlesArray);
 
             graphicPolygon.setPoints(dotLst,intList);
             promise.resolve(true);

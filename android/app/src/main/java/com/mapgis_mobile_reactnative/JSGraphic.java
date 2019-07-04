@@ -84,7 +84,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     @ReactMethod
     public void getState(String GraphicId,Promise promise){
         try{
-            Graphic graphic = getObjFromList(GraphicId);
+            Graphic graphic = getGraphicByID(GraphicId);
             int state = graphic.getState();
 
             promise.resolve(state);
@@ -96,7 +96,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     @ReactMethod
     public void setState(String GraphicId,int state,Promise promise){
         try{
-            Graphic Graphic = getObjFromList(GraphicId);
+            Graphic Graphic = getGraphicByID(GraphicId);
             Graphic.setState(state);
             promise.resolve(true);
         }catch (Exception e){
@@ -124,7 +124,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     @ReactMethod
     public void getColor(String GraphicId,Promise promise) {
         try{
-            Graphic graphic = getObjFromList(GraphicId);
+            Graphic graphic = getGraphicByID(GraphicId);
             int color = graphic.getColor();
             String strColor = ConvertUtil.ColorIntToRGBA(color);
 
@@ -140,7 +140,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     @ReactMethod
     public void getCenterPoint(String GraphicId,int index,Promise promise){
         try{
-            Graphic Graphic = getObjFromList(GraphicId);
+            Graphic Graphic = getGraphicByID(GraphicId);
             Dot centerDot = Graphic.getCenterPoint();
 
             String point2DId = JSDot.registerId(centerDot);
@@ -160,7 +160,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     public void getBoundingRect(String GraphicId,Promise promise)
     {
         try {
-            Graphic Graphic = getObjFromList(GraphicId);
+            Graphic Graphic = getGraphicByID(GraphicId);
             Rect rect = Graphic.getBoundingRect();
 
             String rectId = JSRect.registerId(rect);
@@ -177,7 +177,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     @ReactMethod
     public void getGraphicType(String GraphicId,Promise promise){
         try{
-            Graphic graphic = getObjFromList(GraphicId);
+            Graphic graphic = getGraphicByID(GraphicId);
             GraphicType graphicType = graphic.getGraphicType();
             int type = graphicType.value();
 
@@ -190,7 +190,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     @ReactMethod
     public void setPointByPixel(String GraphicId,boolean pixel,Promise promise){
         try{
-            Graphic Graphic = getObjFromList(GraphicId);
+            Graphic Graphic = getGraphicByID(GraphicId);
             Graphic.setPointByPixel(pixel);
             promise.resolve(true);
         }catch (Exception e){
@@ -201,7 +201,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     @ReactMethod
     public void isPointByPixel(String GraphicId,Promise promise){
         try{
-            Graphic graphic = getObjFromList(GraphicId);
+            Graphic graphic = getGraphicByID(GraphicId);
             boolean isPointByPixel = graphic.isPointByPixel();
 
             promise.resolve(isPointByPixel);
@@ -213,7 +213,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     @ReactMethod
     public void setAttributeValue(String GraphicId,String name ,String value,Promise promise){
         try{
-            Graphic Graphic = getObjFromList(GraphicId);
+            Graphic Graphic = getGraphicByID(GraphicId);
             Graphic.setAttributeValue(name,value);
             promise.resolve(true);
         }catch (Exception e){
@@ -224,7 +224,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     @ReactMethod
     public void getAttributeNum(String GraphicId,Promise promise){
         try{
-            Graphic graphic = getObjFromList(GraphicId);
+            Graphic graphic = getGraphicByID(GraphicId);
             long attributeNum = graphic.getAttributeNum();
 
             promise.resolve(attributeNum);
@@ -236,7 +236,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     @ReactMethod
     public void getAttributeName(String GraphicId,int index,Promise promise){
         try{
-            Graphic graphic = getObjFromList(GraphicId);
+            Graphic graphic = getGraphicByID(GraphicId);
             String  attributeName = graphic.getAttributeName(index);
 
             promise.resolve(attributeName);
@@ -247,7 +247,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     @ReactMethod
     public void getAttributeValue(String GraphicId,String name,Promise promise){
         try{
-            Graphic graphic = getObjFromList(GraphicId);
+            Graphic graphic = getGraphicByID(GraphicId);
             String  attributeValue = graphic.getAttributeValue(name);
 
             promise.resolve(attributeValue);
@@ -259,7 +259,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     @ReactMethod
     public void removeAttribute(String GraphicId,String name,Promise promise){
         try{
-            Graphic graphic = getObjFromList(GraphicId);
+            Graphic graphic = getGraphicByID(GraphicId);
             graphic.removeAttribute(name);
         }catch (Exception e){
             promise.reject(e);
@@ -269,7 +269,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     @ReactMethod
     public void removeAllAttributes(String GraphicId,Promise promise){
         try{
-            Graphic graphic = getObjFromList(GraphicId);
+            Graphic graphic = getGraphicByID(GraphicId);
             graphic.removeAllAttributes();
         }catch (Exception e){
             promise.reject(e);

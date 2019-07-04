@@ -131,7 +131,8 @@ public class JSGraphicsOverlay extends ReactContextBaseJavaModule {
         try {
             GraphicsOverlay graphicsOverlay = getObjFromList(GraphicsOverlayId);
             Graphic graphic = JSGraphic.mGraphicList.get(graphicID);
-            Log.d("graphic:", "" + graphic);
+            Log.e("graphic:", "" + graphic);
+            Log.e("getGraphicByID:", "" + getGraphicByID(graphicID));
             if (graphic != null) {
                 graphicsOverlay.addGraphic(graphic);
             }

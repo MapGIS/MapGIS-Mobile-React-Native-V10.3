@@ -18,7 +18,7 @@ import java.util.Map;
  * @content 线图形对象Native组件
  * @author fjl 2019-6-30 下午2:52:36
  */
-public class JSGraphicPolylin extends JSGraphic {
+public class JSGraphicPolylin extends JSGraphicMultiPoint {
     public static final String REACT_CLASS = "JSGraphicPolylin";
     public static Map<String, GraphicPolylin> mGraphicPolylinList = new HashMap<String, GraphicPolylin>();
 

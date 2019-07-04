@@ -4,18 +4,19 @@
  */
 import { NativeModules } from 'react-native';
 import Graphic from "./Graphic";
+import GraphicMultiPoint from "./GraphicMultiPoint";
 let GP = NativeModules.JSGraphicPolylin;
 
-export default class GraphicPolylin extends Graphic{
+export default class GraphicPolylin extends GraphicMultiPoint{
 
   constructor(){
     super();
     Object.defineProperty(this,"_MGGraphicPolylinId",{
       get:function () {
-        return this._MGGraphicId
+        return this._MGGraphicMultiPointId
       },
       set:function (_MGGraphicPolylinId) {
-        this._MGGraphicId = _MGGraphicPolylinId;
+        this._MGGraphicMultiPointId = _MGGraphicPolylinId;
       }
     })
   }

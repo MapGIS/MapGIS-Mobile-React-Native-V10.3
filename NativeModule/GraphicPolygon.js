@@ -5,18 +5,19 @@
 import { NativeModules } from 'react-native';
 import Graphic from "./Graphic";
 import Dot from "./Dot";
+import GraphicMultiPoint from "./GraphicMultiPoint";
 let GP = NativeModules.JSGraphicPolygon;
 
-export default class GraphicPolygon extends Graphic{
+export default class GraphicPolygon extends GraphicMultiPoint{
 
   constructor(){
     super();
     Object.defineProperty(this,"_MGGraphicPolygonId",{
       get:function () {
-        return this._MGGraphicId
+        return this._MGGraphicMultiPointId
       },
       set:function (_MGGraphicPolygonId) {
-        this._MGGraphicId = _MGGraphicPolygonId;
+        this._MGGraphicMultiPointId = _MGGraphicPolygonId;
       }
     })
   }
