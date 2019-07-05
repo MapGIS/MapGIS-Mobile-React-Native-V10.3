@@ -202,6 +202,9 @@ export default class App extends Component {
         var queryBound = await qu.createObj();
         await queryBound.setRect(quryRect);
         // await qu.setRect(quryRect);
+        // var dotModule = new Dot();
+        // var dot = await dotModule.createObj(12730000,3560000);
+        // await queryBound.setPoint(dot,10000,10000);
         console.log("queryBoundid:" + queryBound._MGQueryBoundId);
 
         var map = await this.mapView.getMap();
@@ -210,7 +213,7 @@ export default class App extends Component {
 
         var featureQuery = new FeatureQuery();
         var query = await featureQuery.createObjByProperty(mapLayer);
-        await query.setQueryBound(queryBound)
+        await query.setQueryBound(queryBound);
         // await query.setWhereClause("Name like '%通%'");
         var featurePagedResult = await query.query();
 

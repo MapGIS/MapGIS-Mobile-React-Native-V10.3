@@ -48,7 +48,7 @@ export default class QueryBound {
      */
     async setPoint(point, dx, dy) {
         try {
-            await QB.setRect(this._MGQueryBoundId, point._MGDotId, dx, dy);
+            await QB.setPoint(this._MGQueryBoundId, point._MGDotId, dx, dy);
         } catch (e) {
             console.error(e);
         }
@@ -66,7 +66,7 @@ export default class QueryBound {
                 var id = values[i]._MGDotId;
                 idArr.push(id);
             }
-            await QB.setPoint(this._MGQueryBoundId, idArr);
+            await QB.setPoints(this._MGQueryBoundId, idArr);
         } catch (e) {
             console.error(e);
         }
