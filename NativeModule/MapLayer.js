@@ -6,6 +6,9 @@ import { NativeModules } from 'react-native';
 let ML = NativeModules.JSMapLayer;
 import Rect from './Rect.js';
 
+/**
+ * @class MapLayer
+ */
 export default class MapLayer {
     /**
      * 构造一个新的 MapLayer 对象。
@@ -25,6 +28,7 @@ export default class MapLayer {
 
     /**
      * 获取图层名称
+     * @memberOf MapLayer
      * @returns {Promise<*>}
      */
     async getName() {
@@ -38,6 +42,7 @@ export default class MapLayer {
 
     /**
      * 获取图层名称
+     * @memberOf MapLayer
      * @returns {Promise<*>}
      */
     async setName() {
@@ -50,6 +55,7 @@ export default class MapLayer {
 
     /**
      * 获取图层的URL
+     * @memberOf MapLayer
      * @returns {Promise<*>}
      */
     async getURL() {
@@ -60,10 +66,12 @@ export default class MapLayer {
             console.error(e);
         }
     }
+
     /**
      * 设置图层URL地址
-     * @param URL 图层URL地址
-     * @return
+     * @memberOf MapLayer
+     * @param {String} URL 图层URL地址
+     * @returns {Promise<void>}
      */
     async setURL(URL) {
         try {
@@ -72,10 +80,11 @@ export default class MapLayer {
             console.error(e);
         }
     }
+
     /**
      * 获取图层状态
-     *
-     * @return
+     * @memberOf MapLayer
+     * @returns {Promise<*|NavigationPreloadState>}
      */
     async getState() {
         try {
@@ -87,8 +96,8 @@ export default class MapLayer {
     }
     /**
      * 设置图层状态
-     *
-     * @param State 图层状态
+     *@memberOf MapLayer
+     * @param {Boolean} State 图层状态
      */
     async setState(State) {
         try {
@@ -99,8 +108,8 @@ export default class MapLayer {
     }
     /**
      * 设置图层是否显示
-     *
-     * @param visible 图层是否显示
+     * @memberOf MapLayer
+     * @param {Boolean} visible 图层是否显示
      */
     async setVisible(State) {
         try {
@@ -111,6 +120,7 @@ export default class MapLayer {
     }
     /**
      * 获取图层是否显示
+     * @memberOf MapLayer
      */
     async getIsVisible() {
         try {
@@ -122,6 +132,7 @@ export default class MapLayer {
     }
     /**
      * 获取图层最小显示比率
+     * @memberOf MapLayer
      *
      */
     async getMinScale() {
@@ -134,7 +145,7 @@ export default class MapLayer {
     }
     /**
      * 设置图层最小显示比率
-     *
+     * @memberOf MapLayer
      * @param MinScale 图层最小显示比率
      */
     async setMinScale(MinScale) {
@@ -146,6 +157,7 @@ export default class MapLayer {
     }
     /**
      * 获取图层最大显示比率
+     * @memberOf MapLayer
      */
     async getMaxScale() {
         try {
@@ -157,7 +169,7 @@ export default class MapLayer {
     }
     /**
      * 设置图层最大显示比率
-     *
+     *@memberOf MapLayer
      * @param MaxScale 图层最大显示比率
      */
     async setMaxScale(MaxScale) {
@@ -167,10 +179,11 @@ export default class MapLayer {
             console.error(e);
         }
     }
+
     /**
      * 获取图层的权重
-     *
-     * @return 图层权重
+     * @memberOf MapLayer
+     * @returns {Promise<*>}
      */
     async getWeight() {
         try {
@@ -182,8 +195,8 @@ export default class MapLayer {
     }
     /**
      * 设置图层的权重
-     *
-     * @param Weight 权重
+     * @memberOf MapLayer
+     * @param {String} Weight 权重
      */
     async setWeight(Weight) {
         try {
@@ -192,10 +205,11 @@ export default class MapLayer {
             console.error(e);
         }
     }
+
     /**
      * 查看图层是否有效
-     *
-     * @return 图层的有效状态
+     * @memberOf MapLayer
+     * @returns {Promise<*>}
      */
     async getIsValid() {
         try {
@@ -208,6 +222,7 @@ export default class MapLayer {
 
     /**
      * 获取地图范围
+     * @memberOf MapLayer
      * @returns {Promise<Rect>}
      */
     async getRange() {

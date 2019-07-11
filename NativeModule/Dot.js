@@ -5,6 +5,9 @@
 import { NativeModules } from 'react-native';
 let X = NativeModules.JSDot;
 
+/**
+ * @class Dot
+ */
 export default class Dot {
   /**
    * 构造一个新的 Dot 对象。
@@ -31,6 +34,7 @@ export default class Dot {
 
   /**
    * 获取X坐标
+   * @memberOf Dot
    * @returns {Promise<*>}
    */
   async getX() {
@@ -44,6 +48,7 @@ export default class Dot {
 
   /**
    * 获取Y坐标
+   * @memberOf Dot
    * @returns {Promise<*>}
    */
   async getY() {

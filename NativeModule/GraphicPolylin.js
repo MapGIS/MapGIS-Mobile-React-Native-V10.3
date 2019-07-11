@@ -7,6 +7,9 @@ import Graphic from "./Graphic";
 import GraphicMultiPoint from "./GraphicMultiPoint";
 let GP = NativeModules.JSGraphicPolylin;
 
+/**
+ * @class GraphicPolylin
+ */
 export default class GraphicPolylin extends GraphicMultiPoint{
 
   constructor(){
@@ -39,6 +42,7 @@ export default class GraphicPolylin extends GraphicMultiPoint{
 
   /**
    * 设置线宽
+   * @memberOf GraphicPolylin
    * @param width
    * @returns {Promise<void>}
    */
@@ -52,6 +56,7 @@ export default class GraphicPolylin extends GraphicMultiPoint{
 
   /**
    * 获取圆边界线的宽度
+   * @memberOf GraphicPolylin
    * @returns {Promise<*>}
    */
   async getLineWidth() {
@@ -65,6 +70,7 @@ export default class GraphicPolylin extends GraphicMultiPoint{
 
   /**
    * 获取长度
+   * @memberOf GraphicPolylin
    * @returns {Promise<*>}
    */
   async getLength() {
@@ -78,6 +84,7 @@ export default class GraphicPolylin extends GraphicMultiPoint{
 
   /**
    * 设置线纹理填充
+   * @memberOf GraphicPolylin
    * @param point
    * @param radius
    * @returns {Promise<void>}

@@ -5,6 +5,9 @@
 import { NativeModules } from 'react-native';
 let X = NativeModules.JSRect;
 
+/**
+ * @class Rect
+ */
 export default class Rect {
   /**
    * 构造一个新的 Rect 对象。
@@ -31,6 +34,7 @@ export default class Rect {
 
   /**
    * 获取x最小值
+   * @memberOf Rect
    * @returns {Promise<*>}
    */
   async getXMin() {
@@ -44,6 +48,7 @@ export default class Rect {
 
   /**
    * 获取y最小值
+   * @memberOf Rect
    * @returns {Promise<*>}
    */
   async getYMin() {
@@ -57,6 +62,7 @@ export default class Rect {
 
   /**
    * 获取x最大值
+   * @memberOf Rect
    * @returns {Promise<*>}
    */
   async getXMax() {
@@ -70,6 +76,7 @@ export default class Rect {
 
   /**
    * 获取y最大值
+   * @memberOf Rect
    * @returns {Promise<*>}
    */
   async getYMax() {

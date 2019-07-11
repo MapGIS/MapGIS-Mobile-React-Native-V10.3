@@ -8,6 +8,9 @@ let QB = NativeModules.JSQueryBound;
 import Rect from './Rect.js';
 import Dot from './Dot.js';
 
+/**
+ * @class QueryBound
+ */
 export default class QueryBound {
     /**
      * 构造一个新的 QueryBound 对象。
@@ -27,6 +30,7 @@ export default class QueryBound {
 
     /**
      * 设置矩形查询范围
+     * @memberOf QueryBound
      * @param rect
      * @returns {Promise<void>}
      */
@@ -40,6 +44,7 @@ export default class QueryBound {
 
     /**
      * 点查询
+     * @memberOf QueryBound
      * @param point
      * @param dx X方向最大范围偏移量
      * @param dy Y方向最大范围偏移量
@@ -56,6 +61,7 @@ export default class QueryBound {
 
     /**
      * 设置一组点（多边形查询）
+     * @memberOf QueryBound
      * @param pointArray
      * @returns {Promise<void>}
      */

@@ -8,6 +8,9 @@ let X = NativeModules.JSGraphicsOverlays;
 import Graphic from './Graphic.js';
 import GraphicsOverlay from './GraphicsOverlay.js';
 
+/**
+ * @class GraphicsOverlays
+ */
 export default class GraphicsOverlays {
     /**
      * 构造一个新的 GraphicsOverlays 对象。
@@ -27,6 +30,9 @@ export default class GraphicsOverlays {
 
     /**
      * 添加图形覆盖物
+     * @memberOf GraphicsOverlays
+     * @param graphicsOverlay
+     * @returns {Promise<void>}
      */
     async add(graphicsOverlay) {
         try {
@@ -38,6 +44,7 @@ export default class GraphicsOverlays {
 
     /**
      * 获取图形覆盖物的数目
+     * @memberOf GraphicsOverlays
      * @returns {Promise<*>}
      */
     async getCount() {
@@ -52,6 +59,7 @@ export default class GraphicsOverlays {
 
     /**
      * 获取图形覆盖物的索引
+     * @memberOf GraphicsOverlays
      * @param graphicsOverlay
      * @returns {Promise<*|NavigationPreloadState>}
      */
@@ -67,6 +75,7 @@ export default class GraphicsOverlays {
 
     /**
      * 获取图形覆盖物
+     * @memberOf GraphicsOverlays
      * @returns {Promise<*>}
      */
     async getGraphicsOverlay(index) {
@@ -83,6 +92,7 @@ export default class GraphicsOverlays {
 
     /**
      * 返回所有图形
+     * @memberOf GraphicsOverlays
      */
     async getAllGraphicsOverlays() {
         try {
@@ -102,6 +112,7 @@ export default class GraphicsOverlays {
 
     /**
      * 插入图形覆盖物
+     * @memberOf GraphicsOverlays
      * @param graphicsOverlay 图形覆盖物
      * @returns {Promise<*|NavigationPreloadState>}
      */
@@ -117,6 +128,7 @@ export default class GraphicsOverlays {
 
     /**
      * 移动图形覆盖物
+     * @memberOf GraphicsOverlays
      * @param fromIndex
      * @param toIndex
      * @returns {Promise<*>}
@@ -132,6 +144,7 @@ export default class GraphicsOverlays {
 
     /**
      * 移除图形覆盖物
+     * @memberOf GraphicsOverlays
      * @param index
      * @returns {Promise<void>}
      */
@@ -145,6 +158,7 @@ export default class GraphicsOverlays {
 
     /**
      * 移除图形覆盖物
+     * @memberOf GraphicsOverlays
      * @param index
      * @returns {Promise<void>}
      */
@@ -158,6 +172,7 @@ export default class GraphicsOverlays {
 
     /**
      * 移除所有图形覆盖物
+     * @memberOf GraphicsOverlays
      * @param index
      * @returns {Promise<void>}
      */

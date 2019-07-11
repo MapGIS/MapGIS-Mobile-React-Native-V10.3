@@ -8,6 +8,9 @@ import Dot from "./Dot";
 import GraphicMultiPoint from "./GraphicMultiPoint";
 let GP = NativeModules.JSGraphicPolygon;
 
+/**
+ * @class GraphicPolygon
+ */
 export default class GraphicPolygon extends GraphicMultiPoint{
 
   constructor(){
@@ -40,6 +43,7 @@ export default class GraphicPolygon extends GraphicMultiPoint{
 
   /**
    * 获取面积
+   * @memberOf GraphicPolygon
    * @returns {Promise<*>}
    */
   async getArea() {
@@ -53,8 +57,9 @@ export default class GraphicPolygon extends GraphicMultiPoint{
 
   /**
    * 设置一组坐标点
-   * @param point
-   * @param radius
+   * @memberOf GraphicPolygon
+   * @param pointArray
+   * @param circlesArray
    * @returns {Promise<void>}
    */
   async setPoints(pointArray,circlesArray) {
@@ -67,6 +72,7 @@ export default class GraphicPolygon extends GraphicMultiPoint{
 
   /**
    * 获取圈序列
+   * @memberOf GraphicPolygon
    * @returns {Promise<*>}
    */
   async getCirclesToList() {
@@ -80,7 +86,8 @@ export default class GraphicPolygon extends GraphicMultiPoint{
 
   /**
    * 设置点的位置
-   * @param point
+   * @memberOf GraphicPolygon
+   * @param {Object} point
    * @returns {Promise<void>}
    */
   async setBorderlineWidth(width) {
@@ -93,6 +100,7 @@ export default class GraphicPolygon extends GraphicMultiPoint{
 
   /**
    * 获取边界线的宽度
+   * @memberOf GraphicPolygon
    * @returns {Promise<void>}
    */
   async getBorderlineWidth() {
@@ -106,6 +114,7 @@ export default class GraphicPolygon extends GraphicMultiPoint{
 
   /**
    * 获取点的位置
+   * @memberOf GraphicPolygon
    * @returns {Promise<*>}
    */
   async getBorderlineColor() {
@@ -120,6 +129,7 @@ export default class GraphicPolygon extends GraphicMultiPoint{
 
   /**
    * 设置圆边界线的颜色
+   * @memberOf GraphicPolygon
    * @param color eg:'rgba(128, 128, 128, 0.5)'
    * @returns {Promise<void>}
    */

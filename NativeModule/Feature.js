@@ -9,6 +9,9 @@ import Rect from './Rect.js';
 import Dot from './Dot.js';
 import Graphic from "./Graphic";
 
+/**
+ * @class Feature
+ */
 export default class Feature {
     /**
      * 构造一个新的 Feature 对象。
@@ -28,6 +31,7 @@ export default class Feature {
 
     /**
      *  获取要素ID
+     *  @memberOf Feature
      * @returns {Promise<*|*>}
      */
     async getID() {
@@ -41,6 +45,7 @@ export default class Feature {
 
     /**
      * 获取要素属性
+     * @memberOf Feature
      */
     async getAttributes() {
         try {
@@ -53,6 +58,7 @@ export default class Feature {
 
     /**
      * 要素转Graphic
+     *  @memberOf Feature
      * @returns {Promise<Array>}
      */
    async toGraphics(){

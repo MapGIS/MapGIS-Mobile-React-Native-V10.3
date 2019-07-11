@@ -7,6 +7,9 @@ import Graphic from "./Graphic";
 import Dot from "./Dot";
 let GM = NativeModules.JSGraphicMultiPoint;
 
+/**
+ * @constructor GraphicMultiPoint
+ */
 export default class GraphicMultiPoint extends Graphic{
 
   constructor(){
@@ -39,8 +42,9 @@ export default class GraphicMultiPoint extends Graphic{
 
   /**
    * 设置一组坐标点
-   * @param point
-   * @param radius
+   * @memberOf GraphicMultiPoint
+   * @param {Object} point
+   * @param {Number} radius
    * @returns {Promise<void>}
    */
   async setPoints(pointArray) {
@@ -53,6 +57,7 @@ export default class GraphicMultiPoint extends Graphic{
 
   /**
    * 获取是否符号化显示
+   * @memberOf GraphicMultiPoint
    * @returns {Promise<*>}
    */
   async getPoints() {
@@ -74,6 +79,7 @@ export default class GraphicMultiPoint extends Graphic{
 
   /**
    * 获取圆边界线的宽度
+   * @memberOf GraphicMultiPoint
    * @returns {Promise<*>}
    */
   async getPointCount() {
@@ -87,6 +93,7 @@ export default class GraphicMultiPoint extends Graphic{
 
   /**
    *获取指定索引的坐标点
+   * @memberOf GraphicMultiPoint
    * @returns {Promise<Dot>}
    */
   async getPoint(index) {
@@ -102,7 +109,8 @@ export default class GraphicMultiPoint extends Graphic{
 
   /**
    *设置点的大小
-   * @param size
+   * @memberOf GraphicMultiPoint
+   * @param {Number} size
    * @returns {Promise<void>}
    */
   async setPointSize(size) {
@@ -114,6 +122,7 @@ export default class GraphicMultiPoint extends Graphic{
   }
   /**
    * 获取圆边界线的颜色
+   * @memberOf GraphicMultiPoint
    * @returns {Promise<*>}
    */
   async getPointSize() {
@@ -127,7 +136,8 @@ export default class GraphicMultiPoint extends Graphic{
 
   /**
    * 追加一个点
-   * @param point
+   * @memberOf GraphicMultiPoint
+   * @param {Object} point
    * @returns {Promise<void>}
    */
   async appendPoint(point) {
@@ -140,7 +150,8 @@ export default class GraphicMultiPoint extends Graphic{
 
   /**
    * 追加一组点
-   * @param pointArr
+   * @memberOf GraphicMultiPoint
+   * @param {Object} pointArr
    * @returns {Promise<void>}
    */
   async appendPoints(pointArr) {
@@ -153,6 +164,7 @@ export default class GraphicMultiPoint extends Graphic{
 
   /**
    * 更新指定索引处的点
+   * @memberOf GraphicMultiPoint
    * @param index
    * @param point
    * @returns {Promise<void>}
@@ -167,6 +179,7 @@ export default class GraphicMultiPoint extends Graphic{
 
   /**
    * 移除指定索引的点
+   * @memberOf GraphicMultiPoint
    * @param index
    * @returns {Promise<void>}
    */
@@ -180,6 +193,7 @@ export default class GraphicMultiPoint extends Graphic{
 
   /**
    * 移除所有点
+   * @memberOf GraphicMultiPoint
    * @returns {Promise<void>}
    */
   async removeAllPoints() {
@@ -192,6 +206,7 @@ export default class GraphicMultiPoint extends Graphic{
 
   /**
    * 在指定索引处插入点
+   * @memberOf GraphicMultiPoint
    * @param index
    * @param point
    * @returns {Promise<void>}

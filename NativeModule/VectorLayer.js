@@ -6,6 +6,9 @@ import { NativeModules } from 'react-native';
 import MapLayer from "./MapLayer";
 let VL = NativeModules.JSVectorLayer;
 
+/**
+ * @class VectorLayer
+ */
 export default class VectorLayer extends MapLayer{
 
   constructor(){
@@ -38,6 +41,7 @@ export default class VectorLayer extends MapLayer{
 
   /**
    * 获取是否符号化显示
+   * @memberOf VectorLayer
    * @returns {Promise<*>}
    */
   async isSymbolShow() {
@@ -51,6 +55,7 @@ export default class VectorLayer extends MapLayer{
 
   /**
    * 设置符号化显示
+   * @memberOf VectorLayer
    * @param symbolShow
    * @returns {Promise<void>}
    */
@@ -64,6 +69,7 @@ export default class VectorLayer extends MapLayer{
 
   /**
    * 获取透明度
+   * @memberOf VectorLayer
    *
    * @return  透明度,0-100 默认为0,表示不透明。
    */
@@ -75,10 +81,12 @@ export default class VectorLayer extends MapLayer{
       console.error(e);
     }
   }
+
   /**
    * 设置透明度,0-100 默认为0,表示不透明
-   *
-   * @return  1：成功，0：失败。
+   * @memberOf VectorLayer
+   * @param transparency
+   * @returns {Promise<void>} 1：成功，0：失败。
    */
   async setTransparency(transparency) {
     try {

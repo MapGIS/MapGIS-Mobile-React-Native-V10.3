@@ -9,6 +9,9 @@ import PointF from "./PointF";
 
 let GT = NativeModules.JSGraphicText;
 
+/**
+ * @class GraphicText
+ */
 export default class GraphicText extends Graphic {
 
     constructor() {
@@ -41,6 +44,7 @@ export default class GraphicText extends Graphic {
 
     /**
      * 设置位置
+     * @memberOf GraphicText
      * @param point 定位点相对于文字的位置
      * @returns {Promise<void>}
      */
@@ -54,6 +58,7 @@ export default class GraphicText extends Graphic {
 
     /**
      * 设置文本
+     * @memberOf GraphicText
      * @param text
      * @returns {Promise<void>}
      */
@@ -67,6 +72,7 @@ export default class GraphicText extends Graphic {
 
     /**
      * 设置线宽
+     * @memberOf GraphicText
      * @param fontSize
      * @returns {Promise<void>}
      */
@@ -80,6 +86,7 @@ export default class GraphicText extends Graphic {
 
     /**
      * 设置是否随地图倾斜
+     * @memberOf GraphicText
      * @param isSlope
      * @returns {Promise<void>}
      */
@@ -91,6 +98,11 @@ export default class GraphicText extends Graphic {
         }
     }
 
+    /**
+     * 获取文本的位置
+     * @memberOf GraphicText
+     * @returns {Promise<Dot>}
+     */
     async getPoint() {
         try {
             let {dotID} = await GT.getPoint(this._MGGraphicTextId);
@@ -104,6 +116,7 @@ export default class GraphicText extends Graphic {
 
     /**
      * 获取文本
+     * @memberOf GraphicText
      * @returns {Promise<*>}
      */
     async getText() {
@@ -117,6 +130,7 @@ export default class GraphicText extends Graphic {
 
     /**
      * 获取字体大小
+     * @memberOf GraphicText
      * @returns {Promise<*>}
      */
     async getFontSize() {
@@ -130,6 +144,7 @@ export default class GraphicText extends Graphic {
 
     /**
      * 获取是否随地图倾斜
+     * @memberOf GraphicText
      * @returns {Promise<*>}
      */
     async isSlope() {
@@ -143,6 +158,7 @@ export default class GraphicText extends Graphic {
 
     /**
      * 获取文本宽度
+     * @memberOf GraphicText
      * @returns {Promise<*|*>}
      */
     async getTextWidth() {
@@ -156,6 +172,7 @@ export default class GraphicText extends Graphic {
 
     /**
      * 获取文本高度
+     * @memberOf GraphicText
      * @returns {Promise<*>}
      */
     async getTextHeight() {
@@ -169,6 +186,7 @@ export default class GraphicText extends Graphic {
 
     /**
      * 设置锚点
+     * @memberOf GraphicText
      * @param anchorPoint 图片锚点的位置：左下角为(0,0),右上角为(1,1)
      * @returns {Promise<void>}
      */
@@ -182,6 +200,7 @@ export default class GraphicText extends Graphic {
 
     /**
      * 获取锚点
+     * @memberOf GraphicText
      * @returns {Promise<*>}
      */
     async getAnchorPoint() {
@@ -197,6 +216,7 @@ export default class GraphicText extends Graphic {
 
     /**
      * 设置锚点
+     * @memberOf GraphicText
      * @param referenceWidth
      * @param referenceHeight
      * @param referenceInterval

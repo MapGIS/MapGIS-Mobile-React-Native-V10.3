@@ -18,7 +18,8 @@ export default class JSMapView {
 
   /**
    * 设置视图背景色
-   * @param color  eg:'rgba(128, 128, 128, 0.5)'
+   *  @memberOf JSMapView
+   * @param {String} color  eg:'rgba(128, 128, 128, 0.5)'
    * @returns {Promise<void>}
    */
   async setBackGroundColor(color) {
@@ -31,6 +32,7 @@ export default class JSMapView {
 
   /**
    * 获取视图背景色
+   * @memberOf JSMapView
    * @returns {Promise<void>}
    */
   async getBackGroundColor() {
@@ -44,7 +46,8 @@ export default class JSMapView {
 
   /**
    * 加载地图
-   * @param strMapPath
+   * @memberOf JSMapView
+   * @param {String} strMapPath
    * @returns {Promise<void>}
    */
   async loadFromFile(strMapPath) {
@@ -57,7 +60,8 @@ export default class JSMapView {
 
   /**
    * 获取地图对象
-   * @return 成功返回地图对象,失败返回空
+   * @memberOf JSMapView
+   * @returns {Promise<Map>}
    */
   async getMap() {
     try {
@@ -71,6 +75,7 @@ export default class JSMapView {
   }
   /**
    * 地图刷新
+   * @memberOf JSMapView
    * @returns {Promise<void>}
    */
   async refresh() {
@@ -83,6 +88,7 @@ export default class JSMapView {
 
   /**
    * 地图强制刷新
+   * @memberOf JSMapView
    * @returns {Promise<void>}
    */
   async forceRefresh() {
@@ -95,6 +101,7 @@ export default class JSMapView {
 
   /**
    * 地图坐标转视图坐标
+   * @memberOf JSMapView
    * @param dot
    * @returns {Promise<void>}
    */
@@ -113,6 +120,7 @@ export default class JSMapView {
 
   /**
    * 视图坐标转地图坐标
+   * @memberOf JSMapView
    * @param pointF
    * @returns {Promise<Dot>}
    */
@@ -131,6 +139,7 @@ export default class JSMapView {
 
   /**
    *获取地图分辨率
+   * @memberOf JSMapView
    * @returns {Promise<Dot>}
    */
   async getResolution() {
@@ -144,6 +153,7 @@ export default class JSMapView {
 
   /**
    * 获取最大分辨率
+   * @memberOf JSMapView
    * @returns {Promise<Dot.resolution>}
    */
   async getMaxResolution() {
@@ -157,6 +167,7 @@ export default class JSMapView {
 
   /**
    * 获取最小分辨率
+   * @memberOf JSMapView
    * @returns {Promise<void>}
    */
   async getMinResolution() {
@@ -170,6 +181,7 @@ export default class JSMapView {
 
   /**
    * 获取地图中心点
+   * @memberOf JSMapView
    * @returns {Promise<Dot>}
    */
   async getCenter() {
@@ -187,6 +199,7 @@ export default class JSMapView {
 
   /**
    * 设置地图中心点
+   * @memberOf JSMapView
    * @param dot
    * @returns {Promise<void>}
    */
@@ -200,6 +213,7 @@ export default class JSMapView {
 
   /**
    * 获取当前显示地图的显示范围
+   * @memberOf JSMapView
    * @returns {Promise<Dot>}
    */
   async getDispRange() {
@@ -216,6 +230,7 @@ export default class JSMapView {
   /**
    *   * 移动地图（单位像素） 如果传入的mx = 5 、 my = 0，则系统将可视区域向右移动，所以地图将显示为向左移动5 个像素。 如果传入的mx =
    * 0 、 my = 5，则系统将可视区域向下移动，所以地图显示为向上移动了5 个像素。
+   * @memberOf JSMapView
    * @param mx 水平方向移动的像素大小，正值代表可视区域向右移动，负值代表可视区域向左移动
    * @param my 垂直方向移动的像素大小，正值代表可视区域向下移动，负值代表可视区域向上移动
    * @param animated 是否开启动画模式
@@ -233,6 +248,7 @@ export default class JSMapView {
 
   /**
    * 缩地图到指定分辨率并将指定坐标点移动到视图中心(视图高宽1/2处，绝对中心)
+   * @memberOf JSMapView
    * @param centerPoint 中心坐标
    * @param resolution 分辨率
    * @param animated 是否启用动画
@@ -247,6 +263,7 @@ export default class JSMapView {
   }
   /**
    * 放缩地图到指定级别并将指定坐标点移动到自定义视图中心
+   * @memberOf JSMapView
    *
    * @param mapCenterPoint 中心坐标
    * @param viewCenterPoint 自定义视图中心
@@ -263,6 +280,7 @@ export default class JSMapView {
 
   /**
    * 放缩地图到指定范围
+   * @memberOf JSMapView
    * @param dispRange 新的视图范围
    * @param animated 是否开启动画模式
    * @returns {Promise<void>}
@@ -277,6 +295,7 @@ export default class JSMapView {
 
   /**
    * 地图放大一级
+   * @memberOf JSMapView
    * @param animated 是否开启动画模式
    * @returns {Promise<void>}
    */
@@ -290,6 +309,7 @@ export default class JSMapView {
 
   /**
    * 地图缩小一级
+   * @memberOf JSMapView
    * @param animated 是否开启动画模式
    * @returns {Promise<void>}
    */
@@ -303,6 +323,7 @@ export default class JSMapView {
 
   /**
    * 地图复位
+   * @memberOf JSMapView
    * @param animated
    * @returns {Promise<void>}
    */
@@ -316,6 +337,7 @@ export default class JSMapView {
 
   /**
    *设置当前地图的旋转中心和旋转角
+   * @memberOf JSMapView
    * @param rotateCenter 旋转中心点坐标
    * @param rotateAngle 旋转角度（单位为角度制，逆时针为正）
    * @param animated 是否开启动画模式
@@ -331,6 +353,7 @@ export default class JSMapView {
 
   /**
    *设置地图的旋转角
+   * @memberOf JSMapView
    * @param rotateAngle 旋转角（单位为角度制，逆时针为正）
    * @param animated 是否启用动画
    * @returns {Promise<void>}
@@ -345,6 +368,7 @@ export default class JSMapView {
 
   /**
    *绕视图坐标旋转
+   * @memberOf JSMapView
    * @param rotation 旋转增量（单位为角度制，逆时针为正）
    * @param pivotX 视图旋转中心X坐标
    * @param pivotY 视图旋转中心Y坐标
@@ -362,6 +386,7 @@ export default class JSMapView {
 
   /**
    * 获取地图的旋转中心
+   * @memberOf JSMapView
    * @returns {Promise<Dot>}
    */
   async getRotateCenter() {
@@ -379,6 +404,7 @@ export default class JSMapView {
 
   /**
    * 获取当前地图的旋转角
+   * @memberOf JSMapView
    * @returns {Promise<Dot.rotateAngle>}
    */
   async getRotateAngle() {
@@ -392,6 +418,7 @@ export default class JSMapView {
 
   /**
    * 设置当前地图的倾斜角,并将地图按该角度进行倾斜
+   * @memberOf JSMapView
    * @param slopeAngle 倾斜角度(单位为角度制,0到45度,当天空场景启用后,角度范围为0到65度）
    * @param animated 是否开启动画
    * @returns {Promise<void>}
@@ -406,6 +433,7 @@ export default class JSMapView {
 
   /**
    * 获取当前地图的倾斜角
+   * @memberOf JSMapView
    * @returns {Promise<void>}
    */
   async getSlopeAngle() {
@@ -419,6 +447,7 @@ export default class JSMapView {
 
   /**
    * 停止动画效果
+   * @memberOf JSMapView
    * @returns {Promise<void>}
    */
   async stopAnimation() {
@@ -428,10 +457,11 @@ export default class JSMapView {
       console.error(e);
     }
   }
+
   /**
    * 获取缺省的图形覆盖物列表
-   *
-   * @return 缺省的图形覆盖物列表
+   * @memberOf JSMapView
+   * @returns {Promise<GraphicsOverlay>}
    */
   async getGraphicsOverlay() {
     try {
@@ -447,7 +477,8 @@ export default class JSMapView {
 
   /**
    * 获取图形覆盖物列表的集合
-   * @return 图形覆盖物列表的集合
+   * @memberOf JSMapView
+   * @returns {Promise<GraphicsOverlays>}
    */
   async getGraphicsOverlays() {
     try {
@@ -462,6 +493,7 @@ export default class JSMapView {
 
   /**
    * 设置纹理缓存的最大限额（单位为字节）
+   * @memberOf JSMapView
    */
   async setMaxTextureCacheSize(size) {
     try {
@@ -473,8 +505,8 @@ export default class JSMapView {
 
   /**
    * 获取纹理缓存的最大限额（单位为字节）
-   *
-   * @return 设定的纹理缓存的最大限额
+   * @memberOf JSMapView
+   * @returns {Promise<void>}
    */
   async getMaxTextureCacheSize() {
     try {
@@ -487,6 +519,7 @@ export default class JSMapView {
 
   /**
    * 清除纹理缓存
+   * @memberOf JSMapView
    */
   async clearTextureCache() {
     try {
@@ -498,6 +531,7 @@ export default class JSMapView {
 
   /**
    * 设置支持任意透明度
+   * @memberOf JSMapView
    *
    * @param support true(支持矢量数据或者瓦片数据中的任意透明度值) false(仅支持全透)
    */
@@ -511,6 +545,7 @@ export default class JSMapView {
 
   /**
    * 是否支持任意透明度
+   * @memberOf JSMapView
    */
   async isSupportTransparency() {
     try {
@@ -523,6 +558,7 @@ export default class JSMapView {
 
   /**
    * 设置是否显示指北针图标
+   * @memberOf JSMapView
    *
    * @param show show的值为true时显示指北针图标，反正不显示指北针图标
    */
@@ -536,8 +572,8 @@ export default class JSMapView {
 
   /**
    * 获取是否显示指北针图标
-   *
-   * @return 返回值为true时，显示指北针图标。反之，没有显示指北针图标
+   * @memberOf JSMapView
+   * @returns {Promise<void>}
    */
   async isShowNorthArrow() {
     try {
@@ -550,6 +586,7 @@ export default class JSMapView {
 
   /**
    * 设置指北针图标在地图视图中的显示位置
+   * @memberOf JSMapView
    *
    * @param point 指北针图标的中心在地图视图中的坐标
    */
@@ -561,10 +598,11 @@ export default class JSMapView {
     }
   }
 
+
   /**
    * 获取指北针图标中心点在地图视图中的显示位置
-   *
-   * @return PointF 中心点在地图视图中的显示位置
+   * @memberOf JSMapView
+   * @returns {Promise<PointF>}
    */
   async getNorthArrowPosition() {
     try {
@@ -581,6 +619,7 @@ export default class JSMapView {
 
   /**
    * 设置指北针图标
+   * @memberOf JSMapView
    * @param image 指北针图标位图
    */
   async setNorthArrowImage(image) {
@@ -593,6 +632,7 @@ export default class JSMapView {
 
   /**
    * 设置是否显示中地公司logo
+   * @memberOf JSMapView
    *
    * @param show 值为true时显示，反之，不显示
    */
@@ -606,8 +646,8 @@ export default class JSMapView {
 
   /**
    * 获取是否显示中地公司logo
-   *
-   * @return 值为true时显示，反之，没显示
+   * @memberOf JSMapView
+   * @returns {Promise<void>}
    */
   async isShowLogo() {
     try {
@@ -621,6 +661,7 @@ export default class JSMapView {
 
   /**
    * 设置中地公司logo在地图视图中显示的位置
+   * @memberOf JSMapView
    * @param position logo的方位
    * @see LOGO_POSITION_BOTTOM_LEFT等
    */
@@ -631,10 +672,11 @@ export default class JSMapView {
       console.error(e);
     }
   }
+
   /**
    * 获取中地公司logo在地图视图中的显示位置
-   * @return int 中地公司logo在地图视图中的显示位置
-   * @see LOGO_POSITION_BOTTOM_LEFT等
+   * @memberOf JSMapView
+   * @returns {Promise<void>}
    */
   async getLogoPoistion() {
     try {
@@ -647,6 +689,7 @@ export default class JSMapView {
 
   /**
    * 设置是否显示比例尺
+   * @memberOf JSMapView
    * @param show 值为true时显示，反之，不显示
    */
   async setShowScaleBar(show) {
@@ -659,7 +702,8 @@ export default class JSMapView {
 
   /**
    * 获取是否显示比例尺
-   * @return 值为true时显示，反之，没显示
+   * @memberOf JSMapView
+   * @returns {Promise<void>}
    */
   async isShowScaleBar() {
     try {
@@ -672,6 +716,7 @@ export default class JSMapView {
 
   /**
    * 设置比例尺在地图视图中显示的位置
+   * @memberOf JSMapView
    * @param point 视图坐标
    */
   async setScaleBarPoistion(pointf) {
@@ -684,7 +729,8 @@ export default class JSMapView {
 
   /**
    * 获取比例尺在地图视图中的显示位置
-   * @return PointF 比例尺在地图视图中的显示位置
+   * @memberOf JSMapView
+   * @returns {Promise<PointF>}
    */
   async getScaleBarPoistion() {
     try {
@@ -701,6 +747,7 @@ export default class JSMapView {
 
   /**
    * 设置天空图片
+   * @memberOf JSMapView
    * @param image 天空图片
    */
   async setSkyImage(image) {
@@ -713,6 +760,7 @@ export default class JSMapView {
 
   /**
    * 设置天空场景是否启用,天空场景启用后,倾斜角可以加大到65度,默认情况下,天空场景处于启用状态
+   * @memberOf JSMapView
    * @param enabled 天空场景是否启用
    */
   async setSkySceneEnabled(enabled) {
@@ -725,7 +773,8 @@ export default class JSMapView {
 
   /**
    * 获取天空场景是否启用的标志
-   * @return 天空场景是否启用的标志
+   * @memberOf JSMapView
+   * @returns {Promise<void>}
    */
   async isSkySceneEnabled() {
     try {
@@ -738,6 +787,7 @@ export default class JSMapView {
 
   /**
    * 设置是否启用MapView内置的地图放大、缩小按钮。通过内置的缩放按钮，可实现对地图的放大和缩小
+   * @memberOf JSMapView
    * @param enabled 值为true时启用，反之，不启用
    */
   async setZoomControlsEnabled(enabled) {
@@ -750,7 +800,8 @@ export default class JSMapView {
 
   /**
    * 获取是否启用了内置的缩放按钮
-   * @return 缩放按钮是否启用
+   * @memberOf JSMapView
+   * @returns {Promise<void>}
    */
   async isZoomControlsEnabled() {
     try {
@@ -763,6 +814,7 @@ export default class JSMapView {
 
   /**
    * 设置是否启用地图平移手势
+   * @memberOf JSMapView
    * @param enabled 值为true时启用，反之，不启用
    */
   async setMapPanGesturesEnabled(enabled) {
@@ -775,6 +827,7 @@ export default class JSMapView {
 
   /**
    * 获取是否启用了平移手势
+   * @memberOf JSMapView
    */
   async isMapPanGesturesEnabled() {
     try {
@@ -787,6 +840,7 @@ export default class JSMapView {
 
   /**
    * 设置是否启用地图缩放手势
+   * @memberOf JSMapView
    * @param enabled 值为true时启用，反之，不启用
    */
   async setMapZoomGesturesEnabled(enabled) {
@@ -799,6 +853,7 @@ export default class JSMapView {
 
   /**
    * 获取是否启用了地图缩放手势
+   * @memberOf JSMapView
    */
   async isMapZoomGesturesEnabled() {
     try {
@@ -811,6 +866,7 @@ export default class JSMapView {
 
   /**
    * 设置是否启用地图旋转手势
+   * @memberOf JSMapView
    *
    * @param enabled 值为true时启用，反之，不启用
    */
@@ -824,6 +880,7 @@ export default class JSMapView {
 
   /**
    * 获取是否启用了地图旋转手势
+   * @memberOf JSMapView
    */
   async isMapRotateGesturesEnabled() {
     try {
@@ -836,6 +893,7 @@ export default class JSMapView {
 
   /**
    * 设置是否启用地图倾斜手势
+   * @memberOf JSMapView
    * @param enabled 值为true时启用，反之，不启用
    */
   async setMapSlopeGesturesEnabled(enabled) {
@@ -848,7 +906,8 @@ export default class JSMapView {
 
   /**
    * 获取是否启用了地图倾斜手势
-   * @return
+   * @memberOf JSMapView
+   * @returns {Promise<void>}
    */
   async isMapSlopeGesturesEnabled() {
     try {
@@ -861,7 +920,8 @@ export default class JSMapView {
 
   /**
    * 设置是否双击放大地图
-   * @param enabled 值为true时启用，反之，不启用
+   * @memberOf JSMapView
+   * @param {Boolean} enabled 值为true时启用，反之，不启用
    */
   async setDoubleTapZooming(enabled) {
     try {
@@ -871,9 +931,11 @@ export default class JSMapView {
     }
   }
 
+
   /**
    * 获取是否双击放大地图
-   * @return
+   * @memberOf JSMapView
+   * @returns {Promise<void>}
    */
   async isDoubleTapZooming() {
     try {
@@ -886,7 +948,8 @@ export default class JSMapView {
 
   /**
    * 设置是否双指单击缩小地图
-   * @param enabled 值为true时启用，反之，不启用
+   * @memberOf JSMapView
+   * @param {Boolean} enabled 值为true时启用，反之，不启用
    */
   async setTwoFingerTapZooming(enabled) {
     try {
@@ -898,7 +961,8 @@ export default class JSMapView {
 
   /**
    * 获取是否双指单击缩小地图
-   * @return
+   * @memberOf JSMapView
+   * @returns {Promise<void>}
    */
   async isTwoFingerTapZooming() {
     try {
@@ -911,6 +975,7 @@ export default class JSMapView {
 
   /**
    * 设置是否启用平移结束后的动画
+   * @memberOf JSMapView
    * @param enabled 值为true时启用，反之，不启用
    */
   async setPanEndAnimating(enabled) {
@@ -923,6 +988,7 @@ export default class JSMapView {
 
   /**
    * 获取是否启用平移结束后的动画
+   * @memberOf JSMapView
    */
   async isPanEndAnimating() {
     try {
@@ -935,6 +1001,7 @@ export default class JSMapView {
 
   /**
    * 设置是否启用标记渲染的动画
+   * @memberOf JSMapView
    * @param enabled 值为true时启用，反之，不启用
    */
   async setLabelRenderAnimating(enabled) {
@@ -947,7 +1014,8 @@ export default class JSMapView {
 
   /**
    * 获取是否启用标记渲染的动画
-   * @return 是否启用标记渲染的动画
+   * @memberOf JSMapView
+   * @returns {Promise<void>}
    */
   async isLabelRenderAnimating() {
     try {
@@ -960,6 +1028,7 @@ export default class JSMapView {
 
   /**
    * 添加单击事件监听
+   * @memberOf JSMapView
    * @returns {Promise<void>}
    */
   async setTapListener() {
@@ -972,6 +1041,7 @@ export default class JSMapView {
 
   /**
    * 添加长按事件监听
+   * @memberOf JSMapView
    * @returns {Promise<void>}
    */
     async setLongTapListener() {
@@ -983,6 +1053,7 @@ export default class JSMapView {
   }
   /**
    * 添加双击事件监听
+   * @memberOf JSMapView
    * @returns {Promise<void>}
    */
   async setDoubleTapListener() {
@@ -995,6 +1066,7 @@ export default class JSMapView {
 
   /**
    * 添加触摸事件监听
+   * @memberOf JSMapView
    * @returns {Promise<void>}
    */
   async setTouchListener() {
@@ -1007,6 +1079,7 @@ export default class JSMapView {
 
   /**
    * 添加地图视图级别改变的监听
+   * @memberOf JSMapView
    * @returns {Promise<void>}
    */
   async setZoomChangedListener() {
@@ -1019,6 +1092,7 @@ export default class JSMapView {
 
   /**
    * 添加地图视图中心点变化的监听
+   * @memberOf JSMapView
    * @returns {Promise<void>}
    */
   async setCenterChangedListener() {
@@ -1031,6 +1105,7 @@ export default class JSMapView {
 
   /**
    * 添加地图视图旋转角度变化的监听
+   * @memberOf JSMapView
    * @returns {Promise<void>}
    */
   async setRotateChangedListener() {
@@ -1043,6 +1118,7 @@ export default class JSMapView {
 
   /**
    * 地图视图动画的监听
+   * @memberOf JSMapView
    * @returns {Promise<void>}
    */
   async setAnimationListener() {
@@ -1054,6 +1130,7 @@ export default class JSMapView {
   }
   /**
    * 地图视图刷新的监听
+   * @memberOf JSMapView
    * @returns {Promise<void>}
    */
   async setRefreshListener() {
@@ -1065,6 +1142,7 @@ export default class JSMapView {
   }
   /**
    * 地图视图地图加载的监听
+   * @memberOf JSMapView
    * @returns {Promise<void>}
    */
   async setMapLoadListener() {

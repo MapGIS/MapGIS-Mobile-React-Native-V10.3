@@ -7,7 +7,9 @@ import Dot from "./Dot";
 import Rect from "./Rect";
 
 let G = NativeModules.JSGraphic;
-
+/**
+ * @class Graphic
+ */
 export default class Graphic {
     /**
      * 构造一个新的 Graphic 对象。
@@ -27,7 +29,7 @@ export default class Graphic {
 
     /**
      * 获取覆盖物的可见状态
-     *
+     *@memberOf Graphic
      * @return 返回层的状态 0 不可见 1 可见
      */
     async getState() {
@@ -42,6 +44,7 @@ export default class Graphic {
 
     /**
      * 设置覆盖物的可见状态
+     * @memberOf Graphic
      * @param state
      */
     async setState(state) {
@@ -54,6 +57,7 @@ export default class Graphic {
 
     /**
      * 设置图形颜色
+     * @memberOf Graphic
      * @param color eg:'rgba(128, 128, 128, 0.5)'
      */
     async setColor(color) {
@@ -64,6 +68,12 @@ export default class Graphic {
         }
     }
 
+    /**
+     * 获取图形的颜色
+     * @memberOf Graphic
+     * @memberOf Graphic
+     * @returns {Promise<*>}
+     */
     async getColor() {
         try {
             let color = await G.getColor(this._MGGraphicId);
@@ -76,6 +86,7 @@ export default class Graphic {
 
     /**
      * 获取图形中心点坐标
+     * @memberOf Graphic
      * @returns {Promise<Dot>}
      */
     async getCenterPoint() {
@@ -93,6 +104,7 @@ export default class Graphic {
 
     /**
      * 获取图形外包矩形
+     * @memberOf Graphic
      * @returns {Promise<Rect>}
      */
     async getBoundingRect() {
@@ -109,6 +121,7 @@ export default class Graphic {
 
     /**
      * 获取图形类型
+     * @memberOf Graphic
      * @returns {Promise<*>}
      */
     async getGraphicType() {
@@ -122,6 +135,7 @@ export default class Graphic {
 
     /**
      * 设置点是否为像素单位(默认情况下为地图单位)
+     * @memberOf Graphic
      * @param pixel
      * @returns {Promise<void>}
      */
@@ -135,6 +149,7 @@ export default class Graphic {
 
     /**
      * 获取点是否为像素单位
+     * @memberOf Graphic
      * @returns {Promise<*>}
      */
     async isPointByPixel() {
@@ -148,6 +163,7 @@ export default class Graphic {
 
     /**
      * 设置图形的属性
+     * @memberOf Graphic
      * @param name
      * @param value
      * @returns {Promise<void>}
@@ -162,6 +178,7 @@ export default class Graphic {
 
     /**
      * 获取图形属性的数目
+     * @memberOf Graphic
      * @returns {Promise<*>}
      */
     async getAttributeNum() {
@@ -175,6 +192,7 @@ export default class Graphic {
 
     /**
      * 根据索引获取图形属性名
+     * @memberOf Graphic
      * @returns {Promise<*>}
      */
     async getAttributeName(index) {
@@ -188,6 +206,7 @@ export default class Graphic {
 
     /**
      * 根据属性名称获取图形属性值
+     * @memberOf Graphic
      * @param name
      * @returns {Promise<*>}
      */
@@ -202,6 +221,7 @@ export default class Graphic {
 
     /**
      * 移除指定名称的属性
+     * @memberOf Graphic
      * @param name
      * @returns {Promise<void>}
      */

@@ -7,6 +7,9 @@ import Graphic from "./Graphic";
 import Dot from "./Dot";
 let GS = NativeModules.JSGraphicStippleLine;
 
+/**
+ * @class GraphicStippleLine
+ */
 export default class GraphicStippleLine extends Graphic{
 
   constructor(){
@@ -39,6 +42,7 @@ export default class GraphicStippleLine extends Graphic{
 
   /**
    * 设置起点
+   * @memberOf GraphicStippleLine
    * @param point
    * @returns {Promise<void>}
    */
@@ -52,6 +56,7 @@ export default class GraphicStippleLine extends Graphic{
 
   /**
    * 设置起点
+   * @memberOf GraphicStippleLine
    * @param point
    * @returns {Promise<void>}
    */
@@ -65,6 +70,7 @@ export default class GraphicStippleLine extends Graphic{
 
   /**
    * 设置线宽
+   * @memberOf GraphicStippleLine
    * @param width
    * @returns {Promise<void>}
    */
@@ -78,6 +84,7 @@ export default class GraphicStippleLine extends Graphic{
 
   /**
    * 设置虚线段长度
+   * @memberOf GraphicStippleLine
    * @param width
    * @returns {Promise<void>}
    */
@@ -91,6 +98,7 @@ export default class GraphicStippleLine extends Graphic{
 
   /**
    * 设置虚线间隔长度
+   * @memberOf GraphicStippleLine
    * @param len
    * @returns {Promise<void>}
    */
@@ -103,6 +111,7 @@ export default class GraphicStippleLine extends Graphic{
   }
   /**
    *获取起点的坐标点
+   * @memberOf GraphicStippleLine
    * @returns {Promise<Dot>}
    */
   async getStartPoint() {
@@ -118,6 +127,7 @@ export default class GraphicStippleLine extends Graphic{
 
   /**
    *获取起点的坐标点
+   * @memberOf GraphicStippleLine
    * @returns {Promise<Dot>}
    */
   async GetEndPoint() {
@@ -135,6 +145,7 @@ export default class GraphicStippleLine extends Graphic{
 
   /**
    * 获取线的宽度
+   * @memberOf GraphicStippleLine
    * @returns {Promise<*>}
    */
   async getLineWidth() {
@@ -148,6 +159,7 @@ export default class GraphicStippleLine extends Graphic{
 
   /**
    * 获取虚线长度
+   * @memberOf GraphicStippleLine
    * @returns {Promise<*>}
    */
   async getSegLength() {
@@ -161,6 +173,7 @@ export default class GraphicStippleLine extends Graphic{
 
   /**
    * 获取虚线间隔长度
+   * @memberOf GraphicStippleLine
    * @returns {Promise<*>}
    */
   async getIntervalLength() {
@@ -174,6 +187,7 @@ export default class GraphicStippleLine extends Graphic{
 
   /**
    * 获取线长度
+   * @memberOf GraphicStippleLine
    * @returns {Promise<*|*>}
    */
   async getLength() {

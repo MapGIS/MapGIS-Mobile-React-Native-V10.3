@@ -8,6 +8,9 @@ let FP = NativeModules.JSFeaturePagedResult;
 import Rect from './Rect.js';
 import Feature from './Feature.js';
 
+/**
+ * @class FeaturePagedResult
+ */
 export default class FeaturePagedResult {
     /**
      * 构造一个新的 FeaturePagedResult 对象。
@@ -27,6 +30,7 @@ export default class FeaturePagedResult {
 
     /**
      *  获取要素总数
+     *  @memberOf FeaturePagedResult
      * @returns {Promise<*|*>}
      */
     async getTotalFeatureCount() {
@@ -40,7 +44,7 @@ export default class FeaturePagedResult {
 
     /**
      * 获取页数
-     *
+     *@memberOf FeaturePagedResult
      * @return 页数
      */
     async getPageCount() {
@@ -54,6 +58,7 @@ export default class FeaturePagedResult {
 
     /**
      * 返回页码对应的结果，页码从一开始计数
+     * @memberOf FeaturePagedResult
      * @param pageNumber 页码
      * @return 返回页码pageNumber对应的结果
      */
@@ -74,6 +79,7 @@ export default class FeaturePagedResult {
 
     /**
      * 获取属性结构
+     * @memberOf FeaturePagedResult
      * @returns {Promise<void>}
      */
     async getFields() {

@@ -9,6 +9,9 @@ import PointF from "./PointF";
 import Dot from "./Dot";
 let GI = NativeModules.JSGraphicImage;
 
+ /**
+* @constructor GraphicImage
+ */
 export default class GraphicImage extends Graphic{
 
   constructor(){
@@ -41,7 +44,8 @@ export default class GraphicImage extends Graphic{
 
   /**
    * 设置图片
-   * @param image
+   * @memberOf GraphicImage
+   * @param {Object} image
    * @returns {Promise<void>}
    */
   async setImage(image) {
@@ -55,7 +59,8 @@ export default class GraphicImage extends Graphic{
 
   /**
    * 设置位置
-   * @param point
+   * @memberOf GraphicImage
+   * @param {Object} point
    * @returns {Promise<void>}
    */
   async setPoint(point) {
@@ -68,7 +73,8 @@ export default class GraphicImage extends Graphic{
 
   /**
    * 设置锚点
-   * @param anchorPoint 图片锚点的位置：左下角为(0,0),右上角为(1,1)
+   * @memberOf GraphicImage
+   * @param {Object} anchorPoint 图片锚点的位置：左下角为(0,0),右上角为(1,1)
    * @returns {Promise<void>}
    */
   async setAnchorPoint(anchorPoint) {
@@ -83,6 +89,7 @@ export default class GraphicImage extends Graphic{
 
   /**
    * 获取锚点
+   * @memberOf GraphicImage
    * @returns {Promise<*>}
    */
   async getAnchorPoint() {
@@ -99,7 +106,8 @@ export default class GraphicImage extends Graphic{
 
   /**
    * 设置透明度
-   * @param alpha 透明度：0(透明)-255(不透明)
+   * @memberOf GraphicImage
+   * @param {number} alpha 透明度：0(透明)-255(不透明)
    * @returns {Promise<void>}
    */
   async setAlpha(alpha) {
@@ -112,7 +120,8 @@ export default class GraphicImage extends Graphic{
 
   /**
    * 设置旋转角度
-   * @param rotateAngle
+   * @memberOf GraphicImage
+   * @param {Number} rotateAngle
    * @returns {Promise<void>}
    */
   async setRotateAngle(rotateAngle) {
@@ -125,7 +134,8 @@ export default class GraphicImage extends Graphic{
 
   /**
    * 设置是否随地图倾斜
-   * @param IsSlope
+   * @memberOf GraphicImage
+   * @param {Boolean} IsSlope
    * @returns {Promise<void>}
    */
   async setSlope(IsSlope) {
@@ -138,6 +148,7 @@ export default class GraphicImage extends Graphic{
 
   /**
    * 获取图片
+   * @memberOf GraphicImage
    * @returns {Promise<*>}
    */
   async getImage() {
@@ -153,6 +164,7 @@ export default class GraphicImage extends Graphic{
 
   /**
    * 获取位置
+   * @memberOf GraphicImage
    * @returns {Promise<Dot>}
    */
   async getPoint() {
@@ -167,6 +179,7 @@ export default class GraphicImage extends Graphic{
   }
   /**
    * 获取旋转角度
+   * @memberOf GraphicImage
    * @returns {Promise<*>}
    */
   async getRotateAngle() {
@@ -180,6 +193,7 @@ export default class GraphicImage extends Graphic{
 
   /**
    * 获取透明度
+   * @memberOf GraphicImage
    * @returns {Promise<*>}
    */
   async getAlpha() {
@@ -193,6 +207,7 @@ export default class GraphicImage extends Graphic{
 
   /**
    * 获取是否随地图倾斜
+   * @memberOf GraphicImage
    * @returns {Promise<*>}
    */
   async isSlope() {
@@ -206,6 +221,7 @@ export default class GraphicImage extends Graphic{
 
   /**
    * 获取图片宽度
+   * @memberOf GraphicImage
    * @returns {Promise<*>}
    */
   async getImageWidth() {
@@ -219,6 +235,7 @@ export default class GraphicImage extends Graphic{
 
   /**
    * 获取图片高度
+   * @memberOf GraphicImage
    * @returns {Promise<*>}
    */
   async getImageHeight() {

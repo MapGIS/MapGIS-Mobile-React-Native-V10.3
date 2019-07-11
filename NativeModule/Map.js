@@ -7,7 +7,10 @@ let M = NativeModules.JSMap;
 import Rect from './Rect.js';
 import MapLayer from './MapLayer.js';
 import Dot from './Dot.js';
-
+/**
+ * @class Map
+ * @description 地图类，负责地图显示环境的管理。
+ */
 export default class Map {
     /**
      * 构造一个新的 Map 对象。
@@ -27,7 +30,8 @@ export default class Map {
 
     /**
      * 设置地图名称
-     * @param name
+     * @memberOf Map
+     * @param {String} name
      * @returns {Promise<void>}
      */
     async setName(name) {
@@ -40,7 +44,8 @@ export default class Map {
 
     /**
      * 设置地图描述信息
-     * @param Description
+     * @memberOf Map
+     * @param {String} Description
      * @returns {Promise<void>}
      */
     async setDescription(Description) {
@@ -53,7 +58,8 @@ export default class Map {
 
     /**
      * 设置地图范围
-     * @param EntireRange
+     * @memberOf Map
+     * @param {Object} EntireRange
      * @returns {Promise<void>}
      */
     async setEntireRange(EntireRange) {
@@ -66,7 +72,8 @@ export default class Map {
 
     /**
      * 设置地图最小显示比
-     * @param MinScale
+     * @memberOf Map
+     * @param {number} MinScale
      * @returns {Promise<void>}
      */
     async setMinScale(MinScale) {
@@ -79,7 +86,8 @@ export default class Map {
 
     /**
      * 设置地图最小大显示比
-     * @param MaxScale
+     * @memberOf Map
+     * @param {Number} MaxScale
      * @returns {Promise<void>}
      */
     async setMaxScale(MaxScale) {
@@ -92,7 +100,8 @@ export default class Map {
 
     /**
      * 设置修订显示比数目
-     * @param FixedScalesCount
+     * @memberOf Map
+     * @param {Number} FixedScalesCount
      * @returns {Promise<void>}
      */
     async setFixedScalesCount(FixedScalesCount) {
@@ -105,7 +114,8 @@ export default class Map {
 
     /**
      * 设置修订后的显示比
-     * @param scale
+     * @memberOf Map
+     * @param {Number} scale
      * @returns {Promise<void>}
      */
     async setFixedScale(index,scale) {
@@ -118,7 +128,8 @@ export default class Map {
 
     /**
      * 设置地图范围
-     * @param EntireRange
+     * @memberOf Map
+     * @param  {boolean} IsCustomEntireRange
      * @returns {Promise<void>}
      */
     async setIsCustomEntireRange(IsCustomEntireRange) {
@@ -131,6 +142,7 @@ export default class Map {
 
     /**
      * 获取地图名称
+     * @memberOf Map
      * @returns {Promise<*|*>}
      */
     async getName() {
@@ -144,6 +156,7 @@ export default class Map {
 
     /**
      * 获取地图描述
+     * @memberOf Map
      * @returns {Promise<*>}
      */
     async getDescription() {
@@ -157,6 +170,7 @@ export default class Map {
 
     /**
      * 获取地图范围
+     * @memberOf Map
      * @returns {Promise<Rect>}
      */
     async getEntireRange() {
@@ -172,6 +186,7 @@ export default class Map {
 
     /**
      * 获取最小显示比
+     * @memberOf Map
      * @returns {Promise<*>}
      */
     async getMinScale() {
@@ -185,6 +200,7 @@ export default class Map {
 
     /**
      * 获取最大显示比
+     * @memberOf Map
      * @returns {Promise<*>}
      */
     async getMaxScale() {
@@ -198,6 +214,7 @@ export default class Map {
 
     /**
      * 获取地图节点图层数目
+     * @memberOf Map
      * @return 返回节点图层数
      */
     async getLayerCount() {
@@ -211,6 +228,7 @@ export default class Map {
 
     /**
      * 获取图层的名称
+     * @memberOf Map
      * @param index
      * @returns {Promise<MapLayer>}
      */
@@ -227,6 +245,7 @@ export default class Map {
 
     /**
      * 获取地图节渲染模式
+     * @memberOf Map
      * @return 返回节点图层数
      */
     async getIsDirty() {
@@ -240,8 +259,9 @@ export default class Map {
 
     /**
      * 添加图层
-     * @param layer 图层
-     * @return 成功返回图层索引（从0开始）
+     * @memberOf Map
+     * @param {Object} layer 图层
+     * @returns {Promise<*>}
      */
     async append(layer) {
         try {
@@ -251,12 +271,14 @@ export default class Map {
             console.error(e);
         }
     }
+
     /**
      * 插入图层
      *
+     * @memberOf Map
      * @param index 索引
      * @param layer 图层
-     * @return 成功返回1，失败返回0
+     * @returns {Promise<*|*|NavigationPreloadState>}
      */
     async insert(index,layer) {
         try {
@@ -266,11 +288,12 @@ export default class Map {
             console.error(e);
         }
     }
+
     /**
      * 移除图层
-     *
-     * @param layer 图层
-     * @return 成功返回true，失败返回false
+     * @memberOf Map
+     * @param {Object} layer 图层
+     * @returns {Promise<*>}
      */
     async remove(layer) {
         try {
@@ -283,7 +306,7 @@ export default class Map {
 
     /**
      * 从FromIndex开始移除Count个图层
-     *
+     * @memberOf Map
      * @param fromIndex 开始索引
      * @param count 移除个数
      * @return 成功返回true，失败返回false
@@ -299,7 +322,7 @@ export default class Map {
 
     /**
      * 移除索引为index的图层
-     *
+     * @memberOf Map
      * @param index 图层索引
      * @return 成功返回true，失败返回false
      */
@@ -314,7 +337,7 @@ export default class Map {
 
     /**
      * 移除所有图层，同时销毁图层
-     *
+     * @memberOf Map
      * @return 成功返回true，失败返回false
      */
     async removeAll() {
@@ -328,8 +351,8 @@ export default class Map {
 
     /**
      * 移除图层，不会销毁图层
-     *
-     * @param layer 图层
+     * @memberOf Map
+     * @param {Object}layer 图层
      * @return 成功返回1，失败返回0
      */
     async dragOut(layer) {
@@ -343,7 +366,7 @@ export default class Map {
 
     /**
      * 拽入图层
-     *
+     * @memberOf Map
      * @param index 索引
      * @param layer 图层
      * @return 成功返回1，失败返回0
@@ -358,8 +381,8 @@ export default class Map {
     }
     /**
      * 根据名称查找图层
-     *
-     * @param name 图层名称
+     * @memberOf Map
+     * @param {String} name 图层名称
      * @return 成功返回索引，失败返回-1
      */
     async indexOf(name) {
@@ -372,7 +395,7 @@ export default class Map {
     }
     /**
      * 根据图层查找索引
-     *
+     * @memberOf Map
      * @param layer 图层
      * @return 成功返回索引，失败返回-1
      */
@@ -386,7 +409,7 @@ export default class Map {
     }
     /**
      * 移动图层到最下面（最后绘制）
-     *
+     * @memberOf Map
      * @param index 图层索引
      * @return 成功返回true，失败返回false
      */
@@ -400,7 +423,7 @@ export default class Map {
     }
     /**
      * 移动图层到最上面（最先绘制）
-     *
+     * @memberOf Map
      * @param index 图层索引
      * @return 成功返回true，失败返回false
      */
@@ -414,7 +437,7 @@ export default class Map {
     }
     /**
      * 下移图层
-     *
+     * @memberOf Map
      * @param index 图层索引
      * @return 成功返回true，失败返回false
      */
@@ -428,7 +451,7 @@ export default class Map {
     }
     /**
      * 上移图层
-     *
+     * @memberOf Map
      * @param index 图层索引
      * @return 成功返回true，失败返回false
      */
@@ -442,7 +465,7 @@ export default class Map {
     }
     /**
      * 将图层从fromIndex移至toIndex
-     *
+     * @memberOf Map
      * @param fromIndex 移动前图层索引
      * @param toIndex 移动后图层索引
      * @return 成功返回true，失败返回false
@@ -458,9 +481,9 @@ export default class Map {
 
     /**
      * 设置地图旋转中心
+     * @memberOf Map
      * @param center
      * @returns {Promise<void>}
-     * @constructor
      */
     async SetRotateCenter(center) {
         try {
@@ -472,8 +495,8 @@ export default class Map {
 
     /**
      * 获取地图旋转中心
+     * @memberOf Map
      * @returns {Promise<Dot>}
-     * @constructor
      */
     async GetRotateCenter() {
         try {
@@ -490,9 +513,9 @@ export default class Map {
 
     /**
      * 设置地图旋转角
+     * @memberOf Map
      * @param angle
      * @returns {Promise<void>}
-     * @constructor
      */
     async SetRotateAngle(angle) {
         try {
@@ -504,8 +527,8 @@ export default class Map {
 
     /**
      * 获取地图旋转角
+     * @memberOf Map
      * @returns {Promise<*>}
-     * @constructor
      */
     async GetRotateAngle() {
         try {
@@ -517,6 +540,7 @@ export default class Map {
     }
     /**
      * 设置显示范围
+     * @memberOf Map
      */
     async setViewRange(rect) {
         try {
@@ -527,6 +551,7 @@ export default class Map {
     }
     /**
      * 获取显示范围
+     * @memberOf Map
      * @return 显示范围
      */
     async getViewRange() {

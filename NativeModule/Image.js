@@ -5,6 +5,9 @@
 import { NativeModules } from 'react-native';
 let X = NativeModules.JSImage;
 
+/**
+ * @class Image
+ */
 export default class Image {
   /**
    * 构造一个新的 Image 对象。
@@ -31,6 +34,7 @@ export default class Image {
 
   /**
    * 设置图片Base64Url
+   * @memberOf Image
    * @returns {Promise<void>}
    */
   async setBase64Url(base64Url) {
@@ -43,6 +47,7 @@ export default class Image {
 
   /**
    * 获取图片宽度
+   * @memberOf Image
    * @returns {Promise<*>}
    */
   async getWidth() {
@@ -56,6 +61,7 @@ export default class Image {
 
   /**
    * 获取图片高度
+   * @memberOf Image
    * @returns {Promise<*>}
    */
   async getHeight() {

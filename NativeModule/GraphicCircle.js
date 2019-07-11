@@ -6,6 +6,9 @@ import { NativeModules } from 'react-native';
 import Graphic from "./Graphic";
 let GC = NativeModules.JSGraphicCircle;
 
+/**
+ * @class GraphicCircle
+ */
 export default class GraphicCircle extends Graphic{
 
   constructor(){
@@ -38,6 +41,7 @@ export default class GraphicCircle extends Graphic{
 
   /**
    * 设置圆心位置和半径
+   * @memberOf GraphicCircle
    * @param point
    * @param radius
    * @returns {Promise<void>}
@@ -52,6 +56,7 @@ export default class GraphicCircle extends Graphic{
 
   /**
    * 设置圆心位置
+   * @memberOf GraphicCircle
    * @param point
    * @returns {Promise<void>}
    */
@@ -65,6 +70,7 @@ export default class GraphicCircle extends Graphic{
 
   /**
    * 设置半径
+   * @memberOf GraphicCircle
    * @param radius
    * @returns {Promise<void>}
    */
@@ -78,6 +84,7 @@ export default class GraphicCircle extends Graphic{
 
   /**
    * 获取是否符号化显示
+   * @memberOf GraphicCircle
    * @returns {Promise<*>}
    */
   async getRadius() {
@@ -91,6 +98,7 @@ export default class GraphicCircle extends Graphic{
 
   /**
    * 设置圆边界线的宽度
+   * @memberOf GraphicCircle
    * @param width
    * @returns {Promise<void>}
    */
@@ -104,6 +112,7 @@ export default class GraphicCircle extends Graphic{
 
   /**
    * 获取圆边界线的宽度
+   * @memberOf GraphicCircle
    * @returns {Promise<*>}
    */
   async getBorderlineWidth() {
@@ -117,6 +126,7 @@ export default class GraphicCircle extends Graphic{
 
   /**
    * 设置圆边界线的颜色
+   * @memberOf GraphicCircle
    * @param color eg:'rgba(128, 128, 128, 0.5)'
    * @returns {Promise<void>}
    */
@@ -129,6 +139,7 @@ export default class GraphicCircle extends Graphic{
   }
   /**
    * 获取圆边界线的颜色
+   * @memberOf GraphicCircle
    * @returns {Promise<*>}
    */
   async getBorderlineColor() {
@@ -142,6 +153,7 @@ export default class GraphicCircle extends Graphic{
 
   /**
    * 设置半径是否为像素单位(默认情况下为地图单位)
+   * @memberOf GraphicCircle
    * @param pixel
    * @returns {Promise<void>}
    */
@@ -155,6 +167,7 @@ export default class GraphicCircle extends Graphic{
 
   /**
    * 获取半径是否为像素单位
+   * @memberOf GraphicCircle
    * @returns {Promise<*>}
    */
   async isRadiusByPixel() {

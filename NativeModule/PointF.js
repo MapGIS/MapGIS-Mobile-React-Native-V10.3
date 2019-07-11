@@ -5,6 +5,9 @@
 import { NativeModules } from 'react-native';
 let X = NativeModules.JSPointF;
 
+/**
+ * @class PointF
+ */
 export default class PointF {
   /**
    * 构造一个新的 PointF 对象。
@@ -31,6 +34,7 @@ export default class PointF {
 
   /**
    * 获取X坐标
+   * @memberOf PointF
    * @returns {Promise<*>}
    */
   async getX() {
@@ -44,6 +48,7 @@ export default class PointF {
 
   /**
    * 获取Y坐标
+   * @memberOf PointF
    * @returns {Promise<*>}
    */
   async getY() {

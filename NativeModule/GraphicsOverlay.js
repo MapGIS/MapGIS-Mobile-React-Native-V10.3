@@ -8,6 +8,9 @@ let X = NativeModules.JSGraphicsOverlay;
 import Graphic from './Graphic.js';
 import Feature from "./Feature";
 
+/**
+ * @class GraphicsOverlay
+ */
 export default class GraphicsOverlay {
     /**
      * 构造一个新的 GraphicsOverlay 对象。
@@ -27,6 +30,9 @@ export default class GraphicsOverlay {
 
     /**
      * 设置层名称
+     * @memberOf GraphicsOverlay
+     * @param name
+     * @returns {Promise<void>}
      */
     async setName(name) {
         try {
@@ -38,6 +44,7 @@ export default class GraphicsOverlay {
 
     /**
      * 获取层名称
+     * @memberOf GraphicsOverlay
      * @returns {Promise<*>}
      */
     async getName() {
@@ -52,7 +59,7 @@ export default class GraphicsOverlay {
 
     /**
      * 获取图形层的可见状态
-     *
+     *@memberOf GraphicsOverlay
      * @return 返回层的状态 0 不可见 1 可见
      */
     async getState() {
@@ -67,6 +74,7 @@ export default class GraphicsOverlay {
 
     /**
      * 设置图形层的可见状态
+     * @memberOf GraphicsOverlay
      * @param state
      */
     async setState(state) {
@@ -79,6 +87,7 @@ export default class GraphicsOverlay {
 
     /**
      * 添加一个图形
+     * @memberOf GraphicsOverlay
      * @param graphic
      */
     async addGraphic(graphic) {
@@ -91,6 +100,9 @@ export default class GraphicsOverlay {
 
     /**
      * 添加一组图形
+     * @memberOf GraphicsOverlay
+     * @param graphicArray
+     * @returns {Promise<void>}
      */
     async addGraphics(graphicArray) {
         try {
@@ -102,6 +114,9 @@ export default class GraphicsOverlay {
 
     /**
      * 删除一个图形
+     *  @memberOf GraphicsOverlay
+     * @param graphic
+     * @returns {Promise<void>}
      */
     async removeGraphic(graphic) {
         try {
@@ -113,6 +128,9 @@ export default class GraphicsOverlay {
 
     /**
      * 删除一组图形
+     * @memberOf GraphicsOverlay
+     * @param graphicArray
+     * @returns {Promise<void>}
      */
     async removeGraphics(graphicArray) {
         try {
@@ -125,6 +143,7 @@ export default class GraphicsOverlay {
 
     /**
      * 删除所有图形
+     * @memberOf GraphicsOverlay
      */
     async removeAllGraphics() {
         try {
@@ -136,6 +155,7 @@ export default class GraphicsOverlay {
 
     /**
      * 返回所有图形
+     * @memberOf GraphicsOverlay
      */
     async getAllGraphics() {
         try {
@@ -154,6 +174,7 @@ export default class GraphicsOverlay {
 
     /**
      * 返回所有图形的数目
+     * @memberOf GraphicsOverlay
      */
     async getGraphicCount() {
         try {
@@ -168,6 +189,7 @@ export default class GraphicsOverlay {
 
     /**
      * 获取指定图形的索引
+     * @memberOf GraphicsOverlay
      * @param graphic
      * @returns {Promise<*>}
      */
@@ -183,6 +205,7 @@ export default class GraphicsOverlay {
 
     /**
      * 获取指定索引的图形
+     * @memberOf GraphicsOverlay
      * @param index
      */
     async getGraphic(index) {
@@ -199,6 +222,7 @@ export default class GraphicsOverlay {
 
     /**
      * 插入图形
+     * @memberOf GraphicsOverlay
      * @param index
      * @param graphic
      * @returns {Promise<*>} returnID > 0 插入成功，returnID < 0 插入失败
@@ -215,7 +239,7 @@ export default class GraphicsOverlay {
 
     /**
      * 删除指定索引的图形
-     *
+     *@memberOf GraphicsOverlay
      * @param index
      */
     async removeGraphic(index) {
@@ -228,7 +252,7 @@ export default class GraphicsOverlay {
 
     /**
      * 移动图形的叠放次序
-     *
+     *@memberOf GraphicsOverlay
      * @param fromIndex
      * @param toIndex
      */
@@ -242,6 +266,7 @@ export default class GraphicsOverlay {
 
     /**
      * 删除指定属性的图形
+     * @memberOf GraphicsOverlay
      * @param 属性名
      * @param 属性值
      */
@@ -255,7 +280,7 @@ export default class GraphicsOverlay {
 
     /**
      * 获取指定属性的图形
-     *
+     *@memberOf GraphicsOverlay
      * @param 属性名
      * @param 属性值
      */

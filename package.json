@@ -15,10 +15,20 @@
     "@babel/runtime": "^7.4.5",
     "babel-jest": "^24.8.0",
     "jest": "^24.8.0",
+    "jsdoc": "^3.6.2",
     "metro-react-native-babel-preset": "^0.54.1",
     "react-test-renderer": "16.8.3"
   },
   "jest": {
     "preset": "react-native"
-  }
+  },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "http://192.168.82.193/mobile/reactnative/mapgis-mobile-reactnative.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }

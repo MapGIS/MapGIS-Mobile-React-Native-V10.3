@@ -6,7 +6,9 @@ import { NativeModules } from 'react-native';
 import Graphic from "./Graphic";
 import Dot from "./Dot";
 let GP = NativeModules.JSGraphicPoint;
-
+/**
+ * @constructor GraphicPoint
+ */
 export default class GraphicPoint extends Graphic{
 
   constructor(){
@@ -40,7 +42,8 @@ export default class GraphicPoint extends Graphic{
 
   /**
    * 设置点的位置
-   * @param point
+   * @memberOf GraphicPoint
+   * @param {Object} point
    * @returns {Promise<void>}
    */
   async setPoint(point) {
@@ -53,6 +56,7 @@ export default class GraphicPoint extends Graphic{
 
   /**
    * 获取点的位置
+   * @memberOf GraphicPoint
    * @returns {Promise<*>}
    */
   async getPoint() {
@@ -69,7 +73,8 @@ export default class GraphicPoint extends Graphic{
 
   /**
    *设置点的大小
-   * @param size
+   * @memberOf GraphicPoint
+   * @param {Number} size
    * @returns {Promise<void>}
    */
   async setSize(size) {
@@ -81,6 +86,7 @@ export default class GraphicPoint extends Graphic{
   }
   /**
    * 获取点的大小
+   * @memberOf GraphicPoint
    * @returns {Promise<*>}
    */
   async getSize() {
@@ -94,8 +100,9 @@ export default class GraphicPoint extends Graphic{
 
   /**
    * 设置点的位置及大小
-   * @param point
-   * @param size
+   *  @memberOf GraphicPoint
+   * @param {Object} point
+   * @param {Number} size
    * @returns {Promise<void>}
    */
   async setPoint(point,size) {

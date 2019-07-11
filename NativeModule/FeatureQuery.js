@@ -9,6 +9,9 @@ import FeaturePagedResult from './FeaturePagedResult.js';
 import QueryBound from './QueryBound.js';
 import Graphic from "./Graphic";
 
+/**
+ * @class FeatureQuery
+ */
 export default class FeatureQuery {
     /**
      * 构造一个新的 FeatureQuery 对象。
@@ -28,6 +31,7 @@ export default class FeatureQuery {
 
     /**
      * 设置属性查询条件
+     * @memberOf FeatureQuery
      * @param whereClause 属性查询条件
      */
     async setWhereClause(whereClause) {
@@ -40,6 +44,7 @@ export default class FeatureQuery {
 
     /**
      * 获取要素属性
+     * @memberOf FeatureQuery
      */
     async getWhereClause() {
         try {
@@ -50,10 +55,9 @@ export default class FeatureQuery {
         }
     }
 
-
-
     /**
      * 设置查询范围
+     * @memberOf FeatureQuery
      * @param queryBound 查询范围
      */
     async setQueryBound(queryBound) {
@@ -66,7 +70,7 @@ export default class FeatureQuery {
 
     /**
      * 获取查询范围
-     *
+     *@memberOf FeatureQuery
      * @return 查询范围
      */
     async getQueryBound() {
@@ -82,6 +86,7 @@ export default class FeatureQuery {
 
     /**
      * 设置空间过滤条件,缺省是SPATIAL_REL_MBROVERLAP
+     * @memberOf FeatureQuery
      * @param spatialRel 空间过滤条件
      */
     async setSpatialFilterRelationship(spatialRel) {
@@ -93,6 +98,7 @@ export default class FeatureQuery {
     }
     /**
      * 获取空间过滤条件
+     * @memberOf FeatureQuery
      */
     async getSpatialFilterRelationship() {
         try {
@@ -104,6 +110,7 @@ export default class FeatureQuery {
     }
     /**
      * 设置是否返回几何数据标志,缺省为true
+     * @memberOf FeatureQuery
      * @param returnGeometry 返回几何数据
      */
     async setReturnGeometry(returnGeometry) {
@@ -116,6 +123,7 @@ export default class FeatureQuery {
 
     /**
      * 获取是否返回几何数据标志
+     * @memberOf FeatureQuery
      */
     async isReturnGeometry() {
         try {
@@ -127,7 +135,7 @@ export default class FeatureQuery {
     }
     /**
      * 设置是否返回属性数据标志,缺省为true
-     *
+     * @memberOf FeatureQuery
      * @param returnAttribute 返回属性数据
      */
     async setReturnAttribute(returnAttribute) {
@@ -139,6 +147,7 @@ export default class FeatureQuery {
     }
     /**
      * 获取是否返回属性数据标志
+     * @memberOf FeatureQuery
      */
     async isReturnAttribute() {
         try {
@@ -150,7 +159,7 @@ export default class FeatureQuery {
     }
     /**
      * 设置是否返回属性数据标志,缺省为true
-     *
+     * @memberOf FeatureQuery
      * @param returnAttribute 返回属性数据
      */
     async setReturnGeoInfo(returnGeoInfo) {
@@ -162,6 +171,7 @@ export default class FeatureQuery {
     }
     /**
      * 获取是否返回属性数据标志
+     * @memberOf FeatureQuery
      */
     async isReturnGeoInfo() {
         try {
@@ -173,7 +183,7 @@ export default class FeatureQuery {
     }
     /**
      * 设置返回的属性字段信息,字段名间使用','分割
-     *
+     * @memberOf FeatureQuery
      * @param outFields 字段名间使用','分割
      */
     async setOutFields(outFields) {
@@ -185,6 +195,7 @@ export default class FeatureQuery {
     }
     /**
      * 获取返回的属性字段信息
+     * @memberOf FeatureQuery
      */
     async getOutFields() {
         try {
@@ -196,6 +207,7 @@ export default class FeatureQuery {
     }
     /**
      * 设置每页结果数目,缺省为10条
+     *  @memberOf FeatureQuery
      * @param pageSize 每页结果数目
      */
     async setPageSize(pageSize) {
@@ -207,6 +219,7 @@ export default class FeatureQuery {
     }
     /**
      * 获取每页结果数目
+     * @memberOf FeatureQuery
      */
     async getPageSize() {
         try {
@@ -219,6 +232,7 @@ export default class FeatureQuery {
 
     /**
      * 要素查询
+     * @memberOf FeatureQuery
      * @returns {Promise<FeaturePagedResult>}
      */
     async query() {
