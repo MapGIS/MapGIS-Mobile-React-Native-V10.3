@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: GraphicsOverlay.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: GraphicsOverlay.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @content 覆盖物对象功能组件
+ * @author fjl 2019-6-21 下午2:52:36
+ */
+import {NativeModules} from 'react-native';
+
+let X = NativeModules.JSGraphicsOverlay;
+import Graphic from './Graphic.js';
+import Feature from "./Feature";
+
+/**
+ * @class GraphicsOverlay
+ */
+export default class GraphicsOverlay {
+    /**
+     * 构造一个新的 GraphicsOverlay 对象。
+     * @memberOf GraphicsOverlay
+     * @returns {Promise.&lt;GraphicsOverlay>}
+     */
+    async createObj() {
+        try {
+            var {GraphicsOverlayId} = await X.createObj();
+            var graphicsOverlay = new GraphicsOverlay();
+            graphicsOverlay._MGGraphicsOverlayId = GraphicsOverlayId;
+            return graphicsOverlay;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置层名称
+     * @memberOf GraphicsOverlay
+     * @param name
+     * @returns {Promise&lt;void>}
+     */
+    async setName(name) {
+        try {
+            await X.setName(this._MGGraphicsOverlayId, name);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取层名称
+     * @memberOf GraphicsOverlay
+     * @returns {Promise&lt;*>}
+     */
+    async getName() {
+        try {
+            let name = await X.getName(this._MGGraphicsOverlayId);
+
+            return name;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取图形层的可见状态
+     *@memberOf GraphicsOverlay
+     * @return 返回层的状态 0 不可见 1 可见
+     */
+    async getState() {
+        try {
+            let state = await X.getState(this._MGGraphicsOverlayId);
+
+            return state;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置图形层的可见状态
+     * @memberOf GraphicsOverlay
+     * @param state
+     */
+    async setState(state) {
+        try {
+            await X.setState(this._MGGraphicsOverlayId, state);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 添加一个图形
+     * @memberOf GraphicsOverlay
+     * @param graphic
+     */
+    async addGraphic(graphic) {
+        try {
+            await X.addGraphic(this._MGGraphicsOverlayId, graphic._MGGraphicId);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 添加一组图形
+     * @memberOf GraphicsOverlay
+     * @param graphicArray
+     * @returns {Promise&lt;void>}
+     */
+    async addGraphics(graphicArray) {
+        try {
+            await X.addGraphics(this._MGGraphicsOverlayId, graphicArray);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 删除一个图形
+     *  @memberOf GraphicsOverlay
+     * @param graphic
+     * @returns {Promise&lt;void>}
+     */
+    async removeGraphic(graphic) {
+        try {
+            await X.removeGraphic(this._MGGraphicsOverlayId, graphic._MGGraphicId);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 删除一组图形
+     * @memberOf GraphicsOverlay
+     * @param graphicArray
+     * @returns {Promise&lt;void>}
+     */
+    async removeGraphics(graphicArray) {
+        try {
+
+            await X.removeGraphic(this._MGGraphicsOverlayId, graphicArray);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 删除所有图形
+     * @memberOf GraphicsOverlay
+     */
+    async removeAllGraphics() {
+        try {
+            await X.removeAllGraphics(this._MGGraphicsOverlayId);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 返回所有图形
+     * @memberOf GraphicsOverlay
+     */
+    async getAllGraphics() {
+        try {
+            var objArr = [];
+            let graphicArray = await X.getAllGraphics(this._MGGraphicsOverlayId);
+            for (var i = 0; i &lt; graphicArray.length - 1; i++) {
+                var graphic = new Graphic();
+                graphic._MGGraphicId = values[i];
+                objArr.push(graphic);
+            }
+            return objArr;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 返回所有图形的数目
+     * @memberOf GraphicsOverlay
+     */
+    async getGraphicCount() {
+        try {
+            let count = await X.getGraphicCount(this._MGGraphicsOverlayId);
+
+            return count;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+
+    /**
+     * 获取指定图形的索引
+     * @memberOf GraphicsOverlay
+     * @param graphic
+     * @returns {Promise&lt;*>}
+     */
+    async indexOf(graphic) {
+        try {
+            let index = await X.indexOf(this._MGGraphicsOverlayId);
+
+            return index;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取指定索引的图形
+     * @memberOf GraphicsOverlay
+     * @param index
+     */
+    async getGraphic(index) {
+        try {
+            let {GraphicId} = await X.getGraphic(this._MGGraphicsOverlayId, index);
+            var graphic = new Graphic();
+            graphic._MGGraphicId = GraphicId;
+            return graphic;
+            return graphic;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 插入图形
+     * @memberOf GraphicsOverlay
+     * @param index
+     * @param graphic
+     * @returns {Promise&lt;*>} returnID > 0 插入成功，returnID &lt; 0 插入失败
+     */
+    async insertGraphic(index, graphic) {
+        try {
+            let returnID = await X.insertGraphic(this._MGGraphicsOverlayId, index, graphic);
+
+            return returnID;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 删除指定索引的图形
+     *@memberOf GraphicsOverlay
+     * @param index
+     */
+    async removeGraphic(index) {
+        try {
+            await X.removeGraphic(this._MGGraphicsOverlayId, index);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 移动图形的叠放次序
+     *@memberOf GraphicsOverlay
+     * @param fromIndex
+     * @param toIndex
+     */
+    async moveGraphic(fromIndex, toIndex) {
+        try {
+            await X.moveGraphic(this._MGGraphicsOverlayId, fromIndex, toIndex);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 删除指定属性的图形
+     * @memberOf GraphicsOverlay
+     * @param 属性名
+     * @param 属性值
+     */
+    async removeGraphicByAttribute(name, value) {
+        try {
+            await X.removeGraphicByAttribute(this._MGGraphicsOverlayId, name, value);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取指定属性的图形
+     *@memberOf GraphicsOverlay
+     * @param 属性名
+     * @param 属性值
+     */
+    async getGraphicsByAttribute(name, value) {
+        try {
+            let graphicArray = await X.getGraphicsByAttribute(this._MGGraphicsOverlayId, name, value);
+            return graphicArray;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Dot.html">Dot</a></li><li><a href="Environment.html">Environment</a></li><li><a href="Feature.html">Feature</a></li><li><a href="FeaturePagedResult.html">FeaturePagedResult</a></li><li><a href="FeatureQuery.html">FeatureQuery</a></li><li><a href="Graphic.html">Graphic</a></li><li><a href="GraphicCircle.html">GraphicCircle</a></li><li><a href="GraphicImage.html">GraphicImage</a></li><li><a href="GraphicMultiPoint.html">GraphicMultiPoint</a></li><li><a href="GraphicPoint.html">GraphicPoint</a></li><li><a href="GraphicPolygon.html">GraphicPolygon</a></li><li><a href="GraphicPolylin.html">GraphicPolylin</a></li><li><a href="GraphicsOverlay.html">GraphicsOverlay</a></li><li><a href="GraphicsOverlays.html">GraphicsOverlays</a></li><li><a href="GraphicStippleLine.html">GraphicStippleLine</a></li><li><a href="GraphicText.html">GraphicText</a></li><li><a href="Image.html">Image</a></li><li><a href="Map.html">Map</a></li><li><a href="MapLayer.html">MapLayer</a></li><li><a href="MapView.html">MapView</a></li><li><a href="PointF.html">PointF</a></li><li><a href="QueryBound.html">QueryBound</a></li><li><a href="Rect.html">Rect</a></li><li><a href="VectorLayer.html">VectorLayer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#initialize">initialize</a></li><li><a href="global.html#setSystemLibraryPath">setSystemLibraryPath</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.2</a> on Thu Jul 11 2019 10:20:54 GMT+0800 (GMT+08:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

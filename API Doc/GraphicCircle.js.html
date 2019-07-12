@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: GraphicCircle.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: GraphicCircle.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @content 圆对象功能组件
+ * @author fjl 2019-6-24 下午2:52:36
+ */
+import { NativeModules } from 'react-native';
+import Graphic from "./Graphic";
+let GC = NativeModules.JSGraphicCircle;
+
+/**
+ * @class GraphicCircle
+ */
+export default class GraphicCircle extends Graphic{
+
+  constructor(){
+    super();
+    Object.defineProperty(this,"_MGGraphicCircleId",{
+      get:function () {
+        return this._MGGraphicId
+      },
+      set:function (_MGGraphicCircleId) {
+        this._MGGraphicId = _MGGraphicCircleId;
+      }
+    })
+  }
+
+  /**
+   * 构造一个新的 GraphicCircle 对象。
+   * @memberOf GraphicCircle
+   * @returns {Promise.&lt;GraphicCircle>}
+   */
+  async createObj() {
+    try {
+      var { GraphicCircleId } = await GC.createObj();
+      var graphicCircle = new GraphicCircle();
+      graphicCircle._MGGraphicCircleId = GraphicCircleId;
+      return graphicCircle;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 设置圆心位置和半径
+   * @memberOf GraphicCircle
+   * @param point
+   * @param radius
+   * @returns {Promise&lt;void>}
+   */
+  async setCenterAndRadius(point,radius) {
+    try {
+      await GC.setCenterAndRadius(this._MGGraphicCircleId, point._MGDotId,radius);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 设置圆心位置
+   * @memberOf GraphicCircle
+   * @param point
+   * @returns {Promise&lt;void>}
+   */
+  async setCenterPoint(point) {
+    try {
+      await GC.setCenterPoint(this._MGGraphicCircleId, point._MGDotId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 设置半径
+   * @memberOf GraphicCircle
+   * @param radius
+   * @returns {Promise&lt;void>}
+   */
+  async setRadius(radius) {
+    try {
+      await GC.setRadius(this._MGGraphicCircleId, radius);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取是否符号化显示
+   * @memberOf GraphicCircle
+   * @returns {Promise&lt;*>}
+   */
+  async getRadius() {
+    try {
+      let radius = await GC.getRadius(this._MGGraphicCircleId);
+      return radius;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 设置圆边界线的宽度
+   * @memberOf GraphicCircle
+   * @param width
+   * @returns {Promise&lt;void>}
+   */
+  async setBorderlineWidth(width) {
+    try {
+      await GC.setBorderlineWidth(this._MGGraphicCircleId, width);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取圆边界线的宽度
+   * @memberOf GraphicCircle
+   * @returns {Promise&lt;*>}
+   */
+  async getBorderlineWidth() {
+    try {
+      let borderlineWidth = await GC.getBorderlineWidth(this._MGGraphicCircleId);
+      return borderlineWidth;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 设置圆边界线的颜色
+   * @memberOf GraphicCircle
+   * @param color eg:'rgba(128, 128, 128, 0.5)'
+   * @returns {Promise&lt;void>}
+   */
+  async setBorderlineColor(color) {
+    try {
+      await GC.setBorderlineColor(this._MGGraphicCircleId, color);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+  /**
+   * 获取圆边界线的颜色
+   * @memberOf GraphicCircle
+   * @returns {Promise&lt;*>}
+   */
+  async getBorderlineColor() {
+    try {
+      let borderlineColor = await GC.getBorderlineColor(this._MGGraphicCircleId);
+      return borderlineColor;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 设置半径是否为像素单位(默认情况下为地图单位)
+   * @memberOf GraphicCircle
+   * @param pixel
+   * @returns {Promise&lt;void>}
+   */
+  async setRadiusByPixel(pixel) {
+    try {
+      await GC.setRadiusByPixel(this._MGGraphicCircleId, pixel);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取半径是否为像素单位
+   * @memberOf GraphicCircle
+   * @returns {Promise&lt;*>}
+   */
+  async isRadiusByPixel() {
+    try {
+      let isRadiusByPixel = await GC.isRadiusByPixel(this._MGGraphicCircleId);
+      return isRadiusByPixel;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Dot.html">Dot</a></li><li><a href="Environment.html">Environment</a></li><li><a href="Feature.html">Feature</a></li><li><a href="FeaturePagedResult.html">FeaturePagedResult</a></li><li><a href="FeatureQuery.html">FeatureQuery</a></li><li><a href="Graphic.html">Graphic</a></li><li><a href="GraphicCircle.html">GraphicCircle</a></li><li><a href="GraphicImage.html">GraphicImage</a></li><li><a href="GraphicMultiPoint.html">GraphicMultiPoint</a></li><li><a href="GraphicPoint.html">GraphicPoint</a></li><li><a href="GraphicPolygon.html">GraphicPolygon</a></li><li><a href="GraphicPolylin.html">GraphicPolylin</a></li><li><a href="GraphicsOverlay.html">GraphicsOverlay</a></li><li><a href="GraphicsOverlays.html">GraphicsOverlays</a></li><li><a href="GraphicStippleLine.html">GraphicStippleLine</a></li><li><a href="GraphicText.html">GraphicText</a></li><li><a href="Image.html">Image</a></li><li><a href="Map.html">Map</a></li><li><a href="MapLayer.html">MapLayer</a></li><li><a href="MapView.html">MapView</a></li><li><a href="PointF.html">PointF</a></li><li><a href="QueryBound.html">QueryBound</a></li><li><a href="Rect.html">Rect</a></li><li><a href="VectorLayer.html">VectorLayer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#initialize">initialize</a></li><li><a href="global.html#setSystemLibraryPath">setSystemLibraryPath</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.2</a> on Thu Jul 11 2019 10:20:54 GMT+0800 (GMT+08:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
