@@ -39,6 +39,20 @@ export default class Environment {
   }
 
   /**
+   * 请求授权
+   * @returns {Promise<void>}
+   */
+  async requestAuthorization() {
+    try {
+      await X.requestAuthorization(this._MGEnvironmentId);
+
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+
+  /**
    * 设置系统库路径
    * @param strPath
    * @returns {Promise<void>}

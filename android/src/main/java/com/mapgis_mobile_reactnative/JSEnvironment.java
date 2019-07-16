@@ -1,6 +1,7 @@
 package com.mapgis_mobile_reactnative;
 
 
+import android.app.Activity;
 import android.util.Log;
 
 import com.facebook.react.bridge.Arguments;
@@ -79,6 +80,25 @@ public class JSEnvironment extends ReactContextBaseJavaModule {
             String path = JSMapView.PHONE_SDCARD_PATH + File.separator + strRootPath;
             Environment.initialize(path,mContext);
             Log.d("initialize:",path);
+            promise.resolve(true);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void requestAuthorization(String environmentID, Promise promise){
+        try{
+            Activity activity = getCurrentActivity();
+            com.zondy.mapgis.android.environment.Environment.requestAuthorization(activity,new com.zondy.mapgis.android.environment.Environment.AuthorizeCallback()
+            {
+                @Override
+                public void onComplete() {
+                    Log.d("requestAuthorization:","请求授权成功！");
+                }
+            });
+
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }

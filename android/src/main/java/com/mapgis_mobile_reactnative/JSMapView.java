@@ -128,12 +128,12 @@ public class JSMapView extends ReactContextBaseJavaModule {
     public void loadFromFile(String mapViewId,String strMapPath,Promise promise){
         try{
             m_mapView = mapViewList.get(mapViewId);
-            com.zondy.mapgis.android.environment.Environment.requestAuthorization(m_mapView.getContext(),new com.zondy.mapgis.android.environment.Environment.AuthorizeCallback()
-            {
-                @Override
-                public void onComplete() {
-                }
-            });
+//            com.zondy.mapgis.android.environment.Environment.requestAuthorization(m_mapView.getContext(),new com.zondy.mapgis.android.environment.Environment.AuthorizeCallback()
+//            {
+//                @Override
+//                public void onComplete() {
+//                }
+//            });
             String strRootPath = PHONE_SDCARD_PATH + File.separator;
             m_mapView.loadFromFile(strRootPath + strMapPath);
             Log.d("loadFromFile:",strRootPath + strMapPath);
