@@ -2,7 +2,7 @@
  * @content 环境初始化功能组件
  * @author fjl 2019-6-21 下午2:52:36
  */
-import { NativeModules } from 'react-native';
+import { NativeModules } from "react-native";
 let X = NativeModules.JSEnvironment;
 /**
  * @class Environment
@@ -31,8 +31,7 @@ export default class Environment {
    */
   async initialize(strRootPath) {
     try {
-      await X.initialize(this._MGEnvironmentId,strRootPath);
-
+      await X.initialize(this._MGEnvironmentId, strRootPath);
     } catch (e) {
       console.error(e);
     }
@@ -45,12 +44,10 @@ export default class Environment {
   async requestAuthorization() {
     try {
       await X.requestAuthorization(this._MGEnvironmentId);
-
     } catch (e) {
       console.error(e);
     }
   }
-
 
   /**
    * 设置系统库路径
@@ -59,7 +56,7 @@ export default class Environment {
    */
   async setSystemLibraryPath(strPath) {
     try {
-      await X.setSystemLibraryPath(this._MGEnvironmentId,strPath);
+      await X.setSystemLibraryPath(this._MGEnvironmentId, strPath);
     } catch (e) {
       console.error(e);
     }
@@ -88,7 +85,9 @@ export default class Environment {
    */
   async getSystemLibraryPath() {
     try {
-      let systemLibraryPath = await X.getSystemLibraryPath(this._MGEnvironmentId);
+      let systemLibraryPath = await X.getSystemLibraryPath(
+        this._MGEnvironmentId
+      );
 
       return systemLibraryPath;
     } catch (e) {

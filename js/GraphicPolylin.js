@@ -2,7 +2,7 @@
  * @content 线对象功能组件
  * @author fjl 2019-6-24 下午2:52:36
  */
-import { NativeModules } from 'react-native';
+import { NativeModules } from "react-native";
 import Graphic from "./Graphic";
 import GraphicMultiPoint from "./GraphicMultiPoint";
 let GP = NativeModules.JSGraphicPolylin;
@@ -10,18 +10,17 @@ let GP = NativeModules.JSGraphicPolylin;
 /**
  * @class GraphicPolylin
  */
-export default class GraphicPolylin extends GraphicMultiPoint{
-
-  constructor(){
+export default class GraphicPolylin extends GraphicMultiPoint {
+  constructor() {
     super();
-    Object.defineProperty(this,"_MGGraphicPolylinId",{
-      get:function () {
-        return this._MGGraphicMultiPointId
+    Object.defineProperty(this, "_MGGraphicPolylinId", {
+      get: function() {
+        return this._MGGraphicMultiPointId;
       },
-      set:function (_MGGraphicPolylinId) {
+      set: function(_MGGraphicPolylinId) {
         this._MGGraphicMultiPointId = _MGGraphicPolylinId;
       }
-    })
+    });
   }
 
   /**

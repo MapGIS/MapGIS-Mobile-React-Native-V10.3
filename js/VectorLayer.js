@@ -2,25 +2,24 @@
  * @content android视图点对象功能组件
  * @author fjl 2019-6-24 下午2:52:36
  */
-import { NativeModules } from 'react-native';
+import { NativeModules } from "react-native";
 import MapLayer from "./MapLayer";
 let VL = NativeModules.JSVectorLayer;
 
 /**
  * @class VectorLayer
  */
-export default class VectorLayer extends MapLayer{
-
-  constructor(){
+export default class VectorLayer extends MapLayer {
+  constructor() {
     super();
-    Object.defineProperty(this,"_MGVectorLayerId",{
-      get:function () {
-        return this._MGMapLayerId
+    Object.defineProperty(this, "_MGVectorLayerId", {
+      get: function() {
+        return this._MGMapLayerId;
       },
-      set:function (_MGVectorLayerId) {
+      set: function(_MGVectorLayerId) {
         this._MGMapLayerId = _MGVectorLayerId;
       }
-    })
+    });
   }
 
   /**

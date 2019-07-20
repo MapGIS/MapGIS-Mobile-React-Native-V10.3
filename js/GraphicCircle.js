@@ -2,25 +2,24 @@
  * @content 圆对象功能组件
  * @author fjl 2019-6-24 下午2:52:36
  */
-import { NativeModules } from 'react-native';
+import { NativeModules } from "react-native";
 import Graphic from "./Graphic";
 let GC = NativeModules.JSGraphicCircle;
 
 /**
  * @class GraphicCircle
  */
-export default class GraphicCircle extends Graphic{
-
-  constructor(){
+export default class GraphicCircle extends Graphic {
+  constructor() {
     super();
-    Object.defineProperty(this,"_MGGraphicCircleId",{
-      get:function () {
-        return this._MGGraphicId
+    Object.defineProperty(this, "_MGGraphicCircleId", {
+      get: function() {
+        return this._MGGraphicId;
       },
-      set:function (_MGGraphicCircleId) {
+      set: function(_MGGraphicCircleId) {
         this._MGGraphicId = _MGGraphicCircleId;
       }
-    })
+    });
   }
 
   /**
@@ -46,9 +45,13 @@ export default class GraphicCircle extends Graphic{
    * @param radius
    * @returns {Promise<void>}
    */
-  async setCenterAndRadius(point,radius) {
+  async setCenterAndRadius(point, radius) {
     try {
-      await GC.setCenterAndRadius(this._MGGraphicCircleId, point._MGDotId,radius);
+      await GC.setCenterAndRadius(
+        this._MGGraphicCircleId,
+        point._MGDotId,
+        radius
+      );
     } catch (e) {
       console.error(e);
     }
@@ -117,7 +120,9 @@ export default class GraphicCircle extends Graphic{
    */
   async getBorderlineWidth() {
     try {
-      let borderlineWidth = await GC.getBorderlineWidth(this._MGGraphicCircleId);
+      let borderlineWidth = await GC.getBorderlineWidth(
+        this._MGGraphicCircleId
+      );
       return borderlineWidth;
     } catch (e) {
       console.error(e);
@@ -144,7 +149,9 @@ export default class GraphicCircle extends Graphic{
    */
   async getBorderlineColor() {
     try {
-      let borderlineColor = await GC.getBorderlineColor(this._MGGraphicCircleId);
+      let borderlineColor = await GC.getBorderlineColor(
+        this._MGGraphicCircleId
+      );
       return borderlineColor;
     } catch (e) {
       console.error(e);

@@ -2,7 +2,7 @@
  * @content 矩形对象功能组件
  * @author fjl 2019-6-18 下午2:52:36
  */
-import { NativeModules } from 'react-native';
+import { NativeModules } from "react-native";
 let X = NativeModules.JSRect;
 
 /**
@@ -16,8 +16,18 @@ export default class Rect {
    */
   async createObj() {
     try {
-      if (typeof arguments[0] === 'number' && typeof arguments[1] === 'number'&& typeof arguments[2] === 'number'&& typeof arguments[3] === 'number') {
-        var { RectId } = await X.createObjByXY(arguments[0], arguments[1],arguments[2], arguments[3]);
+      if (
+        typeof arguments[0] === "number" &&
+        typeof arguments[1] === "number" &&
+        typeof arguments[2] === "number" &&
+        typeof arguments[3] === "number"
+      ) {
+        var { RectId } = await X.createObjByXY(
+          arguments[0],
+          arguments[1],
+          arguments[2],
+          arguments[3]
+        );
         var rect = new Rect();
         rect._MGRectId = RectId;
         return rect;

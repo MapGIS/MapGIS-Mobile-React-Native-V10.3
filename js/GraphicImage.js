@@ -2,28 +2,27 @@
  * @content 图片对象功能组件
  * @author fjl 2019-6-24 下午2:52:36
  */
-import { NativeModules } from 'react-native';
+import { NativeModules } from "react-native";
 import Graphic from "./Graphic";
 import Image from "./Image";
 import PointF from "./PointF";
 import Dot from "./Dot";
 let GI = NativeModules.JSGraphicImage;
 
- /**
-* @constructor GraphicImage
+/**
+ * @constructor GraphicImage
  */
-export default class GraphicImage extends Graphic{
-
-  constructor(){
+export default class GraphicImage extends Graphic {
+  constructor() {
     super();
-    Object.defineProperty(this,"_MGGraphicImageId",{
-      get:function () {
-        return this._MGGraphicId
+    Object.defineProperty(this, "_MGGraphicImageId", {
+      get: function() {
+        return this._MGGraphicId;
       },
-      set:function (_MGGraphicImageId) {
+      set: function(_MGGraphicImageId) {
         this._MGGraphicId = _MGGraphicImageId;
       }
-    })
+    });
   }
 
   /**
@@ -56,7 +55,6 @@ export default class GraphicImage extends Graphic{
     }
   }
 
-
   /**
    * 设置位置
    * @memberOf GraphicImage
@@ -85,8 +83,6 @@ export default class GraphicImage extends Graphic{
     }
   }
 
-
-
   /**
    * 获取锚点
    * @memberOf GraphicImage
@@ -94,7 +90,7 @@ export default class GraphicImage extends Graphic{
    */
   async getAnchorPoint() {
     try {
-      let {PointFID} = await GI.getAnchorPoint(this._MGGraphicImageId);
+      let { PointFID } = await GI.getAnchorPoint(this._MGGraphicImageId);
       var pointF = new PointF();
       pointF._MGPointFId = PointFID;
       return pointF;
@@ -102,7 +98,6 @@ export default class GraphicImage extends Graphic{
       console.error(e);
     }
   }
-
 
   /**
    * 设置透明度
@@ -153,7 +148,7 @@ export default class GraphicImage extends Graphic{
    */
   async getImage() {
     try {
-      let {ImageID} = await GI.getImage(this._MGGraphicImageId);
+      let { ImageID } = await GI.getImage(this._MGGraphicImageId);
       var image = new Image();
       image._MGImageId = ImageID;
       return image;
@@ -169,10 +164,10 @@ export default class GraphicImage extends Graphic{
    */
   async getPoint() {
     try {
-     var {dotID} =  await GI.getPoint(this._MGGraphicImageId);
-     var dot = new Dot();
+      var { dotID } = await GI.getPoint(this._MGGraphicImageId);
+      var dot = new Dot();
       dot._MGDotId = dotID;
-      return  dot;
+      return dot;
     } catch (e) {
       console.error(e);
     }

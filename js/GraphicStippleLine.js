@@ -2,7 +2,7 @@
  * @content 虚线线对象功能组件
  * @author fjl 2019-6-24 下午2:52:36
  */
-import { NativeModules } from 'react-native';
+import { NativeModules } from "react-native";
 import Graphic from "./Graphic";
 import Dot from "./Dot";
 let GS = NativeModules.JSGraphicStippleLine;
@@ -10,18 +10,17 @@ let GS = NativeModules.JSGraphicStippleLine;
 /**
  * @class GraphicStippleLine
  */
-export default class GraphicStippleLine extends Graphic{
-
-  constructor(){
+export default class GraphicStippleLine extends Graphic {
+  constructor() {
     super();
-    Object.defineProperty(this,"_MGGraphicStippleLineId",{
-      get:function () {
-        return this._MGGraphicId
+    Object.defineProperty(this, "_MGGraphicStippleLineId", {
+      get: function() {
+        return this._MGGraphicId;
       },
-      set:function (_MGGraphicStippleLineId) {
+      set: function(_MGGraphicStippleLineId) {
         this._MGGraphicId = _MGGraphicStippleLineId;
       }
-    })
+    });
   }
 
   /**
@@ -116,7 +115,7 @@ export default class GraphicStippleLine extends Graphic{
    */
   async getStartPoint() {
     try {
-      let {dotID} = await GS.getStartPoint(this._MGGraphicStippleLineId);
+      let { dotID } = await GS.getStartPoint(this._MGGraphicStippleLineId);
       var dot = new Dot();
       dot._MGDotId = dotID;
       return dot;
@@ -132,7 +131,7 @@ export default class GraphicStippleLine extends Graphic{
    */
   async GetEndPoint() {
     try {
-      let {dotID} = await GS.GetEndPoint(this._MGGraphicStippleLineId);
+      let { dotID } = await GS.GetEndPoint(this._MGGraphicStippleLineId);
       var dot = new Dot();
       dot._MGDotId = dotID;
       return dot;
@@ -140,8 +139,6 @@ export default class GraphicStippleLine extends Graphic{
       console.error(e);
     }
   }
-
-
 
   /**
    * 获取线的宽度
@@ -178,7 +175,9 @@ export default class GraphicStippleLine extends Graphic{
    */
   async getIntervalLength() {
     try {
-      let intervalLength = await GS.getIntervalLength(this._MGGraphicStippleLineId);
+      let intervalLength = await GS.getIntervalLength(
+        this._MGGraphicStippleLineId
+      );
       return intervalLength;
     } catch (e) {
       console.error(e);

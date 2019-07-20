@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.mapgis_mobile_reactnative">
+  package="com.zondy.mapgis.mobile.react">
 
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>

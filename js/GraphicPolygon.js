@@ -2,7 +2,7 @@
  * @content 区对象功能组件
  * @author fjl 2019-6-24 下午2:52:36
  */
-import { NativeModules } from 'react-native';
+import { NativeModules } from "react-native";
 import Graphic from "./Graphic";
 import Dot from "./Dot";
 import GraphicMultiPoint from "./GraphicMultiPoint";
@@ -11,18 +11,17 @@ let GP = NativeModules.JSGraphicPolygon;
 /**
  * @class GraphicPolygon
  */
-export default class GraphicPolygon extends GraphicMultiPoint{
-
-  constructor(){
+export default class GraphicPolygon extends GraphicMultiPoint {
+  constructor() {
     super();
-    Object.defineProperty(this,"_MGGraphicPolygonId",{
-      get:function () {
-        return this._MGGraphicMultiPointId
+    Object.defineProperty(this, "_MGGraphicPolygonId", {
+      get: function() {
+        return this._MGGraphicMultiPointId;
       },
-      set:function (_MGGraphicPolygonId) {
+      set: function(_MGGraphicPolygonId) {
         this._MGGraphicMultiPointId = _MGGraphicPolygonId;
       }
-    })
+    });
   }
 
   /**
@@ -62,9 +61,9 @@ export default class GraphicPolygon extends GraphicMultiPoint{
    * @param circlesArray
    * @returns {Promise<void>}
    */
-  async setPoints(pointArray,circlesArray) {
+  async setPoints(pointArray, circlesArray) {
     try {
-      await GP.setPoints(this._MGGraphicMultiPointId, pointArray,circlesArray);
+      await GP.setPoints(this._MGGraphicMultiPointId, pointArray, circlesArray);
     } catch (e) {
       console.error(e);
     }
@@ -77,7 +76,9 @@ export default class GraphicPolygon extends GraphicMultiPoint{
    */
   async getCirclesToList() {
     try {
-      let {circlesArray} = await GP.getCirclesToList(this._MGGraphicPolygonId);
+      let { circlesArray } = await GP.getCirclesToList(
+        this._MGGraphicPolygonId
+      );
       return circlesArray;
     } catch (e) {
       console.error(e);
@@ -105,7 +106,9 @@ export default class GraphicPolygon extends GraphicMultiPoint{
    */
   async getBorderlineWidth() {
     try {
-      let {borderlineWidth} = await GP.getBorderlineWidth(this._MGGraphicPolygonId);
+      let { borderlineWidth } = await GP.getBorderlineWidth(
+        this._MGGraphicPolygonId
+      );
       return borderlineWidth;
     } catch (e) {
       console.error(e);
@@ -119,7 +122,9 @@ export default class GraphicPolygon extends GraphicMultiPoint{
    */
   async getBorderlineColor() {
     try {
-      let {borderlineColor} = await GP.getBorderlineColor(this._MGGraphicPolygonId);
+      let { borderlineColor } = await GP.getBorderlineColor(
+        this._MGGraphicPolygonId
+      );
 
       return borderlineColor;
     } catch (e) {

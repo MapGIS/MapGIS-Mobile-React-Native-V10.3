@@ -2,7 +2,7 @@
  * @content 图片功能组件
  * @author fjl 2019-6-20 下午2:52:36
  */
-import { NativeModules } from 'react-native';
+import { NativeModules } from "react-native";
 let X = NativeModules.JSImage;
 
 /**
@@ -16,7 +16,7 @@ export default class Image {
    */
   async createObj() {
     try {
-      if (typeof arguments[0] === 'string') {
+      if (typeof arguments[0] === "string") {
         var { imageId } = await X.createObjByProperty(arguments[0]);
         var image = new Image();
         image._MGImageId = imageId;
@@ -39,7 +39,7 @@ export default class Image {
    */
   async setBase64Url(base64Url) {
     try {
-      await X.setBase64Url(this._MGImageId,base64Url);
+      await X.setBase64Url(this._MGImageId, base64Url);
     } catch (e) {
       console.error(e);
     }

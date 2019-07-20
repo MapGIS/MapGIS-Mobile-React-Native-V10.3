@@ -2,7 +2,7 @@
  * @content 点对象功能组件
  * @author fjl 2019-6-24 下午2:52:36
  */
-import { NativeModules } from 'react-native';
+import { NativeModules } from "react-native";
 import Graphic from "./Graphic";
 import Dot from "./Dot";
 let GM = NativeModules.JSGraphicMultiPoint;
@@ -10,18 +10,17 @@ let GM = NativeModules.JSGraphicMultiPoint;
 /**
  * @constructor GraphicMultiPoint
  */
-export default class GraphicMultiPoint extends Graphic{
-
-  constructor(){
+export default class GraphicMultiPoint extends Graphic {
+  constructor() {
     super();
-    Object.defineProperty(this,"_MGGraphicMultiPointId",{
-      get:function () {
-        return this._MGGraphicId
+    Object.defineProperty(this, "_MGGraphicMultiPointId", {
+      get: function() {
+        return this._MGGraphicId;
       },
-      set:function (_MGGraphicMultiPointId) {
+      set: function(_MGGraphicMultiPointId) {
         this._MGGraphicId = _MGGraphicMultiPointId;
       }
-    })
+    });
   }
 
   /**
@@ -63,15 +62,13 @@ export default class GraphicMultiPoint extends Graphic{
   async getPoints() {
     try {
       var objArr = [];
-      let {dotsArr} = await GM.getPoints(this._MGGraphicMultiPointId);
-      for(var i = 0; i < dotsArr.length;i++)
-      {
+      let { dotsArr } = await GM.getPoints(this._MGGraphicMultiPointId);
+      for (var i = 0; i < dotsArr.length; i++) {
         var dot = new Dot();
         dot._MGDotId = dotsArr[i];
         objArr.push(dot);
       }
       return objArr;
-
     } catch (e) {
       console.error(e);
     }
@@ -98,7 +95,7 @@ export default class GraphicMultiPoint extends Graphic{
    */
   async getPoint(index) {
     try {
-      let {dotID} = await GM.getPoint(this._MGGraphicMultiPointId,index);
+      let { dotID } = await GM.getPoint(this._MGGraphicMultiPointId, index);
       var dot = new Dot();
       dot._MGDotId = dotID;
       return dot;
@@ -169,9 +166,9 @@ export default class GraphicMultiPoint extends Graphic{
    * @param point
    * @returns {Promise<void>}
    */
-  async updatePoint(index,point) {
+  async updatePoint(index, point) {
     try {
-      await GM.updatePoint(this._MGGraphicMultiPointId, index,point._MGDotId);
+      await GM.updatePoint(this._MGGraphicMultiPointId, index, point._MGDotId);
     } catch (e) {
       console.error(e);
     }
@@ -211,12 +208,11 @@ export default class GraphicMultiPoint extends Graphic{
    * @param point
    * @returns {Promise<void>}
    */
-  async insertPoint(index,point) {
+  async insertPoint(index, point) {
     try {
-      await GM.insertPoint(this._MGGraphicMultiPointId, index,point._MGDotId);
+      await GM.insertPoint(this._MGGraphicMultiPointId, index, point._MGDotId);
     } catch (e) {
       console.error(e);
     }
   }
-
 }

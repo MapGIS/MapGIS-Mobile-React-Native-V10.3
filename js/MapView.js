@@ -2,20 +2,19 @@
  * @content 地图视图功能组件
  * @author fjl 2019-6-14 下午2:52:36
  */
-import { NativeModules, Platform } from 'react-native';
+import { NativeModules, Platform } from "react-native";
 let MV = NativeModules.JSMapView;
-import Dot from './Dot.js';
-import PointF from './PointF.js';
-import Rect from './Rect.js';
-import Map from './Map.js';
-import GraphicsOverlay from './GraphicsOverlay.js';
-import GraphicsOverlays from './GraphicsOverlays.js';
+import Dot from "./Dot.js";
+import PointF from "./PointF.js";
+import Rect from "./Rect.js";
+import Map from "./Map.js";
+import GraphicsOverlay from "./GraphicsOverlay.js";
+import GraphicsOverlays from "./GraphicsOverlays.js";
 /**
  * @class MapView
  * @description 地图显示控件容器类。
  */
 export default class JSMapView {
-
   /**
    * 设置视图背景色
    *  @memberOf JSMapView
@@ -37,7 +36,7 @@ export default class JSMapView {
    */
   async getBackGroundColor() {
     try {
-      var { color } =  await MV.getBackGroundColor(this._MGMapViewId);
+      var { color } = await MV.getBackGroundColor(this._MGMapViewId);
       return color;
     } catch (e) {
       console.error(e);
@@ -65,7 +64,7 @@ export default class JSMapView {
    */
   async getMap() {
     try {
-      var { mapID } =  await MV.getMap(this._MGMapViewId);
+      var { mapID } = await MV.getMap(this._MGMapViewId);
       var map = new Map();
       map._MGMapId = mapID;
       return map;
@@ -106,17 +105,20 @@ export default class JSMapView {
    * @returns {Promise<void>}
    */
   async mapPointToViewPoint(dot) {
-      try {
-        var { pointFId, x, y } = await MV.mapPointToViewPoint(this._MGMapViewId,dot._MGDotId);
-        var pointF = new PointF();
-        pointF._MGPointFId = pointFId;
-        pointF.x = x;
-        pointF.y = y;
-        return pointF;
-      } catch (e) {
-        console.error(e);
-      }
+    try {
+      var { pointFId, x, y } = await MV.mapPointToViewPoint(
+        this._MGMapViewId,
+        dot._MGDotId
+      );
+      var pointF = new PointF();
+      pointF._MGPointFId = pointFId;
+      pointF.x = x;
+      pointF.y = y;
+      return pointF;
+    } catch (e) {
+      console.error(e);
     }
+  }
 
   /**
    * 视图坐标转地图坐标
@@ -126,9 +128,12 @@ export default class JSMapView {
    */
   async viewPointToMapPoint(pointF) {
     try {
-      var { dotID, x, y } = await MV.viewPointToMapPoint(this._MGMapViewId,pointF._MGDotId);
+      var { dotID, x, y } = await MV.viewPointToMapPoint(
+        this._MGMapViewId,
+        pointF._MGPointFId
+      );
       var dot = new Dot();
-      dot._MGPointFId = dotID;
+      dot._MGDotId = dotID;
       dot.x = x;
       dot.y = y;
       return dot;
@@ -184,11 +189,11 @@ export default class JSMapView {
    * @memberOf JSMapView
    * @returns {Promise<Dot>}
    */
-  async getCenter() {
+  async getCenterPoint() {
     try {
-      var { point2DId, x, y } = await MV.getMapCenter(this._MGMapViewId);
+      var { dotID, x, y } = await MV.getCenterPoint(this._MGMapViewId);
       var dot = new Dot();
-      dot._MGDotId = point2DId;
+      dot._MGDotId = dotID;
       dot.x = x;
       dot.y = y;
       return dot;
@@ -198,14 +203,40 @@ export default class JSMapView {
   }
 
   /**
-   * 设置地图中心点
+   * 平移地图到视图中心(视图高宽1/2处，绝对中心)
    * @memberOf JSMapView
-   * @param dot
+   * @param mapCenterPoint
+   * @param animated
    * @returns {Promise<void>}
    */
-  async panToCenter(dot) {
+  async panToCenter(mapCenterPoint, animated) {
     try {
-      await MV.setMapCenter(this._MGMapViewId, dot._MGDotId);
+      await MV.panToCenter(
+        this._MGMapViewId,
+        mapCenterPoint._MGDotId,
+        animated
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 平移地图到自定义视图中心(视图高宽1/2处，绝对中心)
+   * @memberOf JSMapView
+   * @param mapCenterPoint
+   * @param viewCenterPoint
+   * @param animated
+   * @returns {Promise<void>}
+   */
+  async panToCenterWithView(mapCenterPoint, viewCenterPoint, animated) {
+    try {
+      await MV.panToCenterWithView(
+        this._MGMapViewId,
+        mapCenterPoint._MGDotId,
+        viewCenterPoint._MGPointFId,
+        animated
+      );
     } catch (e) {
       console.error(e);
     }
@@ -218,7 +249,7 @@ export default class JSMapView {
    */
   async getDispRange() {
     try {
-      var { rectId} = await MV.getDispRange(this._MGMapViewId);
+      var { rectId } = await MV.getDispRange(this._MGMapViewId);
       var rect = new Rect();
       rect._MGRectId = rectId;
       return rect;
@@ -236,33 +267,36 @@ export default class JSMapView {
    * @param animated 是否开启动画模式
    * @returns {Promise<void>}
    */
-  async moveMap(mx,my,animated) {
+  async moveMap(mx, my, animated) {
     try {
-      await MV.moveMap(this._MGMapViewId, mx,my,animated);
+      await MV.moveMap(this._MGMapViewId, mx, my, animated);
     } catch (e) {
       console.error(e);
     }
   }
 
-
-
   /**
-   * 缩地图到指定分辨率并将指定坐标点移动到视图中心(视图高宽1/2处，绝对中心)
+   * 缩放地图到指定分辨率并将指定坐标点移动到视图中心(视图高宽1/2处，绝对中心)
    * @memberOf JSMapView
-   * @param centerPoint 中心坐标
+   * @param mapCenterPoint 中心坐标
    * @param resolution 分辨率
    * @param animated 是否启用动画
    * @returns {Promise<void>}
    */
-  async zoomToCenter(centerPoint,resolution,animated) {
+  async zoomToCenter(mapCenterPoint, resolution, animated) {
     try {
-      await MV.zoomToCenter(this._MGMapViewId, centerPoint._MGDotId,resolution,animated);
+      await MV.zoomToCenter(
+        this._MGMapViewId,
+        mapCenterPoint._MGDotId,
+        resolution,
+        animated
+      );
     } catch (e) {
       console.error(e);
     }
   }
   /**
-   * 放缩地图到指定级别并将指定坐标点移动到自定义视图中心
+   * 缩放地图到指定级别并将指定坐标点移动到自定义视图中心
    * @memberOf JSMapView
    *
    * @param mapCenterPoint 中心坐标
@@ -270,9 +304,20 @@ export default class JSMapView {
    * @param resolution 分辨率
    * @param animated 是否启用动画
    */
-  async zoomToCenter(centerPoint,viewCenterPoint,resolution,animated) {
+  async zoomToCenterWithView(
+    mapCenterPoint,
+    viewCenterPoint,
+    resolution,
+    animated
+  ) {
     try {
-      await MV.zoomToCenter(this._MGMapViewId, centerPoint._MGDotId,viewCenterPoint._MGPointFId,resolution,animated);
+      await MV.zoomToCenterWithView(
+        this._MGMapViewId,
+        mapCenterPoint._MGDotId,
+        viewCenterPoint._MGPointFId,
+        resolution,
+        animated
+      );
     } catch (e) {
       console.error(e);
     }
@@ -285,9 +330,9 @@ export default class JSMapView {
    * @param animated 是否开启动画模式
    * @returns {Promise<void>}
    */
-  async zoomToRange(dispRange,animated) {
+  async zoomToRange(dispRange, animated) {
     try {
-      await MV.zoomToCenter(this._MGMapViewId,dispRange._MGRectId,animated);
+      await MV.zoomToCenter(this._MGMapViewId, dispRange._MGRectId, animated);
     } catch (e) {
       console.error(e);
     }
@@ -301,7 +346,7 @@ export default class JSMapView {
    */
   async zoomIn(animated) {
     try {
-      await MV.zoomIn(this._MGMapViewId,animated);
+      await MV.zoomIn(this._MGMapViewId, animated);
     } catch (e) {
       console.error(e);
     }
@@ -315,7 +360,7 @@ export default class JSMapView {
    */
   async zoomOut(animated) {
     try {
-      await MV.zoomOut(this._MGMapViewId,animated);
+      await MV.zoomOut(this._MGMapViewId, animated);
     } catch (e) {
       console.error(e);
     }
@@ -329,7 +374,7 @@ export default class JSMapView {
    */
   async restore(animated) {
     try {
-      await MV.restore(this._MGMapViewId,animated);
+      await MV.restore(this._MGMapViewId, animated);
     } catch (e) {
       console.error(e);
     }
@@ -343,9 +388,14 @@ export default class JSMapView {
    * @param animated 是否开启动画模式
    * @returns {Promise<void>}
    */
-  async setRotateCenterAndAngle(rotateCenter,rotateAngle,animated) {
+  async setRotateCenterAndAngle(rotateCenter, rotateAngle, animated) {
     try {
-      await MV.setRotateCenterAndAngle(this._MGMapViewId,rotateCenter._MGDotId,rotateAngle,animated);
+      await MV.setRotateCenterAndAngle(
+        this._MGMapViewId,
+        rotateCenter._MGDotId,
+        rotateAngle,
+        animated
+      );
     } catch (e) {
       console.error(e);
     }
@@ -358,9 +408,9 @@ export default class JSMapView {
    * @param animated 是否启用动画
    * @returns {Promise<void>}
    */
-  async setRotateAngle(rotateAngle,animated) {
+  async setRotateAngle(rotateAngle, animated) {
     try {
-      await MV.setRotateAngle(this._MGMapViewId,rotateAngle,animated);
+      await MV.setRotateAngle(this._MGMapViewId, rotateAngle, animated);
     } catch (e) {
       console.error(e);
     }
@@ -375,14 +425,13 @@ export default class JSMapView {
    * @param animated 是否启用动画
    * @returns {Promise<void>}
    */
-  async rotate(rotation,pivotX,pivotY,animated) {
+  async rotate(rotation, pivotX, pivotY, animated) {
     try {
-      await MV.rotate(this._MGMapViewId,rotation,pivotX,pivotY,animated);
+      await MV.rotate(this._MGMapViewId, rotation, pivotX, pivotY, animated);
     } catch (e) {
       console.error(e);
     }
   }
-
 
   /**
    * 获取地图的旋转中心
@@ -391,9 +440,9 @@ export default class JSMapView {
    */
   async getRotateCenter() {
     try {
-      var { point2DId, x, y } = await MV.getRotateCenter(this._MGMapViewId);
+      var { dotID, x, y } = await MV.getRotateCenter(this._MGMapViewId);
       var dot = new Dot();
-      dot._MGDotId = point2DId;
+      dot._MGDotId = dotID;
       dot.x = x;
       dot.y = y;
       return dot;
@@ -423,9 +472,9 @@ export default class JSMapView {
    * @param animated 是否开启动画
    * @returns {Promise<void>}
    */
-  async setSlopeAngle(slopeAngle,animated) {
+  async setSlopeAngle(slopeAngle, animated) {
     try {
-      await MV.setSlopeAngle(this._MGMapViewId,slopeAngle,animated);
+      await MV.setSlopeAngle(this._MGMapViewId, slopeAngle, animated);
     } catch (e) {
       console.error(e);
     }
@@ -438,7 +487,7 @@ export default class JSMapView {
    */
   async getSlopeAngle() {
     try {
-      var {slopeAngle} = await MV.getSlopeAngle(this._MGMapViewId);
+      var { slopeAngle } = await MV.getSlopeAngle(this._MGMapViewId);
       return slopeAngle;
     } catch (e) {
       console.error(e);
@@ -465,7 +514,9 @@ export default class JSMapView {
    */
   async getGraphicsOverlay() {
     try {
-      var { GraphicsOverlayID} = await MV.getGraphicsOverlay(this._MGMapViewId);
+      var { GraphicsOverlayID } = await MV.getGraphicsOverlay(
+        this._MGMapViewId
+      );
       var graphicsOverlay = new GraphicsOverlay();
       graphicsOverlay._MGGraphicsOverlayId = GraphicsOverlayID;
 
@@ -482,7 +533,9 @@ export default class JSMapView {
    */
   async getGraphicsOverlays() {
     try {
-      var { GraphicsOverlaysID } = await MV.getGraphicsOverlays(this._MGMapViewId);
+      var { GraphicsOverlaysID } = await MV.getGraphicsOverlays(
+        this._MGMapViewId
+      );
       var graphicsOverlays = new GraphicsOverlays();
       graphicsOverlays._MGGraphicsOverlaysId = GraphicsOverlaysID;
       return graphicsOverlays;
@@ -497,7 +550,7 @@ export default class JSMapView {
    */
   async setMaxTextureCacheSize(size) {
     try {
-      await MV.setMaxTextureCacheSize(this._MGMapViewId,size);
+      await MV.setMaxTextureCacheSize(this._MGMapViewId, size);
     } catch (e) {
       console.error(e);
     }
@@ -510,7 +563,9 @@ export default class JSMapView {
    */
   async getMaxTextureCacheSize() {
     try {
-      var {MaxTextureCacheSize} = await MV.getMaxTextureCacheSize(this._MGMapViewId);
+      var { MaxTextureCacheSize } = await MV.getMaxTextureCacheSize(
+        this._MGMapViewId
+      );
       return MaxTextureCacheSize;
     } catch (e) {
       console.error(e);
@@ -537,7 +592,7 @@ export default class JSMapView {
    */
   async setSupportTransparency(support) {
     try {
-      await MV.setSupportTransparency(this._MGMapViewId,support);
+      await MV.setSupportTransparency(this._MGMapViewId, support);
     } catch (e) {
       console.error(e);
     }
@@ -549,7 +604,9 @@ export default class JSMapView {
    */
   async isSupportTransparency() {
     try {
-      var {isSupportTransparency} =  await MV.isSupportTransparency(this._MGMapViewId);
+      var { isSupportTransparency } = await MV.isSupportTransparency(
+        this._MGMapViewId
+      );
       return isSupportTransparency;
     } catch (e) {
       console.error(e);
@@ -564,7 +621,7 @@ export default class JSMapView {
    */
   async setShowNorthArrow(show) {
     try {
-      await MV.setShowNorthArrow(this._MGMapViewId,show);
+      await MV.setShowNorthArrow(this._MGMapViewId, show);
     } catch (e) {
       console.error(e);
     }
@@ -577,7 +634,7 @@ export default class JSMapView {
    */
   async isShowNorthArrow() {
     try {
-      var {isShowNorthArrow} = await MV.isShowNorthArrow(this._MGMapViewId);
+      var { isShowNorthArrow } = await MV.isShowNorthArrow(this._MGMapViewId);
       return isShowNorthArrow;
     } catch (e) {
       console.error(e);
@@ -592,12 +649,11 @@ export default class JSMapView {
    */
   async setNorthArrowPosition(point) {
     try {
-      await MV.setNorthArrowPosition(this._MGMapViewId,point._MGPointFId);
+      await MV.setNorthArrowPosition(this._MGMapViewId, point._MGPointFId);
     } catch (e) {
       console.error(e);
     }
   }
-
 
   /**
    * 获取指北针图标中心点在地图视图中的显示位置
@@ -624,7 +680,7 @@ export default class JSMapView {
    */
   async setNorthArrowImage(image) {
     try {
-      await MV.setNorthArrowImage(this._MGMapViewId,image._MGImageId);
+      await MV.setNorthArrowImage(this._MGMapViewId, image._MGImageId);
     } catch (e) {
       console.error(e);
     }
@@ -638,7 +694,7 @@ export default class JSMapView {
    */
   async setShowLogo(show) {
     try {
-      await MV.setShowLogo(this._MGMapViewId,show);
+      await MV.setShowLogo(this._MGMapViewId, show);
     } catch (e) {
       console.error(e);
     }
@@ -651,9 +707,8 @@ export default class JSMapView {
    */
   async isShowLogo() {
     try {
-      var {isShowLogo} = await MV.isShowLogo(this._MGMapViewId);
+      var { isShowLogo } = await MV.isShowLogo(this._MGMapViewId);
       return isShowLogo;
-
     } catch (e) {
       console.error(e);
     }
@@ -667,7 +722,7 @@ export default class JSMapView {
    */
   async setLogoPoistion(position) {
     try {
-      await MV.setShowLogo(this._MGMapViewId,position);
+      await MV.setShowLogo(this._MGMapViewId, position);
     } catch (e) {
       console.error(e);
     }
@@ -680,7 +735,7 @@ export default class JSMapView {
    */
   async getLogoPoistion() {
     try {
-      var {LogoPoistion} = await MV.getLogoPoistion(this._MGMapViewId);
+      var { LogoPoistion } = await MV.getLogoPoistion(this._MGMapViewId);
       return LogoPoistion;
     } catch (e) {
       console.error(e);
@@ -694,7 +749,7 @@ export default class JSMapView {
    */
   async setShowScaleBar(show) {
     try {
-      await MV.setShowScaleBar(this._MGMapViewId,show);
+      await MV.setShowScaleBar(this._MGMapViewId, show);
     } catch (e) {
       console.error(e);
     }
@@ -707,7 +762,7 @@ export default class JSMapView {
    */
   async isShowScaleBar() {
     try {
-      var {isShowScaleBar} = await MV.isShowScaleBar(this._MGMapViewId);
+      var { isShowScaleBar } = await MV.isShowScaleBar(this._MGMapViewId);
       return isShowScaleBar;
     } catch (e) {
       console.error(e);
@@ -721,7 +776,7 @@ export default class JSMapView {
    */
   async setScaleBarPoistion(pointf) {
     try {
-      await MV.setShowScaleBar(this._MGMapViewId,pointf._MGPointFId);
+      await MV.setShowScaleBar(this._MGMapViewId, pointf._MGPointFId);
     } catch (e) {
       console.error(e);
     }
@@ -752,7 +807,7 @@ export default class JSMapView {
    */
   async setSkyImage(image) {
     try {
-      await MV.setSkyImage(this._MGMapViewId,image._MGImageId);
+      await MV.setSkyImage(this._MGMapViewId, image._MGImageId);
     } catch (e) {
       console.error(e);
     }
@@ -765,7 +820,7 @@ export default class JSMapView {
    */
   async setSkySceneEnabled(enabled) {
     try {
-      await MV.setSkySceneEnabled(this._MGMapViewId,enabled);
+      await MV.setSkySceneEnabled(this._MGMapViewId, enabled);
     } catch (e) {
       console.error(e);
     }
@@ -778,7 +833,7 @@ export default class JSMapView {
    */
   async isSkySceneEnabled() {
     try {
-      var {isSkySceneEnabled} = await MV.isSkySceneEnabled(this._MGMapViewId);
+      var { isSkySceneEnabled } = await MV.isSkySceneEnabled(this._MGMapViewId);
       return isSkySceneEnabled;
     } catch (e) {
       console.error(e);
@@ -792,7 +847,7 @@ export default class JSMapView {
    */
   async setZoomControlsEnabled(enabled) {
     try {
-      await MV.setZoomControlsEnabled(this._MGMapViewId,enabled);
+      await MV.setZoomControlsEnabled(this._MGMapViewId, enabled);
     } catch (e) {
       console.error(e);
     }
@@ -805,7 +860,9 @@ export default class JSMapView {
    */
   async isZoomControlsEnabled() {
     try {
-      var {isZoomControlsEnabled} = await MV.isZoomControlsEnabled(this._MGMapViewId);
+      var { isZoomControlsEnabled } = await MV.isZoomControlsEnabled(
+        this._MGMapViewId
+      );
       return isZoomControlsEnabled;
     } catch (e) {
       console.error(e);
@@ -819,7 +876,7 @@ export default class JSMapView {
    */
   async setMapPanGesturesEnabled(enabled) {
     try {
-      await MV.setMapPanGesturesEnabled(this._MGMapViewId,enabled);
+      await MV.setMapPanGesturesEnabled(this._MGMapViewId, enabled);
     } catch (e) {
       console.error(e);
     }
@@ -831,7 +888,9 @@ export default class JSMapView {
    */
   async isMapPanGesturesEnabled() {
     try {
-      var {isMapPanGesturesEnabled} = await MV.isMapPanGesturesEnabled(this._MGMapViewId);
+      var { isMapPanGesturesEnabled } = await MV.isMapPanGesturesEnabled(
+        this._MGMapViewId
+      );
       return isMapPanGesturesEnabled;
     } catch (e) {
       console.error(e);
@@ -845,7 +904,7 @@ export default class JSMapView {
    */
   async setMapZoomGesturesEnabled(enabled) {
     try {
-      await MV.setMapZoomGesturesEnabled(this._MGMapViewId,enabled);
+      await MV.setMapZoomGesturesEnabled(this._MGMapViewId, enabled);
     } catch (e) {
       console.error(e);
     }
@@ -857,7 +916,9 @@ export default class JSMapView {
    */
   async isMapZoomGesturesEnabled() {
     try {
-      var {isMapZoomGesturesEnabled} = await MV.isMapZoomGesturesEnabled(this._MGMapViewId);
+      var { isMapZoomGesturesEnabled } = await MV.isMapZoomGesturesEnabled(
+        this._MGMapViewId
+      );
       return isMapZoomGesturesEnabled;
     } catch (e) {
       console.error(e);
@@ -872,7 +933,7 @@ export default class JSMapView {
    */
   async setMapRotateGesturesEnabled(enabled) {
     try {
-      await MV.setMapRotateGesturesEnabled(this._MGMapViewId,enabled);
+      await MV.setMapRotateGesturesEnabled(this._MGMapViewId, enabled);
     } catch (e) {
       console.error(e);
     }
@@ -884,7 +945,9 @@ export default class JSMapView {
    */
   async isMapRotateGesturesEnabled() {
     try {
-      var {isMapRotateGesturesEnabled} = await MV.isMapRotateGesturesEnabled(this._MGMapViewId);
+      var { isMapRotateGesturesEnabled } = await MV.isMapRotateGesturesEnabled(
+        this._MGMapViewId
+      );
       return isMapRotateGesturesEnabled;
     } catch (e) {
       console.error(e);
@@ -898,7 +961,7 @@ export default class JSMapView {
    */
   async setMapSlopeGesturesEnabled(enabled) {
     try {
-      await MV.setMapSlopeGesturesEnabled(this._MGMapViewId,enabled);
+      await MV.setMapSlopeGesturesEnabled(this._MGMapViewId, enabled);
     } catch (e) {
       console.error(e);
     }
@@ -911,7 +974,9 @@ export default class JSMapView {
    */
   async isMapSlopeGesturesEnabled() {
     try {
-      var {isMapSlopeGesturesEnabled} = await MV.isMapSlopeGesturesEnabled(this._MGMapViewId);
+      var { isMapSlopeGesturesEnabled } = await MV.isMapSlopeGesturesEnabled(
+        this._MGMapViewId
+      );
       return isMapSlopeGesturesEnabled;
     } catch (e) {
       console.error(e);
@@ -925,12 +990,11 @@ export default class JSMapView {
    */
   async setDoubleTapZooming(enabled) {
     try {
-      await MV.setDoubleTapZooming(this._MGMapViewId,enabled);
+      await MV.setDoubleTapZooming(this._MGMapViewId, enabled);
     } catch (e) {
       console.error(e);
     }
   }
-
 
   /**
    * 获取是否双击放大地图
@@ -939,7 +1003,9 @@ export default class JSMapView {
    */
   async isDoubleTapZooming() {
     try {
-      var {isDoubleTapZooming} = await MV.isDoubleTapZooming(this._MGMapViewId);
+      var { isDoubleTapZooming } = await MV.isDoubleTapZooming(
+        this._MGMapViewId
+      );
       return isDoubleTapZooming;
     } catch (e) {
       console.error(e);
@@ -953,7 +1019,7 @@ export default class JSMapView {
    */
   async setTwoFingerTapZooming(enabled) {
     try {
-      await MV.setTwoFingerTapZooming(this._MGMapViewId,enabled);
+      await MV.setTwoFingerTapZooming(this._MGMapViewId, enabled);
     } catch (e) {
       console.error(e);
     }
@@ -966,7 +1032,9 @@ export default class JSMapView {
    */
   async isTwoFingerTapZooming() {
     try {
-      var {isTwoFingerTapZooming} = await MV.isTwoFingerTapZooming(this._MGMapViewId);
+      var { isTwoFingerTapZooming } = await MV.isTwoFingerTapZooming(
+        this._MGMapViewId
+      );
       return isTwoFingerTapZooming;
     } catch (e) {
       console.error(e);
@@ -980,7 +1048,7 @@ export default class JSMapView {
    */
   async setPanEndAnimating(enabled) {
     try {
-      await MV.setPanEndAnimating(this._MGMapViewId,enabled);
+      await MV.setPanEndAnimating(this._MGMapViewId, enabled);
     } catch (e) {
       console.error(e);
     }
@@ -992,7 +1060,7 @@ export default class JSMapView {
    */
   async isPanEndAnimating() {
     try {
-      var {isPanEndAnimating} = await MV.isPanEndAnimating(this._MGMapViewId);
+      var { isPanEndAnimating } = await MV.isPanEndAnimating(this._MGMapViewId);
       return isPanEndAnimating;
     } catch (e) {
       console.error(e);
@@ -1006,7 +1074,7 @@ export default class JSMapView {
    */
   async setLabelRenderAnimating(enabled) {
     try {
-      await MV.setLabelRenderAnimating(this._MGMapViewId,enabled);
+      await MV.setLabelRenderAnimating(this._MGMapViewId, enabled);
     } catch (e) {
       console.error(e);
     }
@@ -1019,7 +1087,9 @@ export default class JSMapView {
    */
   async isLabelRenderAnimating() {
     try {
-      var {isLabelRenderAnimating} = await MV.isLabelRenderAnimating(this._MGMapViewId);
+      var { isLabelRenderAnimating } = await MV.isLabelRenderAnimating(
+        this._MGMapViewId
+      );
       return isLabelRenderAnimating;
     } catch (e) {
       console.error(e);
@@ -1044,7 +1114,7 @@ export default class JSMapView {
    * @memberOf JSMapView
    * @returns {Promise<void>}
    */
-    async setLongTapListener() {
+  async setLongTapListener() {
     try {
       await MV.setLongTapListener(this._MGMapViewId);
     } catch (e) {
@@ -1152,7 +1222,4 @@ export default class JSMapView {
       console.error(e);
     }
   }
-
-  }
-
-
+}
