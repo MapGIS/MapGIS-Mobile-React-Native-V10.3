@@ -332,7 +332,7 @@ export default class JSMapView {
    */
   async zoomToRange(dispRange, animated) {
     try {
-      await MV.zoomToCenter(this._MGMapViewId, dispRange._MGRectId, animated);
+      await MV.zoomToRange(this._MGMapViewId, dispRange._MGRectId, animated);
     } catch (e) {
       console.error(e);
     }
