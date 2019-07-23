@@ -14,12 +14,12 @@
     "gis"
   ],
   "author": "MapGIS",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "directories": {
     "doc": "doc"
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/MapGIS/Mobile-React-Native"
   }
 }
