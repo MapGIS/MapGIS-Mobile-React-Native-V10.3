@@ -140,7 +140,7 @@ export default class GraphicPolygon extends GraphicMultiPoint {
    */
   async setBorderlineColor(color) {
     try {
-      await GP.setBorderlineColor(this._MGGraphicCircleId, color);
+      await GP.setBorderlineColor(this._MGGraphicPolygonId, color);
     } catch (e) {
       console.error(e);
     }

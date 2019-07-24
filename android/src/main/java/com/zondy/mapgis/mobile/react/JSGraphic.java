@@ -8,6 +8,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
+import com.zondy.mapgis.android.graphic.GraphicText;
 import com.zondy.mapgis.mobile.react.utils.ConvertUtil;
 import com.zondy.mapgis.android.graphic.Graphic;
 import com.zondy.mapgis.android.graphic.GraphicCircle;
@@ -302,6 +303,10 @@ public class JSGraphic extends ReactContextBaseJavaModule {
         GraphicStippleLine graphicStippleLine = JSGraphicStippleLine.mGraphicStippleLineList.get(graphicID);
         if (graphicStippleLine != null) {
             return graphicStippleLine;
+        }
+        GraphicText graphicText = JSGraphicText.mGraphicTextList.get(graphicID);
+        if (graphicText != null) {
+            return graphicText;
         }
         return graphic;
     }
