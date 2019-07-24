@@ -13,6 +13,7 @@ import com.zondy.mapgis.core.geometry.Dot;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import android.util.Log;
 
 /**
  * @author fjl 2019-6-30 下午2:52:36
@@ -55,7 +56,7 @@ public class JSGraphicText extends JSGraphic {
     @ReactMethod
     public void createObj(Promise promise) {
         try {
-            GraphicText GraphicText = new GraphicText(0);
+            GraphicText GraphicText = new GraphicText();
             String GraphicTextId = registerId(GraphicText);
 
             WritableMap map = Arguments.createMap();
@@ -71,6 +72,7 @@ public class JSGraphicText extends JSGraphic {
         try {
             GraphicText graphicText = getObjFromList(GraphicTextId);
             Dot dot = JSDot.getObjFromList(dotID);
+            Log.d("GraphicTextId:", "--" + GraphicTextId);
             graphicText.setPoint(dot);
             promise.resolve(true);
         } catch (Exception e) {
@@ -80,9 +82,10 @@ public class JSGraphicText extends JSGraphic {
 
 
     @ReactMethod
-    public void setLineWidth(String GraphicTextId, String text, Promise promise) {
+    public void setText(String GraphicTextId, String text, Promise promise) {
         try {
             GraphicText graphicText = getObjFromList(GraphicTextId);
+            Log.d("GraphicTextId:", "--" + text);
             graphicText.setText(text);
             promise.resolve(true);
         } catch (Exception e) {

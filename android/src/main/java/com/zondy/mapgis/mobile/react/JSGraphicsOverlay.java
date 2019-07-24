@@ -18,6 +18,7 @@ import com.zondy.mapgis.android.graphic.GraphicPoint;
 import com.zondy.mapgis.android.graphic.GraphicPolygon;
 import com.zondy.mapgis.android.graphic.GraphicPolylin;
 import com.zondy.mapgis.android.graphic.GraphicStippleLine;
+import com.zondy.mapgis.android.graphic.GraphicText;
 import com.zondy.mapgis.android.graphic.GraphicsOverlay;
 
 import java.util.ArrayList;
@@ -130,7 +131,7 @@ public class JSGraphicsOverlay extends ReactContextBaseJavaModule {
         try {
             GraphicsOverlay graphicsOverlay = getObjFromList(GraphicsOverlayId);
             Graphic graphic = JSGraphic.mGraphicList.get(graphicID);
-            Log.e("graphic:", "" + graphic);
+            Log.d("graphic:", "" + graphic);
             Log.e("getGraphicByID:", "" + getGraphicByID(graphicID));
             if (graphic != null) {
                 graphicsOverlay.addGraphic(graphic);
@@ -162,6 +163,11 @@ public class JSGraphicsOverlay extends ReactContextBaseJavaModule {
             GraphicStippleLine GraphicStippleLine = JSGraphicStippleLine.mGraphicStippleLineList.get(graphicID);
             if (GraphicStippleLine != null) {
                 graphicsOverlay.addGraphic(GraphicStippleLine);
+            }
+            Log.e("graphicID:", "" + graphicID);
+            GraphicText graphicText = JSGraphicText.mGraphicTextList.get(graphicID);
+            if (graphicText != null) {
+                graphicsOverlay.addGraphic(graphicText);
             }
             promise.resolve(true);
         } catch (Exception e) {
@@ -228,7 +234,7 @@ public class JSGraphicsOverlay extends ReactContextBaseJavaModule {
 
     public Graphic getGraphicByID(String graphicID) {
         Graphic graphic = JSGraphic.mGraphicList.get(graphicID);
-        Log.e("graphic:", "" + graphic);
+        Log.d("graphic:", "" + graphic);
         if (graphic != null) {
             return graphic;
 
@@ -260,6 +266,10 @@ public class JSGraphicsOverlay extends ReactContextBaseJavaModule {
         GraphicStippleLine graphicStippleLine = JSGraphicStippleLine.mGraphicStippleLineList.get(graphicID);
         if (graphicStippleLine != null) {
             return graphicStippleLine;
+        }
+        GraphicText graphicText = JSGraphicText.mGraphicTextList.get(graphicID);
+        if (graphicText != null) {
+            return graphicText;
         }
         return graphic;
     }

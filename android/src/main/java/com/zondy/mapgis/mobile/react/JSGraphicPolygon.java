@@ -157,11 +157,11 @@ public class JSGraphicPolygon extends JSGraphicMultiPoint {
             promise.reject(e);
         }
     }
-
+    @ReactMethod
     public void setBorderlineColor(String GraphicPolygonId, String color, Promise promise) {
         try {
             GraphicPolygon graphicPolygon = getObjFromList(GraphicPolygonId);
-            graphicPolygon.setBorderlineColor(ConvertUtil.ColorRGBAToInt(color));
+            graphicPolygon.setBorderlineColor(-ConvertUtil.ColorRGBAToInt(color));
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
