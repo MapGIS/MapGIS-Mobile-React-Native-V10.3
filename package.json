@@ -1,7 +1,7 @@
 {
   "name": "@mapgis/mobile-react-native",
   "version": "1.0.1",
-  "description": "MapGIS Mobile for ReactNative，是MapGIS推出的一款基于React-Native的跨平台移动开发框架，用户可以基于它使用JavaScript开发出在Android和iOS平台下运行的原生移动GIS应用。",
+  "description": "MapGIS Mobile for React Native，是MapGIS推出的一款基于React-Native的跨平台移动开发框架，用户可以基于它使用JavaScript开发出在Android和iOS平台下运行的原生移动GIS应用。",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,6 +9,8 @@
   "keywords": [
     "react-native",
     "mapgis",
+    "mapgis mobile",
+    "mobile",
     "mobile-react-native",
     "map",
     "gis"
@@ -20,6 +22,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/MapGIS/Mobile-React-Native"
+    "url": "https://github.com/MapGIS/MapGIS-Mobile-React-Native"
   }
 }

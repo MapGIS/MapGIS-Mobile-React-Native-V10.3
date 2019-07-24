@@ -95,10 +95,9 @@ public class JSEnvironment extends ReactContextBaseJavaModule {
                     com.zondy.mapgis.android.environment.Environment.requestAuthorization(activity, new com.zondy.mapgis.android.environment.Environment.AuthorizeCallback() {
                         @Override
                         public void onComplete() {
-                            Log.d("requestAuthorization:", "请求授权成功！");
+                            promise.resolve(true);
                         }
                     });
-                    promise.resolve(true);
                 } catch (Exception e) {
                     promise.reject(e);
                 }
