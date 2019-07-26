@@ -63,13 +63,16 @@ export default class Feature {
    */
   async toGraphics() {
     try {
-      var objArr = [];
+
       var { values } = await F.toGraphics(this._MGFeatureId);
-      for (var i = 0; i < values.length - 1; i++) {
+      var objArr = [];
+      for (var i = 0; i < values.length; i++) {
         var graphic = new Graphic();
         graphic._MGGraphicId = values[i];
+        console.log("values[i]:" + values[i]);
         objArr.push(graphic);
       }
+      console.log("values[i]:" + objArr.length);
       return objArr;
     } catch (e) {
       console.error(e);

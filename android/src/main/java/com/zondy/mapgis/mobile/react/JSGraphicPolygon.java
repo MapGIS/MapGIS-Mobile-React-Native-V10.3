@@ -148,10 +148,11 @@ public class JSGraphicPolygon extends JSGraphicMultiPoint {
     }
 
     @ReactMethod
-    public void setBorderlineWidth(String GraphicPolygonId, float width, Promise promise) {
+    public void setBorderlineWidth(String GraphicPolygonId, Float width, Promise promise) {
         try {
             GraphicPolygon graphicPolygon = getObjFromList(GraphicPolygonId);
-            graphicPolygon.setBorderlineWidth(width);
+            graphicPolygon.setBorderlineWidth((float)width);
+            Log.d("setBorderlineWidth:", "" + width);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);

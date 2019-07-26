@@ -219,7 +219,7 @@ export default class FeatureQuery {
    */
   async setPageSize(pageSize) {
     try {
-      await F.setPageSize(this._MGFeatureQueryId, outFields);
+      await F.setPageSize(this._MGFeatureQueryId, pageSize);
     } catch (e) {
       console.error(e);
     }
