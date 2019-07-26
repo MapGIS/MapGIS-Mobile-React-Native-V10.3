@@ -7,12 +7,20 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
+import com.zondy.mapgis.android.graphic.Graphic;
+import com.zondy.mapgis.android.graphic.GraphicMultiPoint;
 import com.zondy.mapgis.android.internal.chart.json.GsonUtil;
 import com.zondy.mapgis.core.featureservice.Feature;
+import com.zondy.mapgis.core.geometry.Dot;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -93,6 +101,31 @@ public class JSFeature extends ReactContextBaseJavaModule {
             String jsonAttributes = GsonUtil.format(Attributes);
             WritableMap map = Arguments.createMap();
             map.putString("jsonAttributes", jsonAttributes);
+            promise.resolve(map);
+
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void toGraphics(String FeatureId, Promise promise) {
+        try {
+            Feature feature = getObjFromList(FeatureId);
+
+            List<Graphic> graphicLst = feature.toGraphics(true);
+            String graphicID = "";
+            WritableArray values = Arguments.createArray();
+            if (graphicLst.size() > 0) {
+                for (int i = 0; i < graphicLst.size(); i++) {
+                    graphicID = JSGraphic.registerId(graphicLst.get(i));
+                    values.pushString(graphicID);
+                    Log.e("graphicID:", "" + graphicID);
+                }
+            }
+            Log.e("values:", "" + values);
+            WritableMap map = Arguments.createMap();
+            map.putArray("values", values);
             promise.resolve(map);
 
         } catch (Exception e) {
