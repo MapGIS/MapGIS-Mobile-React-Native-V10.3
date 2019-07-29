@@ -1110,6 +1110,18 @@ export default class JSMapView {
   }
 
   /**
+   * 移除单击事件监听
+   * @returns {Promise<void>}
+   */
+  async removeTapListener() {
+    try {
+      await MV.removeTapListener(this._MGMapViewId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
    * 添加长按事件监听
    * @memberOf JSMapView
    * @returns {Promise<void>}
@@ -1121,6 +1133,19 @@ export default class JSMapView {
       console.error(e);
     }
   }
+
+  /**
+   * 移除长按事件监听
+   * @returns {Promise<void>}
+   */
+  async removeLongTapListener() {
+    try {
+      await MV.removeLongTapListener(this._MGMapViewId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   /**
    * 添加双击事件监听
    * @memberOf JSMapView
@@ -1129,6 +1154,18 @@ export default class JSMapView {
   async setDoubleTapListener() {
     try {
       await MV.setDoubleTapListener(this._MGMapViewId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 移除双击事件监听
+   * @returns {Promise<void>}
+   */
+  async removeDoubleTapListener() {
+    try {
+      await MV.removeDoubleTapListener(this._MGMapViewId);
     } catch (e) {
       console.error(e);
     }
@@ -1148,6 +1185,18 @@ export default class JSMapView {
   }
 
   /**
+   * 移除触摸事件监听
+   * @returns {Promise<void>}
+   */
+  async removeTouchListener() {
+    try {
+      await MV.removeTouchListener(this._MGMapViewId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
    * 添加地图视图级别改变的监听
    * @memberOf JSMapView
    * @returns {Promise<void>}
@@ -1155,6 +1204,18 @@ export default class JSMapView {
   async setZoomChangedListener() {
     try {
       await MV.setZoomChangedListener(this._MGMapViewId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 移除地图视图级别改变的监听
+   * @returns {Promise<void>}
+   */
+  async removeZoomChangedListener() {
+    try {
+      await MV.removeZoomChangedListener(this._MGMapViewId);
     } catch (e) {
       console.error(e);
     }
@@ -1174,6 +1235,18 @@ export default class JSMapView {
   }
 
   /**
+   * 移除地图视图中心点变化的监听
+   * @returns {Promise<void>}
+   */
+  async removeCenterChangedListener() {
+    try {
+      await MV.removeCenterChangedListener(this._MGMapViewId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
    * 添加地图视图旋转角度变化的监听
    * @memberOf JSMapView
    * @returns {Promise<void>}
@@ -1181,6 +1254,18 @@ export default class JSMapView {
   async setRotateChangedListener() {
     try {
       await MV.setRotateChangedListener(this._MGMapViewId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 移除地图视图旋转角度变化的监听
+   * @returns {Promise<void>}
+   */
+  async removeRotateChangedListener() {
+    try {
+      await MV.removeRotateChangedListener(this._MGMapViewId);
     } catch (e) {
       console.error(e);
     }
@@ -1198,6 +1283,19 @@ export default class JSMapView {
       console.error(e);
     }
   }
+
+  /**
+   * 移除地图视图动画的监听
+   * @returns {Promise<void>}
+   */
+  async removeAnimationListener() {
+    try {
+      await MV.removeAnimationListener(this._MGMapViewId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   /**
    * 地图视图刷新的监听
    * @memberOf JSMapView
@@ -1210,6 +1308,19 @@ export default class JSMapView {
       console.error(e);
     }
   }
+
+  /**
+   * 移除地图视图刷新的监听
+   * @returns {Promise<void>}
+   */
+  async removeRefreshListener() {
+    try {
+      await MV.removeRefreshListener(this._MGMapViewId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   /**
    * 地图视图地图加载的监听
    * @memberOf JSMapView
@@ -1218,6 +1329,18 @@ export default class JSMapView {
   async setMapLoadListener() {
     try {
       await MV.setMapLoadListener(this._MGMapViewId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 移除地图加载监听
+   * @returns {Promise<void>}
+   */
+  async removeMapLoadListener() {
+    try {
+      await MV.removeMapLoadListener(this._MGMapViewId);
     } catch (e) {
       console.error(e);
     }

@@ -1084,6 +1084,19 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void removeTapListener(String mapViewId, Promise promise) {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            m_mapView.setTapListener(null);
+            promise.resolve(true);
+
+            Log.d("setTapListener:", "" + true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
     public void setLongTapListener(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
@@ -1092,6 +1105,19 @@ public class JSMapView extends ReactContextBaseJavaModule {
             promise.resolve(true);
 
             Log.d("setLongTapListener:", "" + true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void removeLongTapListener(String mapViewId, Promise promise) {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            m_mapView.setLongTapListener(null);
+            promise.resolve(true);
+
+            Log.d("setTapListener:", "" + true);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -1111,6 +1137,18 @@ public class JSMapView extends ReactContextBaseJavaModule {
         }
     }
 
+    @ReactMethod
+    public void removeDoubleTapListener(String mapViewId, Promise promise) {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            m_mapView.setDoubleTapListener(null);
+            promise.resolve(true);
+
+            Log.d("setTapListener:", "" + true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
 
     @ReactMethod
     public void setTouchListener(String mapViewId, Promise promise) {
@@ -1121,6 +1159,19 @@ public class JSMapView extends ReactContextBaseJavaModule {
             promise.resolve(true);
 
             Log.d("setTouchListener:", "" + true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void removeTouchListener(String mapViewId, Promise promise) {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            m_mapView.setTouchListener(null);
+            promise.resolve(true);
+
+            Log.d("setTapListener:", "" + true);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -1141,6 +1192,19 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void removeZoomChangedListener(String mapViewId, Promise promise) {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            m_mapView.setZoomChangedListener(null);
+            promise.resolve(true);
+
+            Log.d("setTapListener:", "" + true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
     public void setCenterChangedListener(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
@@ -1148,6 +1212,19 @@ public class JSMapView extends ReactContextBaseJavaModule {
             m_mapView.setCenterChangedListener(mapListener);
             promise.resolve(true);
 
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void removeCenterChangedListener(String mapViewId, Promise promise) {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            m_mapView.setCenterChangedListener(null);
+            promise.resolve(true);
+
+            Log.d("setTapListener:", "" + true);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -1167,6 +1244,19 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void removeRotateChangedListener(String mapViewId, Promise promise) {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            m_mapView.setRotateChangedListener(null);
+            promise.resolve(true);
+
+            Log.d("setTapListener:", "" + true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
     public void setAnimationListener(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
@@ -1174,6 +1264,19 @@ public class JSMapView extends ReactContextBaseJavaModule {
             m_mapView.setAnimationListener(mapListener);
             promise.resolve(true);
 
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void removeAnimationListener(String mapViewId, Promise promise) {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            m_mapView.setAnimationListener(null);
+            promise.resolve(true);
+
+            Log.d("setTapListener:", "" + true);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -1193,6 +1296,19 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void removeRefreshListener(String mapViewId, Promise promise) {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            m_mapView.setRefreshListener(null);
+            promise.resolve(true);
+
+            Log.d("setTapListener:", "" + true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
     public void setMapLoadListener(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
@@ -1200,6 +1316,19 @@ public class JSMapView extends ReactContextBaseJavaModule {
             m_mapView.setMapLoadListener(mapListener);
             promise.resolve(true);
 
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void removeMapLoadListener(String mapViewId, Promise promise) {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            m_mapView.setMapLoadListener(null);
+            promise.resolve(true);
+
+            Log.d("setTapListener:", "" + true);
         } catch (Exception e) {
             promise.reject(e);
         }
