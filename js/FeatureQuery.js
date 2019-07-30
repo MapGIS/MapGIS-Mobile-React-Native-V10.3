@@ -86,13 +86,13 @@ export default class FeatureQuery {
   }
 
   /**
-   * 设置空间过滤条件,缺省是SPATIAL_REL_MBROVERLAP
+   * 设置空间过滤条件,缺省是0
    * @memberOf FeatureQuery
-   * @param spatialRel 空间过滤条件
+   * @param spatialRel 空间过滤条件(0为模糊相交、1为精确相交)
    */
   async setSpatialFilterRelationship(spatialRel) {
     try {
-      await F.setQueryBound(this._MGFeatureQueryId, spatialRel);
+      await F.setSpatialFilterRelationship(this._MGFeatureQueryId, spatialRel);
     } catch (e) {
       console.error(e);
     }
