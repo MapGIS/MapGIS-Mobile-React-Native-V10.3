@@ -25,12 +25,12 @@ export default class MapPosition {
                 typeof arguments[3] === "number"&&
                 typeof arguments[4] === "number"
             ) {
-                var { mapPositionId } = await X.createObj(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4]);
+                var { mapPositionId } = await MP.createObj(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4]);
                 var mapPosition = new MapPosition();
                 mapPosition._MMapPosition = mapPositionId;
                 return mapPosition;
             } else {
-                var {mapPositionId} = await X.createObj();
+                var {mapPositionId} = await MP.createObj();
                 var mapPosition = new MapPosition();
                 mapPosition._MMapPosition = mapPositionId;
                 return mapPosition;

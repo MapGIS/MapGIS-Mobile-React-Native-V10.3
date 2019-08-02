@@ -75,12 +75,12 @@ public class JSMapPosition extends ReactContextBaseJavaModule {
             MapPosition mapPosition = getObjFromList(MapPositionId);
 
             Dot centerDot =  mapPosition.getCenter();
+            String dotID = JSDot.registerId(centerDot);
 
-            String dotId = JSDot.registerId(centerDot);
             WritableMap map = Arguments.createMap();
-            map.putString("dotID", dotId);
+            map.putString("dotID", dotID);
 
-            Log.d("dotId", "" + dotId);
+            Log.d("dotID", "" + dotID);
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
@@ -88,15 +88,126 @@ public class JSMapPosition extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public double setCenter(String MapPositionId,String centerDotID ,Promise promise) {
+    public void setCenter(String MapPositionId,String centerDotID ,Promise promise) {
         try {
             MapPosition mapPosition = getObjFromList(MapPositionId);
             Dot centerDot = JSDot.getObjFromList(centerDotID);
             mapPosition.setCenter(centerDot);
-
+            promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
         }
-        return 0.0;
+
+    }
+
+    @ReactMethod
+    public void getResolution(String MapPositionId, Promise promise) {
+        try {
+            MapPosition mapPosition = getObjFromList(MapPositionId);
+            double resolution =  mapPosition.getResolution();
+
+            WritableMap map = Arguments.createMap();
+            map.putDouble("resolution", resolution);
+
+            Log.d("resolution", "" + resolution);
+            promise.resolve(map);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void setResolution(String MapPositionId,Double resolution ,Promise promise) {
+        try {
+            MapPosition mapPosition = getObjFromList(MapPositionId);
+            mapPosition.setResolution(resolution);
+            promise.resolve(true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+
+    }
+
+    @ReactMethod
+    public void getRotateCenter(String MapPositionId, Promise promise) {
+        try {
+            MapPosition mapPosition = getObjFromList(MapPositionId);
+            Dot centerDot =  mapPosition.getRotateCenter();
+            String dotID = JSDot.registerId(centerDot);
+
+            WritableMap map = Arguments.createMap();
+            map.putString("dotID", dotID);
+
+            Log.d("dotID", "" + dotID);
+            promise.resolve(map);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void setRotateCenter(String MapPositionId,String centerDotID ,Promise promise) {
+        try {
+            MapPosition mapPosition = getObjFromList(MapPositionId);
+            Dot centerDot = JSDot.getObjFromList(centerDotID);
+            mapPosition.setRotateCenter(centerDot);
+            promise.resolve(true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getRotateAngle(String MapPositionId, Promise promise) {
+        try {
+            MapPosition mapPosition = getObjFromList(MapPositionId);
+            double rotateAngle =  mapPosition.getRotateAngle();
+
+            WritableMap map = Arguments.createMap();
+            map.putDouble("rotateAngle", rotateAngle);
+
+            Log.d("rotateAngle", "" + rotateAngle);
+            promise.resolve(map);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void setRotateAngle(String MapPositionId,Float rotateAngle ,Promise promise) {
+        try {
+            MapPosition mapPosition = getObjFromList(MapPositionId);
+            mapPosition.setRotateAngle(rotateAngle);
+            promise.resolve(true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getSlopeAngle(String MapPositionId, Promise promise) {
+        try {
+            MapPosition mapPosition = getObjFromList(MapPositionId);
+            double slopeAngle =  mapPosition.getSlopeAngle();
+
+            WritableMap map = Arguments.createMap();
+            map.putDouble("slopeAngle", slopeAngle);
+
+            Log.d("slopeAngle", "" + slopeAngle);
+            promise.resolve(map);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void setSlopeAngle(String MapPositionId,Float slopeAngle ,Promise promise) {
+        try {
+            MapPosition mapPosition = getObjFromList(MapPositionId);
+            mapPosition.setSlopeAngle(slopeAngle);
+            promise.resolve(true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
     }
 }

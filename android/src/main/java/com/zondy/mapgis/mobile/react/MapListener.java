@@ -1,7 +1,6 @@
 package com.zondy.mapgis.mobile.react;
 
 import android.graphics.PointF;
-import androidx.annotation.Nullable;
 import android.view.MotionEvent;
 
 import com.facebook.react.bridge.Arguments;
@@ -60,7 +59,7 @@ public class MapListener implements MapView.MapViewDoubleTapListener, MapView.Ma
     }
 
 
-    private void sendEvent(MapView mapView, String eventName, @Nullable WritableMap params) {
+    private void sendEvent(MapView mapView, String eventName, WritableMap params) {
 
         reactContext
                 .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)

@@ -16,6 +16,7 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.zondy.mapgis.android.graphic.GraphicsOverlay;
 import com.zondy.mapgis.android.graphic.GraphicsOverlays;
+import com.zondy.mapgis.android.mapview.MapPosition;
 import com.zondy.mapgis.android.mapview.MapView;
 import com.zondy.mapgis.core.geometry.Dot;
 import com.zondy.mapgis.core.geometry.Rect;
@@ -507,11 +508,38 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void updatePosition(String mapViewId,String postionID,Boolean animated, Promise promise) {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            MapPosition mapPosition = JSMapPosition.getObjFromList(postionID);
+            m_mapView.updatePosition(mapPosition,animated);
+            promise.resolve(true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
     public void stopAnimation(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
             m_mapView.stopAnimation();
             promise.resolve(true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getPosition(String mapViewId, Promise promise) {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            MapPosition mapPosition = mapView.getPosition();
+
+            String dotId = JSMapPosition.registerId(mapPosition);
+            WritableMap map = Arguments.createMap();
+            map.putString("dotID", dotId);
+            promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
         }
