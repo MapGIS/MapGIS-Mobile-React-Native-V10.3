@@ -1,6 +1,5 @@
 package com.zondy.mapgis.mobile.react.utils;
 
-import androidx.annotation.Nullable;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
@@ -41,7 +40,7 @@ public class N_R_EventSender {
 
     public static void sendEvent(ReactContext reactContext,
                                  String eventName,
-                                 @Nullable WritableMap params) {
+                                  WritableMap params) {
         reactContext
                 .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
                 .emit(eventName, params);
@@ -49,7 +48,7 @@ public class N_R_EventSender {
 
     public static void sendEvent(ReactContext reactContext,
                                  String eventName,
-                                 @Nullable WritableArray params) {
+                                  WritableArray params) {
         reactContext
                 .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
                 .emit(eventName, params);
