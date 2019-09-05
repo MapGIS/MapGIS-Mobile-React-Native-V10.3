@@ -1,5 +1,7 @@
 package com.zondy.mapgis.mobile.react;
 
+import android.graphics.Bitmap;
+
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -8,10 +10,17 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.geometry.Dot;
 import com.zondy.mapgis.core.geometry.Rect;
+import com.zondy.mapgis.core.map.GroupLayer;
+import com.zondy.mapgis.core.map.LayerEnum;
 import com.zondy.mapgis.core.map.Map;
 import com.zondy.mapgis.core.map.MapLayer;
+import com.zondy.mapgis.core.map.VectorLayer;
+import com.zondy.mapgis.core.srs.SRefData;
+import com.zondy.mapgis.jni.core.map.NativeMap;
 
 import java.util.Calendar;
+
+import javax.annotation.RegEx;
 
 
 /**
@@ -40,8 +49,7 @@ public class JSMap extends ReactContextBaseJavaModule {
         for (java.util.Map.Entry entry : mMapList.entrySet()) {
             if (obj.equals(entry.getValue())) {
                 String id = (String) entry.getKey();
-                mMapList.put(id, obj);
-                return (String) entry.getKey();
+                return id;
             }
         }
         Calendar calendar = Calendar.getInstance();
@@ -116,6 +124,17 @@ public class JSMap extends ReactContextBaseJavaModule {
             map.setMaxScale(MaxScale);
             promise.resolve(true);
         } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void setIsFixedScalesDisplay(String MapLayerId, boolean IsFixedScalesDisplay, Promise promise){
+        try {
+            Map map = getObjFromList(MapLayerId);
+            map.setIsFixedScalesDisplay(IsFixedScalesDisplay);
+            promise.resolve(true);
+        }catch (Exception e){
             promise.reject(e);
         }
     }
@@ -218,6 +237,54 @@ public class JSMap extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void getIsFixedScalesDisplay(String MapId, Promise promise){
+        try{
+            Map map = getObjFromList(MapId);
+            boolean isFixedScaleDisplay = map.getIsFixedScalesDisplay();
+            promise.resolve(isFixedScaleDisplay);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getFixedScalesCount(String MapId, Promise promise){
+        try {
+            Map map = getObjFromList(MapId);
+            int fixedScalesCount = map.getFixedScalesCount();
+            promise.resolve(fixedScalesCount);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getFixedScale(String MapId, int index, Promise promise){
+        try {
+            Map map = getObjFromList(MapId);
+            double fixedScale = map.getFixedScale(index);
+            promise.resolve(fixedScale);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getSRSInfo(String MapId, Promise promise){
+        try {
+            Map map = getObjFromList(MapId);
+            SRefData sRefData = map.getSRSInfo();
+
+            String SRefDataId = JSSRefData.registerId(sRefData);
+            WritableMap writableMap = Arguments.createMap();
+            writableMap.putString("SRefDataId",SRefDataId);
+            promise.resolve(writableMap);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
     public void getLayerCount(String MapId, Promise promise) {
         try {
             Map map = getObjFromList(MapId);
@@ -225,6 +292,58 @@ public class JSMap extends ReactContextBaseJavaModule {
 
             promise.resolve(layerCount);
         } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getLayerEnum(String MapId, Promise promise){
+        try {
+            Map map = getObjFromList(MapId);
+            LayerEnum layerEnum = map.getLayerEnum();
+
+            String LayerEnumId = JSLayerEnum.registerId(layerEnum);
+            WritableMap writableMap = Arguments.createMap();
+            writableMap.putString("LayerEnumId",LayerEnumId);
+            promise.resolve(writableMap);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getIsCustomEntireRange(String MapId, Promise promise){
+        try {
+            Map map = getObjFromList(MapId);
+            boolean isCustomEntireRange = map.getIsCustomEntireRange();
+            promise.resolve(isCustomEntireRange);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getRange(String MapId, Promise promise){
+        try {
+            Map map = getObjFromList(MapId);
+            Rect rect = map.getRange();
+
+            String RectId = JSRect.registerId(rect);
+            WritableMap writableMap = Arguments.createMap();
+            writableMap.putString("RectId",RectId);
+            promise.resolve(writableMap);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getSymbolScale(String MapId, Promise promise){
+        try {
+            Map map = getObjFromList(MapId);
+            double symbolScale = map.getSymbolScale();
+            promise.resolve(symbolScale);
+        }catch (Exception e){
             promise.reject(e);
         }
     }
@@ -427,6 +546,40 @@ public class JSMap extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void toXML(String MapId, boolean onlyStyle, Promise promise){
+        try {
+            Map map = getObjFromList(MapId);
+            String s = map.toXML(onlyStyle);
+            promise.resolve(s);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void fromXML(String MapId, String strXML, boolean onlyStyle, Promise promise){
+        try {
+            Map map = getObjFromList(MapId);
+            int fromXML = (int) map.fromXML(strXML,onlyStyle);
+
+            promise.resolve(fromXML);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void clearDirty(String MapId, Promise promise){
+        try {
+            Map map = getObjFromList(MapId);
+            boolean clearDirty = map.clearDirty();
+            promise.resolve(clearDirty);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
     public void SetRotateCenter(String MapId, String centerID, Promise promise) {
         try {
             Map map = getObjFromList(MapId);
@@ -476,6 +629,20 @@ public class JSMap extends ReactContextBaseJavaModule {
 
             promise.resolve(rotateAngle);
         } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void outputToBitmap(String MapId, String rectId, String imageID, Promise promise){
+        try {
+            Map map = getObjFromList(MapId);
+            Rect rect = JSRect.getObjFromList(rectId);
+            Bitmap bitmap = JSImage.getObjFromList(imageID);
+            int outputToBitmap = (int) map.outputToBitmap(rect,bitmap);
+
+            promise.resolve(outputToBitmap);
+        }catch (Exception e){
             promise.reject(e);
         }
     }

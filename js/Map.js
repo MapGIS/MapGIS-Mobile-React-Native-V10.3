@@ -1,12 +1,21 @@
-/**
- * @content android视图点对象功能组件
- * @author fjl 2019-6-24 下午2:52:36
+/*
+ * @Description: In User Settings Edit
+ * @Author: fjl
+ * @Date: 2019-6-24 下午2:52:36
+ * @LastEditTime: 2019-09-02 14:32:11
+ * @LastEditors: Please set LastEditors
  */
+
 import { NativeModules } from "react-native";
 let M = NativeModules.JSMap;
 import Rect from "./Rect.js";
 import MapLayer from "./MapLayer.js";
 import Dot from "./Dot.js";
+import SRefData from "./SRefData.js";
+import LayerEnum from "./LayerEnum.js";
+import VectorLayer from "./VectorLayer.js";
+import GroupLayer from "./GroupLayer.js";
+
 /**
  * @class Map
  * @description 地图类，负责地图显示环境的管理。
@@ -93,6 +102,20 @@ export default class Map {
   async setMaxScale(MaxScale) {
     try {
       await M.setMaxScale(this._MGMapId, MaxScale);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 设置固定显示比的显示
+   * @memberOf Map
+   * @param {boolean} IsFixedScalesDisplay 是否显示显示比
+   * @return{void}
+   */
+  async setIsFixedScalesDisplay(IsFixedScalesDisplay){
+    try {
+      await M.setIsFixedScalesDisplay(this._MGMapId,IsFixedScalesDisplay);
     } catch (e) {
       console.error(e);
     }
@@ -213,6 +236,65 @@ export default class Map {
   }
 
   /**
+   * 获取是否固定显示比的显示
+   * @memberOf Map
+   * @returns {boolean}
+   */
+  async getIsFixedScalesDisplay(){
+    try {
+      let isFixedScalesDisplay = await M.getIsFixedScalesDisplay(this._MGMapId);
+      return isFixedScalesDisplay;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取固定的显示比个数
+   * @memberOf Map
+   * @returns {int}
+   */
+  async getFixedScalesCount(){
+    try {
+      let fixedScalesCount = await M.getFixedScalesCount(this._MGMapId);
+      return fixedScalesCount;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取固定的显示比
+   * @memberof Map
+   * @param {int} index 显示比的索引
+   * @returns {double}
+   */
+  async getFixedScale(index){
+    try {
+      let fixedScale = await M.getFixedScale(this._MGMapId,index);
+      return fixedScale;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取空间参照系
+   * @memberof Map
+   * @returns {Promise<SRefData>} 空间参照系
+   */
+  async getSRSInfo(){
+    try {
+      var {SRefDataId} = await M.getSRSInfo(this._MGMapId);
+      var sRefData = new SRefData();
+      sRefData._MGSRefDataId = SRefDataId;
+      return sRefData;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
    * 获取地图节点图层数目
    * @memberOf Map
    * @return 返回节点图层数
@@ -227,15 +309,95 @@ export default class Map {
   }
 
   /**
+   * 获取地图所有图层
+   * @memberof Map
+   * @returns {Promise<LayerEnum>} 返回所有图层对象
+   */
+  async getLayerEnum(){
+    try {
+      var {LayerEnumId} = await M.getLayerEnum(this._MGMapId);
+      var layerEnum = new LayerEnum();
+      layerEnum._MGLayerEnumId = LayerEnumId;
+      return layerEnum;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取是否适应整个地图范围
+   * @memberof Map
+   * @returns {boolean} 
+   */
+  async getIsCustomEntireRange(){
+    try {
+      let isCustomEntireRange = await M.getIsCustomEntireRange(this._MGMapId);
+      return isCustomEntireRange;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取范围
+   * @memberof Map
+   * @returns {Rect} 地图范围
+   */
+  async getRange(){
+    try {
+      var {RectId} = await M.getRange(this._MGMapId);
+      var rect = new Rect();
+      rect._MGRectId = RectId;
+      return rect;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取符号等级
+   * @memberof Map
+   * @returns {double}
+   */
+  async getSymbolScale(){
+    try {
+      let symbolScale = await M.getSymbolScale(this._MGMapId);
+      return symbolScale;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
    * 获取图层的名称
    * @memberOf Map
-   * @param index
+   * @param index 图层索引
    * @returns {Promise<MapLayer>}
    */
   async getLayer(index) {
     try {
-      var { MapLayerId } = await M.getLayer(this._MGMapId, index);
-      var mapLayer = new MapLayer();
+      var { MapLayerId , MapLayerType} = await M.getLayer(this._MGMapId, index); // 获取到图层id，图层类型
+      var mapLayer = null;
+      switch(MapLayerType){ // 根据图层类型，构造JS图层对象
+        case 0: // 矢量图层
+          mapLayer = new VectorLayer();
+
+          break;
+
+        case 2: // 组图层
+          mapLayer = new GroupLayer();
+          break;
+
+        case 9: // 服务图层
+          break;
+
+        case 10: // 简单模型图层
+          break;
+
+        default:
+          break;
+      }
+      
       mapLayer._MGMapLayerId = MapLayerId;
       return mapLayer;
     } catch (e) {
@@ -244,9 +406,9 @@ export default class Map {
   }
 
   /**
-   * 获取地图节渲染模式
+   * 获取是否编辑
    * @memberOf Map
-   * @return 返回节点图层数
+   * @return 是否编辑
    */
   async getIsDirty() {
     try {
@@ -480,6 +642,50 @@ export default class Map {
   }
 
   /**
+   * 输出到字符串中
+   * @memberof Map
+   * @param {boolean} onlyStyle 支持仅导出样式
+   * @returns {String} 成功返回Cstring值
+   */
+  async toXML(onlyStyle){
+    try {
+      let Cstring = await M.toXML(this._MGMapId,onlyStyle);
+      return Cstring;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 从字符串中输入
+   * @memberof Map
+   * @param {String} strXMl 
+   * @param {boolean} onlyStyle 支持仅导出样式
+   * @returns {int} 
+   */
+  async fromXML(strXMl, onlyStyle){
+    try {
+      return await M.fromXML(this._MGMapId,strXMl,onlyStyle);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 清除编辑
+   * @memberof Map
+   * @returns {boolean} 成功/失败
+   */
+  async clearDirty(){
+    try {
+      let clearDirty = await M.clearDirty(this._MGMapId);
+      return clearDirty;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
    * 设置地图旋转中心
    * @memberOf Map
    * @param center
@@ -534,6 +740,25 @@ export default class Map {
     try {
       let rotateAngle = await M.GetRotateAngle(this._MGMapId);
       return rotateAngle;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 根据指定的地图范围生成一张指定大小的图片
+   * @memberof Map
+   * @param {Object} dispRange 地图范围（Rect）
+   * @param {Object} bitmap 生成的图片（Image），用户负责构造指定大小的图片，要求像素格式为ARGB_8888
+   * @return {int} 
+   */
+  async outputToBitmap(dispRange,bitmap){
+    try {
+      if(dispRange === null || bitmap === null){
+        return -1;
+      }
+      let result = await M.outputToBitmap(this._MGMapId,dispRange._MGRectId,bitmap._MGImageId);
+      return result;
     } catch (e) {
       console.error(e);
     }

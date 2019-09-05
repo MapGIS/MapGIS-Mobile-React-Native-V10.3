@@ -7,9 +7,13 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.geometry.Rect;
+import com.zondy.mapgis.core.map.GroupLayer;
 import com.zondy.mapgis.core.map.LayerState;
 import com.zondy.mapgis.core.map.MapLayer;
+import com.zondy.mapgis.core.map.VectorLayer;
 import com.zondy.mapgis.core.object.Enumeration;
+import com.zondy.mapgis.core.srs.SRefData;
+import com.zondy.mapgis.jni.core.map.NativeMap;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -22,7 +26,6 @@ import java.util.Map;
 public class JSMapLayer extends ReactContextBaseJavaModule {
     public static final String REACT_CLASS = "JSMapLayer";
     public static Map<String, MapLayer> mMapLayerList = new HashMap<String, MapLayer>();
-
 
     public JSMapLayer(ReactApplicationContext context) {
         super(context);
@@ -41,8 +44,7 @@ public class JSMapLayer extends ReactContextBaseJavaModule {
         for (Map.Entry entry : mMapLayerList.entrySet()) {
             if (obj.equals(entry.getValue())) {
                 String id = (String) entry.getKey();
-                mMapLayerList.put(id, obj);
-                return (String) entry.getKey();
+                return id;
             }
         }
 
@@ -249,5 +251,54 @@ public class JSMapLayer extends ReactContextBaseJavaModule {
         } catch (Exception e) {
             promise.reject(e);
         }
+    }
+
+    @ReactMethod
+    public void getSrefInfo(String MapLayerId, Promise promise){
+        try {
+            MapLayer mapLayer = getObjFromList(MapLayerId);
+            SRefData sRefData = mapLayer.getSrefInfo();
+
+            String sRefInfoId = JSSRefData.registerId(sRefData);
+            WritableMap map = Arguments.createMap();
+            map.putString("SRefDataId",sRefInfoId);
+            promise.resolve(map);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    public static WritableMap getMapLayerByHandle(MapLayer mapLayer){
+        if(mapLayer == null) return null;
+        long handle = mapLayer.getHandle(); // 1、获取返回结果MapLayer的handle
+
+        if(handle == 0L) return null; // 2、handle是0L时候，返回空Id
+
+
+        String mapLayerId = "";
+        int type = NativeMap.jni_GetLayerType(handle); // 2、根据handle获取MapLayer的类型
+        switch (type){
+            case 0: // 矢量图层 （VectorLayer）
+                //VectorLayer vectorLayer = JSVectorLayer.createObjByHandle(handle); // 3、根据handle构造一个vectorLayer对象
+                mapLayerId =  JSVectorLayer.registerId(mapLayer);  // 4、返回注册vectorLayer对象后的Id
+                break;
+
+            case 2: // 组图层 （GroupLayer）
+                //GroupLayer groupLayer = JSGroupLayer.createObjByHandle(handle); // 3、根据handle构造一个groupLayer对象
+                mapLayerId = JSGroupLayer.registerId(mapLayer); // 4、返回注册groupLayer对象后的Id
+                break;
+
+            case 9: // 服务图层 （ServerLayer）
+
+                break;
+            case 10: // 简单模型图层 （SimpleModelLayer）
+                break;
+            default:
+                break;
+        }
+        WritableMap map = Arguments.createMap();
+        map.putString("MapLayerId", mapLayerId);
+        map.putString("MapLayerType", String.valueOf(type));
+        return map;
     }
 }

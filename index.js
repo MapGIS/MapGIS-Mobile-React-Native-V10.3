@@ -1,4 +1,19 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-09-05 18:06:47
+ * @LastEditTime: 2019-09-05 18:26:56
+ * @LastEditors: Please set LastEditors
+ */
 import { NativeModules } from "react-native";
+let ClassItemType = NativeModules.JSClassItemType;
+let AllOtherDataItemInfoSource = NativeModules.JSAllOtherDataItemInfoSource;
+let DuplicateType = NativeModules.JSDuplicateType;
+let DocItemType = NativeModules.JSDocItemType;
+let LabelBackType = NativeModules.JSLabelBackType;
+let LabelType = NativeModules.JSLabelType;
+let LabelGeomType = NativeModules.JSLabelGeomType;
+
 import MGMapView from "./js/components/MGSMapViewUI";
 import Environment from "./js/Environment";
 import Dot from "./js/Dot";
@@ -25,6 +40,11 @@ import PointF from "./js/PointF";
 import QueryBound from "./js/QueryBound";
 import Rect from "./js/Rect";
 import VectorLayer from "./js/VectorLayer";
+import SRefData from "./js/SRefData";
+import ClassItemValue from "./js/ClassItemValue";
+import DocumentItem from "./js/DocumentItem";
+import Document from "./js/Document";
+import Maps from "./js/Maps";
 
 export {
   MGMapView,
@@ -50,5 +70,15 @@ export {
   PointF,
   QueryBound,
   Rect,
-  VectorLayer
+  VectorLayer,
+  SRefData,
+  LayerEnum,
+  ClassItemValue,
+  ClassItemType,
+  AllOtherDataItemInfoSource,
+  DuplicateType,
+  DocItemType,
+  DocumentItem,
+  Document,
+  Maps,
 };

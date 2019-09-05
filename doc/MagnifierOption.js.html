@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: MagnifierOption.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: MagnifierOption.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @content 地图位置组件
+ * @author fjl 2019-7-31 下午2:52:36
+ */
+import {NativeModules} from "react-native";
+import Dot from "./Dot.js";
+import PointF from "./PointF";
+
+let MO = NativeModules.JSMagnifierOption;
+
+/**
+ * 放大镜功能组件
+ * @class MagnifierOption
+ */
+export default class MagnifierOption {
+    /**
+     * 构造一个新的 MagnifierOption 对象。
+     * @memberOf MagnifierOption
+     * @returns {Promise.&lt;MagnifierOption>}
+     */
+    async createObj() {
+        try {
+            if (
+                typeof arguments[0] === "number" &amp;&amp;
+                typeof arguments[1] === "number"&amp;&amp;
+                typeof arguments[2] === "number"&amp;&amp;
+                typeof arguments[3] === "String"
+            ) {
+                var { MagnifierOptionId } = await MO.createObj(arguments[0], arguments[1], arguments[2], arguments[3]);
+                var magnifierOption = new MagnifierOption();
+                magnifierOption._MMagnifierOption = MagnifierOptionId;
+                return magnifierOption;
+            } else {
+                var {MagnifierOptionId} = await MO.createObj();
+                var magnifierOption = new MagnifierOption();
+                magnifierOption._MMagnifierOption = MagnifierOptionId;
+                return magnifierOption;
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取缩放比例
+     * @memberOf MagnifierOption
+     * @returns {Promise&lt;*>}
+     */
+    async getScale() {
+        try {
+            var { scale } = await MO.getScale(this._MMagnifierOption);
+            return scale;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置缩放比例
+     * @param scale
+     * @returns {Promise&lt;void>}
+     */
+    async setScale(scale) {
+        try {
+            await MO.setScale(this._MMagnifierOption,scale);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取放大镜大小
+     * @memberOf MagnifierOption
+     * @returns {Promise&lt;*>}
+     */
+    async getSize() {
+        try {
+            let {size} = await MO.getSize(this._MMagnifierOption);
+            return size;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置放大镜大小
+     * @param size
+     * @returns {Promise&lt;void>}
+     */
+    async setSize(size) {
+        try {
+            await MO.setSize(this._MMagnifierOption,size);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+
+    /**
+     * 设置放大镜位置调整模式
+     * @memberOf MagnifierOption
+     * @param rotateAngle
+     * @returns {Promise&lt;void>}
+     */
+    async setPointAdjustMode(mode) {
+        try {
+            await MO.setPointAdjustMode(this._MMagnifierOption,mode);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取放大镜位置调整模式
+     * @memberOf MagnifierOption
+     * @returns {Promise&lt;*>}
+     */
+    async getPointAdjustMode() {
+        try {
+            let {mode} = await MO.getPointAdjustMode(this._MMagnifierOption);
+            return mode;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+
+    /**
+     * 获取放大镜位置
+     * @memberOf MagnifierOption
+     * @returns {Promise&lt;*>}
+     */
+    async getPoint() {
+        try {
+            var { PointFID } = await MO.getPoint(this._MMagnifierOption);
+            var pointFID = new PointF();
+            pointFID._MGPointFId = PointFID;
+            return pointFID;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设设置放大镜位置
+     * @memberOf MagnifierOption
+     * @param pointF
+     * @returns {Promise&lt;void>}
+     */
+    async setPoint(pointF) {
+        try {
+            await MO.setPoint(this._MMagnifierOption,pointF._MGPointFId);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ClassItemValue.html">ClassItemValue</a></li><li><a href="Document.html">Document</a></li><li><a href="DocumentItem.html">DocumentItem</a></li><li><a href="Dot.html">Dot</a></li><li><a href="Environment.html">Environment</a></li><li><a href="Feature.html">Feature</a></li><li><a href="FeaturePagedResult.html">FeaturePagedResult</a></li><li><a href="FeatureQuery.html">FeatureQuery</a></li><li><a href="Graphic.html">Graphic</a></li><li><a href="GraphicCircle.html">GraphicCircle</a></li><li><a href="GraphicImage.html">GraphicImage</a></li><li><a href="GraphicMultiPoint.html">GraphicMultiPoint</a></li><li><a href="GraphicPoint.html">GraphicPoint</a></li><li><a href="GraphicPolygon.html">GraphicPolygon</a></li><li><a href="GraphicPolylin.html">GraphicPolylin</a></li><li><a href="GraphicsOverlay.html">GraphicsOverlay</a></li><li><a href="GraphicsOverlays.html">GraphicsOverlays</a></li><li><a href="GraphicStippleLine.html">GraphicStippleLine</a></li><li><a href="GraphicText.html">GraphicText</a></li><li><a href="Image.html">Image</a></li><li><a href="MagnifierOption.html">MagnifierOption</a></li><li><a href="Map.html">Map</a></li><li><a href="MapLayer.html">MapLayer</a></li><li><a href="MapPosition.html">MapPosition</a></li><li><a href="Maps.html">Maps</a></li><li><a href="MapView.html">MapView</a></li><li><a href="PointF.html">PointF</a></li><li><a href="QueryBound.html">QueryBound</a></li><li><a href="Rect.html">Rect</a></li><li><a href="SRefData.html">SRefData</a></li><li><a href="VectorLayer.html">VectorLayer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#initialize">initialize</a></li><li><a href="global.html#removeAnimationListener">removeAnimationListener</a></li><li><a href="global.html#removeCenterChangedListener">removeCenterChangedListener</a></li><li><a href="global.html#removeDoubleTapListener">removeDoubleTapListener</a></li><li><a href="global.html#removeLongTapListener">removeLongTapListener</a></li><li><a href="global.html#removeMapLoadListener">removeMapLoadListener</a></li><li><a href="global.html#removeRefreshListener">removeRefreshListener</a></li><li><a href="global.html#removeRotateChangedListener">removeRotateChangedListener</a></li><li><a href="global.html#removeTapListener">removeTapListener</a></li><li><a href="global.html#removeTouchListener">removeTouchListener</a></li><li><a href="global.html#removeZoomChangedListener">removeZoomChangedListener</a></li><li><a href="global.html#requestAuthorization">requestAuthorization</a></li><li><a href="global.html#setResolution">setResolution</a></li><li><a href="global.html#setScale">setScale</a></li><li><a href="global.html#setSize">setSize</a></li><li><a href="global.html#setSystemLibraryPath">setSystemLibraryPath</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Thu Sep 05 2019 18:32:56 GMT+0800 (GMT+08:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
