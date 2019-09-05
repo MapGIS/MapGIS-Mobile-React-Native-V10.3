@@ -48,6 +48,33 @@ public class ReactNativeViewPackage implements ReactPackage {
         modules.add(new JSGraphicPolylin(reactContext));
         modules.add(new JSGraphicText(reactContext));
         modules.add(new JSMapPosition(reactContext));
+        modules.add(new JSSRefData(reactContext));
+        modules.add(new JSLayerEnum(reactContext));
+        modules.add(new JSClassItemValue(reactContext));
+        modules.add(new JSClassItemType(reactContext));
+        modules.add(new JSAllOtherDataItemInfoSource(reactContext));
+        modules.add(new JSDocItemType(reactContext));
+        modules.add(new JSDocumentItem(reactContext));
+        modules.add(new JSDocument(reactContext));
+        modules.add(new JSDuplicateType(reactContext));
+        modules.add(new JSMaps(reactContext));
+        modules.add(new JSGroupLayer(reactContext));
+        modules.add(new JSLabelType(reactContext));
+        modules.add(new JSLabelBackType(reactContext));
+        modules.add(new JSLabelGeomType(reactContext));
+        modules.add(new JSLayerState(reactContext));
+        modules.add(new JSLinePlaceType(reactContext));
+        modules.add(new JSLineRepeatType(reactContext));
+        modules.add(new JSLineRestrictType(reactContext));
+        modules.add(new JSLineSpreadType(reactContext));
+        modules.add(new JSMapServerAccessMode(reactContext));
+        modules.add(new JSMapServerBrowseType(reactContext));
+        modules.add(new JSPointEightLocationPriority(reactContext));
+        modules.add(new JSPointPlaceType(reactContext));
+        modules.add(new JSRegPlaceType(reactContext));
+        modules.add(new JSThemeType(reactContext));
+        modules.add(new JSTileSliceType(reactContext));
+        modules.add(new JSVectorLayerType(reactContext));
         return modules;
     }
 

@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: GroupLayer.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: GroupLayer.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-08-30 17:44:32
+ * @LastEditTime: 2019-09-02 14:31:04
+ * @LastEditors: Please set LastEditors
+ */
+
+/**
+ * @content 组图层
+ * @author xiaoying 2019-08-30 17:44:32
+ */
+import {NativeModules} from "react-native";
+import  LayerEnum  from "./LayerEnum.js";
+import MapLayer from "./MapLayer.js";
+import VectorLayer from "./VectorLayer.js";
+
+let GL = NativeModules.JSGroupLayer;
+
+/**
+ * @class GroupLayer
+ * @description 组图层对象功能组件
+ */
+export default class GroupLayer extends MapLayer{
+    
+    /**
+     * 构造一个新GroupLayer对象
+     * 
+     * @memberof GroupLayer
+     * @returns {Promise&lt;GroupLayer>}
+     */
+    async createObj(){
+        try {
+            var {GroupLayerId} = await GL.createObj();
+            var groupLayer = new GroupLayer();
+            groupLayer._MGGroupLayerId = GroupLayerId;
+            return groupLayer;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取组图层个数
+     * 
+     * @memberof GroupLayer
+     * @returns {int}
+     */
+    async getCount(){
+        try {
+            let count = await GL.getCount(this._MGGroupLayerId);
+            return count;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取图层枚举对象
+     * 
+     * @memberof GroupLayer
+     * @returns {LayerEnum}
+     */
+    async getLayerEnum(){
+        try {
+            var {LayerEnumId} = await GL.getLayerEnum(this._MGGroupLayerId);
+            var layerEnum = new LayerEnum();
+            layerEnum._MGLayerEnumId = LayerEnumId;
+            return layerEnum;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+
+    /**
+     * 
+     * @memberof GroupLayer
+     * @param {int} i  
+     * @returns {MapLayer}
+     */
+    async item(i){
+        try {
+            var {MapLayerId, MapLayerType} = await GL.item(this._MGGroupLayerId, i);
+            var mapLayer = null;
+            switch(MapLayerType){
+                case 0: //矢量图层
+                    mapLayer = new VectorLayer();
+                    break;
+
+                case 2: // 组图层
+                    mapLayer = new GroupLayer();
+                    break;
+                    
+                case 9:
+                    break;
+
+                case 10:
+                    break;
+                
+                default:
+                    break;
+            }
+            mapLayer._MGMapLayerId = MapLayerId;
+            return mapLayer;
+            
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 添加图层
+     * 
+     * @memberof GroupLayer
+     * @param {Object} mapLayer 添加的MapLayer 
+     * @returns {int} 图层ID
+     */
+    async append(mapLayer){
+        try {
+            return await GL.append(this._MGGroupLayerId,mapLayer._MGMapLayerId);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 插入图层
+     * 
+     * @memberof GroupLayer
+     * @param {int} index  插入的索引
+     * @param {Object} mapLayer 插入的图层对象 
+     * @returns {int} 图层ID
+     */
+    async insert(index, mapLayer){
+        try {
+            return await GL.insert(this._MGGroupLayerId, index, mapLayer._MGMapLayerId);
+
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 移除图层
+     * 
+     * @memberof GroupLayer
+     * @param {Object} mapLayer 移除的图层对象 
+     * @returns {boolean} true/false ：成功/失败
+     */
+    async removeByLayer(mapLayer){
+        try {
+            return await GL.removeByLayer(this._MGGroupLayerId, mapLayer._MGMapLayerId);
+
+        } catch (e) {
+            console.error(e);
+        }
+    }
+   
+    /**
+     * 移除多个图层
+     * 
+     * @memberof GroupLayer
+     * @param {int} fromIndex 移除开始的索引 
+     * @param {int} nCount 移除的个数
+     * @returns {boolean} true/false : 成功/失败
+     */
+    async remove(fromIndex, nCount){
+        try {
+            return await GL.remove(this._MGGroupLayerId, fromIndex, nCount);
+            
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 移除图层
+     * 
+     * @memberof GroupLayer
+     * @param {int} layerIndex 移除的图层ID
+     * @returns {boolean} true/false : 成功/失败
+     */
+    async removeByLayerIndex(layerIndex){
+        try {
+            return await GL.removeByLayerIndex(this._MGGroupLayerId, layerIndex);     
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 清空图层
+     * 
+     * @memberof GroupLayer
+     * @returns {boolean} true/false : 成功/失败
+     */
+    async clear(){
+        try {
+            return await GL.clear(this._MGGroupLayerId);
+
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 移除图层
+     * 
+     * @memberof GroupLayer
+     * @param {Object} mapLayer 图层对象
+     * @returns {boolean} true/false : 成功/失败
+     */
+    async dragOut(mapLayer){
+        try {
+            return await GL.dragOut(this._MGGroupLayerId, mapLayer._MGMapLayerId);
+
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 移入图层
+     * 
+     * @memberof GroupLayer
+     * @param {int} index 移入的索引
+     * @param {Object} mapLayer 图层对象
+     * @returns {boolean} true/false : 成功/失败
+     */
+    async dragIn(index, mapLayer){
+        try {
+            return await GL.dragIn(this._MGGroupLayerId, index, mapLayer._MGMapLayerId);
+            
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 图层索引
+     * 
+     * @memberof GroupLayer
+     * @param {String} layerName 图层名称
+     * @returns {int} 成功：返回图层索引
+     */
+    async indexOfByLayerName(layerName){
+        try {
+            return await GL.indexOfByLayerName(this._MGGroupLayerId, layerName);
+
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 图层索引
+     * 
+     * @memberof GroupLayer
+     * @param {Object} mapLayer 图层对象
+     * @returns {int} 成功：返回图层索引 
+     */
+    async indexOfByLayer(mapLayer){
+        try {
+            return await GL.indexOfByLayer(this._MGGroupLayerId, mapLayer._MGMapLayerId);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 移动图层到最下面（最后绘制）
+     * 
+     * @memberof GroupLayer
+     * @param {int} index 图层ID 
+     * @returns {boolean} true/false : 成功/失败
+     */
+    async moveToBottom(index){
+        try {
+            return await GL.moveToBottom(this._MGGroupLayerId, index);
+
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 移动图层到最上面（最先绘制）
+     * 
+     * @memberof GroupLayer
+     * @param {int} index 图层ID 
+     * @returns {boolean} true/false : 成功/失败
+     */
+    async moveToTop(index){
+        try {
+            return await GL.moveToBottom(this._MGGroupLayerId, index);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 下移图层
+     * 
+     * @memberof GroupLayer
+     * @param {int} index 图层ID 
+     * @returns {boolean} true/false : 成功/失败
+     */
+    async moveToDown(index){
+        try {
+            return await GL.moveToDown(this._MGGroupLayerId, index);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 上移图层
+     * 
+     * @memberof GroupLayer
+     * @param {int} index 图层ID 
+     * @returns {boolean} true/false : 成功/失败
+     */
+    async moveToUp(index){
+        try {
+            return await GL.moveToUp(this._MGGroupLayerId, index);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 移动图层
+     * 
+     * @memberof GroupLayer
+     * @param {String} fromIndex 
+     * @param {String} toIndex 
+     * @returns {boolean} true/false : 成功/失败
+     */
+    async move(fromIndex, toIndex){
+        try {
+            return await GL.move(this._MGGroupLayerId, fromIndex, toIndex);
+
+        } catch (e) {
+            console.error(e);
+        }
+    }
+    
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ClassItemValue.html">ClassItemValue</a></li><li><a href="Document.html">Document</a></li><li><a href="DocumentItem.html">DocumentItem</a></li><li><a href="Dot.html">Dot</a></li><li><a href="Environment.html">Environment</a></li><li><a href="Feature.html">Feature</a></li><li><a href="FeaturePagedResult.html">FeaturePagedResult</a></li><li><a href="FeatureQuery.html">FeatureQuery</a></li><li><a href="Graphic.html">Graphic</a></li><li><a href="GraphicCircle.html">GraphicCircle</a></li><li><a href="GraphicImage.html">GraphicImage</a></li><li><a href="GraphicMultiPoint.html">GraphicMultiPoint</a></li><li><a href="GraphicPoint.html">GraphicPoint</a></li><li><a href="GraphicPolygon.html">GraphicPolygon</a></li><li><a href="GraphicPolylin.html">GraphicPolylin</a></li><li><a href="GraphicsOverlay.html">GraphicsOverlay</a></li><li><a href="GraphicsOverlays.html">GraphicsOverlays</a></li><li><a href="GraphicStippleLine.html">GraphicStippleLine</a></li><li><a href="GraphicText.html">GraphicText</a></li><li><a href="GroupLayer.html">GroupLayer</a></li><li><a href="Image.html">Image</a></li><li><a href="MagnifierOption.html">MagnifierOption</a></li><li><a href="Map.html">Map</a></li><li><a href="MapLayer.html">MapLayer</a></li><li><a href="MapPosition.html">MapPosition</a></li><li><a href="Maps.html">Maps</a></li><li><a href="MapView.html">MapView</a></li><li><a href="PointF.html">PointF</a></li><li><a href="QueryBound.html">QueryBound</a></li><li><a href="Rect.html">Rect</a></li><li><a href="SRefData.html">SRefData</a></li><li><a href="VectorLayer.html">VectorLayer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#initialize">initialize</a></li><li><a href="global.html#removeAnimationListener">removeAnimationListener</a></li><li><a href="global.html#removeCenterChangedListener">removeCenterChangedListener</a></li><li><a href="global.html#removeDoubleTapListener">removeDoubleTapListener</a></li><li><a href="global.html#removeLongTapListener">removeLongTapListener</a></li><li><a href="global.html#removeMapLoadListener">removeMapLoadListener</a></li><li><a href="global.html#removeRefreshListener">removeRefreshListener</a></li><li><a href="global.html#removeRotateChangedListener">removeRotateChangedListener</a></li><li><a href="global.html#removeTapListener">removeTapListener</a></li><li><a href="global.html#removeTouchListener">removeTouchListener</a></li><li><a href="global.html#removeZoomChangedListener">removeZoomChangedListener</a></li><li><a href="global.html#requestAuthorization">requestAuthorization</a></li><li><a href="global.html#setResolution">setResolution</a></li><li><a href="global.html#setScale">setScale</a></li><li><a href="global.html#setSize">setSize</a></li><li><a href="global.html#setSystemLibraryPath">setSystemLibraryPath</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Thu Sep 05 2019 21:01:23 GMT+0800 (GMT+08:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

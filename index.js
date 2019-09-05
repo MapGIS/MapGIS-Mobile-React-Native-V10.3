@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-05 18:06:47
- * @LastEditTime: 2019-09-05 18:26:56
+ * @LastEditTime: 2019-09-05 19:50:14
  * @LastEditors: Please set LastEditors
  */
 import { NativeModules } from "react-native";
@@ -13,6 +13,19 @@ let DocItemType = NativeModules.JSDocItemType;
 let LabelBackType = NativeModules.JSLabelBackType;
 let LabelType = NativeModules.JSLabelType;
 let LabelGeomType = NativeModules.JSLabelGeomType;
+let LayerState = NativeModules.JSLayerState;
+let LinePlaceType = NativeModules.JSLinePlaceType;
+let LineRepeatType = NativeModules.JSLineRepeatType;
+let LineRestrictType = NativeModules.JSLineRestrictType;
+let LineSpreadType = NativeModules.JSLineSpreadType;
+let MapServerAccessMode = NativeModules.JSMapServerAccessMode;
+let MapServerBrowseType = NativeModules.JSMapServerBrowseType;
+let PointEightLocationPriority = NativeModules.JSPointEightLocationPriority;
+let PointPlaceType = NativeModules.JSPointPlaceType;
+let RegPlaceType = NativeModules.JSRegPlaceType;
+let ThemeType = NativeModules.JSThemeType;
+let TileSliceType = NativeModules.JSTileSliceType;
+let VectorLayerType = NativeModules.JSVectorLayerType;
 
 import MGMapView from "./js/components/MGSMapViewUI";
 import Environment from "./js/Environment";
@@ -45,6 +58,8 @@ import ClassItemValue from "./js/ClassItemValue";
 import DocumentItem from "./js/DocumentItem";
 import Document from "./js/Document";
 import Maps from "./js/Maps";
+
+import GroupLayer from "./js/GroupLayer";
 
 export {
   MGMapView,
@@ -81,4 +96,21 @@ export {
   DocumentItem,
   Document,
   Maps,
+  GroupLayer,
+  LabelType,
+  LabelBackType,
+  LabelGeomType,
+  LayerState,
+  LinePlaceType,
+  LineRepeatType,
+  LineRestrictType, 
+  LineSpreadType,
+  MapServerAccessMode,
+  MapServerBrowseType,
+  PointEightLocationPriority,
+  PointPlaceType,
+  RegPlaceType,
+  ThemeType,
+  TileSliceType,
+  VectorLayerType,
 };
