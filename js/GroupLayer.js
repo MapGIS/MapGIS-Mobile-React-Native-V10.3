@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-30 17:44:32
- * @LastEditTime: 2019-09-02 14:31:04
+ * @LastEditTime: 2019-09-06 17:49:39
  * @LastEditors: Please set LastEditors
  */
 
@@ -23,6 +23,17 @@ let GL = NativeModules.JSGroupLayer;
  */
 export default class GroupLayer extends MapLayer{
     
+    constructor(){
+        super();
+        Object.defineProperty(this,"_MGGroupLayerId",{
+            get:function(){
+                return this._MGMapLayerId;
+            },
+            set:function(_MGGroupLayerId){
+                this._MGMapLayerId = _MGGroupLayerId;
+            }
+        })
+    }
     /**
      * 构造一个新GroupLayer对象
      * 
@@ -81,26 +92,8 @@ export default class GroupLayer extends MapLayer{
      */
     async item(i){
         try {
-            var {MapLayerId, MapLayerType} = await GL.item(this._MGGroupLayerId, i);
-            var mapLayer = null;
-            switch(MapLayerType){
-                case 0: //矢量图层
-                    mapLayer = new VectorLayer();
-                    break;
-
-                case 2: // 组图层
-                    mapLayer = new GroupLayer();
-                    break;
-                    
-                case 9:
-                    break;
-
-                case 10:
-                    break;
-                
-                default:
-                    break;
-            }
+            var {MapLayerId} = await GL.item(this._MGGroupLayerId, i);
+            var mapLayer = new MapLayer();
             mapLayer._MGMapLayerId = MapLayerId;
             return mapLayer;
             

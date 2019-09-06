@@ -22,7 +22,7 @@ import java.util.Map;
  */
 public class JSGroupLayer extends JSMapLayer {
     private static final String REACT_CLASS = "JSGroupLayer";
-    public static Map<String, GroupLayer> mGroupLayerList = new HashMap<>();
+//    public static Map<String, GroupLayer> mGroupLayerList = new HashMap<>();
 
     public JSGroupLayer(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -33,22 +33,22 @@ public class JSGroupLayer extends JSMapLayer {
         return REACT_CLASS;
     }
 
-    public static GroupLayer getObjFromList(String groupLayerId){
-        return mGroupLayerList.get(groupLayerId);
-    }
+//    public static GroupLayer getObjFromList(String groupLayerId){
+//        return mGroupLayerList.get(groupLayerId);
+//    }
 
-    public static String registerId(GroupLayer obj){
-        for(Map.Entry entry : mGroupLayerList.entrySet()){
-            if(obj.equals(entry.getValue())){
-                String id = (String) entry.getKey();
-                return id;
-            }
-        }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
-        mGroupLayerList.put(id,obj);
-        return id;
-    }
+//    public static String registerId(GroupLayer obj){
+//        for(Map.Entry entry : mGroupLayerList.entrySet()){
+//            if(obj.equals(entry.getValue())){
+//                String id = (String) entry.getKey();
+//                return id;
+//            }
+//        }
+//        Calendar calendar = Calendar.getInstance();
+//        String id = Long.toString(calendar.getTimeInMillis());
+//        mGroupLayerList.put(id,obj);
+//        return id;
+//    }
 
     @ReactMethod
     public void createObj(Promise promise){
@@ -80,7 +80,7 @@ public class JSGroupLayer extends JSMapLayer {
     @ReactMethod
     public void getCount(String groupLayerId, Promise promise){
         try {
-            GroupLayer groupLayer = getObjFromList(groupLayerId);
+            GroupLayer groupLayer = (GroupLayer) getObjFromList(groupLayerId);
             int count = groupLayer.getCount();
             promise.resolve(count);
         }catch (Exception e){
@@ -91,7 +91,7 @@ public class JSGroupLayer extends JSMapLayer {
     @ReactMethod
     public void getLayerEnum(String groupLayerId, Promise promise){
         try {
-            GroupLayer groupLayer = getObjFromList(groupLayerId);
+            GroupLayer groupLayer = (GroupLayer) getObjFromList(groupLayerId);
             LayerEnum layerEnum = groupLayer.getLayerEnum();
 
             String layerEnumId = JSLayerEnum.registerId(layerEnum);
@@ -106,9 +106,14 @@ public class JSGroupLayer extends JSMapLayer {
     @ReactMethod
     public void item(String groupLayerId, int i, Promise promise){
         try {
-            GroupLayer groupLayer = getObjFromList(groupLayerId);
+            GroupLayer groupLayer = (GroupLayer) getObjFromList(groupLayerId);
             MapLayer mapLayer = groupLayer.item(i);
-            WritableMap writableMap = getMapLayerByHandle(mapLayer);
+			String id = "";
+            if(mapLayer != null){
+                id = JSMapLayer.registerId(mapLayer);
+            }
+            WritableMap writableMap = Arguments.createMap();
+            writableMap.putString("MapLayerId", id);
             promise.resolve(writableMap);
         }catch (Exception e){
             promise.reject(e);
@@ -119,7 +124,7 @@ public class JSGroupLayer extends JSMapLayer {
     @ReactMethod
     public void append(String groupLayerId, String mapLayerId, Promise promise){
         try {
-            GroupLayer groupLayer = getObjFromList(groupLayerId);
+            GroupLayer groupLayer = (GroupLayer) getObjFromList(groupLayerId);
             MapLayer mapLayer = JSMapLayer.getObjFromList(mapLayerId);
             int id = groupLayer.append(mapLayer);
             promise.resolve(id);
@@ -131,7 +136,7 @@ public class JSGroupLayer extends JSMapLayer {
     @ReactMethod
     public void insert(String groupLayerId, int index, String mapLayerId, Promise promise){
         try {
-            GroupLayer groupLayer = getObjFromList(groupLayerId);
+            GroupLayer groupLayer = (GroupLayer) getObjFromList(groupLayerId);
             MapLayer mapLayer = JSMapLayer.getObjFromList(mapLayerId);
             int id = groupLayer.insert(index,mapLayer);
             promise.resolve(id);
@@ -143,7 +148,7 @@ public class JSGroupLayer extends JSMapLayer {
     @ReactMethod
     public void removeByLayer(String groupLayerId, String mapLayerId, Promise promise){
         try {
-            GroupLayer groupLayer = getObjFromList(groupLayerId);
+            GroupLayer groupLayer = (GroupLayer) getObjFromList(groupLayerId);
             MapLayer mapLayer = JSMapLayer.getObjFromList(mapLayerId);
             boolean remove = groupLayer.remove(mapLayer);
             promise.resolve(remove);
@@ -155,7 +160,7 @@ public class JSGroupLayer extends JSMapLayer {
     @ReactMethod
     public void remove(String groupLayerId, int fromIndex, int nCount, Promise promise){
         try {
-            GroupLayer groupLayer = getObjFromList(groupLayerId);
+            GroupLayer groupLayer = (GroupLayer) getObjFromList(groupLayerId);
             boolean remove = groupLayer.remove(fromIndex, nCount);
             promise.resolve(remove);
         }catch (Exception e){
@@ -166,7 +171,7 @@ public class JSGroupLayer extends JSMapLayer {
     @ReactMethod
     public void removeByLayerIndex(String groupLayerId, int layerIndex, Promise promise){
         try{
-            GroupLayer groupLayer = getObjFromList(groupLayerId);
+            GroupLayer groupLayer = (GroupLayer) getObjFromList(groupLayerId);
             boolean remove = groupLayer.remove(layerIndex);
             promise.resolve(remove);
         }catch (Exception e){
@@ -177,7 +182,7 @@ public class JSGroupLayer extends JSMapLayer {
     @ReactMethod
     public void clear(String groupLayerId, Promise promise){
         try {
-            GroupLayer groupLayer = getObjFromList(groupLayerId);
+            GroupLayer groupLayer = (GroupLayer) getObjFromList(groupLayerId);
             boolean clear = groupLayer.clear();
             promise.resolve(clear);
         }catch (Exception e){
@@ -188,7 +193,7 @@ public class JSGroupLayer extends JSMapLayer {
     @ReactMethod
     public void dragOut(String groupLayerId, String pLayerId, Promise promise){
         try{
-            GroupLayer groupLayer = getObjFromList(groupLayerId);
+            GroupLayer groupLayer = (GroupLayer) getObjFromList(groupLayerId);
             MapLayer pLayer = JSMapLayer.getObjFromList(pLayerId);
             boolean dragOut = groupLayer.dragOut(pLayer);
             promise.resolve(dragOut);
@@ -200,7 +205,7 @@ public class JSGroupLayer extends JSMapLayer {
     @ReactMethod
     public void dragIn(String groupLayerId, int index, String pLayerId, Promise promise){
         try {
-            GroupLayer groupLayer = getObjFromList(groupLayerId);
+            GroupLayer groupLayer = (GroupLayer) getObjFromList(groupLayerId);
             MapLayer pLayer = JSMapLayer.getObjFromList(pLayerId);
             boolean drageIn = groupLayer.dragIn(index, pLayer);
             promise.resolve(drageIn);
@@ -212,7 +217,7 @@ public class JSGroupLayer extends JSMapLayer {
     @ReactMethod
     public void indexOfByLayerName(String groupLayerId, String layerName, Promise promise){
         try {
-            GroupLayer groupLayer = getObjFromList(groupLayerId);
+            GroupLayer groupLayer = (GroupLayer) getObjFromList(groupLayerId);
             int index = groupLayer.indexOf(layerName);
             promise.resolve(index);
         }catch (Exception e){
@@ -223,7 +228,7 @@ public class JSGroupLayer extends JSMapLayer {
     @ReactMethod
     public void indexOfByLayer(String groupLayerId, String pLayerId, Promise promise){
         try {
-            GroupLayer groupLayer = getObjFromList(groupLayerId);
+            GroupLayer groupLayer = (GroupLayer) getObjFromList(groupLayerId);
             MapLayer pLayer = getObjFromList(pLayerId);
             int index = -1;
             if(pLayer != null){
@@ -238,7 +243,7 @@ public class JSGroupLayer extends JSMapLayer {
     @ReactMethod
     public void moveToBottom(String groupLayerId, int index, Promise promise){
         try {
-            GroupLayer groupLayer = getObjFromList(groupLayerId);
+            GroupLayer groupLayer = (GroupLayer) getObjFromList(groupLayerId);
             boolean moveToBottom = groupLayer.moveToBottom(index);
             promise.resolve(moveToBottom);
         }catch (Exception e){
@@ -249,7 +254,7 @@ public class JSGroupLayer extends JSMapLayer {
     @ReactMethod
     public void moveToTop(String groupLayerId, int index, Promise promise){
         try {
-            GroupLayer groupLayer = getObjFromList(groupLayerId);
+            GroupLayer groupLayer = (GroupLayer) getObjFromList(groupLayerId);
             boolean moveToTop = groupLayer.moveToTop(index);
             promise.resolve(moveToTop);
         }catch (Exception e){
@@ -260,7 +265,7 @@ public class JSGroupLayer extends JSMapLayer {
     @ReactMethod
     public void moveToDown(String groupLayerId, int index, Promise promise){
         try {
-            GroupLayer groupLayer = getObjFromList(groupLayerId);
+            GroupLayer groupLayer = (GroupLayer) getObjFromList(groupLayerId);
             boolean moveToDown = groupLayer.moveToDown(index);
             promise.resolve(moveToDown);
         }catch (Exception e) {
@@ -271,7 +276,7 @@ public class JSGroupLayer extends JSMapLayer {
     @ReactMethod
     public void moveToUp(String groupLayerId, int index, Promise promise){
         try {
-            GroupLayer groupLayer = getObjFromList(groupLayerId);
+            GroupLayer groupLayer = (GroupLayer) getObjFromList(groupLayerId);
             boolean moveToUp = groupLayer.moveToUp(index);
             promise.resolve(moveToUp);
         }catch (Exception e) {
@@ -282,7 +287,7 @@ public class JSGroupLayer extends JSMapLayer {
     @ReactMethod
     public void move(String groupLayerId, int fromIndex, int toIndex, Promise promise){
         try {
-            GroupLayer groupLayer = getObjFromList(groupLayerId);
+            GroupLayer groupLayer = (GroupLayer) getObjFromList(groupLayerId);
             boolean move = groupLayer.move(fromIndex, toIndex);
             promise.resolve(move);
         }catch (Exception e){

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: LinePlaceInfo.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: LinePlaceInfo.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*
+ * @Description: In User Settings Edit
+ * @Author: xiaoying
+ * @Date: 2019-09-02 16:44:15
+ * @LastEditTime: 2019-09-04 19:42:49
+ * @LastEditors: Please set LastEditors
+ */
+import {NativeModules} from "react-native";
+let LPI = NativeModules.JSLinePlaceInfo;
+
+/**
+ * @class LinePlaceInfo
+ * @description 线放置样式
+ */
+export default class LinePlaceInfo{
+    
+    /**
+     * 构造一个新LinePlaceInfo对象
+     * 
+     * @memberof LinePlaceInfo
+     * @returns {Promise&lt;LinePlaceInfo>} 线标注对象
+     */
+    async createObj(){
+        try {
+            var {LinePlaceInfoId} = await LPI.createObj();
+            var linePlaceInfo = new LinePlaceInfo();
+            linePlaceInfo._MGLinePlaceInfoId = LinePlaceInfoId;
+            return linePlaceInfo;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取线标注类型
+     * 
+     * @memberof LinePlaceInfo
+     * @returns {int} 线标注类型 例：LinePlaceType.HorizationPlace
+     */
+    async getType(){
+        try {
+            let type = await LPI.getType(this._MGLinePlaceInfoId);
+            return type;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置线标注类型
+     * 
+     * @memberof LinePlaceInfo
+     * @param {int} linePlaceType 线标注类型 例：LinePlaceType.HorizationPlace
+     * @returns {Promise&lt;Void>} 
+     */
+    async setType(linePlaceType){
+        try {
+            await LPI.setType(this._MGLinePlaceInfoId, linePlaceType);
+
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取标注与线的偏移距离(设备单位)
+     * 
+     * @memberof LinePlaceInfo
+     * @returns {double}
+     */
+    async getOffset(){
+        try {
+            let offset = await LPI.getOffset(this._MGLinePlaceInfoId);
+            return offset;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置标注与线的偏移距离（设备单位）
+     * 
+     * @memberof LinePlaceInfo
+     * @param {double} offset  标注与线的偏移距离
+     * @returns {Promise&lt;Void>}
+     */
+    async setOffset(offset){
+        try {
+            await LPI.setOffset(this._MGLinePlaceInfoId, offset);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     *  获取偏移约束类型
+     * 
+     * @memberof LinePlaceInfo
+     * @returns {int} 偏移约束类型 例：LineRestrictType.OnLine
+     */
+    async getRestrictType(){
+        try {
+            let restrictType = await LPI.getRestrictType(this._MGLinePlaceInfoId);
+            return restrictType;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置偏移约束类型
+     * 
+     * @memberof LinePlaceInfo
+     * @param {int} restrictType 偏移约束类型 例：LineRestrictType.OnLine
+     * @returns {Promise&lt;Void>}
+     */
+    async setRestrictType(restrictType){
+        try {
+            await LPI.setRestrictType(this._MGLinePlaceInfoId, restrictType);
+
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取分布类型
+     * 
+     * @memberof LinePlaceInfo
+     * @returns {int} 分布类型 例：LineSpreadType.AutoSpread
+     */
+    async getSpreadType(){
+        try {
+            let spreadType = await LPI.getSpreadType(this._MGLinePlaceInfoId);
+            return spreadType;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置分布类型
+     * 
+     * @memberof LinePlaceInfo
+     * @param {int} spreadType 分布类型，例：LineSpreadType.AutoSpread
+     * @returns {Promise&lt;Void>}
+     */
+    async setSpreadType(spreadType){
+        try {
+            await LPI.setSpreadType(this._MGLinePlaceInfoId, spreadType);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取重复类型
+     * 
+     * @memberof LinePlaceInfo
+     * @returns {int} 重复类型  例：LineRepeatType.AutoRepeat
+     */
+    async getRepeatType(){
+        try {
+            let repeatType = await LPI.getRepeatType(this._MGLinePlaceInfoId);
+            return repeatType;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置重复类型
+     * 
+     * @memberof LinePlaceInfo
+     * @param {int} repeatType 重复类型  例：LineRepeatType.AutoRepeat
+     * @returns {Promise&lt;Void>}
+     */
+    async setRepeatType(repeatType){
+        try {
+            await LPI.setRepeatType(this._MGLinePlaceInfoId, repeatType);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取步长
+     * 
+     * @memberof LinePlaceInfo
+     * @returns {double} 
+     */
+    async getInterval(){
+        try {
+            let interval = await LPI.getInterval(this._MGLinePlaceInfoId);
+            return interval;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置步长
+     * 
+     * @memberof LinePlaceInfo
+     * @param {double} interval 步长
+     * @returns {Promise&lt;Void>}
+     */
+    async setInterval(interval){
+        try {
+            await LPI.setInterval(this._MGLinePlaceInfoId, interval);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ClassItemValue.html">ClassItemValue</a></li><li><a href="Document.html">Document</a></li><li><a href="DocumentItem.html">DocumentItem</a></li><li><a href="Dot.html">Dot</a></li><li><a href="Environment.html">Environment</a></li><li><a href="Feature.html">Feature</a></li><li><a href="FeaturePagedResult.html">FeaturePagedResult</a></li><li><a href="FeatureQuery.html">FeatureQuery</a></li><li><a href="Graphic.html">Graphic</a></li><li><a href="GraphicCircle.html">GraphicCircle</a></li><li><a href="GraphicImage.html">GraphicImage</a></li><li><a href="GraphicMultiPoint.html">GraphicMultiPoint</a></li><li><a href="GraphicPoint.html">GraphicPoint</a></li><li><a href="GraphicPolygon.html">GraphicPolygon</a></li><li><a href="GraphicPolylin.html">GraphicPolylin</a></li><li><a href="GraphicsOverlay.html">GraphicsOverlay</a></li><li><a href="GraphicsOverlays.html">GraphicsOverlays</a></li><li><a href="GraphicStippleLine.html">GraphicStippleLine</a></li><li><a href="GraphicText.html">GraphicText</a></li><li><a href="GroupLayer.html">GroupLayer</a></li><li><a href="Image.html">Image</a></li><li><a href="LabelInfo.html">LabelInfo</a></li><li><a href="LayerEnum.html">LayerEnum</a></li><li><a href="LinePlaceInfo.html">LinePlaceInfo</a></li><li><a href="MagnifierOption.html">MagnifierOption</a></li><li><a href="Map.html">Map</a></li><li><a href="MapLayer.html">MapLayer</a></li><li><a href="MapPosition.html">MapPosition</a></li><li><a href="Maps.html">Maps</a></li><li><a href="MapView.html">MapView</a></li><li><a href="MultiClassThemeInfo.html">MultiClassThemeInfo</a></li><li><a href="PointF.html">PointF</a></li><li><a href="PointPlaceInfo.html">PointPlaceInfo</a></li><li><a href="QueryBound.html">QueryBound</a></li><li><a href="Rect.html">Rect</a></li><li><a href="RegionPlaceInfo.html">RegionPlaceInfo</a></li><li><a href="SRefData.html">SRefData</a></li><li><a href="VectorLayer.html">VectorLayer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#initialize">initialize</a></li><li><a href="global.html#removeAnimationListener">removeAnimationListener</a></li><li><a href="global.html#removeCenterChangedListener">removeCenterChangedListener</a></li><li><a href="global.html#removeDoubleTapListener">removeDoubleTapListener</a></li><li><a href="global.html#removeLongTapListener">removeLongTapListener</a></li><li><a href="global.html#removeMapLoadListener">removeMapLoadListener</a></li><li><a href="global.html#removeRefreshListener">removeRefreshListener</a></li><li><a href="global.html#removeRotateChangedListener">removeRotateChangedListener</a></li><li><a href="global.html#removeTapListener">removeTapListener</a></li><li><a href="global.html#removeTouchListener">removeTouchListener</a></li><li><a href="global.html#removeZoomChangedListener">removeZoomChangedListener</a></li><li><a href="global.html#requestAuthorization">requestAuthorization</a></li><li><a href="global.html#setResolution">setResolution</a></li><li><a href="global.html#setScale">setScale</a></li><li><a href="global.html#setSize">setSize</a></li><li><a href="global.html#setSystemLibraryPath">setSystemLibraryPath</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Fri Sep 06 2019 18:05:57 GMT+0800 (GMT+08:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

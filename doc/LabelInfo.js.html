@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: LabelInfo.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: LabelInfo.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*
+ * @Description: In User Settings Edit
+ * @Author: xiaoying
+ * @Date: 2019-09-02 16:44:04
+ * @LastEditTime: 2019-09-02 17:31:47
+ * @LastEditors: Please set LastEditors
+ */
+import {NativeModules} from "react-native";
+let LI = NativeModules.JSLabelInfo;
+
+/**
+ * @class LabelInfo
+ * @description 标注对象
+ */
+export default class LabelInfo{
+    
+    /**
+     * 构造一个新的LabelInfo对象
+     * 
+     * @memberof LabelInfo
+     * @returns {Promise&lt;LabelInfo>}
+     */
+    async createObj(){
+        try {
+            var {LabelInfoId} = await LI.createObj();
+            var labelInfo = new LabelInfo();
+            labelInfo._MGLabelInfoId = LabelInfoId;
+            return labelInfo;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取名称
+     * 
+     * @memberof LabelInfo
+     * @returns {String} 名称
+     */
+    async getCaption(){
+        try {
+            let caption = await LI.getCaption(this._MGLabelInfoId);
+            return caption;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置名称
+     * 
+     * @memberof LabelInfo
+     * @param {String} caption 名称
+     * @returns {Promise&lt;Void>}
+     */
+    async setCaption(caption){
+        try {
+            await LI.setCaption(this._MGLabelInfoId, caption);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取是否可见
+     * 
+     * @memberof LabelInfo
+     * @returns {boolean} 
+     */
+    async getIsVisible(){
+        try {
+            let isVisible = await LI.getIsVisible(this._MGLabelInfoId);
+            return isVisible;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置是否可见
+     * 
+     * @memberof LabelInfo
+     * @param {boolean} isVisible 
+     * @returns {Promise&lt;Void>}
+     */
+    async setIsVisible(isVisible){
+        try {
+            await LI.setIsVisible(this._MGLabelInfoId, isVisible);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取最小显示比
+     * 
+     * @memberof LabelInfo
+     * @returns {double} 
+     */
+    async getMinScale(){
+        try {
+            let minScale = await LI.getMinScale(this._MGLabelInfoId);
+            return minScale;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置最小显示比
+     * 
+     * @memberof LabelInfo
+     * @param {double} minScale 
+     * @returns {Promise&lt;Void>}
+     */
+    async setMinScale(minScale){
+        try {
+            await LI.setMinScale(this._MGLabelInfoId, minScale);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取最大显示比
+     * 
+     * @memberof LabelInfo
+     * @returns {double} 
+     */
+    async getMaxScale(){
+        try {
+            let maxScale = await LI.getMaxScale(this._MGLabelInfoId);
+            return maxScale;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置最大显示比
+     * 
+     * @memberof LabelInfo
+     * @param {double} maxScale 
+     * @returns {Promise&lt;Void>}
+     */
+    async setMaxScale(maxScale){
+        try {
+            await LI.setMaxScale(this._MGLabelInfoId, maxScale);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+
+    /**
+     * 获取注记信息
+     * 
+     * @memberof LabelInfo
+     * @returns {Object} 注记信息(TextAnnInfo)
+     */
+    async getAnnInfo(){
+        try {
+            
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置注记信息
+     * 
+     * @memberof LabelInfo
+     * @param {Object} textAnnInfo 注记信息 
+     * @returns {Promise&lt;Void>}
+     */
+    async setAnnInfo(textAnnInfo){
+        try {
+            
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ClassItemValue.html">ClassItemValue</a></li><li><a href="Document.html">Document</a></li><li><a href="DocumentItem.html">DocumentItem</a></li><li><a href="Dot.html">Dot</a></li><li><a href="Environment.html">Environment</a></li><li><a href="Feature.html">Feature</a></li><li><a href="FeaturePagedResult.html">FeaturePagedResult</a></li><li><a href="FeatureQuery.html">FeatureQuery</a></li><li><a href="Graphic.html">Graphic</a></li><li><a href="GraphicCircle.html">GraphicCircle</a></li><li><a href="GraphicImage.html">GraphicImage</a></li><li><a href="GraphicMultiPoint.html">GraphicMultiPoint</a></li><li><a href="GraphicPoint.html">GraphicPoint</a></li><li><a href="GraphicPolygon.html">GraphicPolygon</a></li><li><a href="GraphicPolylin.html">GraphicPolylin</a></li><li><a href="GraphicsOverlay.html">GraphicsOverlay</a></li><li><a href="GraphicsOverlays.html">GraphicsOverlays</a></li><li><a href="GraphicStippleLine.html">GraphicStippleLine</a></li><li><a href="GraphicText.html">GraphicText</a></li><li><a href="GroupLayer.html">GroupLayer</a></li><li><a href="Image.html">Image</a></li><li><a href="LabelInfo.html">LabelInfo</a></li><li><a href="LayerEnum.html">LayerEnum</a></li><li><a href="LinePlaceInfo.html">LinePlaceInfo</a></li><li><a href="MagnifierOption.html">MagnifierOption</a></li><li><a href="Map.html">Map</a></li><li><a href="MapLayer.html">MapLayer</a></li><li><a href="MapPosition.html">MapPosition</a></li><li><a href="Maps.html">Maps</a></li><li><a href="MapView.html">MapView</a></li><li><a href="MultiClassThemeInfo.html">MultiClassThemeInfo</a></li><li><a href="PointF.html">PointF</a></li><li><a href="PointPlaceInfo.html">PointPlaceInfo</a></li><li><a href="QueryBound.html">QueryBound</a></li><li><a href="Rect.html">Rect</a></li><li><a href="RegionPlaceInfo.html">RegionPlaceInfo</a></li><li><a href="SRefData.html">SRefData</a></li><li><a href="VectorLayer.html">VectorLayer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#initialize">initialize</a></li><li><a href="global.html#removeAnimationListener">removeAnimationListener</a></li><li><a href="global.html#removeCenterChangedListener">removeCenterChangedListener</a></li><li><a href="global.html#removeDoubleTapListener">removeDoubleTapListener</a></li><li><a href="global.html#removeLongTapListener">removeLongTapListener</a></li><li><a href="global.html#removeMapLoadListener">removeMapLoadListener</a></li><li><a href="global.html#removeRefreshListener">removeRefreshListener</a></li><li><a href="global.html#removeRotateChangedListener">removeRotateChangedListener</a></li><li><a href="global.html#removeTapListener">removeTapListener</a></li><li><a href="global.html#removeTouchListener">removeTouchListener</a></li><li><a href="global.html#removeZoomChangedListener">removeZoomChangedListener</a></li><li><a href="global.html#requestAuthorization">requestAuthorization</a></li><li><a href="global.html#setResolution">setResolution</a></li><li><a href="global.html#setScale">setScale</a></li><li><a href="global.html#setSize">setSize</a></li><li><a href="global.html#setSystemLibraryPath">setSystemLibraryPath</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Fri Sep 06 2019 18:05:57 GMT+0800 (GMT+08:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

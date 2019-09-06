@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-05 18:06:47
- * @LastEditTime: 2019-09-05 19:50:14
+ * @LastEditTime: 2019-09-06 15:32:33
  * @LastEditors: Please set LastEditors
  */
 import { NativeModules } from "react-native";
@@ -54,12 +54,16 @@ import QueryBound from "./js/QueryBound";
 import Rect from "./js/Rect";
 import VectorLayer from "./js/VectorLayer";
 import SRefData from "./js/SRefData";
+import LayerEnum from "./js/LayerEnum";
 import ClassItemValue from "./js/ClassItemValue";
 import DocumentItem from "./js/DocumentItem";
 import Document from "./js/Document";
 import Maps from "./js/Maps";
 
 import GroupLayer from "./js/GroupLayer";
+import LabelInfo from "./js/LabelInfo";
+import LinePlaceInfo from "./js/LinePlaceInfo";
+import MultiClassThemeInfo from "./js/MultiClassThemeInfo.js";
 
 export {
   MGMapView,
@@ -100,6 +104,7 @@ export {
   LabelType,
   LabelBackType,
   LabelGeomType,
+  LabelInfo,
   LayerState,
   LinePlaceType,
   LineRepeatType,
@@ -107,9 +112,11 @@ export {
   LineSpreadType,
   MapServerAccessMode,
   MapServerBrowseType,
+  MultiClassThemeInfo,
   PointEightLocationPriority,
   PointPlaceType,
   RegPlaceType,
+  RegionPlaceInfo,
   ThemeType,
   TileSliceType,
   VectorLayerType,

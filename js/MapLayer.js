@@ -5,6 +5,7 @@
 import { NativeModules } from "react-native";
 let ML = NativeModules.JSMapLayer;
 import Rect from "./Rect.js";
+import SRefData from "./SRefData.js";
 
 /**
  * @class MapLayer
@@ -43,11 +44,12 @@ export default class MapLayer {
   /**
    * 获取图层名称
    * @memberOf MapLayer
+   * @param {String} Name 图层名称
    * @returns {Promise<*>}
    */
-  async setName() {
+  async setName(Name) {
     try {
-      await ML.setName(this._MGMapLayerId);
+      await ML.setName(this._MGMapLayerId,Name);
     } catch (e) {
       console.error(e);
     }
@@ -101,7 +103,7 @@ export default class MapLayer {
    */
   async setState(State) {
     try {
-      await ML.setURL(this._MGMapLayerId, State);
+      await ML.setState(this._MGMapLayerId, State);
     } catch (e) {
       console.error(e);
     }
@@ -111,7 +113,7 @@ export default class MapLayer {
    * @memberOf MapLayer
    * @param {Boolean} visible 图层是否显示
    */
-  async setVisible(State) {
+  async setVisible(visible) {
     try {
       await ML.setVisible(this._MGMapLayerId, visible);
     } catch (e) {
@@ -227,10 +229,26 @@ export default class MapLayer {
    */
   async getRange() {
     try {
-      var { rectId } = await M.getRange(this._MGMapLayerId);
+      var { rectId } = await ML.getViewRange(this._MGMapLayerId);
       var rect = new Rect();
       rect._MGRectId = rectId;
       return rect;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取空间参照系
+   * @memberof MapLayer
+   * @returns {Promise<SRefData>}
+   */
+  async getSrefInfo(){
+    try {
+      var { SRefDataId } = await ML.getSrefInfo(this._MGMapLayerId);
+      var sRefInfo = new SRefData();
+      sRefInfo._MGSRefDataId = SRefDataId;
+      return sRefInfo;
     } catch (e) {
       console.error(e);
     }

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: PointPlaceInfo.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: PointPlaceInfo.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*
+ * @Description: In User Settings Edit
+ * @Author: xiaoying
+ * @Date: 2019-09-03 15:41:51
+ * @LastEditTime: 2019-09-04 19:43:15
+ * @LastEditors: Please set LastEditors
+ */
+import {NativeModules} from "react-native";
+let PPI = NativeModules.JSPointPlaceInfo;
+
+/**
+ * @class PointPlaceInfo
+ * @description 点放置样式
+ */
+export default class PointPlaceInfo{
+
+    /**
+     * 构造一个新的PointPlaceInfo对象
+     * 
+     * @memberof PointPlaceInfo
+     * @returns {Promise&lt;PointPlaceInfo>}
+     */
+    async createObj(){
+        try {
+            var {PointPlaceInfoId}  = await PPI.createObj();
+            var pointPlaceInfo = new PointPlaceInfo();
+            pointPlaceInfo._MGPointPlaceInfoId = PointPlaceInfoId;
+            return pointPlaceInfo;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取点标注类型
+     * 
+     * @memberof PointPlaceInfo
+     * @returns {int} 点标注分布类型 例：PointPlaceType.EightLocationPlace
+     */
+    async getType(){
+        try {
+            let pointPlaceType = await PPI.getType(this._MGPointPlaceInfoId);
+            return pointPlaceType;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置点标注类型
+     * 
+     * @memberof PointPlaceInfo
+     * @param {int} pointPlaceType 点标注分布类型 例：PointPlaceType.EightLocationPlace
+     * @returns {Promise&lt;Void>}
+     */
+    async setType(pointPlaceType){
+        try {
+            await PPI.setType(this._MGPointPlaceInfoId, pointPlaceType);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取标注与点的偏移距离(设备单位)
+     * 
+     * @memberof PointPlaceInfo
+     * @returns {double} 标注与点的偏移距离(设备单位)
+     */
+    async getOffset(){
+        try {
+            let offset = await PPI.getOffset(this._MGPointPlaceInfoId);
+            return offset;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置标注与点的偏移距离(设备单位)
+     * 
+     * @memberof PointPlaceInfo
+     * @param {int} offset 标注与点的偏移距离(设备单位)
+     * @returns {Promise&lt;Void>}
+     */
+    async setOffset(offset){
+        try {
+            await PPI.setOffset(this._MGPointPlaceInfoId, offset);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取八方位优先级,数组长度为8
+     * 
+     * @memberof PointPlaceInfo
+     * @returns {Array} int类型的数组
+     */
+    async getEightLocationPrioritys(){
+        try {
+            let array = await PPI.getEightLocationPrioritys(this._MGPointPlaceInfoId);
+            return array;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置八方位优先级
+     * 
+     * @memberof PointPlaceInfo
+     * @param {Array} array 八方位优先级数组，int类型，数组长度为8
+     * @returns {Promise&lt;Void>}
+     */
+    async setEightLocationPrioritys(array){
+        try {
+            await PPI.setEightLocationPrioritys(this._MGPointPlaceInfoId, array);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取任意方位优先级，度数，最大长度为20
+     * 
+     * @memberof PointPlaceInfo
+     * @returns {Array} double类型的数组
+     */
+    async getLocationPrioritys(){
+        try {
+            let array = await PPI.getLocationPrioritys(this._MGPointPlaceInfoId);
+            return array;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置任意方位优先级
+     * 
+     * @memberof PointPlaceInfo
+     * @param {Array} array 任意方位优先级数组，double类型，最大长度为20
+     * @returns {Promise&lt;Void>}
+     */
+    async setLocationPrioritys(array){
+        try {
+            await PPI.setLocationPrioritys(this._MGPointPlaceInfoId, array);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取是否避让点符号
+     * 
+     * @memberof PointPlaceInfo
+     * @returns {boolean} 
+     */
+    async getAvoidPointSymbol(){
+        try {
+            let result = await PPI.getAvoidPointSymbol(this._MGPointPlaceInfoId);
+            return result;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置是否避让点符号
+     * 
+     * @memberof PointPlaceInfo
+     * @param {boolean} avoidPointSymbol 是否避让点符号 
+     * @returns {Promise&lt;Void>}
+     */
+    async setAvoidPointSymbol(avoidPointSymbol){
+        try {
+            await PPI.setAvoidPointSymbol(this._MGPointPlaceInfoId, avoidPointSymbol);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取是否紧随点符号边界注记
+     * 
+     * @memberof PointPlaceInfo
+     * @returns {boolean} 
+     */
+    async getFollowPointSymbolBorder(){
+        try {
+            let result = await PPI.getFollowPointSymbolBorder(this._MGPointPlaceInfoId);
+            return result;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+    
+    /**
+     * 设置是否紧随点符号边界注记
+     * 
+     * @memberof PointPlaceInfo
+     * @param {boolean} followPointSymbolBorder 是否紧随点符号边界注记 
+     * @returns {Promise&lt;Void>}
+     */
+    async setFollowPointSymbolBorder(followPointSymbolBorder){
+        try {
+            await PPI.setFollowPointSymbolBorder(this._MGPointPlaceInfoId, followPointSymbolBorder);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ClassItemValue.html">ClassItemValue</a></li><li><a href="Document.html">Document</a></li><li><a href="DocumentItem.html">DocumentItem</a></li><li><a href="Dot.html">Dot</a></li><li><a href="Environment.html">Environment</a></li><li><a href="Feature.html">Feature</a></li><li><a href="FeaturePagedResult.html">FeaturePagedResult</a></li><li><a href="FeatureQuery.html">FeatureQuery</a></li><li><a href="Graphic.html">Graphic</a></li><li><a href="GraphicCircle.html">GraphicCircle</a></li><li><a href="GraphicImage.html">GraphicImage</a></li><li><a href="GraphicMultiPoint.html">GraphicMultiPoint</a></li><li><a href="GraphicPoint.html">GraphicPoint</a></li><li><a href="GraphicPolygon.html">GraphicPolygon</a></li><li><a href="GraphicPolylin.html">GraphicPolylin</a></li><li><a href="GraphicsOverlay.html">GraphicsOverlay</a></li><li><a href="GraphicsOverlays.html">GraphicsOverlays</a></li><li><a href="GraphicStippleLine.html">GraphicStippleLine</a></li><li><a href="GraphicText.html">GraphicText</a></li><li><a href="GroupLayer.html">GroupLayer</a></li><li><a href="Image.html">Image</a></li><li><a href="LabelInfo.html">LabelInfo</a></li><li><a href="LayerEnum.html">LayerEnum</a></li><li><a href="LinePlaceInfo.html">LinePlaceInfo</a></li><li><a href="MagnifierOption.html">MagnifierOption</a></li><li><a href="Map.html">Map</a></li><li><a href="MapLayer.html">MapLayer</a></li><li><a href="MapPosition.html">MapPosition</a></li><li><a href="Maps.html">Maps</a></li><li><a href="MapView.html">MapView</a></li><li><a href="MultiClassThemeInfo.html">MultiClassThemeInfo</a></li><li><a href="PointF.html">PointF</a></li><li><a href="PointPlaceInfo.html">PointPlaceInfo</a></li><li><a href="QueryBound.html">QueryBound</a></li><li><a href="Rect.html">Rect</a></li><li><a href="RegionPlaceInfo.html">RegionPlaceInfo</a></li><li><a href="SRefData.html">SRefData</a></li><li><a href="VectorLayer.html">VectorLayer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#initialize">initialize</a></li><li><a href="global.html#removeAnimationListener">removeAnimationListener</a></li><li><a href="global.html#removeCenterChangedListener">removeCenterChangedListener</a></li><li><a href="global.html#removeDoubleTapListener">removeDoubleTapListener</a></li><li><a href="global.html#removeLongTapListener">removeLongTapListener</a></li><li><a href="global.html#removeMapLoadListener">removeMapLoadListener</a></li><li><a href="global.html#removeRefreshListener">removeRefreshListener</a></li><li><a href="global.html#removeRotateChangedListener">removeRotateChangedListener</a></li><li><a href="global.html#removeTapListener">removeTapListener</a></li><li><a href="global.html#removeTouchListener">removeTouchListener</a></li><li><a href="global.html#removeZoomChangedListener">removeZoomChangedListener</a></li><li><a href="global.html#requestAuthorization">requestAuthorization</a></li><li><a href="global.html#setResolution">setResolution</a></li><li><a href="global.html#setScale">setScale</a></li><li><a href="global.html#setSize">setSize</a></li><li><a href="global.html#setSystemLibraryPath">setSystemLibraryPath</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Fri Sep 06 2019 18:05:57 GMT+0800 (GMT+08:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

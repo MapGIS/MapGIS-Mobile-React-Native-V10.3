@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: fjl
  * @Date: 2019-6-24 下午2:52:36
- * @LastEditTime: 2019-09-02 14:32:11
+ * @LastEditTime: 2019-09-06 11:11:20
  * @LastEditors: Please set LastEditors
  */
 
@@ -376,28 +376,8 @@ export default class Map {
    */
   async getLayer(index) {
     try {
-      var { MapLayerId , MapLayerType} = await M.getLayer(this._MGMapId, index); // 获取到图层id，图层类型
-      var mapLayer = null;
-      switch(MapLayerType){ // 根据图层类型，构造JS图层对象
-        case 0: // 矢量图层
-          mapLayer = new VectorLayer();
-
-          break;
-
-        case 2: // 组图层
-          mapLayer = new GroupLayer();
-          break;
-
-        case 9: // 服务图层
-          break;
-
-        case 10: // 简单模型图层
-          break;
-
-        default:
-          break;
-      }
-      
+      var { MapLayerId } = await M.getLayer(this._MGMapId, index); // 获取到图层id，图层类型
+      var mapLayer = new MapLayer();
       mapLayer._MGMapLayerId = MapLayerId;
       return mapLayer;
     } catch (e) {
