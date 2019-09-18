@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-30 17:44:32
- * @LastEditTime: 2019-09-06 17:49:39
+ * @LastEditTime: 2019-09-12 09:59:24
  * @LastEditors: Please set LastEditors
  */
 
@@ -14,6 +14,8 @@ import {NativeModules} from "react-native";
 import  LayerEnum  from "./LayerEnum.js";
 import MapLayer from "./MapLayer.js";
 import VectorLayer from "./VectorLayer.js";
+// import ServerLayer from "./ServerLayer.js";
+import SimpleModelLayer from "./SimpleModelLayer.js";
 
 let GL = NativeModules.JSGroupLayer;
 
@@ -31,7 +33,7 @@ export default class GroupLayer extends MapLayer{
             },
             set:function(_MGGroupLayerId){
                 this._MGMapLayerId = _MGGroupLayerId;
-            }
+            },
         })
     }
     /**
@@ -66,22 +68,22 @@ export default class GroupLayer extends MapLayer{
         }
     }
 
-    /**
-     * 获取图层枚举对象
-     * 
-     * @memberof GroupLayer
-     * @returns {LayerEnum}
-     */
-    async getLayerEnum(){
-        try {
-            var {LayerEnumId} = await GL.getLayerEnum(this._MGGroupLayerId);
-            var layerEnum = new LayerEnum();
-            layerEnum._MGLayerEnumId = LayerEnumId;
-            return layerEnum;
-        } catch (e) {
-            console.error(e);
-        }
-    }
+//    /**
+//     * 获取图层枚举对象
+//     *
+//     * @memberof GroupLayer
+//     * @returns {LayerEnum}
+//     */
+//    async getLayerEnum(){
+//        try {
+//            var {LayerEnumId} = await GL.getLayerEnum(this._MGGroupLayerId);
+//            var layerEnum = new LayerEnum();
+//            layerEnum._MGLayerEnumId = LayerEnumId;
+//            return layerEnum;
+//        } catch (e) {
+//            console.error(e);
+//        }
+//    }
 
 
     /**
@@ -92,9 +94,29 @@ export default class GroupLayer extends MapLayer{
      */
     async item(i){
         try {
-            var {MapLayerId} = await GL.item(this._MGGroupLayerId, i);
-            var mapLayer = new MapLayer();
-            mapLayer._MGMapLayerId = MapLayerId;
+            let mapLayer;
+            var { MapLayerId , MapLayerType} = await M.item(this._MGMapId, i); // 获取到图层id，图层类型
+            switch(MapLayerType){
+              case 0:     // 矢量图层
+                mapLayer = new VectorLayer();
+                mapLayer._MGMapLayerId = MapLayerId;
+                break;
+              case 2:    // 组图层
+                mapLayer = new GroupLayer();
+                mapLayer._MGMapLayerId = MapLayerId;
+                break;
+              case 9:    // 服务图层
+                // mapLayer = new ServerLayer();
+                // mapLayer._MGMapLayerId = MapLayerId;
+                break;
+              case 10:  // 简单模型图层
+                mapLayer = new SimpleModelLayer();
+                mapLayer._MGMapLayerId = MapLayerId;
+                break;
+              default:
+                break;
+            }
+           
             return mapLayer;
             
         } catch (e) {
@@ -182,20 +204,20 @@ export default class GroupLayer extends MapLayer{
         }
     }
 
-    /**
-     * 清空图层
-     * 
-     * @memberof GroupLayer
-     * @returns {boolean} true/false : 成功/失败
-     */
-    async clear(){
-        try {
-            return await GL.clear(this._MGGroupLayerId);
-
-        } catch (e) {
-            console.error(e);
-        }
-    }
+//    /**
+//     * 清空图层
+//     *
+//     * @memberof GroupLayer
+//     * @returns {boolean} true/false : 成功/失败
+//     */
+//    async clear(){
+//        try {
+//            return await GL.clear(this._MGGroupLayerId);
+//
+//        } catch (e) {
+//            console.error(e);
+//        }
+//    }
 
     /**
      * 移除图层

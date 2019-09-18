@@ -58,29 +58,71 @@ public class ReactNativeViewPackage implements ReactPackage {
         modules.add(new JSDocument(reactContext));
         modules.add(new JSDuplicateType(reactContext));
         modules.add(new JSMaps(reactContext));
+        modules.add(new JSGeneralVectorLabel(reactContext));
         modules.add(new JSGroupLayer(reactContext));
+        modules.add(new JSLabel(reactContext));
         modules.add(new JSLabelType(reactContext));
         modules.add(new JSLabelBackType(reactContext));
         modules.add(new JSLabelGeomType(reactContext));
- 		modules.add(new JSLabelInfo(reactContext));
+        modules.add(new JSLabelInfo(reactContext));
         modules.add(new JSLayerState(reactContext));
         modules.add(new JSLinePlaceType(reactContext));
         modules.add(new JSLineRepeatType(reactContext));
         modules.add(new JSLineRestrictType(reactContext));
         modules.add(new JSLineSpreadType(reactContext));
-		modules.add(new JSLinePlaceInfo(reactContext));
+        modules.add(new JSLinePlaceInfo(reactContext));
+        modules.add(new JSMapServer(reactContext));
         modules.add(new JSMapServerAccessMode(reactContext));
         modules.add(new JSMapServerBrowseType(reactContext));
         modules.add(new JSMultiClassThemeInfo(reactContext));
+        modules.add(new JSMultiClassTheme(reactContext));
+        modules.add(new JSThemeInfo(reactContext));
         modules.add(new JSPointEightLocationPriority(reactContext));
         modules.add(new JSPointPlaceType(reactContext));
-		modules.add(new JSPointPlaceInfo(reactContext));
+        modules.add(new JSPointPlaceInfo(reactContext));
+        modules.add(new JSRangeThemeInfo(reactContext));
+        modules.add(new JSRangeTheme(reactContext));
         modules.add(new JSRegPlaceType(reactContext));
-		modules.add(new JSRegionPlaceInfo(reactContext));
+        modules.add(new JSRegionPlaceInfo(reactContext));
+        modules.add(new JSSimpleLabel(reactContext));
+        modules.add(new JSSimpleModelLayer(reactContext));
+        modules.add(new JSSimpleTheme(reactContext));
         modules.add(new JSThemeType(reactContext));
+        modules.add(new JSTheme(reactContext));
+        modules.add(new JSThemes(reactContext));
         modules.add(new JSTileSliceType(reactContext));
+        modules.add(new JSTileMapServer(reactContext));
+        modules.add(new JSIntUser(reactContext));
+        modules.add(new JSUniqueThemeInfo(reactContext));
+        modules.add(new JSUniqueTheme(reactContext));
+        modules.add(new JSVectorLabel(reactContext));
         modules.add(new JSVectorLayerType(reactContext));
-        return modules;
+        modules.add(new JSVectorMapServer(reactContext));
+        modules.add(new JSVectorTheme(reactContext));
+        modules.add(new JSVectorTileMapServer(reactContext));
+        modules.add(new JSOGCWMTSMapServer(reactContext));
+        modules.add(new JSServerLayer(reactContext));
+
+
+        modules.add(new JSModel(reactContext));
+        modules.add(new JSModelsOverlay(reactContext));
+		modules.add(new JSSimpleModelLayerUtil(reactContext));
+
+	    modules.add(new JSFillStyle(reactContext));
+        modules.add(new JSGeometryParams(reactContext));
+        modules.add(new JSLineStyle(reactContext));
+        modules.add(new JSMeasureType(reactContext));
+        modules.add(new JSPointStyle(reactContext));
+        modules.add(new JSSketchDataType(reactContext));
+        modules.add(new JSSketchEditor(reactContext));
+        modules.add(new JSSketchStyle(reactContext));
+        modules.add(new JSSnappingOption(reactContext));
+        modules.add(new JSTextStyle(reactContext));
+		
+		modules.add(new JSCoordinateConvertParameter(reactContext));
+        modules.add(new JSCoordinateType(reactContext));
+
+		return modules;
     }
 
     public List<Class<? extends JavaScriptModule>> createJSModules() {

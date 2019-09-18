@@ -138,8 +138,11 @@ export default class Maps{
     async getMap(index){
         try {
             var {MapId} = await MS.getMap(this._MGMapsId,index);
-            var map = new Map();
-            map._MGMapId = MapId;
+             var map = null;
+            if(MapId != null){
+              map = new Map();
+              map._MGMapId = MapId;
+            }
             return map;
         } catch (e) {
             console.error(e);

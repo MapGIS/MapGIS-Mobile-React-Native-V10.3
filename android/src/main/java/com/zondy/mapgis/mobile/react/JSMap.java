@@ -14,6 +14,8 @@ import com.zondy.mapgis.core.map.GroupLayer;
 import com.zondy.mapgis.core.map.LayerEnum;
 import com.zondy.mapgis.core.map.Map;
 import com.zondy.mapgis.core.map.MapLayer;
+import com.zondy.mapgis.core.map.ServerLayer;
+import com.zondy.mapgis.core.map.SimpleModelLayer;
 import com.zondy.mapgis.core.map.VectorLayer;
 import com.zondy.mapgis.core.srs.SRefData;
 import com.zondy.mapgis.jni.core.map.NativeMap;
@@ -352,11 +354,22 @@ public class JSMap extends ReactContextBaseJavaModule {
     public void getLayer(String MapId, int index, Promise promise) {
         try {
             Map Map = getObjFromList(MapId);
-            MapLayer maplayer = Map.getLayer(index);
+            MapLayer mapLayer = Map.getLayer(index);
 
-            String MapLayerId = JSMapLayer.registerId(maplayer);
+            String MapLayerId = JSMapLayer.registerId(mapLayer);
+            int type = -1; // 不是任何类型
+            if(mapLayer instanceof VectorLayer){                // 矢量图层
+                type = 0;
+            }else if (mapLayer instanceof GroupLayer){         // 组图层
+                type = 2;
+            }else if (mapLayer instanceof ServerLayer){        // 服务图层
+                type = 9;
+            }else if (mapLayer instanceof SimpleModelLayer){   // 简单模型图层
+                type = 10;
+            }
             WritableMap map = Arguments.createMap();
             map.putString("MapLayerId", MapLayerId);
+            map.putInt("MapLayerType", type);
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);

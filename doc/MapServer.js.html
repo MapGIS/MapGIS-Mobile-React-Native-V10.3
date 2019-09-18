@@ -30,12 +30,14 @@
  * @Description: In User Settings Edit
  * @Author: xiaoying
  * @Date: 2019-09-02 19:28:54
- * @LastEditTime: 2019-09-04 17:51:37
+ * @LastEditTime: 2019-09-11 19:57:34
  * @LastEditors: Please set LastEditors
  */
 import {NativeModules} from "react-native";
 import SRefData from "./SRefData.js";
 import Rect from "./Rect.js";
+// import TileMapServer from "./TileMapServer.js";
+// import VectorMapServer from "./VectorMapServer.js";
 let MS = NativeModules.JSMapServer;
 
 /**
@@ -145,7 +147,7 @@ export default class MapServer{
      * 获取地图浏览类型
      * 
      * @memberof MapServer
-     * @returns {int} 地图浏览类型 例：0-MapServerBrowseType.MapTile
+     * @returns {Number} 地图浏览类型（int类型的Number） 例：0-MapServerBrowseType.MapTile
      */
     async getMapBrowseType(){
         try {
@@ -221,7 +223,7 @@ export default class MapServer{
      * 连接数据 (真实地连接数据源，可以获取服务返回相关信息 如HDF瓦片信息。)
      * 
      * @memberof MapServer
-     * @returns {int} 1-成功； 0-失败
+     * @returns {Number} 1-成功； 0-失败 （int类型的Number）
      */
     async connectData(){
         try {
@@ -287,7 +289,7 @@ export default class MapServer{
 	 * CGGoogleHybridMapServer谷歌混合地图由CGGoogleSatelliteMapServer卫星地图和CGGoogleVectorMapServer矢量地图组成
      * 
      * @memberof MapServer
-     * @returns {int} 服务对象个数
+     * @returns {Number} 服务对象个数 （int类型的Number）
      */
     async getMapServerCount(){
         try {
@@ -302,12 +304,24 @@ export default class MapServer{
      * 获取索引对应的服务子对象
      * 
      * @memberof MapServer
-     * @param {int} index 索引
+     * @param {Number} index 索引 （int类型的Number）
      * @returns {Object} MapServer 子服务对象
      */
     async getMapServer(index){
         try {
-            
+            var {MapServerId} = await MS.getMapServer(this._MGMapServerId, index);
+            let mapBrowseType = MS.getMapBrowseType(this._MGMapServerId);
+            let mapServer = null;
+         
+            if(mapBrowseType == 1){                        // 瓦片地图服务
+                // mapServer = new TileMapServer();
+                // mapServer._MGMapServerId = MapServerId;
+            }else if(mapBrowseType == 2){                 // 矢量地图服务
+                // mapServer = new VectorMapServer();
+                // mapServer_MGMapServerId = MapServerId;
+            }
+
+            return mapServer;
         } catch (e) {
             console.error(e);
         }
@@ -318,7 +332,7 @@ export default class MapServer{
      * 
      * @memberof MapServer
      * @param {String}  strCopyright 服务版权
-     * @returns {int} 1-成功 ； 0-失败
+     * @returns {Number} 1-成功 ； 0-失败 （int类型的Number）
      */
     async setCopyright(strCopyright){
         try {
@@ -351,7 +365,7 @@ export default class MapServer{
      * @memberof MapServer
      * @param {String} strUser  用户名
      * @param {String} strPwd  密码（或Token）,可用来设置Token验证码.
-     * @returns {int} 1-成功 ；0-失败
+     * @returns {Number} 1-成功 ；0-失败 （int类型的Number）
      */
     async setAuthentication(strUser, strPwd){
         try {
@@ -396,7 +410,7 @@ export default class MapServer{
      *  获取服务所支持的版本列表
      * 
      * @memberof MapServer
-     * @returns {int} 服务版本个数
+     * @returns {Number} 服务版本个数 （int类型的Number）
      * @description 我们认为所有服务都存在一个“Default version”默认版本
      */
     async getVersionCount(){
@@ -413,7 +427,7 @@ export default class MapServer{
      * 获取索引对应的版本名称
      * 
      * @memberof MapServer
-     * @param {int} index  索引
+     * @param {Number} index  索引 （int类型的Number）
      * @returns {String} 版本名称
      */
     async getVersion(index){
@@ -430,7 +444,7 @@ export default class MapServer{
      * 
      * @memberof MapServer
      * @param {String} strVersion  当前版本
-     * @returns {int} 1-成功 ； 0-失败
+     * @returns {Number} 1-成功 ； 0-失败 （int类型的Number）
      */
     async setCurrentVersion(strVersion){
         try {
@@ -533,13 +547,13 @@ MapServer.MapServerType = {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ClassItemValue.html">ClassItemValue</a></li><li><a href="Document.html">Document</a></li><li><a href="DocumentItem.html">DocumentItem</a></li><li><a href="Dot.html">Dot</a></li><li><a href="Environment.html">Environment</a></li><li><a href="Feature.html">Feature</a></li><li><a href="FeaturePagedResult.html">FeaturePagedResult</a></li><li><a href="FeatureQuery.html">FeatureQuery</a></li><li><a href="Graphic.html">Graphic</a></li><li><a href="GraphicCircle.html">GraphicCircle</a></li><li><a href="GraphicImage.html">GraphicImage</a></li><li><a href="GraphicMultiPoint.html">GraphicMultiPoint</a></li><li><a href="GraphicPoint.html">GraphicPoint</a></li><li><a href="GraphicPolygon.html">GraphicPolygon</a></li><li><a href="GraphicPolylin.html">GraphicPolylin</a></li><li><a href="GraphicsOverlay.html">GraphicsOverlay</a></li><li><a href="GraphicsOverlays.html">GraphicsOverlays</a></li><li><a href="GraphicStippleLine.html">GraphicStippleLine</a></li><li><a href="GraphicText.html">GraphicText</a></li><li><a href="GroupLayer.html">GroupLayer</a></li><li><a href="Image.html">Image</a></li><li><a href="LabelInfo.html">LabelInfo</a></li><li><a href="LinePlaceInfo.html">LinePlaceInfo</a></li><li><a href="MagnifierOption.html">MagnifierOption</a></li><li><a href="Map.html">Map</a></li><li><a href="MapLayer.html">MapLayer</a></li><li><a href="MapPosition.html">MapPosition</a></li><li><a href="Maps.html">Maps</a></li><li><a href="MapServer.html">MapServer</a></li><li><a href="MapView.html">MapView</a></li><li><a href="MultiClassThemeInfo.html">MultiClassThemeInfo</a></li><li><a href="PointF.html">PointF</a></li><li><a href="PointPlaceInfo.html">PointPlaceInfo</a></li><li><a href="QueryBound.html">QueryBound</a></li><li><a href="Rect.html">Rect</a></li><li><a href="RegionPlaceInfo.html">RegionPlaceInfo</a></li><li><a href="SRefData.html">SRefData</a></li><li><a href="VectorLayer.html">VectorLayer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#initialize">initialize</a></li><li><a href="global.html#removeAnimationListener">removeAnimationListener</a></li><li><a href="global.html#removeCenterChangedListener">removeCenterChangedListener</a></li><li><a href="global.html#removeDoubleTapListener">removeDoubleTapListener</a></li><li><a href="global.html#removeLongTapListener">removeLongTapListener</a></li><li><a href="global.html#removeMapLoadListener">removeMapLoadListener</a></li><li><a href="global.html#removeRefreshListener">removeRefreshListener</a></li><li><a href="global.html#removeRotateChangedListener">removeRotateChangedListener</a></li><li><a href="global.html#removeTapListener">removeTapListener</a></li><li><a href="global.html#removeTouchListener">removeTouchListener</a></li><li><a href="global.html#removeZoomChangedListener">removeZoomChangedListener</a></li><li><a href="global.html#requestAuthorization">requestAuthorization</a></li><li><a href="global.html#setResolution">setResolution</a></li><li><a href="global.html#setScale">setScale</a></li><li><a href="global.html#setSize">setSize</a></li><li><a href="global.html#setSystemLibraryPath">setSystemLibraryPath</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ClassItemValue.html">ClassItemValue</a></li><li><a href="CoordinateConvertParameter.html">CoordinateConvertParameter</a></li><li><a href="Document.html">Document</a></li><li><a href="DocumentItem.html">DocumentItem</a></li><li><a href="Dot.html">Dot</a></li><li><a href="Environment.html">Environment</a></li><li><a href="Feature.html">Feature</a></li><li><a href="FeaturePagedResult.html">FeaturePagedResult</a></li><li><a href="FeatureQuery.html">FeatureQuery</a></li><li><a href="FillStyle.html">FillStyle</a></li><li><a href="GeneralVectorLabel.html">GeneralVectorLabel</a></li><li><a href="GeometryParams.html">GeometryParams</a></li><li><a href="Graphic.html">Graphic</a></li><li><a href="GraphicCircle.html">GraphicCircle</a></li><li><a href="GraphicImage.html">GraphicImage</a></li><li><a href="GraphicMultiPoint.html">GraphicMultiPoint</a></li><li><a href="GraphicPoint.html">GraphicPoint</a></li><li><a href="GraphicPolygon.html">GraphicPolygon</a></li><li><a href="GraphicPolylin.html">GraphicPolylin</a></li><li><a href="GraphicsOverlay.html">GraphicsOverlay</a></li><li><a href="GraphicsOverlays.html">GraphicsOverlays</a></li><li><a href="GraphicStippleLine.html">GraphicStippleLine</a></li><li><a href="GraphicText.html">GraphicText</a></li><li><a href="GroupLayer.html">GroupLayer</a></li><li><a href="Image.html">Image</a></li><li><a href="IntUser.html">IntUser</a></li><li><a href="Label.html">Label</a></li><li><a href="LabelInfo.html">LabelInfo</a></li><li><a href="LayerEnum.html">LayerEnum</a></li><li><a href="LinePlaceInfo.html">LinePlaceInfo</a></li><li><a href="LineStyle.html">LineStyle</a></li><li><a href="MagnifierOption.html">MagnifierOption</a></li><li><a href="Map.html">Map</a></li><li><a href="MapLayer.html">MapLayer</a></li><li><a href="MapPosition.html">MapPosition</a></li><li><a href="Maps.html">Maps</a></li><li><a href="MapServer.html">MapServer</a></li><li><a href="MapView.html">MapView</a></li><li><a href="Model.html">Model</a></li><li><a href="ModelsOverlay.html">ModelsOverlay</a></li><li><a href="MultiClassTheme.html">MultiClassTheme</a></li><li><a href="MultiClassThemeInfo.html">MultiClassThemeInfo</a></li><li><a href="OGCWMTSMapServer.html">OGCWMTSMapServer</a></li><li><a href="PointF.html">PointF</a></li><li><a href="PointPlaceInfo.html">PointPlaceInfo</a></li><li><a href="PointStyle.html">PointStyle</a></li><li><a href="QueryBound.html">QueryBound</a></li><li><a href="RangeTheme.html">RangeTheme</a></li><li><a href="RangeThemeInfo.html">RangeThemeInfo</a></li><li><a href="Rect.html">Rect</a></li><li><a href="RegionPlaceInfo.html">RegionPlaceInfo</a></li><li><a href="ServerLayer.html">ServerLayer</a></li><li><a href="SimpleLabel.html">SimpleLabel</a></li><li><a href="SimpleModelLayer.html">SimpleModelLayer</a></li><li><a href="SimpleModelLayerUtil.html">SimpleModelLayerUtil</a></li><li><a href="SimpleTheme.html">SimpleTheme</a></li><li><a href="SketchEditor.html">SketchEditor</a></li><li><a href="SketchStyle.html">SketchStyle</a></li><li><a href="SnappingOption.html">SnappingOption</a></li><li><a href="SRefData.html">SRefData</a></li><li><a href="TextStyle.html">TextStyle</a></li><li><a href="Theme.html">Theme</a></li><li><a href="ThemeInfo.html">ThemeInfo</a></li><li><a href="Themes.html">Themes</a></li><li><a href="TileMapServer.html">TileMapServer</a></li><li><a href="UniqueTheme.html">UniqueTheme</a></li><li><a href="UniqueThemeInfo.html">UniqueThemeInfo</a></li><li><a href="VectorLabel.html">VectorLabel</a></li><li><a href="VectorLayer.html">VectorLayer</a></li><li><a href="VectorMapServer.html">VectorMapServer</a></li><li><a href="VectorTheme.html">VectorTheme</a></li><li><a href="VectorTileMapServer.html">VectorTileMapServer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#initialize">initialize</a></li><li><a href="global.html#removeAnimationListener">removeAnimationListener</a></li><li><a href="global.html#removeCenterChangedListener">removeCenterChangedListener</a></li><li><a href="global.html#removeDoubleTapListener">removeDoubleTapListener</a></li><li><a href="global.html#removeLongTapListener">removeLongTapListener</a></li><li><a href="global.html#removeMapLoadListener">removeMapLoadListener</a></li><li><a href="global.html#removeRefreshListener">removeRefreshListener</a></li><li><a href="global.html#removeRotateChangedListener">removeRotateChangedListener</a></li><li><a href="global.html#removeTapListener">removeTapListener</a></li><li><a href="global.html#removeTouchListener">removeTouchListener</a></li><li><a href="global.html#removeZoomChangedListener">removeZoomChangedListener</a></li><li><a href="global.html#requestAuthorization">requestAuthorization</a></li><li><a href="global.html#setResolution">setResolution</a></li><li><a href="global.html#setScale">setScale</a></li><li><a href="global.html#setSize">setSize</a></li><li><a href="global.html#setSystemLibraryPath">setSystemLibraryPath</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Fri Sep 06 2019 12:03:07 GMT+0800 (GMT+08:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Sep 18 2019 09:06:20 GMT+0800 (GMT+08:00)
 </footer>
 
 <script> prettyPrint(); </script>

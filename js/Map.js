@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: fjl
  * @Date: 2019-6-24 下午2:52:36
- * @LastEditTime: 2019-09-06 11:11:20
+ * @LastEditTime: 2019-09-11 20:02:36
  * @LastEditors: Please set LastEditors
  */
 
@@ -15,6 +15,8 @@ import SRefData from "./SRefData.js";
 import LayerEnum from "./LayerEnum.js";
 import VectorLayer from "./VectorLayer.js";
 import GroupLayer from "./GroupLayer.js";
+import SimpleModelLayer from "./SimpleModelLayer.js";
+import ServerLayer from "./ServerLayer.js";
 
 /**
  * @class Map
@@ -376,9 +378,29 @@ export default class Map {
    */
   async getLayer(index) {
     try {
-      var { MapLayerId } = await M.getLayer(this._MGMapId, index); // 获取到图层id，图层类型
-      var mapLayer = new MapLayer();
-      mapLayer._MGMapLayerId = MapLayerId;
+      let mapLayer;
+      var { MapLayerId , MapLayerType} = await M.getLayer(this._MGMapId, index); // 获取到图层id，图层类型
+      switch(MapLayerType){
+        case 0:     // 矢量图层
+          mapLayer = new VectorLayer();
+          mapLayer._MGMapLayerId = MapLayerId;
+          break;
+        case 2:    // 组图层
+          mapLayer = new GroupLayer();
+          mapLayer._MGMapLayerId = MapLayerId;
+          break;
+        case 9:    // 服务图层
+          mapLayer = new ServerLayer();
+          mapLayer._MGMapLayerId = MapLayerId;
+          break;
+        case 10:  // 简单模型图层
+          mapLayer = new SimpleModelLayer();
+          mapLayer._MGMapLayerId = MapLayerId;
+          break;
+        default:
+          break;
+      }
+     
       return mapLayer;
     } catch (e) {
       console.error(e);

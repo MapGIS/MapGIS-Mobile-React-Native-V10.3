@@ -9,6 +9,8 @@ import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.map.GroupLayer;
 import com.zondy.mapgis.core.map.LayerEnum;
 import com.zondy.mapgis.core.map.MapLayer;
+import com.zondy.mapgis.core.map.ServerLayer;
+import com.zondy.mapgis.core.map.SimpleModelLayer;
 import com.zondy.mapgis.core.map.VectorLayer;
 import com.zondy.mapgis.jni.core.map.NativeMap;
 
@@ -108,13 +110,21 @@ public class JSGroupLayer extends JSMapLayer {
         try {
             GroupLayer groupLayer = (GroupLayer) getObjFromList(groupLayerId);
             MapLayer mapLayer = groupLayer.item(i);
-			String id = "";
-            if(mapLayer != null){
-                id = JSMapLayer.registerId(mapLayer);
+            String MapLayerId = JSMapLayer.registerId(mapLayer);
+            int type = -1; // 不是任何类型
+            if(mapLayer instanceof VectorLayer){                // 矢量图层
+                type = 0;
+            }else if (mapLayer instanceof GroupLayer){         // 组图层
+                type = 2;
+            }else if (mapLayer instanceof ServerLayer){        // 服务图层
+                type = 9;
+            }else if (mapLayer instanceof SimpleModelLayer){   // 简单模型图层
+                type = 10;
             }
-            WritableMap writableMap = Arguments.createMap();
-            writableMap.putString("MapLayerId", id);
-            promise.resolve(writableMap);
+            WritableMap map = Arguments.createMap();
+            map.putString("MapLayerId", MapLayerId);
+            map.putInt("MapLayerType", type);
+            promise.resolve(map);
         }catch (Exception e){
             promise.reject(e);
         }
