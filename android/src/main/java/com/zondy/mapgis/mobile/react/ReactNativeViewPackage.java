@@ -75,6 +75,35 @@ public class ReactNativeViewPackage implements ReactPackage {
         modules.add(new JSThemeType(reactContext));
         modules.add(new JSTileSliceType(reactContext));
         modules.add(new JSVectorLayerType(reactContext));
+        modules.add(new JSVisualMap(reactContext));
+        modules.add(new JSHeatmapPoint(reactContext));
+        modules.add(new JSGraphicHeatmap(reactContext));
+        modules.add(new JSMagnifierOption(reactContext));
+        modules.add(new JSAnnotation(reactContext));
+        modules.add(new JSAnnotationsOverlay(reactContext));
+        modules.add(new JSElpTransParam(reactContext));
+        modules.add(new JSElpTransformation(reactContext));
+        modules.add(new JSElpParam(reactContext));
+
+        modules.add(new JSDots(reactContext));
+        modules.add(new JSGeoAnno(reactContext));
+        modules.add(new JSGeometry(reactContext));
+        modules.add(new JSGeoLine(reactContext));
+        modules.add(new JSGeoLines(reactContext));
+        modules.add(new JSGeometryExp(reactContext));
+        modules.add(new JSGeoPoints(reactContext));
+        modules.add(new JSGeoPolygon(reactContext));
+        modules.add(new JSGeoPolygons(reactContext));
+        modules.add(new JSGeoVarLine(reactContext));
+        modules.add(new JSTextAnno(reactContext));
+
+        modules.add(new JSGeomInfo(reactContext));
+        modules.add(new JSAnnInfo(reactContext));
+        modules.add(new JSPntInfo(reactContext));
+        modules.add(new JSLinInfo(reactContext));
+        modules.add(new JSRegInfo(reactContext));
+        modules.add(new JSTextAnnInfo(reactContext));
+
         return modules;
     }
 
