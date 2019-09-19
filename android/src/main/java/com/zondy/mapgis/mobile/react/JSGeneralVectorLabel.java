@@ -6,6 +6,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
+import com.zondy.mapgis.core.info.GeomInfo;
 import com.zondy.mapgis.core.map.ClassItemValue;
 import com.zondy.mapgis.core.map.GeneralVectorLabel;
 import com.zondy.mapgis.core.map.LabelBackType;
@@ -75,21 +76,36 @@ public class JSGeneralVectorLabel extends JSVectorLabel {
         }
     }
 
+    /**
+     * 此方法SDK中目前只返回线
+     * @param generalVectorLabelId
+     * @param promise
+     */
     @ReactMethod
     public void getBackGeoInfo(String generalVectorLabelId, Promise promise){
         try {
             GeneralVectorLabel generalVectorLabel = (GeneralVectorLabel) getObjFromList(generalVectorLabelId);
-
+            GeomInfo geomInfo = generalVectorLabel.getBackGeoInfo();
+            String geomInfoId = null;
+            if(geomInfo != null){
+                geomInfoId = JSGeomInfo.registerId(geomInfo);
+            }
+            WritableMap writableMap = Arguments.createMap();
+            writableMap.putString("geomInfoId", geomInfoId);
+            promise.resolve(writableMap);
         }catch (Exception e){
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void setBackGeoInfo(String generalVectorLabelId, Promise promise){
+    public void setBackGeoInfo(String generalVectorLabelId, String geomInfoId, Promise promise){
         try {
             GeneralVectorLabel generalVectorLabel = (GeneralVectorLabel) getObjFromList(generalVectorLabelId);
+            GeomInfo geomInfo = JSGeomInfo.getObjFromList(geomInfoId);
+            generalVectorLabel.setBackGeoInfo(geomInfo);
 
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }

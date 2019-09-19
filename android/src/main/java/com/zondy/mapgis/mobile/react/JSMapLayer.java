@@ -362,7 +362,10 @@ public class JSMapLayer extends ReactContextBaseJavaModule {
     public void attachData(String MapLayerId, String iBasClsId, Promise promise){
         try {
             MapLayer mapLayer = getObjFromList(MapLayerId);
+            IBasCls iBasCls = JSBasCls.getObjFromList(iBasClsId);
+            boolean result = mapLayer.attachData(iBasCls);
 
+            promise.resolve(result);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -386,7 +389,13 @@ public class JSMapLayer extends ReactContextBaseJavaModule {
         try {
             MapLayer mapLayer = getObjFromList(MapLayerId);
             IBasCls iBasCls = mapLayer.getData();
-
+            String iBasClsId = null;
+            if(iBasCls != null){
+                iBasClsId = JSBasCls.registerId(iBasCls);
+            }
+            WritableMap writableMap = Arguments.createMap();
+            writableMap.putString("IBasClsId", iBasClsId);
+            promise.resolve(writableMap);
         }catch (Exception e){
             promise.reject(e);
         }

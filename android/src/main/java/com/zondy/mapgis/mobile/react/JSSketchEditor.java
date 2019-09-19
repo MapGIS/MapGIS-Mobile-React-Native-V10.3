@@ -30,7 +30,6 @@ public class JSSketchEditor extends ReactContextBaseJavaModule {
     private static final String REACT_CLASS = "JSSketchEditor";
     public static Map<String, SketchEditor> mSketchEditorList = new HashMap<>();
     private SketchEditor.SketchStateChangedListener mSketchStateChangedListener = null;
-    private static final String STATECHANGE = "com.mapgis.RN.SketchEditor.sketch_state_changed";
     private static final String GEOMETRYCHANGED = "com.mapgis.RN.SketchEditor.geometry_changed";
     private static final String VERTEXSELECTED = "com.mapgis.RN.SketchEditor.vertex_selected";
     private static final String UNDOSTATECHANGED = "com.mapgis.RN.SketchEditor.undo_state_changed";
@@ -69,7 +68,7 @@ public class JSSketchEditor extends ReactContextBaseJavaModule {
     public void createObj(String mapViewId, Promise promise){
         try {
             MapView mapView = JSMapView.getObjById(mapViewId);
-            String sketchEditorId = "";
+            String sketchEditorId = null;
             if(mapView != null){
                 SketchEditor sketchEditor = new SketchEditor(mapView);
                 sketchEditorId = registerId(sketchEditor);
@@ -86,6 +85,7 @@ public class JSSketchEditor extends ReactContextBaseJavaModule {
         mReactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
                 .emit(eventName, writableMap);
     }
+
     @ReactMethod
     public void addStateChangedListener(final String sketchEditorId, Promise promise){
         try {
@@ -96,38 +96,54 @@ public class JSSketchEditor extends ReactContextBaseJavaModule {
                     if(sketchGeometryChangedEvent != null){
                         Geometry geometry = sketchGeometryChangedEvent.getGeometry();        // 获取sketchGeometryChangedEvent返回的Geometry
                         SketchEditor sketchEditor = sketchGeometryChangedEvent.getSource();  // 获取sketchGeometryChangedEvent返回的SketchEditor
-                        String geometryId = "";
-                        String sketchEditorId = registerId(sketchEditor);
+                        String geometryId = null;
+                        String sketchEditorId = null;
+                        if(geometry != null){
+                            geometryId = JSGeometry.registerId(geometry);
+                        }
+                        if(sketchEditor != null){
+                            sketchEditorId = registerId(sketchEditor);
+                        }
                         writableMap.putString("GeometryId", geometryId);
                         writableMap.putString("SketchEditorId", sketchEditorId);
                     }
-                    sendEvent(STATECHANGE, writableMap);
+                    sendEvent(GEOMETRYCHANGED, writableMap);
                 }
 
                 @Override
                 public void onVertexSelected(Dot dot, Dot dot1, Dot dot2) {
                     WritableMap writableMap = Arguments.createMap();
-                    String dotId = JSDot.registerId(dot);
-                    String dotId1 = JSDot.registerId(dot1);
-                    String dotId2 = JSDot.registerId(dot2);
-                    writableMap.putString("DotId",dotId);
-                    writableMap.putString("DotId1", dotId1);
-                    writableMap.putString("DotId2", dotId2);
-                    sendEvent(STATECHANGE, writableMap);
+                    String dotId = null;
+                    String dotId1 = null;
+                    String dotId2 = null;
+                    if(dot != null){
+                        dotId = JSDot.registerId(dot);
+                    }
+                    if(dot1 != null){
+                        dotId1 = JSDot.registerId(dot1);
+                    }
+                    if(dot2 != null){
+                        dotId2 = JSDot.registerId(dot2);
+                    }
+
+                    writableMap.putString("point2DId",dotId);
+                    writableMap.putString("point2DId1", dotId1);
+                    writableMap.putString("point2DId2", dotId2);
+                    sendEvent(VERTEXSELECTED, writableMap);
                 }
 
                 @Override
                 public void onUndoStateChanged(boolean b) {
                     WritableMap writableMap = Arguments.createMap();
                     writableMap.putBoolean("undoResult", b);
-                    sendEvent(STATECHANGE, writableMap);
+                    sendEvent(UNDOSTATECHANGED, writableMap);
                 }
 
                 @Override
                 public void onRedoStateChanged(boolean b) {
                     WritableMap writableMap = Arguments.createMap();
                     writableMap.putBoolean("redoResult", b);
-                    sendEvent(STATECHANGE, writableMap);
+                    sendEvent(REDOSTATECHANGED, writableMap);
                 }
             };
             SketchEditor sketchEditor = getObjFromList(sketchEditorId);
@@ -154,7 +170,10 @@ public class JSSketchEditor extends ReactContextBaseJavaModule {
         try {
             SketchEditor sketchEditor = getObjFromList(sketchEditorId);
             SketchStyle sketchStyle = sketchEditor.getSketchStyle();
-            String sketchStyleId = JSSketchStyle.registerId(sketchStyle);
+            String sketchStyleId = null;
+            if(sketchStyle != null){
+                sketchStyleId = JSSketchStyle.registerId(sketchStyle);
+            }
 
             WritableMap writableMap = Arguments.createMap();
             writableMap.putString("SketchStyleId", sketchStyleId);
@@ -182,7 +201,10 @@ public class JSSketchEditor extends ReactContextBaseJavaModule {
         try {
             SketchEditor sketchEditor = getObjFromList(sketchEditorId);
             SnappingOption snappingOption = sketchEditor.getSnappingOption();
-            String snappingOptionId = JSSnappingOption.registerId(snappingOption);
+            String snappingOptionId = null;
+            if(snappingOption != null){
+                snappingOptionId = JSSnappingOption.registerId(snappingOption);
+            }
 
             WritableMap writableMap = Arguments.createMap();
             writableMap.putString("SnappingOptionId", snappingOptionId);
@@ -206,7 +228,7 @@ public class JSSketchEditor extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void start(String sketchEditorId, int sketchDataType, Promise promise){
+    public void startByType(String sketchEditorId, int sketchDataType, Promise promise){
         try {
             SketchEditor sketchEditor = getObjFromList(sketchEditorId);
             SketchDataType sketchDataType1 = (SketchDataType) Enumeration.parse(SketchDataType.class, sketchDataType);
@@ -222,6 +244,8 @@ public class JSSketchEditor extends ReactContextBaseJavaModule {
     public void start(String sketchEditorId, String geometryId, Promise promise){
         try {
             SketchEditor sketchEditor = getObjFromList(sketchEditorId);
+            Geometry geometry = JSGeometry.getObjFromList(geometryId);
+            sketchEditor.start(geometry);
 
             promise.resolve(true);
         }catch (Exception e){
@@ -234,9 +258,12 @@ public class JSSketchEditor extends ReactContextBaseJavaModule {
     {
         try {
             SketchEditor sketchEditor = getObjFromList(sketchEditorId);
-            int sketchDataType = sketchEditor.getSketchDataType().value();
-
-            promise.resolve(sketchDataType);
+            SketchDataType sketchDataType = sketchEditor.getSketchDataType();
+            if(sketchDataType != null){
+                promise.resolve(sketchDataType.value());
+            }else{
+                promise.resolve(-1);
+            }
         }catch (Exception e){
             promise.reject(e);
         }
@@ -246,6 +273,8 @@ public class JSSketchEditor extends ReactContextBaseJavaModule {
     public void replaceGeometry(String sketchEditorId, String geometryId, Promise promise){
         try {
             SketchEditor sketchEditor = getObjFromList(sketchEditorId);
+            Geometry geometry = JSGeometry.getObjFromList(geometryId);
+            sketchEditor.replaceGeometry(geometry);
 
             promise.resolve(true);
         }catch (Exception e){
@@ -258,8 +287,14 @@ public class JSSketchEditor extends ReactContextBaseJavaModule {
         try {
             SketchEditor sketchEditor = getObjFromList(sketchEditorId);
             Geometry geometry = sketchEditor.getGeometry();
+            String geometryId = null;
+            if(geometry != null){
+                geometryId = JSGeometry.registerId(geometry);
+            }
 
-            promise.resolve(true);
+            WritableMap writableMap = Arguments.createMap();
+            writableMap.putString("GeometryId", geometryId);
+            promise.resolve(writableMap);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -330,10 +365,13 @@ public class JSSketchEditor extends ReactContextBaseJavaModule {
         try {
             SketchEditor sketchEditor = getObjFromList(sketchEditorId);
             Dot dot = sketchEditor.snapping(x, y);
-            String point2DId = JSDot.registerId(dot);
+            String point2DId = null;
+            if(dot != null){
+                point2DId = JSDot.registerId(dot);
+            }
+
             WritableMap writableMap = Arguments.createMap();
             writableMap.putString("point2DId", point2DId);
-
             promise.resolve(writableMap);
         }catch (Exception e){
             promise.reject(e);
@@ -380,7 +418,7 @@ public class JSSketchEditor extends ReactContextBaseJavaModule {
     public void setMagnifierOption(String sketchEditorId, String magnifierOptionId, Promise promise){
         try {
             SketchEditor sketchEditor = getObjFromList(sketchEditorId);
-            MagnifierOption magnifierOption = new MagnifierOption();
+            MagnifierOption magnifierOption = JSMagnifierOption.getObjFromList(magnifierOptionId);
             sketchEditor.setMagnifierOption(magnifierOption);
 
             promise.resolve(true);
@@ -407,7 +445,10 @@ public class JSSketchEditor extends ReactContextBaseJavaModule {
         try {
             SketchEditor sketchEditor = getObjFromList(sketchEditorId);
             SRefData sRefData = sketchEditor.getSRS();
-            String srefDataId = JSSRefData.registerId(sRefData);
+            String srefDataId = null;
+            if(sRefData != null){
+                srefDataId =  JSSRefData.registerId(sRefData);
+            }
 
             WritableMap writableMap = Arguments.createMap();
             writableMap.putString("SRefDataId", srefDataId);

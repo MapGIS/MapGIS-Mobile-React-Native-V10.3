@@ -2,21 +2,24 @@
  * @Description: In User Settings Edit
  * @Author: xiaoying
  * @Date: 2019-09-10 19:43:30
- * @LastEditTime: 2019-09-12 10:33:29
+ * @LastEditTime: 2019-09-19 16:21:44
  * @LastEditors: Please set LastEditors
  */
-import { NativeModules } from "react-native";
+import React, { Component } from "react";
+import { NativeModules, DeviceEventEmitter,NativeEventEmitter,} from "react-native";
 import SketchStyle from "./SketchStyle";
 import SnappingOption from "./SnappingOption";
 import Dot from "./Dot";
 import SRefData from "./SRefData";
+import Geometry from "./Geometry";
 let SE = NativeModules.JSSketchEditor;
 
 /**
  * @class SketchEditor
  * @description 草图编辑器
  */
-export default class SketchEditor{
+export default class SketchEditor {
+    
     /**
      * 构造一个新的SketchEditor对象
      * 
@@ -27,8 +30,12 @@ export default class SketchEditor{
     async createObj(mapView){
         try {
             var {SketchEditorId} = await SE.createObj(mapView._MGMapViewId);
-            var sketchEditor = new SketchEditor();
-            sketchEditor._MGSketchEditorId = SketchEditorId;
+            var sketchEditor = null;
+            if(SketchEditorId != null){
+                sketchEditor = new SketchEditor();
+                sketchEditor._MGSketchEditorId = SketchEditorId;
+            }
+
             return sketchEditor;
         } catch (e) {
             console.error(e);
@@ -73,8 +80,12 @@ export default class SketchEditor{
     async getSketchStyle(){
         try {
             var {SketchStyleId} = await SE.getSketchStyle(this._MGSketchEditorId);
-            var sketchStyle = new SketchStyle();
-            sketchStyle._MGSketchStyleId = SketchStyleId;
+            var sketchStyle = null;
+            if(SketchStyleId != null){
+                sketchStyle = new SketchStyle();
+                sketchStyle._MGSketchStyleId = SketchStyleId;
+            }
+
             return sketchStyle;
         } catch (e) {
             console.error(e);
@@ -104,8 +115,11 @@ export default class SketchEditor{
     async getSnappingOption(){
         try {
             var {SnappingOptionId} = await SE.getSnappingOption(this._MGSketchEditorId);
-            var snappingOption = new SnappingOption();
-            snappingOption._MGSnappingOptionId = SnappingOptionId;
+            var snappingOption = null;
+            if(SnappingOptionId != null){
+                snappingOption = new SnappingOption();
+                snappingOption._MGSnappingOptionId = SnappingOptionId;
+            }
             return snappingOption;
         } catch (e) {
             console.error(e);
@@ -133,9 +147,9 @@ export default class SketchEditor{
      * @param {Number} sketchDataType 几何类型（int类型的Number，例:1--SketchDataType.POINT）
      * @returns {Promise<Void>} 
      */
-    async start(sketchDataType){
+    async startByType(sketchDataType){
         try {
-            await SE.start(this._MGSketchEditorId, sketchDataType);
+            await SE.startByType(this._MGSketchEditorId, sketchDataType);
             
         } catch (e) {
             console.error(e);
@@ -150,7 +164,7 @@ export default class SketchEditor{
      */
     async start(geometry){
         try {
-            // await SE.start(this._MGSketchEditorId, geometry);
+            await SE.start(this._MGSketchEditorId, geometry._MGGeometryId);
             
         } catch (e) {
             console.error(e);
@@ -160,7 +174,7 @@ export default class SketchEditor{
     /**
      * 获取编辑的数据类型
      * @memberof SketchEditor
-     * @returns {Number} 几何类型（int类型的Number，例:1--SketchDataType.POINT）
+     * @returns {Number} 几何类型（int类型的Number，例:1--SketchDataType.POINT，-1表示获取失败）
      */
     async getSketchDataType(){
         try {
@@ -179,7 +193,7 @@ export default class SketchEditor{
      */
     async replaceGeometry(geometry){
         try {
-            await SE.replaceGeometry(this._MGSketchEditorId, geometry);
+            await SE.replaceGeometry(this._MGSketchEditorId, geometry._MGGeometryId);
             
         } catch (e) {
             console.error(e);
@@ -189,12 +203,17 @@ export default class SketchEditor{
     /**
      * 获取当前的编辑几何
      * @memberof SketchEditor
-     * @returns {Promise<Void>} 
+     * @returns {Promise<Geometry>} 成功返回几何对象
      */
     async getGeometry(){
         try {
-            await SE.getGeometry(this._MGSketchEditorId);
-            
+            let {GeometryId} = await SE.getGeometry(this._MGSketchEditorId);
+            let geometry = null;
+            if(GeometryId != null){
+                geometry = new Geometry();
+                geometry._MGGeometryId = GeometryId;
+            }
+            return geometry;
         } catch (e) {
             console.error(e);
         }
@@ -279,13 +298,17 @@ export default class SketchEditor{
      * @memberof SketchEditor
      * @param {Number} x坐标的值
      * @param {Number} y坐标的值
-     * @returns {Promise<Dot>} 
+     * @returns {Promise<Dot>} 返回null表示捕捉失败
      */
     async snapping(x, y){
         try {
             var {point2DId} = await SE.snapping(this._MGSketchEditorId, x, y);
-            var dot  = new Dot();
-            dot._MGDotId = point2DId;
+            var dot = null;
+            if(point2DId != null){
+                dot = new Dot();
+                dot._MGDotId = point2DId;
+            }
+
             return dot;
         } catch (e) {
             console.error(e);
@@ -347,7 +370,7 @@ export default class SketchEditor{
      */
     async setMagnifierOption(magnifierOption){
         try {
-            await SE.setMagnifierOption(this._MGSketchEditorId, magnifierOption._MMagnifierOption);
+            await SE.setMagnifierOption(this._MGSketchEditorId, magnifierOption._MGMagnifierOptionId);
            
         } catch (e) {
             console.error(e);
@@ -377,8 +400,12 @@ export default class SketchEditor{
     async getSRS(){
         try {
             var {SRefDataId} = await SE.getSRS(this._MGSketchEditorId);
-            var sRefData = new SRefData();
-            sRefData._MGSRefDataId = SRefDataId;
+            var sRefData = null;
+            if(SRefDataId != null){
+                 sRefData = new SRefData();
+                 sRefData._MGSRefDataId = SRefDataId;
+            }
+
             return sRefData;
         } catch (e) {
             console.error(e);

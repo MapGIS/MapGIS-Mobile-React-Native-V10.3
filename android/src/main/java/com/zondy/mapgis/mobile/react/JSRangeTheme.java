@@ -6,6 +6,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
+import com.zondy.mapgis.android.internal.chart.Geo;
 import com.zondy.mapgis.core.info.GeomInfo;
 import com.zondy.mapgis.core.map.AllOtherDataItemInfoSource;
 import com.zondy.mapgis.core.map.RangeTheme;
@@ -226,8 +227,10 @@ public class JSRangeTheme extends JSVectorTheme {
     public void merge(String rangeThemeId, int index, int count, String geomInfoId, String caption, Promise promise){
         try {
             RangeTheme rangeTheme = (RangeTheme) getObjFromList(rangeThemeId);
+            GeomInfo geomInfo = JSGeomInfo.getObjFromList(geomInfoId);
+            boolean result = rangeTheme.merge(index, count, geomInfo, caption);
 
-
+            promise.resolve(result);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -237,8 +240,11 @@ public class JSRangeTheme extends JSVectorTheme {
     public void split(String rangeThemeId, int index, double splitValue, String geomInfoId1, String caption1, String geomInfoId2, String caption2, Promise promise){
         try {
             RangeTheme rangeTheme = (RangeTheme) getObjFromList(rangeThemeId);
+            GeomInfo geomInfo1 = JSGeomInfo.getObjFromList(geomInfoId1);
+            GeomInfo geomInfo2 = JSGeomInfo.getObjFromList(geomInfoId2);
+            boolean result = rangeTheme.split(index, splitValue, geomInfo1, caption1, geomInfo2, caption2);
 
-
+            promise.resolve(result);
         }catch (Exception e){
             promise.reject(e);
         }

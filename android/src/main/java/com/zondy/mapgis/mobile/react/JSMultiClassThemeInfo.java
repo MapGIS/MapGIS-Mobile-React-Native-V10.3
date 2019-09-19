@@ -235,7 +235,13 @@ public class JSMultiClassThemeInfo extends ReactContextBaseJavaModule {
             MultiClassThemeInfo multiClassThemeInfo = getObjFromList(multiClassThemeInfoId);
             GeomType geomType1 = (GeomType) Enumeration.parse(GeomType.class, geomType);
             GeomInfo geomInfo = multiClassThemeInfo.getGeoInfo(geomType1);
-
+            String geomInfoId = null;
+            if (geomInfo != null){
+                geomInfoId = JSGeomInfo.registerId(geomInfo);
+            }
+            WritableMap writableMap = Arguments.createMap();
+            writableMap.putString("GeomInfoId", geomInfoId);
+            promise.resolve(writableMap);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -245,7 +251,11 @@ public class JSMultiClassThemeInfo extends ReactContextBaseJavaModule {
     public void setGeoInfo(String multiClassThemeInfoId, String geomInfoId, int geomType, Promise promise){
         try {
             MultiClassThemeInfo multiClassThemeInfo = getObjFromList(multiClassThemeInfoId);
+            GeomInfo geomInfo = JSGeomInfo.getObjFromList(geomInfoId);
+            GeomType geomType1 = (GeomType) Enumeration.parse(GeomType.class, geomType);
+            boolean result = multiClassThemeInfo.setGeoInfo(geomInfo, geomType1);
 
+            promise.resolve(result);
         }catch (Exception e){
             promise.reject(e);
         }

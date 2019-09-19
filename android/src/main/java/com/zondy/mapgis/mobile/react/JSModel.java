@@ -115,9 +115,13 @@ public class JSModel extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setPosition(String modelId, Promise promise){
+    public void setPosition(String modelId, String dot3DId, Promise promise){
         try {
+            Model model = getObjFromList(modelId);
+            Dot3D dot3D = JSDot3D.getObjFromList(dot3DId);
+            model.setPosition(dot3D);
 
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -128,7 +132,14 @@ public class JSModel extends ReactContextBaseJavaModule {
         try {
             Model model = getObjFromList(modelId);
             Dot3D dot3D = model.getPosition();
+            String dot3DId = null;
+            if(dot3D != null){
+                dot3DId = JSDot3D.registerId(dot3D);
+            }
 
+            WritableMap writableMap = Arguments.createMap();
+            writableMap.putString("Dot3DId", dot3DId);
+            promise.resolve(writableMap);
         }catch (Exception e){
             promise.reject(e);
         }

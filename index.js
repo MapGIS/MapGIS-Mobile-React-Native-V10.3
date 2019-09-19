@@ -29,10 +29,12 @@ let VectorLayerType = NativeModules.JSVectorLayerType;
 let MeasureType = NativeModules.JSMeasureType;
 let SketchDataType = NativeModules.JSSketchDataType;
 let CoordinateType = NativeModules.JSCoordinateType;
+let GeomType = NativeModules.JSGeomType;
 
 import MGMapView from "./js/components/MGSMapViewUI";
 import Environment from "./js/Environment";
 import Dot from "./js/Dot";
+import Dot3D from "./js/Dot3D";
 import Feature from "./js/Feature";
 import FeaturePagedResult from "./js/FeaturePagedResult";
 import FeatureQuery from "./js/FeatureQuery";
@@ -104,12 +106,15 @@ import SketchStyle from "./js/SketchStyle";
 import SnappingOption from "./js/SnappingOption";
 import TextStyle from "./js/TextStyle";
 
+import CoordinateConvert from "./js/CoordinateConvert";
 import CoordinateConvertParameter from "./js/CoordinateConvertParameter";
 
+import TextAnnInfo from "./js/TextAnnInfo";
 export {
   MGMapView,
   Environment,
   Dot,
+  Dot3D,
   Feature,
   FeaturePagedResult,
   FeatureQuery,
@@ -202,6 +207,10 @@ export {
   SnappingOption,
   TextStyle,
 
+  CoordinateConvert,
   CoordinateConvertParameter,
   CoordinateType,
+
+  TextAnnInfo,
+  GeomType,
 };

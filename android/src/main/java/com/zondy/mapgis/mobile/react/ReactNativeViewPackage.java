@@ -107,6 +107,7 @@ public class ReactNativeViewPackage implements ReactPackage {
         modules.add(new JSElpTransformation(reactContext));
         modules.add(new JSElpParam(reactContext));
 
+        modules.add(new JSDot3D(reactContext));
         modules.add(new JSDots(reactContext));
         modules.add(new JSGeoAnno(reactContext));
         modules.add(new JSGeometry(reactContext));
@@ -150,6 +151,9 @@ public class ReactNativeViewPackage implements ReactPackage {
 		
 		modules.add(new JSCoordinateConvertParameter(reactContext));
         modules.add(new JSCoordinateType(reactContext));
+        modules.add(new JSCoordinateConvert(reactContext));
+
+        modules.add(new JSXClsType(reactContext));
 
 		return modules;
     }

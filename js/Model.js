@@ -2,10 +2,11 @@
  * @Description: In User Settings Edit
  * @Author: xiaoying
  * @Date: 2019-09-04 17:03:54
- * @LastEditTime: 2019-09-04 17:52:27
+ * @LastEditTime: 2019-09-19 16:03:24
  * @LastEditors: Please set LastEditors
  */
 import {NativeModules} from "react-native";
+import Dot3D from "./Dot3D.js";
 let MD = NativeModules.JSModel;
 
 /**
@@ -101,9 +102,9 @@ export default class Model{
      * @param {Object} position 位置 (Object-Dot3D)
      * @returns {Promise<Void>}
      */
-    async setPosition(){
+    async setPosition(position){
         try {
-            
+            await MD.setPosition(this._MGModelId, position._MGDot3DId);
         } catch (e) {
             console.error(e);
         }
@@ -117,7 +118,13 @@ export default class Model{
      */
     async getPosition(){
         try {
-            
+            var {Dot3DId} = await MD.getPosition(this._MGModelId);
+            var dot3D = null;
+            if(Dot3DId != null){
+                dot3D = new Dot3D();
+                dot3D._MGDot3DId = Dot3DId;
+            }
+            return dot3D;
         } catch (e) {
             console.error(e);
         }
