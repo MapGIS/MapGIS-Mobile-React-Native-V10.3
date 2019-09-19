@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: SnappingOption.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: SnappingOption.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*
+ * @Description: In User Settings Edit
+ * @Author: xiaoying
+ * @Date: 2019-09-10 19:19:22
+ * @LastEditTime: 2019-09-10 19:41:05
+ * @LastEditors: Please set LastEditors
+ */
+import { NativeModules } from "react-native";
+let SO = NativeModules.JSSnappingOption;
+
+/**
+ * @class SnappingOption
+ * @description 捕捉选项
+ */
+export default class SnappingOption{
+    /**
+     * 构造一个新的SnappingOption对象
+     * 
+     * @memberof SnappingOption
+     * @returns {Promise&lt;SnappingOption>}
+     */
+    async createObj(){
+        try {
+            var {SnappingOptionId} = await SO.createObj();
+            var snappingOption = new SnappingOption();
+            snappingOption._MGSnappingOptionId = SnappingOptionId;
+            return snappingOption;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取容差（像素单位）
+     * @memberof SnappingOption
+     * @returns {Number} 容差 （int类型的Number）
+     */
+    async getPixelsTolerance(){
+        try {
+            let result = await SO.getPixelsTolerance(this._MGSnappingOptionId);
+            return result;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置容差（像素单位）
+     * @memberof SnappingOption
+     * @param {Number} pixelsTolerance 容差 （int类型的Number）
+     * @returns {Promise&lt;Void>}
+     */
+    async setPixelsTolerance(pixelsTolerance){
+        try {
+            await SO.setPixelsTolerance(this._MGSnappingOptionId, pixelsTolerance);
+            
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取是否自动捕捉顶点
+     * @memberof SnappingOption
+     * @returns {boolean} 是否自动捕捉顶点
+     */
+    async isSnappingVertex(){
+        try {
+            let result = await SO.isSnappingVertex(this._MGSnappingOptionId);
+            return result;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置是否自动捕捉顶点
+     * @memberof SnappingOption
+     * @param {boolean} isSnappingVertex 是否自动捕捉顶点
+     * @returns {Promise&lt;Void>}
+     */
+    async setSnappingVertex(isSnappingVertex){
+        try {
+            await SO.setSnappingVertex(this._MGSnappingOptionId, isSnappingVertex);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取是否自动捕捉中点
+     * @memberof SnappingOption
+     * @returns {boolean}
+     */
+    async isSnappingMidVertex(){
+        try {
+            let result = await SO.isSnappingMidVertex(this._MGSnappingOptionId);
+            return result;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置是否自动捕捉中点
+     * @memberof SnappingOption
+     * @param {boolean} isSnappingMidVertex
+     * @returns {Promise&lt;Void>} 
+     */
+    async setSnappingMidVertex(isSnappingMidVertex){
+        try {
+            await SO.setSnappingMidVertex(this._MGSnappingOptionId, isSnappingMidVertex);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取是否自动捕捉垂点
+     * @memberof SnappingOption
+     * @returns {boolean}
+     */
+    async isSnappingPedal(){
+        try {
+            let result = await SO.isSnappingPedal(this._MGSnappingOptionId);
+            return result;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置是否自动捕捉垂点
+     * @memberof SnappingOption
+     * @param {boolean} isSnappingPedal 是否自动捕捉垂点
+     * @returns {Promise&lt;Void>}
+     */
+    async setSnappingPedal(isSnappingPedal){
+        try {
+            await SO.setSnappingPedal(this._MGSnappingOptionId, isSnappingPedal);
+            
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+
+    /**
+     * 获取是否自动捕捉普通交点
+     * @memberof SnappingOption
+     * @returns {boolean}
+     */
+    async isSnappingNormalIntersection(){
+        try {
+            let result = await SO.isSnappingNormalIntersection(this._MGSnappingOptionId);
+            return result;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置是否自动捕捉普通交点
+     * @memberof SnappingOption
+     * @param {boolean} isSnappingNormalIntersection 是否自动捕捉普通交点
+     * @returns {Promise&lt;Void>} 
+     */
+    async setSnappingNormalIntersection(isSnappingNormalIntersection){
+        try {
+            await SO.setSnappingNormalIntersection(this._MGSnappingOptionId, isSnappingNormalIntersection);
+            
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     *  获取是否自动捕捉水平交点
+     * @memberof SnappingOption
+     * @returns {boolean}
+     */
+    async isSnappingHorizontalIntersection(){
+        try {
+            let result = await SO.isSnappingHorizontalIntersection(this._MGSnappingOptionId);
+            return result;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置是否自动捕捉水平交点
+     * @memberof SnappingOption
+     * @param {boolean} isSnappingHorizontalIntersection 是否自动捕捉水平交点
+     * @returns {Promise&lt;Void>}
+     */
+    async setSnappingHorizontalIntersection(isSnappingHorizontalIntersection){
+        try {
+            await SO.setSnappingHorizontalIntersection(this._MGSnappingOptionId, isSnappingHorizontalIntersection);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取是否自动捕捉垂直交点
+     * @memberof SnappingOption
+     * @returns {boolean} 
+     */
+    async isSnappingVerticalIntersection(){
+        try {
+            let result = await SO.isSnappingVerticalIntersection(this._MGSnappingOptionId);
+            return result;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置是否自动捕捉垂直交点
+     * @memberof SnappingOption
+     * @param {boolean} isSnappingVerticalIntersection 是否自动捕捉垂直交点
+     * @returns {Promise&lt;Void>}
+     */
+    async setSnappingVerticalIntersection(isSnappingVerticalIntersection){
+        try {
+            await SO.setSnappingVerticalIntersection(this._MGSnappingOptionId, isSnappingVerticalIntersection);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ClassItemValue.html">ClassItemValue</a></li><li><a href="CoordinateConvertParameter.html">CoordinateConvertParameter</a></li><li><a href="Document.html">Document</a></li><li><a href="DocumentItem.html">DocumentItem</a></li><li><a href="Dot.html">Dot</a></li><li><a href="Environment.html">Environment</a></li><li><a href="Feature.html">Feature</a></li><li><a href="FeaturePagedResult.html">FeaturePagedResult</a></li><li><a href="FeatureQuery.html">FeatureQuery</a></li><li><a href="FillStyle.html">FillStyle</a></li><li><a href="GeneralVectorLabel.html">GeneralVectorLabel</a></li><li><a href="GeometryParams.html">GeometryParams</a></li><li><a href="Graphic.html">Graphic</a></li><li><a href="GraphicCircle.html">GraphicCircle</a></li><li><a href="GraphicImage.html">GraphicImage</a></li><li><a href="GraphicMultiPoint.html">GraphicMultiPoint</a></li><li><a href="GraphicPoint.html">GraphicPoint</a></li><li><a href="GraphicPolygon.html">GraphicPolygon</a></li><li><a href="GraphicPolylin.html">GraphicPolylin</a></li><li><a href="GraphicsOverlay.html">GraphicsOverlay</a></li><li><a href="GraphicsOverlays.html">GraphicsOverlays</a></li><li><a href="GraphicStippleLine.html">GraphicStippleLine</a></li><li><a href="GraphicText.html">GraphicText</a></li><li><a href="GroupLayer.html">GroupLayer</a></li><li><a href="Image.html">Image</a></li><li><a href="IntUser.html">IntUser</a></li><li><a href="Label.html">Label</a></li><li><a href="LabelInfo.html">LabelInfo</a></li><li><a href="LayerEnum.html">LayerEnum</a></li><li><a href="LinePlaceInfo.html">LinePlaceInfo</a></li><li><a href="LineStyle.html">LineStyle</a></li><li><a href="MagnifierOption.html">MagnifierOption</a></li><li><a href="Map.html">Map</a></li><li><a href="MapLayer.html">MapLayer</a></li><li><a href="MapPosition.html">MapPosition</a></li><li><a href="Maps.html">Maps</a></li><li><a href="MapServer.html">MapServer</a></li><li><a href="MapView.html">MapView</a></li><li><a href="Model.html">Model</a></li><li><a href="ModelsOverlay.html">ModelsOverlay</a></li><li><a href="MultiClassTheme.html">MultiClassTheme</a></li><li><a href="MultiClassThemeInfo.html">MultiClassThemeInfo</a></li><li><a href="OGCWMTSMapServer.html">OGCWMTSMapServer</a></li><li><a href="PointF.html">PointF</a></li><li><a href="PointPlaceInfo.html">PointPlaceInfo</a></li><li><a href="PointStyle.html">PointStyle</a></li><li><a href="QueryBound.html">QueryBound</a></li><li><a href="RangeTheme.html">RangeTheme</a></li><li><a href="RangeThemeInfo.html">RangeThemeInfo</a></li><li><a href="Rect.html">Rect</a></li><li><a href="RegionPlaceInfo.html">RegionPlaceInfo</a></li><li><a href="ServerLayer.html">ServerLayer</a></li><li><a href="SimpleLabel.html">SimpleLabel</a></li><li><a href="SimpleModelLayer.html">SimpleModelLayer</a></li><li><a href="SimpleModelLayerUtil.html">SimpleModelLayerUtil</a></li><li><a href="SimpleTheme.html">SimpleTheme</a></li><li><a href="SketchEditor.html">SketchEditor</a></li><li><a href="SketchStyle.html">SketchStyle</a></li><li><a href="SnappingOption.html">SnappingOption</a></li><li><a href="SRefData.html">SRefData</a></li><li><a href="TextStyle.html">TextStyle</a></li><li><a href="Theme.html">Theme</a></li><li><a href="ThemeInfo.html">ThemeInfo</a></li><li><a href="Themes.html">Themes</a></li><li><a href="TileMapServer.html">TileMapServer</a></li><li><a href="UniqueTheme.html">UniqueTheme</a></li><li><a href="UniqueThemeInfo.html">UniqueThemeInfo</a></li><li><a href="VectorLabel.html">VectorLabel</a></li><li><a href="VectorLayer.html">VectorLayer</a></li><li><a href="VectorMapServer.html">VectorMapServer</a></li><li><a href="VectorTheme.html">VectorTheme</a></li><li><a href="VectorTileMapServer.html">VectorTileMapServer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#initialize">initialize</a></li><li><a href="global.html#removeAnimationListener">removeAnimationListener</a></li><li><a href="global.html#removeCenterChangedListener">removeCenterChangedListener</a></li><li><a href="global.html#removeDoubleTapListener">removeDoubleTapListener</a></li><li><a href="global.html#removeLongTapListener">removeLongTapListener</a></li><li><a href="global.html#removeMapLoadListener">removeMapLoadListener</a></li><li><a href="global.html#removeRefreshListener">removeRefreshListener</a></li><li><a href="global.html#removeRotateChangedListener">removeRotateChangedListener</a></li><li><a href="global.html#removeTapListener">removeTapListener</a></li><li><a href="global.html#removeTouchListener">removeTouchListener</a></li><li><a href="global.html#removeZoomChangedListener">removeZoomChangedListener</a></li><li><a href="global.html#requestAuthorization">requestAuthorization</a></li><li><a href="global.html#setResolution">setResolution</a></li><li><a href="global.html#setScale">setScale</a></li><li><a href="global.html#setSize">setSize</a></li><li><a href="global.html#setSystemLibraryPath">setSystemLibraryPath</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Sep 18 2019 09:06:20 GMT+0800 (GMT+08:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

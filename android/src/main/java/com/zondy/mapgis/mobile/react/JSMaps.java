@@ -142,7 +142,10 @@ public class JSMaps extends JSDocumentItem {
             Maps maps = getObjFromList(mapsId);
             com.zondy.mapgis.core.map.Map map = maps.getMap(index);
 
-            String mapId = JSMap.registerId(map);
+            String mapId = null;
+            if(map != null){
+                mapId = JSMap.registerId(map);
+            }
             WritableMap writableMap = Arguments.createMap();
             writableMap.putString("MapId",mapId);
             promise.resolve(writableMap);

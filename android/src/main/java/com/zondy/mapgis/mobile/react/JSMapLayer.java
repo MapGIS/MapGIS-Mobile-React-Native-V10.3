@@ -6,10 +6,15 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
+import com.zondy.mapgis.core.geodatabase.IBasCls;
+import com.zondy.mapgis.core.geodatabase.XClsType;
+import com.zondy.mapgis.core.geometry.GeomType;
 import com.zondy.mapgis.core.geometry.Rect;
 import com.zondy.mapgis.core.map.GroupLayer;
+import com.zondy.mapgis.core.map.Label;
 import com.zondy.mapgis.core.map.LayerState;
 import com.zondy.mapgis.core.map.MapLayer;
+import com.zondy.mapgis.core.map.Themes;
 import com.zondy.mapgis.core.map.VectorLayer;
 import com.zondy.mapgis.core.object.Enumeration;
 import com.zondy.mapgis.core.srs.SRefData;
@@ -216,10 +221,10 @@ public class JSMapLayer extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setWeight(String MapLayerId, short Weight, Promise promise) {
+    public void setWeight(String MapLayerId, int weight, Promise promise) {
         try {
             MapLayer mapLayer = getObjFromList(MapLayerId);
-            mapLayer.setWeight(Weight);
+            mapLayer.setWeight((short) weight);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -243,8 +248,10 @@ public class JSMapLayer extends ReactContextBaseJavaModule {
         try {
             MapLayer mapLayer = getObjFromList(MapLayerId);
             Rect rect = mapLayer.getRange();
-
-            String rectId = JSRect.registerId(rect);
+            String rectId = null;
+            if(rect != null){
+                rectId = JSRect.registerId(rect);
+            }
             WritableMap map = Arguments.createMap();
             map.putString("rectId", rectId);
             promise.resolve(map);
@@ -258,8 +265,11 @@ public class JSMapLayer extends ReactContextBaseJavaModule {
         try {
             MapLayer mapLayer = getObjFromList(MapLayerId);
             SRefData sRefData = mapLayer.getSrefInfo();
-
             String sRefInfoId = JSSRefData.registerId(sRefData);
+            if(sRefData != null){
+                sRefInfoId = JSSRefData.registerId(sRefData);
+            }
+
             WritableMap map = Arguments.createMap();
             map.putString("SRefDataId",sRefInfoId);
             promise.resolve(map);
@@ -268,37 +278,143 @@ public class JSMapLayer extends ReactContextBaseJavaModule {
         }
     }
 
-    public static WritableMap getMapLayerByHandle(MapLayer mapLayer){
-        if(mapLayer == null) return null;
-        long handle = mapLayer.getHandle(); // 1、获取返回结果MapLayer的handle
+    @ReactMethod
+    public void getClsType(String MapLayerId, Promise promise){
+        try {
+            MapLayer mapLayer = getObjFromList(MapLayerId);
+            XClsType xClsType = mapLayer.getClsType();
 
-        if(handle == 0L) return null; // 2、handle是0L时候，返回空Id
-
-
-        String mapLayerId = "";
-        int type = NativeMap.jni_GetLayerType(handle); // 2、根据handle获取MapLayer的类型
-        switch (type){
-            case 0: // 矢量图层 （VectorLayer）
-                //VectorLayer vectorLayer = JSVectorLayer.createObjByHandle(handle); // 3、根据handle构造一个vectorLayer对象
-                mapLayerId =  JSVectorLayer.registerId(mapLayer);  // 4、返回注册vectorLayer对象后的Id
-                break;
-
-            case 2: // 组图层 （GroupLayer）
-                //GroupLayer groupLayer = JSGroupLayer.createObjByHandle(handle); // 3、根据handle构造一个groupLayer对象
-                mapLayerId = JSGroupLayer.registerId(mapLayer); // 4、返回注册groupLayer对象后的Id
-                break;
-
-            case 9: // 服务图层 （ServerLayer）
-
-                break;
-            case 10: // 简单模型图层 （SimpleModelLayer）
-                break;
-            default:
-                break;
+            promise.resolve(xClsType.value());
+        }catch (Exception e){
+            promise.reject(e);
         }
-        WritableMap map = Arguments.createMap();
-        map.putString("MapLayerId", mapLayerId);
-        map.putString("MapLayerType", String.valueOf(type));
-        return map;
     }
+
+    @ReactMethod
+    public void GetGeometryType(String MapLayerId, Promise promise){
+        try {
+            MapLayer mapLayer = getObjFromList(MapLayerId);
+            GeomType geomType = mapLayer.GetGeometryType();
+
+            promise.resolve(geomType.value());
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getLabel(String MapLayerId, Promise promise){
+        try {
+            MapLayer mapLayer = getObjFromList(MapLayerId);
+            Label label = mapLayer.getLabel();
+            WritableMap writableMap = Arguments.createMap();
+            String labelId = null;
+            int type = -1;
+            if (label != null){
+                 labelId = JSLabel.registerId(label);
+                 type = label.getType().value();
+            }
+            writableMap.putString("LabelId", labelId);
+            writableMap.putInt("LabelType", type);
+            promise.resolve(writableMap);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getThemes(String MapLayerId, Promise promise){
+        try {
+            MapLayer mapLayer = getObjFromList(MapLayerId);
+            Themes themes = mapLayer.getThemes();
+            String themesId = null;
+            if(themes != null){
+                themesId = JSThemes.registerId(themes);
+            }
+
+            WritableMap writableMap = Arguments.createMap();
+            writableMap.putString("ThemesId", themesId);
+            promise.resolve(writableMap);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void clone(String MapLayerId, Promise promise){
+        try {
+            MapLayer mapLayer = getObjFromList(MapLayerId);
+            MapLayer cloneMapLayer = mapLayer.clone();
+            String cloneMapLayerId = null;
+            if(cloneMapLayer != null){
+                cloneMapLayerId = registerId(cloneMapLayer);
+            }
+
+            WritableMap writableMap = Arguments.createMap();
+            writableMap.putString("MapLayerId", cloneMapLayerId);
+            promise.resolve(writableMap);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void attachData(String MapLayerId, String iBasClsId, Promise promise){
+        try {
+            MapLayer mapLayer = getObjFromList(MapLayerId);
+
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void detachData(String MapLayerId, Promise promise){
+        try {
+            MapLayer mapLayer = getObjFromList(MapLayerId);
+            boolean result = mapLayer.detachData();
+
+            promise.resolve(result);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getData(String MapLayerId, Promise promise)
+    {
+        try {
+            MapLayer mapLayer = getObjFromList(MapLayerId);
+            IBasCls iBasCls = mapLayer.getData();
+
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void toXML(String MapLayerId, boolean onlyStyle, Promise promise){
+        try {
+            MapLayer mapLayer = getObjFromList(MapLayerId);
+            String toXml = mapLayer.toXML(onlyStyle);
+
+            promise.resolve(toXml);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void fromXML(String MapLayerId, String strXML, boolean onlyStyle, Promise promise){
+        try {
+            MapLayer mapLayer = getObjFromList(MapLayerId);
+            int result = (int) mapLayer.fromXML(strXML, onlyStyle);
+
+            promise.resolve(result);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+
 }
