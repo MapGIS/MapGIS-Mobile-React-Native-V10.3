@@ -68,11 +68,29 @@ export default class GraphicsOverlays {
    */
   async indexOf(graphicsOverlay) {
     try {
-      let index = await X.getState(
+      let index = await X.indexOf(
         this._MGGraphicsOverlaysId,
         graphicsOverlay._MGGraphicsOverlayId
       );
+      return index;
+    } catch (e) {
+      console.error(e);
+    }
+  }
 
+
+   /**
+   * 获取图形覆盖物的索引
+   * @memberOf GraphicsOverlays
+   * @param {String} graphicLayerName
+   * @returns {Promise<*|NavigationPreloadState>}
+   */
+  async indexOf(graphicLayerName) {
+    try {
+      let index = await X.indexOfByName(
+        this._MGGraphicsOverlaysId,
+        graphicLayerName
+      );
       return index;
     } catch (e) {
       console.error(e);

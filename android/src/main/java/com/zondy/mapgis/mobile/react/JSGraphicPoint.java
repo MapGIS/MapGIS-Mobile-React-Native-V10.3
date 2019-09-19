@@ -38,8 +38,6 @@ public class JSGraphicPoint extends JSGraphic {
     public static String registerId(GraphicPoint obj) {
         for (Map.Entry entry : mGraphicPointList.entrySet()) {
             if (obj.equals(entry.getValue())) {
-                String id = (String) entry.getKey();
-                mGraphicPointList.put(id, obj);
                 return (String) entry.getKey();
             }
         }
@@ -64,6 +62,12 @@ public class JSGraphicPoint extends JSGraphic {
         }
     }
 
+    /**
+     * 设置点的位置
+     * @param GraphicPointId
+     * @param dotID     点的位置
+     * @param promise
+     */
     @ReactMethod
     public void setPoint(String GraphicPointId, String dotID, Promise promise) {
         try {
@@ -76,6 +80,11 @@ public class JSGraphicPoint extends JSGraphic {
         }
     }
 
+    /**
+     * 获取点的位置
+     * @param GraphicPointId
+     * @param promise
+     */
     @ReactMethod
     public void getPoint(String GraphicPointId, Promise promise) {
         try {
@@ -92,6 +101,11 @@ public class JSGraphicPoint extends JSGraphic {
         }
     }
 
+    /**
+     * 获取点的大小
+     * @param GraphicPointId
+     * @param promise
+     */
     @ReactMethod
     public void getSize(String GraphicPointId, Promise promise) {
         try {
@@ -104,11 +118,37 @@ public class JSGraphicPoint extends JSGraphic {
         }
     }
 
+    /**
+     * 设置点的大小
+     * @param GraphicPointId
+     * @param size      点的大小
+     * @param promise
+     */
     @ReactMethod
     public void setSize(String GraphicPointId, float size, Promise promise) {
         try {
             GraphicPoint graphicPoint = getObjFromList(GraphicPointId);
             graphicPoint.setSize(size);
+            promise.resolve(true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    /**
+     * 设置点的位置、大小
+     * @param GraphicPointId
+     * @param dotID     点的位置
+     * @param size      点的大小
+     * @param promise
+     */
+    @ReactMethod
+    public void setPointAndSize(String GraphicPointId, String dotID, float size, Promise promise)
+    {
+        try {
+            GraphicPoint graphicPoint = getObjFromList(GraphicPointId);
+            Dot dot = JSDot.getObjFromList(dotID);
+            graphicPoint.setPointAndSize(dot,size);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);

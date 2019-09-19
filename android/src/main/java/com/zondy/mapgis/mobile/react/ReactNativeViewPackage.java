@@ -97,7 +97,6 @@ public class ReactNativeViewPackage implements ReactPackage {
         modules.add(new JSUniqueTheme(reactContext));
         modules.add(new JSVectorLabel(reactContext));
         modules.add(new JSVectorLayerType(reactContext));
-<<<<<<< .mine
         modules.add(new JSVisualMap(reactContext));
         modules.add(new JSHeatmapPoint(reactContext));
         modules.add(new JSGraphicHeatmap(reactContext));
@@ -126,9 +125,7 @@ public class ReactNativeViewPackage implements ReactPackage {
         modules.add(new JSLinInfo(reactContext));
         modules.add(new JSRegInfo(reactContext));
         modules.add(new JSTextAnnInfo(reactContext));
-
-        return modules;
-=======
+		
         modules.add(new JSVectorMapServer(reactContext));
         modules.add(new JSVectorTheme(reactContext));
         modules.add(new JSVectorTileMapServer(reactContext));
@@ -155,11 +152,6 @@ public class ReactNativeViewPackage implements ReactPackage {
         modules.add(new JSCoordinateType(reactContext));
 
 		return modules;
-
-
-
-
->>>>>>> .theirs
     }
 
     public List<Class<? extends JavaScriptModule>> createJSModules() {

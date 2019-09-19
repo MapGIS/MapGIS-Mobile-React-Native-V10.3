@@ -3,8 +3,11 @@ package com.zondy.mapgis.mobile.react;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.PointF;
+import android.net.Uri;
+import android.opengl.GLSurfaceView;
 import android.os.Environment;
 import android.util.Log;
+import android.view.MotionEvent;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
@@ -12,17 +15,32 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.facebook.react.uimanager.ThemedReactContext;
+import com.zondy.mapgis.android.annotation.AnnotationsOverlay;
+import com.zondy.mapgis.android.graphic.Graphic;
 import com.zondy.mapgis.android.graphic.GraphicsOverlay;
 import com.zondy.mapgis.android.graphic.GraphicsOverlays;
+import com.zondy.mapgis.android.mapview.MagnifierOption;
 import com.zondy.mapgis.android.mapview.MapPosition;
+import com.zondy.mapgis.android.mapview.MapTool;
 import com.zondy.mapgis.android.mapview.MapView;
+import com.zondy.mapgis.android.mapview.MapView.MapViewAnimationCallback;
+import com.zondy.mapgis.android.model.Model;
+import com.zondy.mapgis.android.model.ModelsOverlay;
 import com.zondy.mapgis.core.geometry.Dot;
+import com.zondy.mapgis.core.geometry.Dots;
 import com.zondy.mapgis.core.geometry.Rect;
+import com.zondy.mapgis.core.map.MapLayer;
+import com.zondy.mapgis.core.map.SimpleModelLayer;
 import com.zondy.mapgis.mobile.react.utils.ConvertUtil;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,16 +50,16 @@ import java.util.Map;
  * @content 地图视图组件
  */
 public class JSMapView extends ReactContextBaseJavaModule {
-    private static MapView curMapView = null;
+    private static MapView              curMapView = null;
     private static Map<String, MapView> mapViewList = new HashMap<String, MapView>();
-    Context m_Context = null;
-    MapView m_mapView;
-    ReactContext mReactContext;
+    Context                             m_Context = null;
+    MapView                             m_mapView;
+    ReactContext                        mReactContext;
     /**
      * 手机sdcard路径
      **/
     public static final String PHONE_SDCARD_PATH = Environment.getExternalStorageDirectory().getPath();
-
+    private static final String TEMP_FILE_PREFIX = "iTabletImage";
 
     @Override
     public String getName() {
@@ -58,7 +76,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
      * 提供给MapView视图组件用于创建MapView实例的方法。
      *
      * @param reactContext
-     * @return
+     * @return {object} MapView
      */
     public static MapView createInstance(ThemedReactContext reactContext) {
         curMapView = new MapView(reactContext.getBaseContext());
@@ -70,7 +88,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
      * 注册前先判断该MapView是否已经存在，如果存在，返回已经存在的ID，如果不存在，创建新的ID以返回。
      *
      * @param mapView
-     * @return
+     * @return {}
      */
     public static String registerId(MapView mapView) {
         for (Map.Entry entry : mapViewList.entrySet()) {
@@ -121,6 +139,94 @@ public class JSMapView extends ReactContextBaseJavaModule {
         }
     }
 
+    @ReactMethod
+    public void setBackGroundImage(String mapViewId, int width, int height, int quality, String type, Promise promise)
+    {
+        try {
+            getCurrentActivity().runOnUiThread(new BackGroundImageThread(mapViewId, width, height, quality, type, promise));
+
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    class BackGroundImageThread implements Runnable {
+
+        private String mapViewId;
+        private int width;
+        private int height;
+        private int quality;
+        private String type;
+        private Promise promise;
+
+        public BackGroundImageThread(String mapViewId, int width, int height, int quality, String type, Promise promise) {
+            this.mapViewId = mapViewId;
+            this.width = width;
+            this.height = height;
+            this.quality = quality;
+            this.type = type;
+            this.promise = promise;
+        }
+
+        @Override
+        public void run() {
+            try {
+                m_mapView = mapViewList.get(mapViewId);
+                int imgHeight = height;
+                int imgWidth = width;
+
+                if (!mapViewId.equals("")) {
+                    imgHeight = m_mapView.getHeight();
+                    imgWidth = m_mapView.getWidth();
+                }
+                Bitmap bitmap = Bitmap.createBitmap(imgWidth, imgHeight, Bitmap.Config.ARGB_8888);
+                m_mapView.setBackGroundImage(bitmap);
+                File externalCacheDir = getReactApplicationContext().getExternalCacheDir();
+                File internalCacheDir = getReactApplicationContext().getCacheDir();
+                File cacheDir;
+                if (externalCacheDir == null && internalCacheDir == null) {
+                    throw new IOException("No cache directory available");
+                }
+                if (externalCacheDir == null) {
+                    cacheDir = internalCacheDir;
+                } else if (internalCacheDir == null) {
+                    cacheDir = externalCacheDir;
+                } else {
+                    cacheDir = externalCacheDir.getFreeSpace() > internalCacheDir.getFreeSpace() ?
+                            externalCacheDir : internalCacheDir;
+                }
+                String suffix = ".png";
+                File bitmapFile = File.createTempFile(TEMP_FILE_PREFIX, suffix, cacheDir);
+
+                Bitmap.CompressFormat compressFormat;
+                switch (type) {
+                    case "jpeg":
+                    case "jpg":
+                        compressFormat = Bitmap.CompressFormat.JPEG;
+                        break;
+                    case "webp":
+                        compressFormat = Bitmap.CompressFormat.WEBP;
+                        break;
+                    case "png":
+                    default:
+                        compressFormat = Bitmap.CompressFormat.PNG;
+                        break;
+                }
+                FileOutputStream fos = new FileOutputStream(bitmapFile);
+                bitmap.compress(compressFormat, quality, fos);
+                fos.flush();
+                fos.close();
+                String uri = Uri.fromFile(bitmapFile).toString();
+
+                WritableMap map = Arguments.createMap();
+                map.putString("uri", uri);
+                promise.resolve(map);
+            } catch (Exception e) {
+                promise.reject(e);
+            }
+        }
+    }
+
     /**
      * 加载地图
      *
@@ -142,6 +248,82 @@ public class JSMapView extends ReactContextBaseJavaModule {
             m_mapView.loadFromFile(strRootPath + strMapPath);
             Log.d("loadFromFile:", strRootPath + strMapPath);
             promise.resolve(true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void loadFromFileAsync(String mapViewId, String strMapPath, Promise promise)
+    {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            String strRootPath = PHONE_SDCARD_PATH + File.separator;
+            m_mapView.loadFromFileAsync(strRootPath + strMapPath);
+            Log.d("loadFromFile:", strRootPath + strMapPath);
+            promise.resolve(true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void loadFromDocument(String mapViewId, String docId, int indexOfMap, Promise promise)
+    {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            //Document doc = JSDocument.get(mapId);
+            //m_mapView.loadFromDocument(doc, indexOfMap);
+            promise.resolve(true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void loadFromDocumentAsync(String mapViewId, String docId, int indexOfMap, final Promise promise)
+    {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            //Document doc = JSDocument.get(mapId);
+//            m_mapView.loadFromDocumentAsync(doc, indexOfMap, new MapView.MapViewFinishCallback()
+//            {
+//                @Override
+//                public void onDidFinish(boolean b) {
+//                    promise.resolve(b);
+//                }
+//            });
+            promise.resolve(true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void setMap(String mapViewId, String mapId, Promise promise)
+    {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            //Map map = JSMap.get(mapId);
+            //m_mapView.setMap(map);
+            promise.resolve(true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void setMapAsync(String mapViewId, String mapId, final Promise promise)
+    {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            //Map map = JSMap.get(mapId);
+//            m_mapView.setMapAsync(map, new MapView.MapViewFinishCallback() {
+//                @Override
+//                public void onDidFinish(boolean b) {
+//                    promise.resolve(b);
+//                }
+//            });
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -189,6 +371,22 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void stopCurRequest(String mapViewId, final Promise promise)
+    {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            m_mapView.stopCurRequest(new MapView.MapViewStopCurRequestCallback() {
+                @Override
+                public void onDidStopCurRequest() {
+                    promise.resolve(true);
+                }
+            });
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
     public void mapPointToViewPoint(String mapViewId, String dotID, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
@@ -225,6 +423,25 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void mapPointToGLPoint(String mapViewId, String pointID, Promise promise)
+    {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            Dot pointf = JSDot.getObjFromList(pointID);
+            Dot glPoint = m_mapView.mapPointToGLPoint(pointf);
+
+            String dotID = JSDot.registerId(glPoint);
+            WritableMap map = Arguments.createMap();
+            map.putString("dotID", dotID);
+            map.putDouble("x", glPoint.getX());
+            map.putDouble("y", glPoint.getY());
+            promise.resolve(map);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
     public void getResolution(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
@@ -246,6 +463,21 @@ public class JSMapView extends ReactContextBaseJavaModule {
 
             WritableMap map = Arguments.createMap();
             map.putDouble("maxResolution", maxResolution);
+            promise.resolve(map);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getMinResolution(String mapViewId, Promise promise)
+    {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            double minResolution = m_mapView.getMinResolution();
+
+            WritableMap map = Arguments.createMap();
+            map.putDouble("minResolution", minResolution);
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
@@ -277,6 +509,20 @@ public class JSMapView extends ReactContextBaseJavaModule {
         }
     }
 
+    @ReactMethod
+    public void getDispRange(String mapViewId, Promise promise) {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            Rect rect = mapView.getDispRange();
+
+            String rectId = JSRect.registerId(rect);
+            WritableMap map = Arguments.createMap();
+            map.putString("rectId", rectId);
+            promise.resolve(map);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
     /**
      * 设置地图中心点
      *
@@ -316,21 +562,6 @@ public class JSMapView extends ReactContextBaseJavaModule {
             mapView.panToCenter(mapPoint2D, viewPoint2D, animated);
             Log.d("panToCenter:mapCenterID", "" + mapCenterID);
             promise.resolve(true);
-        } catch (Exception e) {
-            promise.reject(e);
-        }
-    }
-
-    @ReactMethod
-    public void getDispRange(String mapViewId, Promise promise) {
-        try {
-            MapView mapView = mapViewList.get(mapViewId);
-            Rect rect = mapView.getDispRange();
-
-            String rectId = JSRect.registerId(rect);
-            WritableMap map = Arguments.createMap();
-            map.putString("rectId", rectId);
-            promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -428,6 +659,18 @@ public class JSMapView extends ReactContextBaseJavaModule {
             promise.reject(e);
         }
     }
+    @ReactMethod
+    public void setRotateCenter(String mapViewId, String rotateCenter, Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            Dot dot = JSDot.m_Point2DList.get(rotateCenter);
+            mapView.setRotateCenter(dot);
+            promise.resolve(true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
 
     @ReactMethod
     public void setRotateAngle(String mapViewId, float rotateAngle, boolean animated, Promise promise) {
@@ -483,7 +726,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setSlopeAngle(String mapViewId, float slopeAngle, boolean animated, Promise promise) {
+    public void setSlopeAngle(String mapViewId, float slopeAngle, Boolean animated, Promise promise) {
         try {
             MapView mapView = mapViewList.get(mapViewId);
             mapView.setSlopeAngle(slopeAngle, animated);
@@ -520,6 +763,56 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void updatePosition(String mapViewId, String postionID, String viewCenterPointID, Boolean animated, Promise promise)
+    {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            MapPosition mapPosition = JSMapPosition.getObjFromList(postionID);
+            PointF      viewCenterPoint = JSPointF.getObjFromList(viewCenterPointID);
+            m_mapView.updatePosition(mapPosition,viewCenterPoint,animated);
+            promise.resolve(true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void animatePosition(String mapViewId, String postionID, int duration, final Promise promise)
+    {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            MapPosition mapPosition = JSMapPosition.getObjFromList(postionID);
+            m_mapView.animatePosition(mapPosition, duration, new MapViewAnimationCallback() {
+
+                @Override
+                public void onAnimationFinish(boolean b) {
+                    promise.resolve(b);
+                }
+            });
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void animatePosition(String mapViewId, String postionID, String viewCenterPointID, int duration, final Promise promise)
+    {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            MapPosition mapPosition = JSMapPosition.getObjFromList(postionID);
+            PointF      viewCenterPoint = JSPointF.getObjFromList(viewCenterPointID);
+            m_mapView.animatePosition(mapPosition, viewCenterPoint, duration, new MapViewAnimationCallback() {
+                @Override
+                public void onAnimationFinish(boolean b) {
+                    promise.resolve(b);
+                }
+            });
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
     public void stopAnimation(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
@@ -539,6 +832,23 @@ public class JSMapView extends ReactContextBaseJavaModule {
             String dotId = JSMapPosition.registerId(mapPosition);
             WritableMap map = Arguments.createMap();
             map.putString("dotID", dotId);
+            promise.resolve(map);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getAnnotationsOverlay(String mapViewId, Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            AnnotationsOverlay graphicsOverlay = mapView.getAnnotationsOverlay();
+
+            String AnnotationsOverlayId = JSAnnotationsOverlay.registerId(graphicsOverlay);
+            WritableMap map = Arguments.createMap();
+            map.putString("AnnotationsOverlayId", AnnotationsOverlayId);
+            Log.d("AnnotationsOverlayId:", AnnotationsOverlayId);
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
@@ -572,6 +882,86 @@ public class JSMapView extends ReactContextBaseJavaModule {
             map.putString("GraphicsOverlaysID", GraphicsOverlaysID);
 
             promise.resolve(map);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void graphicsOverlayHitTest(String mapViewId, String graphicsOverlayId, String viewPointId, Promise promise)
+    {
+         try {
+            MapView mapView = mapViewList.get(mapViewId);
+            GraphicsOverlay graphicsOverlay = JSGraphicsOverlay.getObjFromList(graphicsOverlayId);
+            PointF          viewPoint = JSPointF.getObjFromList(viewPointId);
+            Graphic graphic = mapView.graphicsOverlayHitTest(graphicsOverlay,viewPoint);
+
+             String   strGraphicID = JSGraphic.registerId(graphic);
+             WritableMap map = Arguments.createMap();
+             map.putString("_MGGraphicId", strGraphicID);
+             promise.resolve(map);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void graphicHitTest(String mapViewId, String graphicId, String viewPointId, Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            Graphic graphic = JSGraphic.getObjFromList(graphicId);
+            PointF          viewPoint = JSPointF.getObjFromList(viewPointId);
+            Boolean isHit = mapView.graphicHitTest(graphic,viewPoint);
+            promise.resolve(isHit);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getModelsOverlay(String mapViewId, Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            ModelsOverlay modelsOverlay = mapView.getModelsOverlay();
+//            String   strModelsOverlayID = JSModelsOverlay.registerId(modelsOverlay);
+//            WritableMap map = Arguments.createMap();
+//            map.putString("_MGModelsOverlayId", strModelsOverlayID);
+//            promise.resolve(map);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void modelsOverlayHitTest(String mapViewId, String viewPointId, Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+            PointF          viewPoint = JSPointF.getObjFromList(viewPointId);
+            Model model = mapView.modelsOverlayHitTest(viewPoint);
+//            String   strModelID = JSModel.registerId(model);
+//            WritableMap map = Arguments.createMap();
+//            map.putString("_MGModelId", strModelID);
+//            promise.resolve(map);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void modelLayerHitTest(String mapViewId, String modelLayerId, String viewPointId, Promise promise)
+    {
+        try {
+            MapView mapView = mapViewList.get(mapViewId);
+          //  SimpleModelLayer simpleModelLayer = JSSimpleModelLayer.getObjFromList(modelLayerId);
+            PointF          viewPoint = JSPointF.getObjFromList(viewPointId);
+     //       Model model = mapView.modelLayerHitTest(simpleModelLayer,viewPoint);
+//            String   strModelID = JSModel.registerId(model);
+//            WritableMap map = Arguments.createMap();
+//            map.putString("_MGModelId", strModelID);
+//            promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -634,6 +1024,352 @@ public class JSMapView extends ReactContextBaseJavaModule {
             map.putBoolean("isSupportTransparency", isSupportTransparency);
 
             promise.resolve(map);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    ///////////////////////////////////////////
+    //MapTool如何处理？
+    @ReactMethod
+    public void setMapTool(String mapViewId, Promise promise)
+    {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            MapViewMapTool mapTool = new MapViewMapTool(m_mapView, mReactContext);
+            m_mapView.setMapTool(mapTool);
+            promise.resolve(true);
+
+            Log.d("setMapTool:", "" + true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+    ////////////////////////////////
+    @ReactMethod
+    public void getScreenSnapshot(String mapViewId, final Promise promise)
+    {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            m_mapView.getScreenSnapshot(new MapView.MapViewScreenSnapshotCallback() {
+                @Override
+                public void onScreenSnapshot(Bitmap bitmap) {
+                    String   strBitmapID = JSImage.registerId(bitmap);
+                    WritableMap map = Arguments.createMap();
+                    map.putString("_MGBitmapId", strBitmapID);
+                    promise.resolve(map);
+                }
+
+                @Override
+                public void onScreenSnapshot(int left, int top, int width, int height, Bitmap bitmap) {
+                    String   strBitmapID = JSImage.registerId(bitmap);
+                    WritableMap map = Arguments.createMap();
+                    map.putInt("ShotLeft", left);
+                    map.putInt("ShotTop", top);
+                    map.putInt("BitmapWidth", width);
+                    map.putInt("BitmapHeight", height);
+                    map.putString("_MGBitmapId", strBitmapID);
+                    promise.resolve(map);
+                }
+            });
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getScreenSnapshot(String mapViewId, int left, int top, int width, int height, final Promise promise)
+    {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            m_mapView.getScreenSnapshot(left, top, width, height, new MapView.MapViewScreenSnapshotCallback() {
+                @Override
+                public void onScreenSnapshot(Bitmap bitmap)
+                {
+                    String   strBitmapID = JSImage.registerId(bitmap);
+                    WritableMap map = Arguments.createMap();
+                    map.putString("_MGBitmapId", strBitmapID);
+                    promise.resolve(map);
+                }
+
+                @Override
+                public void onScreenSnapshot(int left, int top, int width, int height, Bitmap bitmap) {
+                    String   strBitmapID = JSImage.registerId(bitmap);
+                    WritableMap map = Arguments.createMap();
+                    map.putInt("ShotLeft", left);
+                    map.putInt("ShotTop", top);
+                    map.putInt("BitmapWidth", width);
+                    map.putInt("BitmapHeight", height);
+                    map.putString("_MGBitmapId", strBitmapID);
+                    promise.resolve(map);
+                }
+            });
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getBitmap(String mapViewId, String dispRangeId, int width, int height, int quality, String type, Promise promise)
+    {
+        try {
+            getCurrentActivity().runOnUiThread(new BitmapThread(mapViewId, dispRangeId, width, height, quality, type, promise));
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    class BitmapThread implements Runnable {
+
+        private String mapViewId;
+        private String dispRangeId;
+        private int width;
+        private int height;
+        private int quality;
+        private String type;
+        private Promise promise;
+
+        public BitmapThread(String mapViewId, String dispRangeId, int width, int height, int quality, String type, Promise promise) {
+            this.mapViewId = mapViewId;
+            this.dispRangeId = dispRangeId;
+            this.width = width;
+            this.height = height;
+            this.quality = quality;
+            this.type = type;
+            this.promise = promise;
+        }
+
+        @Override
+        public void run() {
+            try {
+                int imgHeight = height;
+                int imgWidth = width;
+
+                if (!mapViewId.equals("")) {
+                    m_mapView = mapViewList.get(mapViewId);
+                    imgHeight = m_mapView.getHeight();
+                    imgWidth = m_mapView.getWidth();
+                }
+                Rect   dispRange = JSRect.getObjFromList(dispRangeId);
+                Bitmap bitmap = Bitmap.createBitmap(imgWidth, imgHeight, Bitmap.Config.ARGB_8888);
+                int  result = (int)m_mapView.getBitmap(dispRange, bitmap);
+                File externalCacheDir = getReactApplicationContext().getExternalCacheDir();
+                File internalCacheDir = getReactApplicationContext().getCacheDir();
+                File cacheDir;
+                if (externalCacheDir == null && internalCacheDir == null) {
+                    throw new IOException("No cache directory available");
+                }
+                if (externalCacheDir == null) {
+                    cacheDir = internalCacheDir;
+                } else if (internalCacheDir == null) {
+                    cacheDir = externalCacheDir;
+                } else {
+                    cacheDir = externalCacheDir.getFreeSpace() > internalCacheDir.getFreeSpace() ?
+                            externalCacheDir : internalCacheDir;
+                }
+                String suffix = ".png";
+                File bitmapFile = File.createTempFile(TEMP_FILE_PREFIX, suffix, cacheDir);
+
+                Bitmap.CompressFormat compressFormat;
+                switch (type) {
+                    case "jpeg":
+                    case "jpg":
+                        compressFormat = Bitmap.CompressFormat.JPEG;
+                        break;
+                    case "webp":
+                        compressFormat = Bitmap.CompressFormat.WEBP;
+                        break;
+                    case "png":
+                    default:
+                        compressFormat = Bitmap.CompressFormat.PNG;
+                        break;
+                }
+                FileOutputStream fos = new FileOutputStream(bitmapFile);
+                bitmap.compress(compressFormat, quality, fos);
+                fos.flush();
+                fos.close();
+                String uri = Uri.fromFile(bitmapFile).toString();
+
+                WritableMap map = Arguments.createMap();
+
+                map.putInt("result", result);
+                map.putString("uri", uri);
+                promise.resolve(map);
+            } catch (Exception e) {
+                promise.reject(e);
+            }
+        }
+    }
+
+    @ReactMethod
+    public void getCrossBitmap(String mapViewId, ReadableArray seg1Array, ReadableArray seg2Array, ReadableArray seg3Array, int width, int height, int quality, String type, Promise promise)
+    {
+        try {
+            getCurrentActivity().runOnUiThread(new CrossBitmapThread(mapViewId, seg1Array, seg2Array, seg3Array, width, height, quality, type, promise));
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    class CrossBitmapThread implements Runnable {
+
+        private String mapViewId;
+        private ReadableArray seg1Array;
+        private ReadableArray seg2Array;
+        private ReadableArray seg3Array;
+        private int width;
+        private int height;
+        private int quality;
+        private String type;
+        private Promise promise;
+
+        public CrossBitmapThread(String mapViewId, ReadableArray seg1Array, ReadableArray seg2Array, ReadableArray seg3Array, int width, int height, int quality, String type, Promise promise) {
+            this.mapViewId = mapViewId;
+            this.seg1Array = seg1Array;
+            this.seg2Array = seg2Array;
+            this.seg3Array = seg3Array;
+            this.width = width;
+            this.height = height;
+            this.quality = quality;
+            this.type = type;
+            this.promise = promise;
+        }
+
+        @Override
+        public void run() {
+            try {
+                int imgHeight = height;
+                int imgWidth = width;
+
+                if (!mapViewId.equals("")) {
+                    m_mapView = mapViewList.get(mapViewId);
+                    imgHeight = m_mapView.getHeight();
+                    imgWidth = m_mapView.getWidth();
+                }
+                Dot[] seg1 = null;
+                Dot[] seg2 = null;
+                Dot[] seg3 = null;
+                if(seg1Array.size() > 0 && seg2Array.size() > 0 && seg3Array.size() > 0)
+                {
+                    seg1 = new Dot[seg1Array.size()];
+                    seg2 = new Dot[seg2Array.size()];
+                    seg3 = new Dot[seg3Array.size()];
+
+                    for (int i = 0; i < seg1Array.size(); i++) {
+                        ReadableMap readable = seg1Array.getMap(i);
+                        String keyStr = readable.getString("point2DId");
+                        seg1[i] = JSDot.getObjFromList(keyStr);
+                    }
+
+                    for (int j = 0; j < seg2Array.size(); j++) {
+                        ReadableMap readable = seg1Array.getMap(j);
+                        String keyStr = readable.getString("point2DId");
+                        seg2[j] = JSDot.getObjFromList(keyStr);
+                    }
+
+                    for (int k = 0; k < seg3Array.size(); k++) {
+                        ReadableMap readable = seg1Array.getMap(k);
+                        String keyStr = readable.getString("point2DId");
+                        seg3[k] = JSDot.getObjFromList(keyStr);
+                    }
+                }
+                Bitmap bitmap = Bitmap.createBitmap(imgWidth, imgHeight, Bitmap.Config.ARGB_8888);
+
+                int  result = (int)m_mapView.getCrossBitmap(seg1, seg2, seg3, bitmap);
+                File externalCacheDir = getReactApplicationContext().getExternalCacheDir();
+                File internalCacheDir = getReactApplicationContext().getCacheDir();
+                File cacheDir;
+                if (externalCacheDir == null && internalCacheDir == null) {
+                    throw new IOException("No cache directory available");
+                }
+                if (externalCacheDir == null) {
+                    cacheDir = internalCacheDir;
+                } else if (internalCacheDir == null) {
+                    cacheDir = externalCacheDir;
+                } else {
+                    cacheDir = externalCacheDir.getFreeSpace() > internalCacheDir.getFreeSpace() ?
+                            externalCacheDir : internalCacheDir;
+                }
+                String suffix = ".png";
+                File bitmapFile = File.createTempFile(TEMP_FILE_PREFIX, suffix, cacheDir);
+
+                Bitmap.CompressFormat compressFormat;
+                switch (type) {
+                    case "jpeg":
+                    case "jpg":
+                        compressFormat = Bitmap.CompressFormat.JPEG;
+                        break;
+                    case "webp":
+                        compressFormat = Bitmap.CompressFormat.WEBP;
+                        break;
+                    case "png":
+                    default:
+                        compressFormat = Bitmap.CompressFormat.PNG;
+                        break;
+                }
+                FileOutputStream fos = new FileOutputStream(bitmapFile);
+                bitmap.compress(compressFormat, quality, fos);
+                fos.flush();
+                fos.close();
+                String uri = Uri.fromFile(bitmapFile).toString();
+
+                WritableMap map = Arguments.createMap();
+
+                map.putInt("result", result);
+                map.putString("uri", uri);
+                promise.resolve(map);
+            } catch (Exception e) {
+                promise.reject(e);
+            }
+        }
+    }
+
+    @ReactMethod
+    public void showMagnifier(String mapViewId, String viewPointFId, String optionId, Promise promise)
+    {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            PointF    viewPointF = JSPointF.getObjFromList(viewPointFId);
+            MagnifierOption  option = JSMagnifierOption.getObjFromList(optionId);
+            m_mapView.showMagnifier(viewPointF, option);
+            promise.resolve(true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void hideMagnifier(String mapViewId, Promise promise)
+    {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            m_mapView.hideMagnifier();
+            promise.resolve(true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void turnOnMagnifier(String mapViewId, String magnifierOptionId, Promise promise)
+    {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            MagnifierOption option = JSMagnifierOption.getObjFromList(magnifierOptionId);
+            m_mapView.turnOnMagnifier(option);
+            promise.resolve(true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void turnOffMagnifier(String mapViewId, Promise promise)
+    {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            m_mapView.turnOffMagnifier();
+            promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -1098,7 +1834,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setTapListener(String mapViewId, Promise promise) {
+    public void registerTapListener(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
             MapListener mapListener = new MapListener(m_mapView, mReactContext);
@@ -1112,7 +1848,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void removeTapListener(String mapViewId, Promise promise) {
+    public void unregisterTapListener(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
             m_mapView.setTapListener(null);
@@ -1125,7 +1861,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setLongTapListener(String mapViewId, Promise promise) {
+    public void registerLongTapListener(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
             MapListener mapListener = new MapListener(m_mapView, mReactContext);
@@ -1139,7 +1875,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void removeLongTapListener(String mapViewId, Promise promise) {
+    public void unregisterLongTapListener(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
             m_mapView.setLongTapListener(null);
@@ -1152,7 +1888,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setDoubleTapListener(String mapViewId, Promise promise) {
+    public void registerDoubleTapListener(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
             MapListener mapListener = new MapListener(m_mapView, mReactContext);
@@ -1166,7 +1902,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void removeDoubleTapListener(String mapViewId, Promise promise) {
+    public void unregisterDoubleTapListener(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
             m_mapView.setDoubleTapListener(null);
@@ -1179,7 +1915,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setTouchListener(String mapViewId, Promise promise) {
+    public void registerTouchListener(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
             MapListener mapListener = new MapListener(m_mapView, mReactContext);
@@ -1193,7 +1929,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void removeTouchListener(String mapViewId, Promise promise) {
+    public void unregisterTouchListener(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
             m_mapView.setTouchListener(null);
@@ -1206,7 +1942,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setZoomChangedListener(String mapViewId, Promise promise) {
+    public void registerZoomChangedListener(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
             MapListener mapListener = new MapListener(m_mapView, mReactContext);
@@ -1220,7 +1956,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void removeZoomChangedListener(String mapViewId, Promise promise) {
+    public void unregisterZoomChangedListener(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
             m_mapView.setZoomChangedListener(null);
@@ -1233,7 +1969,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setCenterChangedListener(String mapViewId, Promise promise) {
+    public void registerCenterChangedListener(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
             MapListener mapListener = new MapListener(m_mapView, mReactContext);
@@ -1246,7 +1982,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void removeCenterChangedListener(String mapViewId, Promise promise) {
+    public void unregisterCenterChangedListener(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
             m_mapView.setCenterChangedListener(null);
@@ -1259,7 +1995,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setRotateChangedListener(String mapViewId, Promise promise) {
+    public void registerRotateChangedListener(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
             MapListener mapListener = new MapListener(m_mapView, mReactContext);
@@ -1272,7 +2008,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void removeRotateChangedListener(String mapViewId, Promise promise) {
+    public void unregisterRotateChangedListener(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
             m_mapView.setRotateChangedListener(null);
@@ -1285,7 +2021,35 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setAnimationListener(String mapViewId, Promise promise) {
+    public void registerPositionChangedListener(String mapViewId, Promise promise)
+    {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            MapListener mapListener = new MapListener(m_mapView, mReactContext);
+            m_mapView.setPositionChangedListener(mapListener);
+            promise.resolve(true);
+
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void unregisterPositionChangedListener(String mapViewId, Promise promise)
+    {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            m_mapView.setPositionChangedListener(null);
+            promise.resolve(true);
+
+            Log.d("setTapListener:", "" + true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void registerAnimationListener(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
             MapListener mapListener = new MapListener(m_mapView, mReactContext);
@@ -1298,7 +2062,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void removeAnimationListener(String mapViewId, Promise promise) {
+    public void unregisterAnimationListener(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
             m_mapView.setAnimationListener(null);
@@ -1311,7 +2075,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setRefreshListener(String mapViewId, Promise promise) {
+    public void registerRefreshListener(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
             MapListener mapListener = new MapListener(m_mapView, mReactContext);
@@ -1324,7 +2088,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void removeRefreshListener(String mapViewId, Promise promise) {
+    public void unregisterRefreshListener(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
             m_mapView.setRefreshListener(null);
@@ -1337,7 +2101,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setMapLoadListener(String mapViewId, Promise promise) {
+    public void registerMapLoadListener(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
             MapListener mapListener = new MapListener(m_mapView, mReactContext);
@@ -1350,13 +2114,55 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void removeMapLoadListener(String mapViewId, Promise promise) {
+    public void unregisterMapLoadListener(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
             m_mapView.setMapLoadListener(null);
             promise.resolve(true);
 
             Log.d("setTapListener:", "" + true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void registerAnnotationListener(String mapViewId, Promise promise)
+    {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            MapListener mapListener = new MapListener(m_mapView, mReactContext);
+            m_mapView.setAnnotationListener(mapListener);
+            promise.resolve(true);
+
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void unregisterAnnotationListener(String mapViewId, Promise promise)
+    {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            m_mapView.setAnnotationListener(null);
+            promise.resolve(true);
+
+            Log.d("setTapListener:", "" + true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void swipe(String mapViewId, String swipeLayerId, String swipeRegionDotsId, Promise promise)
+    {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            MapLayer mapLayer = JSMapLayer.getObjFromList(swipeLayerId);
+           // Dots   swipeRegionDots = JSDots.getObjFromList(swipeRegionDotsId);
+           // int iSwip = m_mapView.swipe(mapLayer,swipeRegionDots);
+            //promise.resolve(iSwip);
         } catch (Exception e) {
             promise.reject(e);
         }

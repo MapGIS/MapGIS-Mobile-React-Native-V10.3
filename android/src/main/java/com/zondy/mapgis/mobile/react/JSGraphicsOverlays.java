@@ -40,12 +40,9 @@ public class JSGraphicsOverlays extends ReactContextBaseJavaModule {
     public static String registerId(GraphicsOverlays obj) {
         for (Map.Entry entry : mGraphicsOverlaysList.entrySet()) {
             if (obj.equals(entry.getValue())) {
-                String id = (String) entry.getKey();
-                mGraphicsOverlaysList.put(id, obj);
                 return (String) entry.getKey();
             }
         }
-
         Calendar calendar = Calendar.getInstance();
         String id = Long.toString(calendar.getTimeInMillis());
         mGraphicsOverlaysList.put(id, obj);
@@ -87,6 +84,18 @@ public class JSGraphicsOverlays extends ReactContextBaseJavaModule {
             int count = graphicsOverlays.getCount();
 
             promise.resolve(count);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void indexOfByName(String GraphicsOverlaysId, String graphicLayerName, Promise promise) {
+        try {
+            GraphicsOverlays graphicsOverlays = getObjFromList(GraphicsOverlaysId);
+            int index = graphicsOverlays.indexOf(graphicLayerName);
+
+            promise.resolve(index);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -167,6 +176,18 @@ public class JSGraphicsOverlays extends ReactContextBaseJavaModule {
         try {
             GraphicsOverlays graphicsOverlays = getObjFromList(GraphicsOverlaysId);
             graphicsOverlays.move(fromIndex, toIndex);
+            promise.resolve(true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void remove(String GraphicsOverlaysId, String graphicsOverlayID, Promise promise) {
+        try {
+            GraphicsOverlays graphicsOverlays = getObjFromList(GraphicsOverlaysId);
+            GraphicsOverlay graphicsOverlay = JSGraphicsOverlay.getObjFromList(graphicsOverlayID);
+            graphicsOverlays.remove(graphicsOverlay);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);

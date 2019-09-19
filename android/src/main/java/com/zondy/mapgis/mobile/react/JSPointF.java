@@ -40,12 +40,9 @@ public class JSPointF extends ReactContextBaseJavaModule {
     public static String registerId(PointF obj) {
         for (Map.Entry entry : mPointfList.entrySet()) {
             if (obj.equals(entry.getValue())) {
-                String id = (String) entry.getKey();
-                mPointfList.put(id, obj);
                 return (String) entry.getKey();
             }
         }
-
         Calendar calendar = Calendar.getInstance();
         String id = Long.toString(calendar.getTimeInMillis());
         mPointfList.put(id, obj);

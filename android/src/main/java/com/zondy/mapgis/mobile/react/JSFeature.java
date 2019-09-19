@@ -49,8 +49,6 @@ public class JSFeature extends ReactContextBaseJavaModule {
     public static String registerId(Feature obj) {
         for (Map.Entry entry : mFeatureList.entrySet()) {
             if (obj.equals(entry.getValue())) {
-                String id = (String) entry.getKey();
-                mFeatureList.put(id, obj);
                 return (String) entry.getKey();
             }
         }

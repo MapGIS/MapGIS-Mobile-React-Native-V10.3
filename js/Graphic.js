@@ -204,6 +204,21 @@ export default class Graphic {
   }
 
   /**
+   * 根据索引获取图形属性值
+   * @memberOf Graphic
+   * @param index 图形属性的索引，从0开始到属性数目减1
+   * @returns {Promise<*>}
+   */
+  async getAttributeValue(index) {
+    try {
+      let attributeValue = await G.getAttributeName(this._MGGraphicId, index);
+      return attributeValue;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
    * 根据属性名称获取图形属性值
    * @memberOf Graphic
    * @param name

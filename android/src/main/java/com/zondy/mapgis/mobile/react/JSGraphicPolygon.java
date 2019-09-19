@@ -45,12 +45,9 @@ public class JSGraphicPolygon extends JSGraphicMultiPoint {
     public static String registerId(GraphicPolygon obj) {
         for (Map.Entry entry : mGraphicPolygonList.entrySet()) {
             if (obj.equals(entry.getValue())) {
-                String id = (String) entry.getKey();
-                mGraphicPolygonList.put(id, obj);
                 return (String) entry.getKey();
             }
         }
-
         Calendar calendar = Calendar.getInstance();
         String id = Long.toString(calendar.getTimeInMillis());
         mGraphicPolygonList.put(id, obj);

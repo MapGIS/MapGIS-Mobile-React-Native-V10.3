@@ -40,12 +40,9 @@ public class JSMapPosition extends ReactContextBaseJavaModule {
     public static String registerId(MapPosition obj) {
         for (Map.Entry entry : mMapPositionList.entrySet()) {
             if (obj.equals(entry.getValue())) {
-                String id = (String) entry.getKey();
-                mMapPositionList.put(id, obj);
                 return (String) entry.getKey();
             }
         }
-
         Calendar calendar = Calendar.getInstance();
         String id = Long.toString(calendar.getTimeInMillis());
         mMapPositionList.put(id, obj);
@@ -101,6 +98,18 @@ public class JSMapPosition extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void setCenter(String MapPositionId, double centerX, double centerY, Promise promise)
+    {
+        try {
+            MapPosition mapPosition = getObjFromList(MapPositionId);
+            mapPosition.setCenter(centerX,centerY);
+            promise.resolve(true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
     public void getResolution(String MapPositionId, Promise promise) {
         try {
             MapPosition mapPosition = getObjFromList(MapPositionId);
@@ -151,6 +160,18 @@ public class JSMapPosition extends ReactContextBaseJavaModule {
             MapPosition mapPosition = getObjFromList(MapPositionId);
             Dot centerDot = JSDot.getObjFromList(centerDotID);
             mapPosition.setRotateCenter(centerDot);
+            promise.resolve(true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void setRotateCenter(String MapPositionId, double rotateCenterX, double rotateCenterY, Promise promise)
+    {
+        try {
+            MapPosition mapPosition = getObjFromList(MapPositionId);
+            mapPosition.setRotateCenter(rotateCenterX, rotateCenterY);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);

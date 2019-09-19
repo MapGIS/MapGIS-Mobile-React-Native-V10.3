@@ -57,8 +57,8 @@ export default class GraphicPolygon extends GraphicMultiPoint {
   /**
    * 设置一组坐标点
    * @memberOf GraphicPolygon
-   * @param pointArray
-   * @param circlesArray
+   * @param {Array} pointArray
+   * @param {Array} circlesArray
    * @returns {Promise<void>}
    */
   async setPoints(pointArray, circlesArray) {
@@ -72,7 +72,7 @@ export default class GraphicPolygon extends GraphicMultiPoint {
   /**
    * 获取圈序列
    * @memberOf GraphicPolygon
-   * @returns {Promise<*>}
+   * @returns {Promise<Array>}
    */
   async getCirclesToList() {
     try {

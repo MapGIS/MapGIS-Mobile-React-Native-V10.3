@@ -45,12 +45,9 @@ public class JSQueryBound extends ReactContextBaseJavaModule {
     public static String registerId(FeatureQuery.QueryBound obj) {
         for (Map.Entry entry : mQueryBoundList.entrySet()) {
             if (obj.equals(entry.getValue())) {
-                String id = (String) entry.getKey();
-                mQueryBoundList.put(id, obj);
                 return (String) entry.getKey();
             }
         }
-
         Calendar calendar = Calendar.getInstance();
         String id = Long.toString(calendar.getTimeInMillis());
         mQueryBoundList.put(id, obj);

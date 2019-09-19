@@ -21,7 +21,6 @@ import java.util.Map;
 public class JSDot extends ReactContextBaseJavaModule {
     public static final String REACT_CLASS = "JSDot";
     public static Map<String, Dot> m_Point2DList = new HashMap<String, Dot>();
-    Dot m_Point2D;
 
     public JSDot(ReactApplicationContext context) {
         super(context);
@@ -40,8 +39,6 @@ public class JSDot extends ReactContextBaseJavaModule {
     public static String registerId(Dot obj) {
         for (Map.Entry entry : m_Point2DList.entrySet()) {
             if (obj.equals(entry.getValue())) {
-                String id = (String) entry.getKey();
-                m_Point2DList.put(id, obj);
                 return (String) entry.getKey();
             }
         }

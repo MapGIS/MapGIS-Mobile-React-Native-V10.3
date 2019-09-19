@@ -160,9 +160,9 @@ export default class GraphicsOverlay {
     try {
       var objArr = [];
       let graphicArray = await X.getAllGraphics(this._MGGraphicsOverlayId);
-      for (var i = 0; i < graphicArray.length - 1; i++) {
+      for (var i = 0; i < graphicArray.length; i++) {
         var graphic = new Graphic();
-        graphic._MGGraphicId = values[i];
+        graphic._MGGraphicId = graphicArray[i];
         objArr.push(graphic);
       }
       return objArr;
@@ -188,12 +188,12 @@ export default class GraphicsOverlay {
   /**
    * 获取指定图形的索引
    * @memberOf GraphicsOverlay
-   * @param graphic
+   * @param {Object} graphic
    * @returns {Promise<*>}
    */
   async indexOf(graphic) {
     try {
-      let index = await X.indexOf(this._MGGraphicsOverlayId);
+      let index = await X.indexOf(this._MGGraphicsOverlayId, graphic._MGGraphicId);
 
       return index;
     } catch (e) {
@@ -212,7 +212,6 @@ export default class GraphicsOverlay {
       var graphic = new Graphic();
       graphic._MGGraphicId = GraphicId;
       return graphic;
-      return graphic;
     } catch (e) {
       console.error(e);
     }
@@ -222,7 +221,7 @@ export default class GraphicsOverlay {
    * 插入图形
    * @memberOf GraphicsOverlay
    * @param index
-   * @param graphic
+   * @param {Object} graphic
    * @returns {Promise<*>} returnID > 0 插入成功，returnID < 0 插入失败
    */
   async insertGraphic(index, graphic) {
@@ -230,7 +229,7 @@ export default class GraphicsOverlay {
       let returnID = await X.insertGraphic(
         this._MGGraphicsOverlayId,
         index,
-        graphic
+        graphic._MGGraphicId
       );
 
       return returnID;
@@ -288,12 +287,18 @@ export default class GraphicsOverlay {
    */
   async getGraphicsByAttribute(name, value) {
     try {
+      var objArr = [];
       let graphicArray = await X.getGraphicsByAttribute(
         this._MGGraphicsOverlayId,
         name,
         value
       );
-      return graphicArray;
+      for (var i = 0; i < graphicArray.length; i++) {
+        var graphic = new Graphic();
+        graphic._MGGraphicId = graphicArray[i];
+        objArr.push(graphic);
+      }
+      return objArr;
     } catch (e) {
       console.error(e);
     }

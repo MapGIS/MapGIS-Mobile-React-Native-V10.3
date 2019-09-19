@@ -43,8 +43,6 @@ public class JSFeatureQuery extends ReactContextBaseJavaModule {
     public static String registerId(FeatureQuery obj) {
         for (Map.Entry entry : mFeatureQueryList.entrySet()) {
             if (obj.equals(entry.getValue())) {
-                String id = (String) entry.getKey();
-                mFeatureQueryList.put(id, obj);
                 return (String) entry.getKey();
             }
         }

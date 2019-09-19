@@ -39,8 +39,6 @@ public class JSGraphicCircle extends JSGraphic {
     public static String registerId(GraphicCircle obj) {
         for (Map.Entry entry : mGraphicCircleList.entrySet()) {
             if (obj.equals(entry.getValue())) {
-                String id = (String) entry.getKey();
-                mGraphicCircleList.put(id, obj);
                 return (String) entry.getKey();
             }
         }

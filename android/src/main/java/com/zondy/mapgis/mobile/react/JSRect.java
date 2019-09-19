@@ -41,12 +41,9 @@ public class JSRect extends ReactContextBaseJavaModule {
     public static String registerId(Rect obj) {
         for (Map.Entry entry : mRectList.entrySet()) {
             if (obj.equals(entry.getValue())) {
-                String id = (String) entry.getKey();
-                mRectList.put(id, obj);
                 return (String) entry.getKey();
             }
         }
-
         Calendar calendar = Calendar.getInstance();
         String id = Long.toString(calendar.getTimeInMillis());
         mRectList.put(id, obj);

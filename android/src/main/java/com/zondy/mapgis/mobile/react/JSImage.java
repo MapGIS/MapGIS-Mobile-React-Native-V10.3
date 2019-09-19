@@ -43,12 +43,9 @@ public class JSImage extends ReactContextBaseJavaModule {
     public static String registerId(Bitmap obj) {
         for (Map.Entry entry : mBitmapList.entrySet()) {
             if (obj.equals(entry.getValue())) {
-                String id = (String) entry.getKey();
-                mBitmapList.put(id, obj);
                 return (String) entry.getKey();
             }
         }
-
         Calendar calendar = Calendar.getInstance();
         String id = Long.toString(calendar.getTimeInMillis());
         mBitmapList.put(id, obj);

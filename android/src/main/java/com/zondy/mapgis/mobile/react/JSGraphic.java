@@ -7,6 +7,9 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.android.graphic.GraphicText;
 import com.zondy.mapgis.mobile.react.utils.ConvertUtil;
@@ -22,8 +25,10 @@ import com.zondy.mapgis.android.graphic.GraphicType;
 import com.zondy.mapgis.core.geometry.Dot;
 import com.zondy.mapgis.core.geometry.Rect;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -52,8 +57,6 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     public static String registerId(Graphic obj) {
         for (Map.Entry entry : mGraphicList.entrySet()) {
             if (obj.equals(entry.getValue())) {
-                String id = (String) entry.getKey();
-                mGraphicList.put(id, obj);
                 return (String) entry.getKey();
             }
         }
@@ -132,7 +135,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
 
 
     @ReactMethod
-    public void getCenterPoint(String GraphicId, int index, Promise promise) {
+    public void getCenterPoint(String GraphicId, Promise promise) {
         try {
             Graphic Graphic = getGraphicByID(GraphicId);
             Dot centerDot = Graphic.getCenterPoint();
@@ -237,6 +240,18 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void getAttributeValue(String GraphicId, long index, Promise promise)
+    {
+        try {
+            Graphic graphic = getGraphicByID(GraphicId);
+            String attributeValue = graphic.getAttributeValue(index);
+
+            promise.resolve(attributeValue);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+    @ReactMethod
     public void getAttributeValue(String GraphicId, String name, Promise promise) {
         try {
             Graphic graphic = getGraphicByID(GraphicId);
@@ -263,6 +278,67 @@ public class JSGraphic extends ReactContextBaseJavaModule {
         try {
             Graphic graphic = getGraphicByID(GraphicId);
             graphic.removeAllAttributes();
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void toGraphicsFromGeometry(String geometryID, Promise promise)
+    {
+//        try {
+//            //GraphicHeatmap graphicHeatmap = getObjFromList(geometryID);
+//           // Geometry   geometry = JSGeometry.getObjFromList(geometryID);
+//            List<Graphic> graphicList = Graphic.toGraphicsFromGeometry();
+//            String strGraphicID = "";
+//            WritableArray arr = Arguments.createArray();
+//            if (graphicList.size() > 0) {
+//                for (int i = 0; i < graphicList.size(); i++) {
+//                    strGraphicID = registerId(graphicList.get(i));
+//                    arr.pushString(strGraphicID);
+//                }
+//            }
+//            WritableMap map = Arguments.createMap();
+//            map.putArray("GraphicArr", arr);
+//            promise.resolve(map);
+//        } catch (Exception e) {
+//            promise.reject(e);
+//        }
+    }
+
+    @ReactMethod
+    public void toGeometry(String graphicID, Promise promise)
+    {
+        try {
+            Graphic graphic = getGraphicByID(graphicID);
+            //Geometry geometry = Graphic.toGeometry(graphic);
+           // String geometryID = JSGeometry.registerId(geometry);
+            WritableMap map = Arguments.createMap();
+            //map.putString("GeometryID", geometryID);
+            promise.resolve(map);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void toGeometry(ReadableArray graphicIDArray, Promise promise)
+    {
+        try {
+            if(graphicIDArray.size() > 0)
+            {
+                ArrayList<Graphic> graphicLst = new ArrayList();
+                for (int i = 0; i < graphicIDArray.size(); i++) {
+                    ReadableMap readable = graphicIDArray.getMap(i);
+                    String keyStr = readable.getString("_GraphicId");
+                    graphicLst.add(getGraphicByID(keyStr));
+                }
+               // Geometry geometry = Graphic.toGeometry(graphicLst);
+                // String geometryID = JSGeometry.registerId(geometry);
+                WritableMap map = Arguments.createMap();
+                //map.putString("GeometryID", geometryID);
+                promise.resolve(map);
+            }
         } catch (Exception e) {
             promise.reject(e);
         }

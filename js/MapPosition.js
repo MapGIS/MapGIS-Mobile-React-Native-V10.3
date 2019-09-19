@@ -71,6 +71,22 @@ export default class MapPosition {
     }
 
     /**
+     * 设置地图中心点
+     * @memberOf MapPosition
+     * @param centerX
+     * @param centerY
+     * @returns {Promise<void>}
+     */
+    async setCenter(centerX, centerY)
+	{
+		try {
+            await MP.setCenter(this._MMapPosition, centerX, centerY);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+    
+    /**
      * 获取地图分辨率
      * @memberOf MapPosition
      * @returns {Promise<*>}
@@ -127,6 +143,22 @@ export default class MapPosition {
         }
     }
 
+    /**
+     * 设置地图旋转中心
+     * @memberOf MapPosition
+     * @param rotateCenterX
+     * @param rotateCenterY
+     * @returns {Promise<void>}
+     */
+    async setRotateCenter(rotateCenterX, rotateCenterY)
+	{
+        try {
+            await MP.setRotateCenter(this._MMapPosition,rotateCenterX,rotateCenterY);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+    
     /**
      * 获取旋转角
      * @memberOf MapPosition
