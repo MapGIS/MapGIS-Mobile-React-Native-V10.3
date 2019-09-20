@@ -29,7 +29,6 @@ let VectorLayerType = NativeModules.JSVectorLayerType;
 let MeasureType = NativeModules.JSMeasureType;
 let SketchDataType = NativeModules.JSSketchDataType;
 let CoordinateType = NativeModules.JSCoordinateType;
-let GeomType = NativeModules.JSGeomType;
 
 let CoordType = NativeModules.JSCoordType;
 let LevelType = NativeModules.JSLevelType;
