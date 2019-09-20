@@ -6,6 +6,9 @@ import { NativeModules } from "react-native";
 
 let GP = NativeModules.JSGeoPoints;
 
+import GeometryExp from "./GeometryExp.js"
+import Dot3D from "./Dot3D.js"
+
 /**
  * @class GeoPoints
  */

@@ -100,8 +100,8 @@ public class JSDataBase extends ReactContextBaseJavaModule {
     {
         try {
             DataBase dataBase = getObjFromList(dataBaseId);
-            long lVal = dataBase.create(strDatabasePath);
-            promise.resolve(lVal);
+            int iVal = (int)dataBase.create(strDatabasePath);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -112,8 +112,8 @@ public class JSDataBase extends ReactContextBaseJavaModule {
     {
         try {
             DataBase dataBase = getObjFromList(dataBaseId);
-            long lVal = dataBase.close();
-            promise.resolve(lVal);
+            int iVal = (int)dataBase.close();
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -173,8 +173,8 @@ public class JSDataBase extends ReactContextBaseJavaModule {
         try {
             DataBase dataBase = getObjFromList(dataBaseId);
             XClsType type = (XClsType) Enumeration.parse(XClsType.class, xClsType);
-            long lNum = dataBase.getXclsNum(type, dsID);
-            promise.resolve(lNum);
+            int iNum = (int)dataBase.getXclsNum(type, dsID);
+            promise.resolve(iNum);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -185,8 +185,8 @@ public class JSDataBase extends ReactContextBaseJavaModule {
     {
         try {
             DataBase dataBase = getObjFromList(dataBaseId);
-            long lVal = dataBase.open(strDatabasePath);
-            promise.resolve(lVal);
+            int iVal = (int)dataBase.open(strDatabasePath);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -198,8 +198,8 @@ public class JSDataBase extends ReactContextBaseJavaModule {
         try {
             DataBase dataBase = getObjFromList(dataBaseId);
             XClsType type = (XClsType) Enumeration.parse(XClsType.class, xClsType);
-            long lVal = dataBase.xClsIsExist(type, name);
-            promise.resolve(lVal);
+            int iVal = (int)dataBase.xClsIsExist(type, name);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }

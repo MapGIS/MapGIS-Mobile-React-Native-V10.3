@@ -3,7 +3,7 @@
  * @author
  */
 import { NativeModules } from "react-native";
-import Dot from "./Dot";
+import Dot from "./Dot.js";
 import PointF from "./PointF.js";
 
 let AN = NativeModules.JSAnnotation;

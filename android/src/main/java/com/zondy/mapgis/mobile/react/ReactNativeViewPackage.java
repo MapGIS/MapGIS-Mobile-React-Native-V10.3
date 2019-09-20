@@ -108,11 +108,16 @@ public class ReactNativeViewPackage implements ReactPackage {
         modules.add(new JSElpParam(reactContext));
 
         modules.add(new JSDots(reactContext));
+        modules.add(new JSAnnType(reactContext));
         modules.add(new JSGeoAnno(reactContext));
+        modules.add(new JSDistanceType(reactContext));
         modules.add(new JSGeometry(reactContext));
+        modules.add(new JSGeometryDimension(reactContext));
         modules.add(new JSGeoLine(reactContext));
         modules.add(new JSGeoLines(reactContext));
         modules.add(new JSGeometryExp(reactContext));
+        modules.add(new JSGeometryType(reactContext));
+        modules.add(new JSGeomType(reactContext));
         modules.add(new JSGeoPoints(reactContext));
         modules.add(new JSGeoPolygon(reactContext));
         modules.add(new JSGeoPolygons(reactContext));
@@ -132,7 +137,6 @@ public class ReactNativeViewPackage implements ReactPackage {
         modules.add(new JSOGCWMTSMapServer(reactContext));
         modules.add(new JSServerLayer(reactContext));
 
-
         modules.add(new JSModel(reactContext));
         modules.add(new JSModelsOverlay(reactContext));
 		modules.add(new JSSimpleModelLayerUtil(reactContext));
@@ -150,6 +154,21 @@ public class ReactNativeViewPackage implements ReactPackage {
 		
 		modules.add(new JSCoordinateConvertParameter(reactContext));
         modules.add(new JSCoordinateType(reactContext));
+
+        modules.add(new JSExtField(reactContext));
+        modules.add(new JSField(reactContext));
+        modules.add(new JSFields(reactContext));
+        modules.add(new JSFieldShape(reactContext));
+        modules.add(new JSFieldType(reactContext));
+        modules.add(new JSRecord(reactContext));
+
+        modules.add(new JSAnnClsInfo(reactContext));
+        modules.add(new JSAnnotationCls(reactContext));
+        modules.add(new JSDataBase(reactContext));
+        modules.add(new JSFClsInfo(reactContext));
+        modules.add(new JSQueryDef(reactContext));
+        modules.add(new JSRecordSet(reactContext));
+        modules.add(new JSSFeatureCls(reactContext));
 
 		return modules;
     }

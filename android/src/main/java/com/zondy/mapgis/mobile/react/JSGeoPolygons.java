@@ -102,12 +102,12 @@ public class JSGeoPolygons extends JSGeometryExp{
     }
 
     @ReactMethod
-    public void del(String geoPolygonsId, long iIndex, Promise promise)
+    public void del(String geoPolygonsId, int iIndex, Promise promise)
     {
         try {
             GeoPolygons geoPolygons = getObjFromList(geoPolygonsId);
-            long lVal = geoPolygons.del(iIndex);
-            promise.resolve(lVal);
+            int iVal = (int)geoPolygons.del(iIndex);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -118,8 +118,8 @@ public class JSGeoPolygons extends JSGeometryExp{
     {
         try {
             GeoPolygons geoPolygons = getObjFromList(geoPolygonsId);
-            long lNum = geoPolygons.getNum();
-            promise.resolve(lNum);
+            int iNum = (int)geoPolygons.getNum();
+            promise.resolve(iNum);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -131,15 +131,15 @@ public class JSGeoPolygons extends JSGeometryExp{
         try {
             GeoPolygons geoPolygons = getObjFromList(geoPolygonsId);
             GeoPolygon reg = JSGeoPolygon.getObjFromList(regId);
-            long lVal = geoPolygons.append(reg);
-            promise.resolve(lVal);
+            int iVal = (int)geoPolygons.append(reg);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void getPolygon(String geoPolygonsId, long index, Promise promise)
+    public void getPolygon(String geoPolygonsId, int index, Promise promise)
     {
         try {
             GeoPolygons geoPolygons = getObjFromList(geoPolygonsId);

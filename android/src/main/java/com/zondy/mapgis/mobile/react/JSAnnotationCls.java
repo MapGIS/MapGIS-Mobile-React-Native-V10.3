@@ -69,8 +69,8 @@ public class JSAnnotationCls extends JSVectorCls {
     {
         try {
             AnnotationCls annotationCls = (AnnotationCls)getObjFromList(annotationClsId);
-            long lVal = annotationCls.open(id);
-            promise.resolve(lVal);
+            int iVal = (int)annotationCls.open(id);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -81,8 +81,8 @@ public class JSAnnotationCls extends JSVectorCls {
     {
         try {
             AnnotationCls annotationCls = (AnnotationCls)getObjFromList(annotationClsId);
-            long lVal = annotationCls.open(name);
-            promise.resolve(lVal);
+            int iVal = (int)annotationCls.open(name);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -105,8 +105,8 @@ public class JSAnnotationCls extends JSVectorCls {
     {
         try {
             AnnotationCls annotationCls = (AnnotationCls)getObjFromList(annotationClsId);
-            long lVal = annotationCls.clear();
-            promise.resolve(lVal);
+            int iVal = (int)annotationCls.clear();
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -117,8 +117,8 @@ public class JSAnnotationCls extends JSVectorCls {
     {
         try {
             AnnotationCls annotationCls = (AnnotationCls)getObjFromList(annotationClsId);
-            long lVal = annotationCls.close();
-            promise.resolve(lVal);
+            int iVal = (int)annotationCls.close();
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -144,8 +144,8 @@ public class JSAnnotationCls extends JSVectorCls {
     {
         try {
             AnnotationCls annotationCls = (AnnotationCls)getObjFromList(annotationClsId);
-            long lCount = annotationCls.getCount();
-            promise.resolve(lCount);
+            int iCount = (int)annotationCls.getCount();
+            promise.resolve(iCount);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -228,8 +228,8 @@ public class JSAnnotationCls extends JSVectorCls {
             Geometry geom = JSGeometry.getObjFromList(geomId);
             Record rcd = JSRecord.getObjFromList(rcdId);
             GeomInfo info = JSGeomInfo.getObjFromList(infoId);
-            long lVal = annotationCls.append(geom, rcd, info);
-            promise.resolve(lVal);
+            int iVal = (int)annotationCls.append(geom, rcd, info);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -252,7 +252,7 @@ public class JSAnnotationCls extends JSVectorCls {
     }
 
     @ReactMethod
-    public void getRect(String annotationClsId, long objID, Promise promise) {
+    public void getRect(String annotationClsId, int objID, Promise promise) {
         try {
             AnnotationCls annotationCls = (AnnotationCls)getObjFromList(annotationClsId);
             Rect rect = annotationCls.getRect(objID);
@@ -266,21 +266,21 @@ public class JSAnnotationCls extends JSVectorCls {
     }
 
     @ReactMethod
-    public void get(String annotationClsId, long objID, String geomId, String rcdId, String infoId, Promise promise) {
+    public void get(String annotationClsId, int objID, String geomId, String rcdId, String infoId, Promise promise) {
         try {
             AnnotationCls annotationCls = (AnnotationCls)getObjFromList(annotationClsId);
             Geometry geom = JSGeometry.getObjFromList(geomId);
             Record rcd = JSRecord.getObjFromList(rcdId);
             GeomInfo info = JSGeomInfo.getObjFromList(infoId);
-            long lVal = annotationCls.get(objID, geom, rcd, info);
-            promise.resolve(lVal);
+            int iVal = (int)annotationCls.get(objID, geom, rcd, info);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void getAtt(String annotationClsId, long objID, Promise promise)
+    public void getAtt(String annotationClsId, int objID, Promise promise)
     {
         try {
             AnnotationCls annotationCls = (AnnotationCls)getObjFromList(annotationClsId);
@@ -295,7 +295,7 @@ public class JSAnnotationCls extends JSVectorCls {
     }
 
     @ReactMethod
-    public void getGeometry(String annotationClsId, long objID, Promise promise) {
+    public void getGeometry(String annotationClsId, int objID, Promise promise) {
         try {
             AnnotationCls annotationCls = (AnnotationCls)getObjFromList(annotationClsId);
             Geometry geom = annotationCls.getGeometry(objID);
@@ -309,7 +309,7 @@ public class JSAnnotationCls extends JSVectorCls {
     }
 
     @ReactMethod
-    public void getInfo(String annotationClsId, long objID, Promise promise) {
+    public void getInfo(String annotationClsId, int objID, Promise promise) {
         try {
             AnnotationCls annotationCls = (AnnotationCls)getObjFromList(annotationClsId);
             GeomInfo info = annotationCls.getInfo(objID);
@@ -323,7 +323,7 @@ public class JSAnnotationCls extends JSVectorCls {
     }
 
     @ReactMethod
-    public void getAnnType(String annotationClsId, long objID, Promise promise)
+    public void getAnnType(String annotationClsId, int objID, Promise promise)
     {
         try {
             AnnotationCls annotationCls = (AnnotationCls)getObjFromList(annotationClsId);
@@ -388,8 +388,8 @@ public class JSAnnotationCls extends JSVectorCls {
     {
         try {
             AnnotationCls annotationCls = (AnnotationCls)getObjFromList(annotationClsId);
-            long lVal = annotationCls.setAliasName(newVal);
-            promise.resolve(lVal);
+            int iVal = (int)annotationCls.setAliasName(newVal);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -412,8 +412,8 @@ public class JSAnnotationCls extends JSVectorCls {
     {
         try {
             AnnotationCls annotationCls = (AnnotationCls)getObjFromList(annotationClsId);
-            long lVal = annotationCls.setSrID(newVal);
-            promise.resolve(lVal);
+            int iVal = (int)annotationCls.setSrID(newVal);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -459,20 +459,20 @@ public class JSAnnotationCls extends JSVectorCls {
     public void setScaleXY(String annotationClsId, double scaleX, double scaleY, Promise promise) {
         try {
             AnnotationCls annotationCls = (AnnotationCls)getObjFromList(annotationClsId);
-            long lVal = annotationCls.setScaleXY(scaleX, scaleY);
-            promise.resolve(lVal);
+            int iVal = (int)annotationCls.setScaleXY(scaleX, scaleY);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void delete(String annotationClsId, long objID, Promise promise)
+    public void delete(String annotationClsId, int objID, Promise promise)
     {
         try {
             AnnotationCls annotationCls = (AnnotationCls)getObjFromList(annotationClsId);
-            long lVal = annotationCls.delete(objID);
-            promise.resolve(lVal);
+            int iVal = (int)annotationCls.delete(objID);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -484,7 +484,7 @@ public class JSAnnotationCls extends JSVectorCls {
         try {
             long[]      objIDs = null;
             int         size = 0;
-            long        lVal = 0;
+            int         iVal = 0;
 
             AnnotationCls annotationCls = (AnnotationCls)getObjFromList(annotationClsId);
             if (objIDArray != null) {
@@ -495,60 +495,60 @@ public class JSAnnotationCls extends JSVectorCls {
                     for (int i = 0; i < objIDArray.size(); i++) {
                         objIDs[i] = objIDArray.getInt(i);
                     }
-                    lVal = annotationCls.delete(objIDs);
+                    iVal = (int)annotationCls.delete(objIDs);
                 }
             }
-            promise.resolve(lVal);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
    @ReactMethod
-    public void update(String annotationClsId, long objID, String geomId, String rcdId, String infoId, Promise promise) {
+    public void update(String annotationClsId, int objID, String geomId, String rcdId, String infoId, Promise promise) {
         try {
             AnnotationCls annotationCls = (AnnotationCls)getObjFromList(annotationClsId);
             Geometry geom = JSGeometry.getObjFromList(geomId);
             Record rcd = JSRecord.getObjFromList(rcdId);
             GeomInfo info = JSGeomInfo.getObjFromList(infoId);
-            long lVal = annotationCls.update(objID, geom, rcd, info);
-            promise.resolve(lVal);
+            int iVal = (int)annotationCls.update(objID, geom, rcd, info);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void updateAtt(String annotationClsId, long objID, String rcdId, Promise promise) {
+    public void updateAtt(String annotationClsId, int objID, String rcdId, Promise promise) {
         try {
             AnnotationCls annotationCls = (AnnotationCls)getObjFromList(annotationClsId);
             Record rcd = JSRecord.getObjFromList(rcdId);
-            long lVal = annotationCls.updateAtt(objID, rcd);
-            promise.resolve(lVal);
+            int iVal = (int)annotationCls.updateAtt(objID, rcd);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void updateGeometry(String annotationClsId, long objID, String geomId, Promise promise) {
+    public void updateGeometry(String annotationClsId, int objID, String geomId, Promise promise) {
         try {
             AnnotationCls annotationCls = (AnnotationCls)getObjFromList(annotationClsId);
             Geometry geom = JSGeometry.getObjFromList(geomId);
-            long lVal = annotationCls.updateGeometry(objID, geom);
-            promise.resolve(lVal);
+            int iVal = (int)annotationCls.updateGeometry(objID, geom);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void updateInfo(String annotationClsId, long objID, String infoId, Promise promise) {
+    public void updateInfo(String annotationClsId, int objID, String infoId, Promise promise) {
         try {
             AnnotationCls annotationCls = (AnnotationCls)getObjFromList(annotationClsId);
             GeomInfo info = JSGeomInfo.getObjFromList(infoId);
-            long lVal = annotationCls.updateInfo(objID, info);
-            promise.resolve(lVal);
+            int iVal = (int)annotationCls.updateInfo(objID, info);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -559,8 +559,8 @@ public class JSAnnotationCls extends JSVectorCls {
     {
         try {
             AnnotationCls annotationCls = (AnnotationCls)getObjFromList(annotationClsId);
-            long lVal = annotationCls.annToField(fldIndex, whereClause);
-            promise.resolve(lVal);
+            int iVal = (int)annotationCls.annToField(fldIndex, whereClause);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -572,8 +572,8 @@ public class JSAnnotationCls extends JSVectorCls {
         try {
             AnnotationCls annotationCls = (AnnotationCls)getObjFromList(annotationClsId);
             DataBase db = JSDataBase.getObjFromList(dbId);
-            long lVal = annotationCls.remove(db, clsName);
-            promise.resolve(lVal);
+            int iVal = (int)annotationCls.remove(db, clsName);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -585,8 +585,8 @@ public class JSAnnotationCls extends JSVectorCls {
         try {
             AnnotationCls annotationCls = (AnnotationCls)getObjFromList(annotationClsId);
             DataBase db = JSDataBase.getObjFromList(dbId);
-            long lVal = annotationCls.remove(db, clsID);
-            promise.resolve(lVal);
+            int iVal = (int)annotationCls.remove(db, clsID);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -597,8 +597,8 @@ public class JSAnnotationCls extends JSVectorCls {
     {
         try {
             AnnotationCls annotationCls = (AnnotationCls)getObjFromList(annotationClsId);
-            long lVal = annotationCls.registerSyncEnabled();
-            promise.resolve(lVal);
+            int iVal = (int)annotationCls.registerSyncEnabled();
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -622,8 +622,8 @@ public class JSAnnotationCls extends JSVectorCls {
         try {
             AnnotationCls annotationCls = (AnnotationCls)getObjFromList(annotationClsId);
             Fields fields = JSFields.getObjFromList(fieldsId);
-            long lVal = annotationCls.updateFields(fields);
-            promise.resolve(lVal);
+            int iVal = (int)annotationCls.updateFields(fields);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }

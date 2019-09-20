@@ -258,7 +258,7 @@ public class JSTextAnnInfo extends JSAnnInfo{
     {
         try {
             TextAnnInfo textAnnInfo = (TextAnnInfo)getObjFromList(textAnnInfoId);
-            long color = textAnnInfo.getColor();
+            int color = (int)textAnnInfo.getColor();
             promise.resolve(color);
         } catch (Exception e) {
             promise.reject(e);
@@ -266,7 +266,7 @@ public class JSTextAnnInfo extends JSAnnInfo{
     }
 
     @ReactMethod
-    public void setColor(String textAnnInfoId, long newVal, Promise promise)
+    public void setColor(String textAnnInfoId, int newVal, Promise promise)
     {
         try {
             TextAnnInfo textAnnInfo = (TextAnnInfo)getObjFromList(textAnnInfoId);
@@ -354,7 +354,7 @@ public class JSTextAnnInfo extends JSAnnInfo{
     {
         try {
             TextAnnInfo textAnnInfo = (TextAnnInfo)getObjFromList(textAnnInfoId);
-            long backClr = textAnnInfo.getBackClr();
+            int backClr = (int)textAnnInfo.getBackClr();
             promise.resolve(backClr);
         } catch (Exception e) {
             promise.reject(e);
@@ -362,7 +362,7 @@ public class JSTextAnnInfo extends JSAnnInfo{
     }
 
     @ReactMethod
-    public void setBackClr(String textAnnInfoId, long newVal, Promise promise)
+    public void setBackClr(String textAnnInfoId, int newVal, Promise promise)
     {
         try {
             TextAnnInfo textAnnInfo = (TextAnnInfo)getObjFromList(textAnnInfoId);

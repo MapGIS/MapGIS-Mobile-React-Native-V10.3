@@ -105,8 +105,8 @@ public class JSGeoLine extends JSGeometryExp{
     {
         try {
             GeoLine geoLine = getObjFromList(geoLineId);
-            long lVal = geoLine.disperseToDots(dStep);
-            promise.resolve(lVal);
+            int iVal = (int)geoLine.disperseToDots(dStep);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }

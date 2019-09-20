@@ -108,27 +108,27 @@ public class JSGeoPoints extends JSGeometryExp{
         try {
             GeoPoints geoPoints = getObjFromList(geoPointsId);
             Dot3D dot3D = JSDot3D.getObjFromList(dot3DId);
-            long lVal = geoPoints.append(dot3D);
-            promise.resolve(lVal);
+            int iVal = (int)geoPoints.append(dot3D);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void del(String geoPointsId, long iIndex, Promise promise)
+    public void del(String geoPointsId, int iIndex, Promise promise)
     {
         try {
             GeoPoints geoPoints = getObjFromList(geoPointsId);
-            long lVal = geoPoints.del(iIndex);
-            promise.resolve(lVal);
+            int iVal = (int)geoPoints.del(iIndex);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void get(String geoPointsId, long iIndex, Promise promise)
+    public void get(String geoPointsId, int iIndex, Promise promise)
     {
         try {
             GeoPoints geoPoints = getObjFromList(geoPointsId);
@@ -147,8 +147,8 @@ public class JSGeoPoints extends JSGeometryExp{
     {
         try {
             GeoPoints geoPoints = getObjFromList(geoPointsId);
-            long num = geoPoints.getDotNum();
-            promise.resolve(num);
+            int iNum = (int)geoPoints.getDotNum();
+            promise.resolve(iNum);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -175,8 +175,8 @@ public class JSGeoPoints extends JSGeometryExp{
         try {
             GeoPoints geoPoints = getObjFromList(geoPointsId);
             Dots3D dots = JSDots3D.getObjFromList(dots3DId);
-            long lVal = geoPoints.setDots(dots);
-            promise.resolve(lVal);
+            int iVal = (int)geoPoints.setDots(dots);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }

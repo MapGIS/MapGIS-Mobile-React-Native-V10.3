@@ -6,6 +6,8 @@ import { NativeModules } from "react-native";
 
 let LI = NativeModules.JSLinInfo;
 
+import GeomInfo from "./GeomInfo.js"
+
 /**
  * @class LinInfo
  */

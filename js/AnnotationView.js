@@ -5,6 +5,8 @@
 import { NativeModules } from "react-native";
 
 let ANV = NativeModules.JSAnnotationView;
+
+import Annotation from "./Annotation.js"
 /**
  * @class AnnotationView
  */
@@ -27,8 +29,9 @@ export default class AnnotationView {
 
   /**
 	 * 设置标记
-	 * 
+	 * @memberOf AnnotationView
 	 * @param annotation
+   * @returns {Promise.<void>}
 	 */
 	async setAnnotation(annotation)
 	{
@@ -41,8 +44,8 @@ export default class AnnotationView {
 
 	/**
 	 * 获取标记
-	 * 
-	 * @return 标记
+	 * @memberOf AnnotationView
+	 * @return {Promise.<Annotation>}标记
 	 */
 	async getAnnotation()
 	{

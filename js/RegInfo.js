@@ -6,6 +6,8 @@ import { NativeModules } from "react-native";
 
 let RI = NativeModules.JSRegInfo;
 
+import GeomInfo from "./GeomInfo.js"
+
 /**
  * @class RegInfo
  */

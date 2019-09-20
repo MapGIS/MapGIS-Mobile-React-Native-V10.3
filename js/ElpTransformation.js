@@ -5,6 +5,9 @@
 import { NativeModules } from "react-native";
 
 let ET = NativeModules.JSElpTransformation;
+
+import ElpParam from "./ElpParam.js"
+import ElpTransParam from "./ElpTransParam.js"
 /**
  * @class ElpTransformation
  */

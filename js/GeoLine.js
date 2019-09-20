@@ -6,6 +6,10 @@ import { NativeModules } from "react-native";
 
 let GL = NativeModules.JSGeoLine;
 
+import GeometryExp from "./GeometryExp.js"
+import Dots from "./Dots.js"
+import Dots3D from "./Dots3D.js"
+
 /**
  * @class GeoLine
  */

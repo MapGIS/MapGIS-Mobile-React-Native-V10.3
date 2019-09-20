@@ -78,7 +78,7 @@ public class JSFeature extends ReactContextBaseJavaModule {
     public void getID(String FeatureId, Promise promise) {
         try {
             Feature feature = getObjFromList(FeatureId);
-            long ID = feature.getID();
+            int ID = (int)feature.getID();
 
             promise.resolve(ID);
         } catch (Exception e) {

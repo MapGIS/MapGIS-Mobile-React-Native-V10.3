@@ -6,6 +6,8 @@ import { NativeModules } from "react-native";
 
 let FLDS = NativeModules.JSFields;
 
+import Field from "./Field.js"
+
 /**
  * @class Fields
  * @description 扩展字段头
@@ -30,9 +32,9 @@ export default class Fields {
 
   /**
 	 * 根据索引取字段
-	 * 
+	 * @memberOf Fields
 	 * @param index 索引
-	 * @return 字段对象
+	 * @return {Promise.<Field>}字段对象
 	 */
 	async getField(index)
 	{
@@ -48,10 +50,10 @@ export default class Fields {
 
 	/**
 	 * 设置索引处的字段
-	 * 
+	 * @memberOf Fields
 	 * @param index 索引
 	 * @param field 字段对象
-	 * @return 大于0成功，否则失败
+	 * @return {Promise.<void>}大于0成功，否则失败
 	 */
 	async setField(index, field)
 	{
@@ -64,9 +66,9 @@ export default class Fields {
 
 	/**
 	 * 追加字段
-	 * 
+	 * @memberOf Fields
 	 * @param field 字段对象
-	 * @return 大于0成功，否则失败
+	 * @return {Promise}大于0成功，否则失败
 	 */
 	async appendField(field)
 	{
@@ -79,10 +81,10 @@ export default class Fields {
 
 	/**
 	 * 插入字段
-	 * 
+	 * @memberOf Fields
 	 * @param position 位置
 	 * @param field 字段对象
-	 * @return 大于0成功，否则失败
+	 * @return {Promise}大于0成功，否则失败
 	 */
 	async insertField(position, field)
 	{
@@ -95,9 +97,9 @@ export default class Fields {
 
 	/**
 	 * 根据字段名删除字段
-	 * 
+	 * @memberOf Fields
 	 * @param fldName 字段名
-	 * @return 大于0成功，否则失败
+	 * @return {Promise}大于0成功，否则失败
 	 */
 	async deleteField(fldName)
 	{
@@ -110,9 +112,9 @@ export default class Fields {
 
 	/**
 	 * 根据字段序号删除字段
-	 * 
+	 * @memberOf Fields
 	 * @param index 字段序号
-	 * @return 大于0成功，否则失败
+	 * @return {Promise}大于0成功，否则失败
 	 */
 	async deleteField(index)
 	{
@@ -125,8 +127,8 @@ export default class Fields {
 
 	/**
 	 * 取字段数目
-	 * 
-	 * @return 字段数目
+	 * @memberOf Fields
+	 * @return {Promise}字段数目
 	 */
 	async getFieldCount()
 	{
@@ -139,8 +141,8 @@ export default class Fields {
 
 	/**
 	 * 计算各字段的二进制长度,字段偏移
-	 * 
-	 * @return 长度偏移值
+	 * @memberOf Fields
+	 * @return {Promise}长度偏移值
 	 */
 	async calLengthOffset()
 	{
@@ -153,8 +155,8 @@ export default class Fields {
 
 	/**
 	 * 计算属性结构占用存储空间大小
-	 * 
-	 * @return 占用存储空间大小
+	 * @memberOf Fields
+	 * @return {Promise}占用存储空间大小
 	 */
 	async calSize()
 	{

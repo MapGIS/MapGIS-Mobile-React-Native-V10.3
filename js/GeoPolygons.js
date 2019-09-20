@@ -6,6 +6,9 @@ import { NativeModules } from "react-native";
 
 let GPGS = NativeModules.JSGeoPolygons;
 
+import GeometryExp from "./GeometryExp.js"
+import GeoPolygon from "./GeoPolygon.js"
+
 /**
  * @class GeoPolygons
  */
@@ -86,7 +89,7 @@ export default class GeoPolygons extends GeometryExp {
 	 * 删除多边形
 	 * @memberOf GeoPolygons
 	 * @param index 待删除多边形序号
-	 * @return 删除成功返回1，失败返回0
+	 * @return {Promise} 删除成功返回1，失败返回0
 	 */
 	async del(index)
 	{
@@ -100,7 +103,7 @@ export default class GeoPolygons extends GeometryExp {
     /**
 	 * 取多边形数目
 	 * @memberOf GeoPolygons
-	 * @return 多边形的总个数
+	 * @return {Promise} 多边形的总个数
 	 */
 	async getNum()
 	{
@@ -115,7 +118,7 @@ export default class GeoPolygons extends GeometryExp {
 	 * 添加多边形
 	 * @memberOf GeoPolygons
 	 * @param reg 待添加的多边形
-	 * @return 添加成功返回1，失败返回0
+	 * @return {Promise} 添加成功返回1，失败返回0
 	 */
 	async append(reg)
 	{
@@ -130,13 +133,13 @@ export default class GeoPolygons extends GeometryExp {
 	 * 取多边形
 	 * @memberOf GeoPolygons
 	 * @param index 待取的多边形的序号
-	 * @return 获取的多边形对象
+	 * @return {Promise<GeoPolygon>} 获取的多边形对象
 	 */
 	async getPolygon(index)
 	{
 		try{
             let {geoPolygonId} = GPGS.getPolygon(this._MGGeoPolygonsId, index)
-            var geoPolygon = new this.GeoPolygon();
+            var geoPolygon = new GeoPolygon();
             geoPolygon._MGGeoPolygonId = geoPolygonId;
             return geoPolygon;
         } catch(e) {

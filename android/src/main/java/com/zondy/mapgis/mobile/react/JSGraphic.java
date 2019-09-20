@@ -219,7 +219,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     public void getAttributeNum(String GraphicId, Promise promise) {
         try {
             Graphic graphic = getGraphicByID(GraphicId);
-            long attributeNum = graphic.getAttributeNum();
+            int attributeNum = (int)graphic.getAttributeNum();
 
             promise.resolve(attributeNum);
         } catch (Exception e) {
@@ -240,7 +240,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void getAttributeValue(String GraphicId, long index, Promise promise)
+    public void getAttributeValue(String GraphicId, int index, Promise promise)
     {
         try {
             Graphic graphic = getGraphicByID(GraphicId);

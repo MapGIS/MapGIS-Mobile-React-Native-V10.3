@@ -89,7 +89,7 @@ public class JSAnnClsInfo extends JSXClsInfo {
     public void setName(String annClsInfoId, String newVal, Promise promise) {
         try {
             AnnClsInfo annClsInfo = (AnnClsInfo)getObjFromList(annClsInfoId);
-            long val = annClsInfo.setName(newVal);
+            int val = (int)annClsInfo.setName(newVal);
             promise.resolve(val);
         } catch (Exception e) {
             promise.reject(e);
@@ -138,7 +138,7 @@ public class JSAnnClsInfo extends JSXClsInfo {
     {
         try {
             AnnClsInfo annClsInfo = (AnnClsInfo)getObjFromList(annClsInfoId);
-            long val = annClsInfo.setScaleXY(newXVal, newYVal);
+            int val = (int)annClsInfo.setScaleXY(newXVal, newYVal);
             promise.resolve(val);
         } catch (Exception e) {
             promise.reject(e);

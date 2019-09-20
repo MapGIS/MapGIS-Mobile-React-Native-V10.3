@@ -3,7 +3,9 @@
  * @author  2019-09-09 
  */
 import { NativeModules } from "react-native";
-import Rect from "./Rect";
+import Rect from "./Rect.js";
+import Geometry from "./Geometry.js";
+import Dot from "./Dot.js";
 
 let GA = NativeModules.JSGeoAnno;
 

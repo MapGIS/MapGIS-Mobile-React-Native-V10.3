@@ -6,6 +6,8 @@ import { NativeModules } from "react-native";
 
 let TAI = NativeModules.JSTextAnnInfo;
 
+import AnnInfo from "./AnnInfo.js"
+
 /**
  * @class TextAnnInfo
  */

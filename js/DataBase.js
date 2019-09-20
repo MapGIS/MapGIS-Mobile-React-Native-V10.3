@@ -1,21 +1,23 @@
 /**
- * @content 注记类信息功能组件
+ * @content 数据库对象功能组件
  * @author  2019-09-18
  */
 import { NativeModules } from "react-native";
 
 let DB = NativeModules.JSDataBase;
 
+import XClsInfo from "./XClsInfo.js"
+
 /**
  * @class DataBase
- * @description 扩展字段头
+ * @description 数据库对象
  */
 export default class DataBase {
 
     /**
    * 构造一个新的 DataBase 对象。
    * @memberOf DataBase
-   * @returns {Promise.<DataBase>}
+   * @returns {Promise.<DataBase>}数据库对象
    */
   async createObj() {
     try{

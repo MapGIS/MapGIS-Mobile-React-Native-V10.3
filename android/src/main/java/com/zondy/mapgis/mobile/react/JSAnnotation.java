@@ -196,7 +196,7 @@ public class JSAnnotation extends ReactContextBaseJavaModule {
     {
         try {
             Annotation annotation = getObjFromList(annotationId);
-            long width = annotation.getImageWidth();
+            int width = (int)annotation.getImageWidth();
             promise.resolve(width);
         } catch (Exception e) {
             promise.reject(e);
@@ -208,7 +208,7 @@ public class JSAnnotation extends ReactContextBaseJavaModule {
     {
         try {
             Annotation annotation = getObjFromList(annotationId);
-            long height = annotation.getImageHeight();
+            int height = (int)annotation.getImageHeight();
             promise.resolve(height);
         } catch (Exception e) {
             promise.reject(e);

@@ -6,6 +6,9 @@ import { NativeModules } from "react-native";
 
 let TA = NativeModules.JSTextAnno;
 
+import TextAnnInfo from "./TextAnnInfo.js"
+import GeoAnno from "./GeoAnno.js"
+
 /**
  * @class TextAnno
  */
@@ -23,9 +26,9 @@ export default class TextAnno extends GeoAnno {
     }
     
     /**
-	 * 构造一个新的 GeoVarLine 对象
-	 * @memberOf GeoVarLine
-	 * @return {Promise<GeoVarLine>}
+	 * 构造一个新的 TextAnno 对象
+	 * @memberOf TextAnno
+	 * @return {Promise<TextAnno>}
 	 */
     async createObj(){
         try{
@@ -40,8 +43,8 @@ export default class TextAnno extends GeoAnno {
 
     /**
 	 * 获取几何对象类型
-	 * 
-	 * @return 几何对象类型
+	 * @memberOf TextAnno
+	 * @return {Promise}几何对象类型
 	 */
 	async getType()
 	{
@@ -54,8 +57,8 @@ export default class TextAnno extends GeoAnno {
 
 	/**
 	 * 获取注记类型
-	 * 
-	 * @return 注记类型
+	 * @memberOf TextAnno
+	 * @return {Promise}注记类型
 	 */
 	async getAnnType()
 	{
@@ -68,8 +71,8 @@ export default class TextAnno extends GeoAnno {
 
 	/**
 	 * 判断几何注记是否为空
-	 * 
-	 * @return 为空返回true，不为空返回false
+	 * @memberOf TextAnno
+	 * @return {Promise}为空返回true，不为空返回false
 	 */
 	async isEmpty()
 	{
@@ -82,8 +85,8 @@ export default class TextAnno extends GeoAnno {
 	
 	/**
 	 * 获取文本注记文本内容
-	 * 
-	 * @return 文本内容
+	 * @memberOf TextAnno
+	 * @return {Promise}文本内容
 	 */
 	async getText()
 	{
@@ -96,13 +99,14 @@ export default class TextAnno extends GeoAnno {
 
 	/**
 	 * 设置文本注记文本内容
-	 * 
+	 * @memberOf TextAnno
 	 * @param text 文本内容
+	 * @return {Promise<void>}
 	 */
 	async setText(text)
 	{
 		try{
-            return await TA.setText(this._MGTextAnnoId, text)
+            await TA.setText(this._MGTextAnnoId, text)
         } catch(e) {
             console.error(e)
         }
@@ -110,8 +114,8 @@ export default class TextAnno extends GeoAnno {
 
 	/**
 	 * 获取文本注记文本格式化信息
-	 * 
-	 * @return 文本格式化信息
+	 * @memberOf TextAnno
+	 * @return {Promise<TextAnnInfo>} 文本格式化信息
 	 */
 	async getTextAnnInfo()
 	{
@@ -127,8 +131,9 @@ export default class TextAnno extends GeoAnno {
 
 	/**
 	 * 设置文本注记文本格式化信息
-	 * 
-	 * @param textFmt 文本格式化信息
+	 * @memberOf TextAnno
+	 * @param textInfo 文本格式化信息
+	 * @return {Promise<void>}
 	 */
 	async setTextAnnInfo(textInfo)
 	{

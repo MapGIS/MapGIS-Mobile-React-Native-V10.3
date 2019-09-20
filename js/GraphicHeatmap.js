@@ -5,6 +5,10 @@
 import { NativeModules } from "react-native";
 
 let GH = NativeModules.JSGraphicHeatmap;
+
+import HeatmapPoint from "./HeatmapPoint.js"
+import VisualMap from "./VisualMap.js"
+
 /**
  * @class GraphicHeatmap
  */

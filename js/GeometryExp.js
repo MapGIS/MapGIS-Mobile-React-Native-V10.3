@@ -3,7 +3,7 @@
  * @author  2019-09-09 
  */
 import { NativeModules } from "react-native";
-import Rect from "./Rect";
+import Geometry from "./Geometry.js";
 
 let GE = NativeModules.JSGeometryExp;
 

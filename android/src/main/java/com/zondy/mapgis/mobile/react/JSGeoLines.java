@@ -103,11 +103,11 @@ public class JSGeoLines extends JSGeometryExp{
     }
 
     @ReactMethod
-    public void del(String geoLinesId, long index, Promise promise)
+    public void del(String geoLinesId, int index, Promise promise)
     {
         try {
             GeoLines geoLines = getObjFromList(geoLinesId);
-            long lVal = geoLines.del(index);
+            int iVal = (int)geoLines.del(index);
             promise.resolve(index);
         } catch (Exception e) {
             promise.reject(e);
@@ -119,8 +119,8 @@ public class JSGeoLines extends JSGeometryExp{
     {
         try {
             GeoLines geoLines = getObjFromList(geoLinesId);
-            long lNum = geoLines.getNum();
-            promise.resolve(lNum);
+            int iNum = (int)geoLines.getNum();
+            promise.resolve(iNum);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -132,28 +132,28 @@ public class JSGeoLines extends JSGeometryExp{
         try {
             GeoLines geoLines = getObjFromList(geoLinesId);
             GeoLine geoLine = JSGeoLine.getObjFromList(geoLineId);
-            long lVal = geoLines.append(geoLine);
-            promise.resolve(lVal);
+            int iVal = (int)geoLines.append(geoLine);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void update(String geoLinesId, long index, String geoLineId, Promise promise)
+    public void update(String geoLinesId, int index, String geoLineId, Promise promise)
     {
         try {
             GeoLines geoLines = getObjFromList(geoLinesId);
             GeoLine geoLine = JSGeoLine.getObjFromList(geoLineId);
-            long lVal = geoLines.update(index, geoLine);
-            promise.resolve(lVal);
+            int iVal = (int)geoLines.update(index, geoLine);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void getLineType(String geoLinesId, long index, Promise promise)
+    public void getLineType(String geoLinesId, int index, Promise promise)
     {
         try {
             GeoLines geoLines = getObjFromList(geoLinesId);
@@ -166,7 +166,7 @@ public class JSGeoLines extends JSGeometryExp{
     }
 
    @ReactMethod
-    public void getLine(String geoLinesId, long index, Promise promise)
+    public void getLine(String geoLinesId, int index, Promise promise)
     {
         try {
             GeoLines geoLines = getObjFromList(geoLinesId);

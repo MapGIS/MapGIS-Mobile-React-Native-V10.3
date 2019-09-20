@@ -6,6 +6,9 @@ import { NativeModules } from "react-native";
 
 let GLS = NativeModules.JSGeoLines;
 
+import GeometryExp from "./GeometryExp.js"
+import GeoLine from "./GeoLine.js"
+
 /**
  * @class GeoLines
  */

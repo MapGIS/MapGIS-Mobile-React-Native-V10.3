@@ -3,7 +3,7 @@
  * @author  2019-09-09 
  */
 import { NativeModules } from "react-native";
-import Dot from "./Dot";
+import Dot from "./Dot.js";
 
 let DS = NativeModules.JSDots;
 

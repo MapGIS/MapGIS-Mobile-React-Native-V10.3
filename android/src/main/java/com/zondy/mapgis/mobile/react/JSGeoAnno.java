@@ -57,7 +57,7 @@ public class JSGeoAnno extends JSGeometry{
         try {
             GeoAnno geoAnno = getObjFromList(geoAnnoId);
             Geometry geometry = JSGeometry.getObjFromList(geometryId);
-            long val = geoAnno.clone(geometry);
+            int val = (int)geoAnno.clone(geometry);
             promise.resolve(val);
         } catch (Exception e) {
             promise.reject(e);
@@ -69,7 +69,7 @@ public class JSGeoAnno extends JSGeometry{
     {
         try {
             GeoAnno geoAnno = getObjFromList(geoAnnoId);
-            long val = geoAnno.empty();
+            int val = (int)geoAnno.empty();
             promise.resolve(val);
         } catch (Exception e) {
             promise.reject(e);
@@ -97,7 +97,7 @@ public class JSGeoAnno extends JSGeometry{
         try {
             GeoAnno geoAnno = getObjFromList(geoAnnoId);
             Rect rect = JSRect.getObjFromList(rectId);
-            long val = geoAnno.isInRect(rect);
+            int val = (int)geoAnno.isInRect(rect);
             promise.resolve(val);
         } catch (Exception e) {
             promise.reject(e);
@@ -110,7 +110,7 @@ public class JSGeoAnno extends JSGeometry{
         try {
             GeoAnno geoAnno = getObjFromList(geoAnnoId);
             Rect rect = JSRect.getObjFromList(rectId);
-            long val = geoAnno.isInterRect(rect);
+            int val = (int)geoAnno.isInterRect(rect);
             promise.resolve(val);
         } catch (Exception e) {
             promise.reject(e);

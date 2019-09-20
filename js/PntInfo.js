@@ -6,6 +6,8 @@ import { NativeModules } from "react-native";
 
 let PI = NativeModules.JSPntInfo;
 
+import GeomInfo from "./GeomInfo.js"
+
 /**
  * @class PntInfo
  */

@@ -30,6 +30,22 @@ let MeasureType = NativeModules.JSMeasureType;
 let SketchDataType = NativeModules.JSSketchDataType;
 let CoordinateType = NativeModules.JSCoordinateType;
 
+let CoordType = NativeModules.JSCoordType;
+let LevelType = NativeModules.JSLevelType;
+let ProjType = NativeModules.JSProjType;
+let SpheroidType = NativeModules.JSSpheroidType;
+let VDatumType = NativeModules.JSVDatumType;
+let ZoneType = NativeModules.JSZoneType;
+let AnnType = NativeModules.JSAnnType;
+let DistanceType = NativeModules.JSDistanceType;
+let GeometryDimension = NativeModules.JSGeometryDimension;
+let GeometryType = NativeModules.JSGeometryType;
+let GeomType = NativeModules.JSGeomType;
+
+let FieldType = NativeModules.JSFieldType;
+let SpaQueryMode = NativeModules.JSSpaQueryMode;
+let XClsType = NativeModules.JSXClsType;
+
 import MGMapView from "./js/components/MGSMapViewUI";
 import Environment from "./js/Environment";
 import Dot from "./js/Dot";
@@ -47,6 +63,9 @@ import GraphicsOverlay from "./js/GraphicsOverlay";
 import GraphicsOverlays from "./js/GraphicsOverlays";
 import GraphicStippleLine from "./js/GraphicStippleLine";
 import GraphicText from "./js/GraphicText";
+import GraphicHeatmap from "./js/GraphicHeatmap";
+import HeatmapPoint from "./js/HeatmapPoint";
+import VisualMap from "./js/VisualMap";
 
 import Image from "./js/Image";
 import Map from "./js/Map";
@@ -106,6 +125,44 @@ import TextStyle from "./js/TextStyle";
 
 import CoordinateConvertParameter from "./js/CoordinateConvertParameter";
 
+import ElpTransformation from "./js/ElpTransformation";
+
+import Dots from "./js/Dots";
+import Geometry from "./js/Geometry";
+import GeometryExp from "./js/GeometryExp";
+import GeoAnno from "./js/GeoAnno";
+import GeoLine from "./js/GeoLine";
+import GeoLines from "./js/GeoLines";
+import GeoPoints from "./js/GeoPoints";
+import GeoPolygon from "./js/GeoPolygon";
+import GeoPolygons from "./js/GeoPolygons";
+import GeoVarLine from "./js/GeoVarLine";
+import TextAnno from "./js/TextAnno";
+
+import GeomInfo from "./js/GeomInfo"
+import AnnInfo from "./js/AnnInfo"
+import LinInfo from "./js/LinInfo"
+import PntInfo from "./js/PntInfo"
+import RegInfo from "./js/RegInfo"
+import TextAnnInfo from "./js/TextAnnInfo"
+
+import ExtField from "./js/ExtField"
+import Field from "./js/Field"
+import Fields from "./js/Fields"
+import Record from "./js/Record"
+
+import XClsInfo from "./js/XClsInfo"
+import AnnClsInfo from "./js/AnnClsInfo"
+import FClsInfo from "./js/FClsInfo"
+import BasCls from "./js/BasCls"
+import VectorCls from "./js/VectorCls"
+import AnnotationCls from "./js/AnnotationCls"
+import SFeatureCls from "./js/SFeatureCls"
+import DataBase from "./js/ExtField"
+import QueryDef from "./js/QueryDef"
+import RecordSet from "./js/RecordSet"
+
+
 export {
   MGMapView,
   Environment,
@@ -115,6 +172,7 @@ export {
   FeatureQuery,
   Graphic,
   GraphicCircle,
+  GraphicHeatmap,
   GraphicImage,
   GraphicMultiPoint,
   GraphicPoint,
@@ -124,6 +182,8 @@ export {
   GraphicsOverlays,
   GraphicStippleLine,
   GraphicText,
+  HeatmapPoint,
+  VisualMap,
   Image,
   Map,
   MapLayer,
@@ -204,4 +264,54 @@ export {
 
   CoordinateConvertParameter,
   CoordinateType,
+
+  ElpTransformation,
+  CoordType,
+  LevelType,
+  ProjType,
+  SpheroidType,
+  VDatumType,
+  ZoneType,
+  Dots,
+  Geometry,
+  GeometryExp,
+  GeoAnno,
+  GeoLine,
+  GeoLines,
+  GeoPoints,
+  GeoPolygon,
+  GeoPolygons,
+  GeoVarLine,
+  TextAnno,
+  AnnType,
+  DistanceType,
+  GeometryDimension,
+  GeometryType,
+  GeomType,
+
+  GeomInfo,
+  AnnInfo,
+  LinInfo,
+  PntInfo,
+  RegInfo,
+  TextAnnInfo,
+
+  ExtField,
+  Field,
+  Fields,
+  Record,
+  FieldType,
+
+  XClsInfo,
+  AnnClsInfo,
+  FClsInfo,
+  BasCls,
+  VectorCls,
+  AnnotationCls,
+  SFeatureCls,
+  DataBase,
+  QueryDef,
+  RecordSet,
+  SpaQueryMode,
+  XClsType,
 };

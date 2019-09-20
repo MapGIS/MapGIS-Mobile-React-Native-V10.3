@@ -107,7 +107,7 @@ public class JSRecordSet extends ReactContextBaseJavaModule {
     {
         try {
             RecordSet recordSet = getObjFromList(recordSetId);
-            long  iCurrentID = recordSet.getCurrentID();
+            int  iCurrentID = (int)recordSet.getCurrentID();
             promise.resolve(iCurrentID);
         } catch (Exception e) {
             promise.reject(e);

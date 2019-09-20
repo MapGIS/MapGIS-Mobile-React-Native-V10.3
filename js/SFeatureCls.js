@@ -3,7 +3,16 @@
  * @author  2019-09-18
  */
 import { NativeModules } from "react-native";
-import Record from "./Record";
+
+import VectorCls from "./VectorCls.js"
+import DataBase from "./DataBase.js"
+import Rect from "./Rect.js"
+import Record from "./Record.js";
+import FClsInfo from "./FClsInfo.js"
+import Fields from "./Fields.js"
+import RecordSet from "./RecordSet.js"
+import GeomInfo from "./GeomInfo.js"
+import Geometry from "./Geometry.js"
 
 let SFCLS = NativeModules.JSSFeatureCls;
 

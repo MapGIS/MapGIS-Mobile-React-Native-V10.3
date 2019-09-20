@@ -6,9 +6,11 @@ import { NativeModules } from "react-native";
 
 let ANNI = NativeModules.JSAnnClsInfo;
 
+import XClsInfo from "./XClsInfo.js"
+
 /**
  * @class AnnClsInfo
- * @description 扩展字段头
+ * @description 注记类信息
  */
 export default class AnnClsInfo extends XClsInfo{
 
@@ -43,7 +45,7 @@ export default class AnnClsInfo extends XClsInfo{
   /**
    * 获取注记要素类ID
    * @memberOf AnnClsInfo
-   * @return {Promise}
+   * @return {Promise} 类ID
    */
 	async getID() {
 		try {
@@ -53,11 +55,11 @@ export default class AnnClsInfo extends XClsInfo{
         }
 	}
 
-	/**
-   * 获取注记要素类ID
-   * @memberOf AnnClsInfo
-   * @return {Promise}
-   */
+    /**
+	 * 取类类型
+	 * @memberOf AnnClsInfo
+	 * @return {Promise}类类型
+	 */
 	async getType() {
 		try {
             return await ANNI.getType(this._MGAnnClsInfoId); 
@@ -68,9 +70,9 @@ export default class AnnClsInfo extends XClsInfo{
 	
 
 	/**
-   * 获取注记要素类ID
+   * 获取注记要素类URL地址
    * @memberOf AnnClsInfo
-   * @return {Promise}
+   * @return {Promise}注记要素类URL地址
    */
 	async getURL() {
 		try {
@@ -81,9 +83,9 @@ export default class AnnClsInfo extends XClsInfo{
 	}
 	
 	/**
-   * 获取注记要素类ID
+   * 获取注记要素类名称
    * @memberOf AnnClsInfo
-   * @return {Promise}
+   * @return {Promise} 类名称
    */
 	async getName() {
 		try {
@@ -94,10 +96,10 @@ export default class AnnClsInfo extends XClsInfo{
 	}
 
 	/**
-   * 设置注记要素类名
+   * 设置注记要素类名称
    * @memberOf AnnClsInfo
-   * @param newVal 注记要素类名
-   * @return {Promise}
+   * @param newVal 注记要素类名称
+   * @return {Promise} >0:成功；<=0:失败
    */
 	async setName(newVal) {
 		try {

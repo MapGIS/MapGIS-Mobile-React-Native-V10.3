@@ -66,8 +66,8 @@ public class JSQueryDef extends ReactContextBaseJavaModule {
     {
         try {
             QueryDef queryDef = getObjFromList(queryDefId);
-            long lVal = queryDef.setFilter(whereClause);
-            promise.resolve(lVal);
+            int iVal = (int)queryDef.setFilter(whereClause);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -79,8 +79,8 @@ public class JSQueryDef extends ReactContextBaseJavaModule {
         try {
             QueryDef queryDef = getObjFromList(queryDefId);
             Fields flds = JSFields.getObjFromList(fldsId);
-            long lVal = queryDef.setSubFields(flds);
-            promise.resolve(lVal);
+            int iVal = (int)queryDef.setSubFields(flds);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -93,8 +93,8 @@ public class JSQueryDef extends ReactContextBaseJavaModule {
             QueryDef queryDef = getObjFromList(queryDefId);
             Rect rect = JSRect.getObjFromList(rectId);
             SpaQueryMode mode = (SpaQueryMode) Enumeration.parse(SpaQueryMode.class, queryMode);
-            long lVal = queryDef.setRect(rect, mode);
-            promise.resolve(lVal);
+            int iVal = (int)queryDef.setRect(rect, mode);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -107,8 +107,8 @@ public class JSQueryDef extends ReactContextBaseJavaModule {
             QueryDef queryDef = getObjFromList(queryDefId);
             GeoPolygon polygon = JSGeoPolygon.getObjFromList(polygonId);
             SpaQueryMode mode = (SpaQueryMode) Enumeration.parse(SpaQueryMode.class, queryMode);
-            long lVal = queryDef.setSpatial(polygon, mode);
-            promise.resolve(lVal);
+            int iVal = (int)queryDef.setSpatial(polygon, mode);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -120,8 +120,8 @@ public class JSQueryDef extends ReactContextBaseJavaModule {
         try {
             QueryDef queryDef = getObjFromList(queryDefId);
             Dot dot = JSDot.getObjFromList(dotId);
-            long lVal = queryDef.setNear(dot, xmax, xmin);
-            promise.resolve(lVal);
+            int iVal = (int)queryDef.setNear(dot, xmax, xmin);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }

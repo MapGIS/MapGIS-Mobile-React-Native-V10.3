@@ -6,9 +6,11 @@ import { NativeModules } from "react-native";
 
 let FLD = NativeModules.JSField;
 
+import ExtField from  "./ExtField.js"
+
 /**
  * @class Field
- * @description 扩展字段头
+ * @description 字段
  */
 export default class Field {
 
@@ -30,8 +32,8 @@ export default class Field {
 
   /**
 	 * 获取字段名称
-	 * 
-	 * @return 字段名称
+	 * @memberOf Field
+	 * @return {Promise}字段名称
 	 */
 	async getFieldName()
 	{
@@ -44,8 +46,9 @@ export default class Field {
 
 	/**
 	 * 设置字段名称
-	 * 
+	 * @memberOf Field
 	 * @param name 字段名称
+	 * @return {Promise<void>}
 	 */
 	async setFieldName(name)
 	{
@@ -58,8 +61,8 @@ export default class Field {
 
 	/**
 	 * 获取字段类型
-	 * 
-	 * @return 字段类型
+	 * @memberOf Field
+	 * @return {Promise}字段类型
 	 */
 	async getFieldType()
 	{
@@ -72,8 +75,9 @@ export default class Field {
 
 	/**
 	 * 设置字段类型
-	 * 
+	 * @memberOf Field
 	 * @param type 字段类型
+	 * @return {Promise<void>}
 	 */
 	async setFieldType(type)
 	{
@@ -86,8 +90,8 @@ export default class Field {
 
 	/**
 	 * 获取字段偏移
-	 * 
-	 * @return 偏移值
+	 * @memberOf Field
+	 * @return {Promise}偏移值
 	 */
 	async getFieldOffset()
 	{
@@ -100,8 +104,9 @@ export default class Field {
 
 	/**
 	 * 设置字段偏移
-	 * 
+	 * @memberOf Field
 	 * @param offset 偏移值
+	 * @return {Promise<void>}
 	 */
 	async setFieldOffset(offset)
 	{
@@ -114,8 +119,8 @@ export default class Field {
 
 	/**
 	 * 获取字段字节长度
-	 * 
-	 * @return 字节长度
+	 * @memberOf Field
+	 * @return {Promise}字节长度
 	 */
 	async getFieldLength()
 	{
@@ -128,8 +133,9 @@ export default class Field {
 
 	/**
 	 * 设置字段字节长度
-	 * 
+	 * @memberOf Field
 	 * @param length 字节长度
+	 * @return {Promise<void>}
 	 */
 	async setFieldLength(length)
 	{
@@ -142,8 +148,8 @@ export default class Field {
 
 	/**
 	 * 获取字段字符长度
-	 * 
-	 * @return 字段字符长度
+	 * @memberOf Field
+	 * @return {Promise}字段字符长度
 	 */
 	async getMskLength()
 	{
@@ -156,8 +162,9 @@ export default class Field {
 
 	/**
 	 * 设置字段字符长度
-	 * 
+	 * @memberOf Field
 	 * @param length 字段字符长度
+	 * @return {Promise<void>}
 	 */
 	async setMskLength(length)
 	{
@@ -170,8 +177,8 @@ export default class Field {
 
 	/**
 	 * 获取小数位数
-	 * 
-	 * @return 小数位数
+	 * @memberOf Field
+	 * @return {Promise}小数位数
 	 */
 	async getPointLength()
 	{
@@ -184,8 +191,9 @@ export default class Field {
 
 	/**
 	 * 设置小数位数
-	 * 
+	 * @memberOf Field
 	 * @param length 小数位数
+	 * @return {Promise<void>}
 	 */
 	async setPointLength(length)
 	{
@@ -198,8 +206,8 @@ export default class Field {
 
 	/**
 	 * 获取编辑使能标志
-	 * 
-	 * @return 使能标志
+	 * @memberOf Field
+	 * @return {Promise}使能标志
 	 */
 	async getEditable()
 	{
@@ -212,8 +220,9 @@ export default class Field {
 
 	/**
 	 * 设置编辑使能标志
-	 * 
+	 * @memberOf Field
 	 * @param value 使能标志
+	 * @return {Promise<void>}
 	 */
 	async setEditable(value)
 	{
@@ -226,8 +235,8 @@ export default class Field {
 
 	/**
 	 * 获取打印标志
-	 * 
-	 * @return 标志值
+	 * @memberOf Field
+	 * @return {Promise}标志值
 	 */
 	async getPtFlag()
 	{
@@ -240,8 +249,9 @@ export default class Field {
 
 	/**
 	 * 设置打印标志
-	 * 
+	 * @memberOf Field
 	 * @param flag 标志值
+	 * @return {Promise<void>}
 	 */
 	async setPtFlag(flag)
 	{
@@ -254,8 +264,8 @@ export default class Field {
 
 	/**
 	 * 获取字段序号
-	 * 
-	 * @return 字段序号值
+	 * @memberOf Field
+	 * @return {Promise}字段序号值
 	 */
 	async getPtcPosition()
 	{
@@ -268,8 +278,9 @@ export default class Field {
 
 	/**
 	 * 设置字段序号
-	 * 
+	 * @memberOf Field
 	 * @param position 字段序号值
+	 * @return {Promise<void>}
 	 */
 	async setPtcPosition(position)
 	{
@@ -282,8 +293,8 @@ export default class Field {
 
 	/**
 	 * 获取字段是否继承标志
-	 * 
-	 * @return 继承标志值
+	 * @memberOf Field
+	 * @return {Promise}继承标志值
 	 */
 	async getIsInherited()
 	{
@@ -296,8 +307,9 @@ export default class Field {
 
 	/**
 	 * 设置字段是否继承标志
-	 * 
+	 * @memberOf Field
 	 * @param value 继承标志值
+	 * @return {Promise<void>}
 	 */
 	async setIsInherited(value)
 	{
@@ -310,8 +322,8 @@ export default class Field {
 
 	/**
 	 * 计算字段头需要占用的存储空间
-	 * 
-	 * @return 占用空间值
+	 * @memberOf Field
+	 * @return {Promise}占用空间值
 	 */
 	async CalculateSize()
 	{
@@ -324,8 +336,8 @@ export default class Field {
 
 	/**
 	 * 取扩展字段信息
-	 * 
-	 * @return 扩展字段对象
+	 * @memberOf Field
+	 * @return {Promise<ExtField>}扩展字段对象
 	 */
 	async getExtField()
 	{
@@ -341,8 +353,9 @@ export default class Field {
 
 	/**
 	 * 设置扩展字段信息
-	 * 
+	 * @memberOf Field
 	 * @param fieldEx 扩展字段对象
+	 * @return {Promise<void>}
 	 */
 	async setExtField(fieldEx)
 	{
@@ -355,8 +368,8 @@ export default class Field {
 
 	/**
 	 * 是否有扩展字段
-	 * 
-	 * @return 非0/0 ：是/否
+	 * @memberOf Field
+	 * @return {Promise}非0/0 ：是/否
 	 */
 	async hasExtField()
 	{
@@ -369,8 +382,8 @@ export default class Field {
 
 	/**
 	 * 删除扩展字段
-	 * 
-	 * @return 大于0成功，否则失败
+	 * @memberOf Field
+	 * @return {Promise}大于0成功，否则失败
 	 */
 	async deleteExtField()
 	{

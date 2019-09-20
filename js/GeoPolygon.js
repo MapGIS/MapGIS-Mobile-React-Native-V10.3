@@ -6,6 +6,10 @@ import { NativeModules } from "react-native";
 
 let GPG = NativeModules.JSGeoPolygon;
 
+import GeometryExp from "./GeometryExp.js"
+import GeoLines from "./GeoLines.js"
+import Dots from "./Dots.js"
+
 /**
  * @class GeoPolygon
  */
@@ -86,7 +90,7 @@ export default class GeoPolygon extends GeometryExp {
 	 * 删除多边形
 	 * @memberOf GeoPolygon
 	 * @param index 待删除多边形序号
-	 * @return 删除成功返回1，失败返回0
+	 * @return {Promise} 删除成功返回1，失败返回0
 	 */
 	async del(index)
 	{
@@ -100,7 +104,7 @@ export default class GeoPolygon extends GeometryExp {
 	/**
 	 * 取圆线数目
 	 * @memberOf GeoPolygon
-	 * @return 圆线的总个数
+	 * @return {Promise} 圆线的总个数
 	 */
 	async getCircleNum()
 	{
@@ -115,7 +119,7 @@ export default class GeoPolygon extends GeometryExp {
 	 * 添加多线
 	 * @memberOf GeoPolygon
 	 * @param ptLines 待添加的多线对象
-	 * @return 添加成功返回1，失败返回0
+	 * @return {Promise} 添加成功返回1，失败返回0
 	 */
 	async append(geoLines)
 	{
@@ -130,7 +134,7 @@ export default class GeoPolygon extends GeometryExp {
 	 * 取多线
 	 * @memberOf GeoPolygon
 	 * @param index 待取的多线的序号
-	 * @return 获取的多线对象
+	 * @return {Promise<GeoLines>} 获取的多线对象
 	 */
 	async get(index)
 	{
@@ -149,7 +153,7 @@ export default class GeoPolygon extends GeometryExp {
 	 * @memberOf GeoPolygon
 	 * @param dots 待设置的所有点序列
 	 * @param {Array}numArray 每条线的点个数列表
-	 * @return 构造成功返回1，失败返回0
+	 * @return {Promise} 构造成功返回1，失败返回0
 	 */
 	async setDots(dots, numArray)
 	{
@@ -164,7 +168,7 @@ export default class GeoPolygon extends GeometryExp {
 	 * 获取一圈的点序列
 	 * @memberOf GeoPolygon
 	 * @param index 待取的点序列的序号
-	 * @return 获取的点序列
+	 * @return {Promise<Dots>} 获取的点序列
 	 */
 	async getDots(index)
 	{
@@ -182,7 +186,7 @@ export default class GeoPolygon extends GeometryExp {
 	 * 求多边形面积
 	 * @memberOf GeoPolygon
 	 * @param sRef 投影系
-	 * @return 面积
+	 * @return {Promise} 面积
 	 */
 	async calArea(sRef)
 	{
@@ -196,7 +200,7 @@ export default class GeoPolygon extends GeometryExp {
 	/**
 	 * 求多边形面积
 	 * @memberOf GeoPolygon
-	 * @return 面积
+	 * @return {Promise} 面积
 	 */
 	async calArea()
 	{
@@ -211,7 +215,7 @@ export default class GeoPolygon extends GeometryExp {
 	 * 求周长
 	 * @memberOf GeoPolygon
 	 * @param sRef 投影系
-	 * @return 周长
+	 * @return {Promise}周长
 	 */
 	async calPerimeter(sRef)
 	{
@@ -225,7 +229,7 @@ export default class GeoPolygon extends GeometryExp {
 	/**
 	 * 求周长
 	 * @memberOf GeoPolygon
-	 * @return 周长
+	 * @return {Promise}周长
 	 */
 	async calPerimeter()
 	{
@@ -239,7 +243,7 @@ export default class GeoPolygon extends GeometryExp {
     /**
 	 * 求label点
 	 * @memberOf GeoPolygon
-	 * @return 周长
+	 * @return {Promise}周长
 	 */
 	async calLabel(label)
 	{

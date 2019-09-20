@@ -68,8 +68,8 @@ public class JSGeometry extends ReactContextBaseJavaModule {
         try {
             Geometry geometry = getObjFromList(geometryId);
             Rect rect = JSRect.getObjFromList(rectId);
-            long  lVal = geometry.isInRect(rect);
-            promise.resolve(lVal);
+            int  iVal = (int)geometry.isInRect(rect);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -81,8 +81,8 @@ public class JSGeometry extends ReactContextBaseJavaModule {
         try {
             Geometry geometry = getObjFromList(geometryId);
             Rect rect = JSRect.getObjFromList(rectId);
-            long  lVal = geometry.isInterRect(rect);
-            promise.resolve(lVal);
+            int  iVal = (int)geometry.isInterRect(rect);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }

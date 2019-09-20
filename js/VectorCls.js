@@ -5,6 +5,8 @@
 import {NativeModules} from 'react-native';
 let VC = NativeModules.JSVectorCls;
 
+import BasCls from "./BasCls.js"
+
 /**
  * @class VectorCls
  * @description 矢量类对象基类 

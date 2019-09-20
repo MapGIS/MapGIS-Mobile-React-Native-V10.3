@@ -6,6 +6,10 @@ import { NativeModules } from "react-native";
 
 let GVL = NativeModules.JSGeoVarLine;
 
+import GeometryExp from "./GeometryExp.js"
+import Dot from "./Dot.js"
+import Dot3D from "./Dot3D.js"
+
 /**
  * @class GeoVarLine
  */
@@ -54,9 +58,9 @@ export default class GeoVarLine extends GeometryExp {
     
     /**
 	 * 添加2维点
-	 * 
+	 * @memberOf GeoVarLine
 	 * @param dot 待添加的二维点坐标
-	 * @return 添加成功返回1，失败返回0
+	 * @return {Promise}添加成功返回1，失败返回0
 	 */
 	async append2D(dot)
 	{
@@ -69,9 +73,9 @@ export default class GeoVarLine extends GeometryExp {
 
 	/**
 	 * 添加3维点
-	 * 
+	 * @memberOf GeoVarLine
 	 * @param dot 待添加的三维点坐标
-	 * @return 添加成功返回1，失败返回0
+	 * @return {Promise}添加成功返回1，失败返回0
 	 */
 	async append3D(dot3D)
 	{
@@ -84,9 +88,9 @@ export default class GeoVarLine extends GeometryExp {
 
     /**
 	 * 删除坐标点
-	 * 
+	 * @memberOf GeoVarLine
 	 * @param index 待删除的点序号
-	 * @return 删除成功返回1，失败返回0
+	 * @return {Promise}删除成功返回1，失败返回0
 	 */
 	async del(index)
 	{
@@ -99,9 +103,9 @@ export default class GeoVarLine extends GeometryExp {
 
 	/**
 	 * 取2维点
-	 * 
+	 * @memberOf GeoVarLine
 	 * @param index 待获取的点序号
-	 * @return 获取成功返回1，失败返回0
+	 * @return {Promise<Dot>}获取成功返回1，失败返回0
 	 */
 	async get2D(index)
 	{
@@ -117,9 +121,9 @@ export default class GeoVarLine extends GeometryExp {
 
 	/**
 	 * 取3维点
-	 * 
+	 * @memberOf GeoVarLine
 	 * @param index 待获取的点序号
-	 * @return 获取成功返回1，失败返回0
+	 * @return {Promise<Dot3D>}获取成功返回1，失败返回0
 	 */
 	async get3D(index)
 	{
@@ -135,8 +139,8 @@ export default class GeoVarLine extends GeometryExp {
 
 	/**
 	 * 取维数
-	 * 
-	 * @return 维数
+	 * @memberOf GeoVarLine
+	 * @return {Promise}维数
 	 */
 	async getDim()
 	{
@@ -149,8 +153,8 @@ export default class GeoVarLine extends GeometryExp {
 
 	/**
 	 * 取点数目
-	 * 
-	 * @return 点的数目
+	 * @memberOf GeoVarLine
+	 * @return {Promise}点的数目
 	 */
 	async getDotNum()
 	{
@@ -163,9 +167,9 @@ export default class GeoVarLine extends GeometryExp {
 
 	/**
 	 * 取X坐标值
-	 * 
+	 * @memberOf GeoVarLine
 	 * @param index 待获取的点序号
-	 * @return 获取该点的X坐标值
+	 * @return {Promise}获取该点的X坐标值
 	 */
 	async getX(index)
 	{
@@ -178,9 +182,9 @@ export default class GeoVarLine extends GeometryExp {
 
 	/**
 	 * 取Y坐标值
-	 * 
+	 * @memberOf GeoVarLine
 	 * @param index 待获取的点序号
-	 * @return 获取该点的Y坐标值
+	 * @return {Promise}获取该点的Y坐标值
 	 */
 	async getY(index)
 	{
@@ -193,9 +197,9 @@ export default class GeoVarLine extends GeometryExp {
 
 	/**
 	 * 取Z坐标值
-	 * 
+	 * @memberOf GeoVarLine
 	 * @param index 待获取的点序号
-	 * @return 获取该点的Z坐标值
+	 * @return {Promise}获取该点的Z坐标值
 	 */
 	async getZ(index)
 	{
@@ -208,10 +212,10 @@ export default class GeoVarLine extends GeometryExp {
 
 	/**
 	 * 更新2维坐标点
-	 * 
+	 * @memberOf GeoVarLine
 	 * @param index 待更新的点序号
 	 * @param dot 待更新的点坐标
-	 * @return 更新成功返回1，失败返回0
+	 * @return {Promise}更新成功返回1，失败返回0
 	 */
 	async update2D(index, dot)
 	{
@@ -224,10 +228,10 @@ export default class GeoVarLine extends GeometryExp {
 
 	/**
 	 * 更新3维坐标点
-	 * 
+	 * @memberOf GeoVarLine
 	 * @param index 待更新的点序号
 	 * @param dot 待更新的点坐标
-	 * @return 更新成功返回1，失败返回0
+	 * @return {Promise}更新成功返回1，失败返回0
 	 */
 	async update3D(index, dot)
 	{
@@ -240,9 +244,9 @@ export default class GeoVarLine extends GeometryExp {
 
 	/**
 	 * 由三维点集合构建折线
-	 * 
+	 * @memberOf GeoVarLine
 	 * @param dots 用来构建线的三维点集合
-	 * @return 构建成功返回1，失败返回0
+	 * @return {Promise}构建成功返回1，失败返回0
 	 */
 	async setDots3D(dots)
 	{
@@ -255,9 +259,9 @@ export default class GeoVarLine extends GeometryExp {
 
 	/**
 	 * 由二维点集合构建折线
-	 * 
+	 * @memberOf GeoVarLine
 	 * @param dots 用来构建线的二维维点集合
-	 * @return 构建成功返回1，失败返回0
+	 * @return {Promise}构建成功返回1，失败返回0
 	 */
 	async setDots2D(dots)
 	{
@@ -270,8 +274,8 @@ export default class GeoVarLine extends GeometryExp {
 
 	/**
 	 * 判断线段是否封闭
-	 * 
-	 * @return 线段封闭返回true，不封闭返回false
+	 * @memberOf GeoVarLine
+	 * @return {Promise}线段封闭返回true，不封闭返回false
 	 */
 	async isClosed()
 	{
@@ -284,8 +288,8 @@ export default class GeoVarLine extends GeometryExp {
 
 	/**
 	 * 清空数据
-	 * 
-	 * @return 清空数据成功返回1，失败返回0
+	 * @memberOf GeoVarLine
+	 * @return {Promise}清空数据成功返回1，失败返回0
 	 */
 	async empty()
 	{

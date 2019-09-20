@@ -110,12 +110,12 @@ public class JSGeoPolygon extends JSGeometryExp{
     }
 
     @ReactMethod
-    public void del(String geoPolygonId, long iIndex, Promise promise)
+    public void del(String geoPolygonId, int iIndex, Promise promise)
     {
         try {
             GeoPolygon geoPolygon = getObjFromList(geoPolygonId);
-            long lVal = geoPolygon.del(iIndex);
-            promise.resolve(lVal);
+            int iVal = (int)geoPolygon.del(iIndex);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -126,8 +126,8 @@ public class JSGeoPolygon extends JSGeometryExp{
     {
         try {
             GeoPolygon geoPolygon = getObjFromList(geoPolygonId);
-            long lNum = geoPolygon.getCircleNum();
-            promise.resolve(lNum);
+            int iNum = (int)geoPolygon.getCircleNum();
+            promise.resolve(iNum);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -139,15 +139,15 @@ public class JSGeoPolygon extends JSGeometryExp{
         try {
             GeoPolygon geoPolygon = getObjFromList(geoPolygonId);
             GeoLines geoLines = JSGeoLines.getObjFromList(geoLinesId);
-            long lVal = geoPolygon.append(geoLines);
-            promise.resolve(lVal);
+            int iVal = (int)geoPolygon.append(geoLines);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
    @ReactMethod
-    public void get(String geoPolygonId, long index, Promise promise)
+    public void get(String geoPolygonId, int index, Promise promise)
     {
         try {
             GeoPolygon geoPolygon = getObjFromList(geoPolygonId);
@@ -172,15 +172,15 @@ public class JSGeoPolygon extends JSGeometryExp{
             {
                 iNumList.append(numList[i]);
             }
-            long lVal = geoPolygon.setDots(dots,iNumList);
-            promise.resolve(lVal);
+            int iVal = (int)geoPolygon.setDots(dots,iNumList);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
    @ReactMethod
-    public void getDots(String geoPolygonId, long index, Promise promise)
+    public void getDots(String geoPolygonId, int index, Promise promise)
     {
         try {
             GeoPolygon geoPolygon = getObjFromList(geoPolygonId);

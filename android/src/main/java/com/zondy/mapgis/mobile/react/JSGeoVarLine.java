@@ -81,8 +81,8 @@ public class JSGeoVarLine extends JSGeoLine{
         try {
             GeoVarLine geoVarLine = getObjFromList(geoVarLineId);
             Dot dot = JSDot.getObjFromList(dotId);
-            long lVal = geoVarLine.append2D(dot);
-            promise.resolve(lVal);
+            int iVal = (int)geoVarLine.append2D(dot);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -94,27 +94,27 @@ public class JSGeoVarLine extends JSGeoLine{
         try {
             GeoVarLine geoVarLine = getObjFromList(geoVarLineId);
             Dot3D dot3D = JSDot3D.getObjFromList(dot3DId);
-            long lVal = geoVarLine.append3D(dot3D);
-            promise.resolve(lVal);
+            int iVal = (int)geoVarLine.append3D(dot3D);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void del(String geoVarLineId, long index, Promise promise)
+    public void del(String geoVarLineId, int index, Promise promise)
     {
         try {
             GeoVarLine geoVarLine = getObjFromList(geoVarLineId);
-            long lVal = geoVarLine.del(index);
-            promise.resolve(lVal);
+            int iVal = (int)geoVarLine.del(index);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void get2D(String geoVarLineId, long index, Promise promise)
+    public void get2D(String geoVarLineId, int index, Promise promise)
     {
         try {
             GeoVarLine geoVarLine = getObjFromList(geoVarLineId);
@@ -129,7 +129,7 @@ public class JSGeoVarLine extends JSGeoLine{
     }
 
     @ReactMethod
-    public void get3D(String geoVarLineId, long index, Promise promise)
+    public void get3D(String geoVarLineId, int index, Promise promise)
     {
         try {
             GeoVarLine geoVarLine = getObjFromList(geoVarLineId);
@@ -160,15 +160,15 @@ public class JSGeoVarLine extends JSGeoLine{
     {
         try {
             GeoVarLine geoVarLine = getObjFromList(geoVarLineId);
-            long lNum = geoVarLine.getDotNum();
-            promise.resolve(lNum);
+            int iNum = (int)geoVarLine.getDotNum();
+            promise.resolve(iNum);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void getX(String geoVarLineId, long index, Promise promise)
+    public void getX(String geoVarLineId, int index, Promise promise)
     {
         try {
             GeoVarLine geoVarLine = getObjFromList(geoVarLineId);
@@ -180,7 +180,7 @@ public class JSGeoVarLine extends JSGeoLine{
     }
 
     @ReactMethod
-    public void getY(String geoVarLineId, long index, Promise promise)
+    public void getY(String geoVarLineId, int index, Promise promise)
     {
         try {
             GeoVarLine geoVarLine = getObjFromList(geoVarLineId);
@@ -192,7 +192,7 @@ public class JSGeoVarLine extends JSGeoLine{
     }
 
     @ReactMethod
-    public void getZ(String geoVarLineId, long index, Promise promise)
+    public void getZ(String geoVarLineId, int index, Promise promise)
     {
         try {
             GeoVarLine geoVarLine = getObjFromList(geoVarLineId);
@@ -204,26 +204,26 @@ public class JSGeoVarLine extends JSGeoLine{
     }
 
     @ReactMethod
-    public void update2D(String geoVarLineId, long index, String dotId, Promise promise)
+    public void update2D(String geoVarLineId, int index, String dotId, Promise promise)
     {
         try {
             GeoVarLine geoVarLine = getObjFromList(geoVarLineId);
             Dot dot = JSDot.getObjFromList(dotId);
-            long lVal = geoVarLine.update2D(index, dot);
-            promise.resolve(lVal);
+            int iVal = (int)geoVarLine.update2D(index, dot);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void update3D(String geoVarLineId, long index, String dot3DId, Promise promise)
+    public void update3D(String geoVarLineId, int index, String dot3DId, Promise promise)
     {
         try {
             GeoVarLine geoVarLine = getObjFromList(geoVarLineId);
             Dot3D dot3D = JSDot3D.getObjFromList(dot3DId);
-            long lVal = geoVarLine.update3D(index, dot3D);
-            promise.resolve(lVal);
+            int iVal = (int)geoVarLine.update3D(index, dot3D);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -235,8 +235,8 @@ public class JSGeoVarLine extends JSGeoLine{
         try {
             GeoVarLine geoVarLine = getObjFromList(geoVarLineId);
             Dots3D dots3D = JSDots3D.getObjFromList(dots3DId);
-            long lVal = geoVarLine.setDots3D(dots3D);
-            promise.resolve(lVal);
+            int iVal = (int)geoVarLine.setDots3D(dots3D);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -248,8 +248,8 @@ public class JSGeoVarLine extends JSGeoLine{
         try {
             GeoVarLine geoVarLine = getObjFromList(geoVarLineId);
             Dots dots = JSDots.getObjFromList(dotsId);
-            long lVal = geoVarLine.setDots2D(dots);
-            promise.resolve(lVal);
+            int iVal = (int)geoVarLine.setDots2D(dots);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -272,8 +272,8 @@ public class JSGeoVarLine extends JSGeoLine{
     {
         try {
             GeoVarLine geoVarLine = getObjFromList(geoVarLineId);
-            long lVal = geoVarLine.empty();
-            promise.resolve(lVal);
+            int iVal = (int)geoVarLine.empty();
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }

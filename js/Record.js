@@ -6,6 +6,8 @@ import { NativeModules } from "react-native";
 
 let RD = NativeModules.JSRecord;
 
+import Fields from "./Fields.js"
+
 /**
  * @class Record
  * @description 记录

@@ -89,8 +89,8 @@ public class JSFClsInfo extends JSXClsInfo{
     {
         try {
             FClsInfo fClsInfo = (FClsInfo)getObjFromList(fClsInfoId);
-            long val = fClsInfo.setName(newVal);
-            promise.resolve(val);
+            int iVal = (int)fClsInfo.setName(newVal);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -138,8 +138,8 @@ public class JSFClsInfo extends JSXClsInfo{
     {
         try {
             FClsInfo fClsInfo = (FClsInfo)getObjFromList(fClsInfoId);
-            long val = fClsInfo.setScaleXY(newXVal, newYVal);
-            promise.resolve(val);
+            int iVal = (int)fClsInfo.setScaleXY(newXVal, newYVal);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }

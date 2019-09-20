@@ -5,6 +5,8 @@
 import { NativeModules } from "react-native";
 
 let HP = NativeModules.JSHeatmapPoint;
+
+import Dot from "./Dot.js"
 /**
  * @class HeatmapPoint
  */

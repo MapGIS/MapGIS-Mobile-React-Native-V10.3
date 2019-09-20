@@ -3,7 +3,16 @@
  * @author  2019-09-18
  */
 import { NativeModules } from "react-native";
-import Record from "./Record";
+
+import VectorCls from "./VectorCls.js"
+import DataBase from "./DataBase.js"
+import Rect from "./Rect.js"
+import Record from "./Record.js";
+import AnnClsInfo from "./AnnClsInfo.js"
+import Fields from "./Fields.js"
+import RecordSet from "./RecordSet.js"
+import GeomInfo from "./GeomInfo.js"
+import Geometry from "./Geometry.js"
 
 let ANNCLS = NativeModules.JSAnnotationCls;
 
@@ -397,6 +406,7 @@ export default class AnnotationCls extends VectorCls{
 	 * 设置注记要素类名称
 	 * @memberOf AnnotationCls
 	 * @param newVal 类名称
+	 * @return {Promise<void>}
 	 */
 	async setClsName(newVal)
 	{

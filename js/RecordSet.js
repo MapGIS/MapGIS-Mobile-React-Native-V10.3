@@ -6,6 +6,11 @@ import { NativeModules } from "react-native";
 
 let RS = NativeModules.JSRecordSet;
 
+import Record from "./Record.js"
+import Fields from "./Fields.js"
+import Geometry from "./Geometry.js"
+import GeomInfo from "./GeomInfo.js"
+
 /**
  * @class RecordSet
  * @description 扩展字段头

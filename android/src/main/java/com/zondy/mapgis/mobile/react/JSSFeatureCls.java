@@ -71,8 +71,8 @@ public class JSSFeatureCls extends JSVectorCls{
     {
         try {
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
-            long lVal = sFeatureCls.open(id);
-            promise.resolve(lVal);
+            int iVal = (int)sFeatureCls.open(id);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -83,8 +83,8 @@ public class JSSFeatureCls extends JSVectorCls{
     {
         try {
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
-            long lVal = sFeatureCls.open(name);
-            promise.resolve(lVal);
+            int iVal = (int)sFeatureCls.open(name);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -107,8 +107,8 @@ public class JSSFeatureCls extends JSVectorCls{
     {
         try {
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
-            long lVal = sFeatureCls.clear();
-            promise.resolve(lVal);
+            int iVal = (int)sFeatureCls.clear();
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -119,8 +119,8 @@ public class JSSFeatureCls extends JSVectorCls{
     {
         try {
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
-            long lVal = sFeatureCls.close();
-            promise.resolve(lVal);
+            int iVal = (int)sFeatureCls.close();
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -146,8 +146,8 @@ public class JSSFeatureCls extends JSVectorCls{
     {
         try {
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
-            long lCount = sFeatureCls.getCount();
-            promise.resolve(lCount);
+            int iCount = (int)sFeatureCls.getCount();
+            promise.resolve(iCount);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -173,8 +173,8 @@ public class JSSFeatureCls extends JSVectorCls{
     {
         try {
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
-            long lVal = sFeatureCls.calRange();
-            promise.resolve(lVal);
+            int iVal = (int)sFeatureCls.calRange();
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -257,8 +257,8 @@ public class JSSFeatureCls extends JSVectorCls{
             Geometry geom = JSGeometry.getObjFromList(geomId);
             Record rcd = JSRecord.getObjFromList(rcdId);
             GeomInfo info = JSGeomInfo.getObjFromList(infoId);
-            long lVal = sFeatureCls.append(geom, rcd, info);
-            promise.resolve(lVal);
+            int iVal = (int)sFeatureCls.append(geom, rcd, info);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -296,7 +296,7 @@ public class JSSFeatureCls extends JSVectorCls{
     }
 
     @ReactMethod
-    public void getRect(String sFeatureClsId, long objID, Promise promise)
+    public void getRect(String sFeatureClsId, int objID, Promise promise)
     {
         try {
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
@@ -311,22 +311,22 @@ public class JSSFeatureCls extends JSVectorCls{
     }
 
     @ReactMethod
-    public void get(String sFeatureClsId, long objID, String geomId, String rcdId, String infoId, Promise promise)
+    public void get(String sFeatureClsId, int objID, String geomId, String rcdId, String infoId, Promise promise)
     {
         try {
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
             Geometry geom = JSGeometry.getObjFromList(geomId);
             Record rcd = JSRecord.getObjFromList(rcdId);
             GeomInfo info = JSGeomInfo.getObjFromList(infoId);
-            long lVal = sFeatureCls.get(objID, geom, rcd, info);
-            promise.resolve(lVal);
+            int iVal = (int)sFeatureCls.get(objID, geom, rcd, info);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void getAtt(String sFeatureClsId, long objID, Promise promise)
+    public void getAtt(String sFeatureClsId, int objID, Promise promise)
     {
         try {
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
@@ -341,7 +341,7 @@ public class JSSFeatureCls extends JSVectorCls{
     }
 
     @ReactMethod
-    public void getGeometry(String sFeatureClsId, long objID, Promise promise)
+    public void getGeometry(String sFeatureClsId, int objID, Promise promise)
     {
         try {
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
@@ -356,7 +356,7 @@ public class JSSFeatureCls extends JSVectorCls{
     }
 
     @ReactMethod
-    public void getGeometryType(String sFeatureClsId, long objID, Promise promise)
+    public void getGeometryType(String sFeatureClsId, int objID, Promise promise)
     {
         try {
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
@@ -370,7 +370,7 @@ public class JSSFeatureCls extends JSVectorCls{
 
 
     @ReactMethod
-    public void getInfo(String sFeatureClsId, long objID, Promise promise)
+    public void getInfo(String sFeatureClsId, int objID, Promise promise)
     {
         try {
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
@@ -437,8 +437,8 @@ public class JSSFeatureCls extends JSVectorCls{
     {
         try {
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
-            long lVal = sFeatureCls.setAliasName(newVal);
-            promise.resolve(lVal);
+            int iVal = (int)sFeatureCls.setAliasName(newVal);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -461,8 +461,8 @@ public class JSSFeatureCls extends JSVectorCls{
     {
         try {
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
-            long lVal = sFeatureCls.setSrID(newVal);
-            promise.resolve(lVal);
+            int iVal = (int)sFeatureCls.setSrID(newVal);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -497,20 +497,20 @@ public class JSSFeatureCls extends JSVectorCls{
     {
         try {
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
-            long lVal = sFeatureCls.setScaleXY(scaleX, scaleY);
-            promise.resolve(lVal);
+            int iVal = (int)sFeatureCls.setScaleXY(scaleX, scaleY);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void delete(String sFeatureClsId, long objID, Promise promise)
+    public void delete(String sFeatureClsId, int objID, Promise promise)
     {
         try {
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
-            long lVal = sFeatureCls.delete(objID);
-            promise.resolve(lVal);
+            int iVal = (int)sFeatureCls.delete(objID);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -522,7 +522,7 @@ public class JSSFeatureCls extends JSVectorCls{
         try {
             long[]      objIDs = null;
             int         size = 0;
-            long        lVal = 0;
+            int         iVal = 0;
 
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
             if (objIDArray != null) {
@@ -533,64 +533,64 @@ public class JSSFeatureCls extends JSVectorCls{
                     for (int i = 0; i < objIDArray.size(); i++) {
                         objIDs[i] = objIDArray.getInt(i);
                     }
-                    lVal = sFeatureCls.delete(objIDs);
+                    iVal = (int)sFeatureCls.delete(objIDs);
                 }
             }
-            promise.resolve(lVal);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void update(String sFeatureClsId, long objID, String geomId, String rcdId, String infoId, Promise promise)
+    public void update(String sFeatureClsId, int objID, String geomId, String rcdId, String infoId, Promise promise)
     {
         try {
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
             Geometry geom = JSGeometry.getObjFromList(geomId);
             Record rcd = JSRecord.getObjFromList(rcdId);
             GeomInfo info = JSGeomInfo.getObjFromList(infoId);
-            long lVal = sFeatureCls.update(objID, geom, rcd, info);
-            promise.resolve(lVal);
+            int iVal = (int)sFeatureCls.update(objID, geom, rcd, info);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void updateAtt(String sFeatureClsId, long objID, String rcdId, Promise promise)
+    public void updateAtt(String sFeatureClsId, int objID, String rcdId, Promise promise)
     {
         try {
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
             Record rcd = JSRecord.getObjFromList(rcdId);
-            long lVal = sFeatureCls.updateAtt(objID, rcd);
-            promise.resolve(lVal);
+            int iVal = (int)sFeatureCls.updateAtt(objID, rcd);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void updateGeometry(String sFeatureClsId, long objID, String geomId, Promise promise)
+    public void updateGeometry(String sFeatureClsId, int objID, String geomId, Promise promise)
     {
         try {
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
             Geometry geom = JSGeometry.getObjFromList(geomId);
-            long lVal = sFeatureCls.updateGeometry(objID, geom);
-            promise.resolve(lVal);
+            int iVal = (int)sFeatureCls.updateGeometry(objID, geom);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void updateInfo(String sFeatureClsId, long objID, String infoId, Promise promise)
+    public void updateInfo(String sFeatureClsId, int objID, String infoId, Promise promise)
     {
         try {
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
             GeomInfo info = JSGeomInfo.getObjFromList(infoId);
-            long lVal = sFeatureCls.updateInfo(objID, info);
-            promise.resolve(lVal);
+            int iVal = (int)sFeatureCls.updateInfo(objID, info);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -602,8 +602,8 @@ public class JSSFeatureCls extends JSVectorCls{
         try {
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
             DataBase db = JSDataBase.getObjFromList(dbId);
-            long lVal = sFeatureCls.remove(db, clsName);
-            promise.resolve(lVal);
+            int iVal = (int)sFeatureCls.remove(db, clsName);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -615,8 +615,8 @@ public class JSSFeatureCls extends JSVectorCls{
         try {
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
             DataBase db = JSDataBase.getObjFromList(dbId);
-            long lVal = sFeatureCls.remove(db, clsID);
-            promise.resolve(lVal);
+            int iVal = (int)sFeatureCls.remove(db, clsID);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -651,8 +651,8 @@ public class JSSFeatureCls extends JSVectorCls{
     {
         try {
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
-            int lVal = sFeatureCls.areaToField(bRealArea, fldIndex);
-            promise.resolve(lVal);
+            int iVal = sFeatureCls.areaToField(bRealArea, fldIndex);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -663,8 +663,8 @@ public class JSSFeatureCls extends JSVectorCls{
     {
         try {
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
-            int lVal = sFeatureCls.lengthToField(bRealLen, fldIndex);
-            promise.resolve(lVal);
+            int iVal = sFeatureCls.lengthToField(bRealLen, fldIndex);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -675,8 +675,8 @@ public class JSSFeatureCls extends JSVectorCls{
     {
         try {
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
-            long lVal = sFeatureCls.registerSyncEnabled();
-            promise.resolve(lVal);
+            int iVal = (int)sFeatureCls.registerSyncEnabled();
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -699,8 +699,8 @@ public class JSSFeatureCls extends JSVectorCls{
         try {
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
             Fields fields = JSFields.getObjFromList(fieldsId);
-            long lVal = sFeatureCls.updateFields(fields);
-            promise.resolve(lVal);
+            int iVal = (int)sFeatureCls.updateFields(fields);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }

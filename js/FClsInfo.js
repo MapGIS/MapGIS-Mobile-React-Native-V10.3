@@ -6,9 +6,10 @@ import { NativeModules } from "react-native";
 
 let FI = NativeModules.JSFClsInfo;
 
+import XClsInfo from "./XClsInfo.js"
 /**
  * @class FClsInfo
- * @description 扩展字段头
+ * @description 要素类信息
  */
 export default class FClsInfo extends XClsInfo{
 
@@ -43,7 +44,7 @@ export default class FClsInfo extends XClsInfo{
   /**
    * 获取简单要素类ID
    * @memberOf FClsInfo
-   * @return {Promise}
+   * @return {Promise}要素类ID
    */
 	async getID() {
 		try {
@@ -54,9 +55,9 @@ export default class FClsInfo extends XClsInfo{
 	}
 
 	/**
-   * 获取简单要素类ID
+   * 获取简单要素类类型
    * @memberOf FClsInfo
-   * @return {Promise}
+   * @return {Promise}简单要素类类型
    */
 	async getType() {
 		try {
@@ -68,9 +69,9 @@ export default class FClsInfo extends XClsInfo{
 	
 
 	/**
-   * 获取简单要素类ID
+   * 获取简单要素类URL地址
    * @memberOf FClsInfo
-   * @return {Promise}
+   * @return {Promise}简单要素类URL地址
    */
 	async getURL() {
 		try {
@@ -81,9 +82,9 @@ export default class FClsInfo extends XClsInfo{
 	}
 	
 	/**
-   * 获取简单要素类ID
+   * 获取简单要素类名称
    * @memberOf FClsInfo
-   * @return {Promise}
+   * @return {Promise} 类名称
    */
 	async getName() {
 		try {

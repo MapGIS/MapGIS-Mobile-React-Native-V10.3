@@ -34,8 +34,12 @@ import com.zondy.mapgis.android.model.ModelsOverlay;
 import com.zondy.mapgis.core.geometry.Dot;
 import com.zondy.mapgis.core.geometry.Dots;
 import com.zondy.mapgis.core.geometry.Rect;
+import com.zondy.mapgis.core.map.Document;
+import com.zondy.mapgis.core.map.GroupLayer;
 import com.zondy.mapgis.core.map.MapLayer;
+import com.zondy.mapgis.core.map.ServerLayer;
 import com.zondy.mapgis.core.map.SimpleModelLayer;
+import com.zondy.mapgis.core.map.VectorLayer;
 import com.zondy.mapgis.mobile.react.utils.ConvertUtil;
 
 import java.io.File;
@@ -272,8 +276,8 @@ public class JSMapView extends ReactContextBaseJavaModule {
     {
         try {
             m_mapView = mapViewList.get(mapViewId);
-            //Document doc = JSDocument.get(mapId);
-            //m_mapView.loadFromDocument(doc, indexOfMap);
+            Document doc = JSDocument.getObjFromList(docId);
+            m_mapView.loadFromDocument(doc, indexOfMap);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -285,14 +289,14 @@ public class JSMapView extends ReactContextBaseJavaModule {
     {
         try {
             m_mapView = mapViewList.get(mapViewId);
-            //Document doc = JSDocument.get(mapId);
-//            m_mapView.loadFromDocumentAsync(doc, indexOfMap, new MapView.MapViewFinishCallback()
-//            {
-//                @Override
-//                public void onDidFinish(boolean b) {
-//                    promise.resolve(b);
-//                }
-//            });
+            Document doc = JSDocument.getObjFromList(docId);
+            m_mapView.loadFromDocumentAsync(doc, indexOfMap, new MapView.MapViewFinishCallback()
+            {
+                @Override
+                public void onDidFinish(boolean b) {
+                    promise.resolve(b);
+                }
+            });
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -304,8 +308,8 @@ public class JSMapView extends ReactContextBaseJavaModule {
     {
         try {
             m_mapView = mapViewList.get(mapViewId);
-            //Map map = JSMap.get(mapId);
-            //m_mapView.setMap(map);
+            com.zondy.mapgis.core.map.Map map = JSMap.getObjFromList(mapId);
+            m_mapView.setMap(map);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -317,13 +321,13 @@ public class JSMapView extends ReactContextBaseJavaModule {
     {
         try {
             m_mapView = mapViewList.get(mapViewId);
-            //Map map = JSMap.get(mapId);
-//            m_mapView.setMapAsync(map, new MapView.MapViewFinishCallback() {
-//                @Override
-//                public void onDidFinish(boolean b) {
-//                    promise.resolve(b);
-//                }
-//            });
+            com.zondy.mapgis.core.map.Map map = JSMap.getObjFromList(mapId);
+            m_mapView.setMapAsync(map, new MapView.MapViewFinishCallback() {
+                @Override
+                public void onDidFinish(boolean b) {
+                    promise.resolve(b);
+                }
+            });
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -925,10 +929,10 @@ public class JSMapView extends ReactContextBaseJavaModule {
         try {
             MapView mapView = mapViewList.get(mapViewId);
             ModelsOverlay modelsOverlay = mapView.getModelsOverlay();
-//            String   strModelsOverlayID = JSModelsOverlay.registerId(modelsOverlay);
-//            WritableMap map = Arguments.createMap();
-//            map.putString("_MGModelsOverlayId", strModelsOverlayID);
-//            promise.resolve(map);
+            String   strModelsOverlayID = JSModelsOverlay.registerId(modelsOverlay);
+            WritableMap map = Arguments.createMap();
+            map.putString("ModelsOverlayId", strModelsOverlayID);
+            promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -941,10 +945,10 @@ public class JSMapView extends ReactContextBaseJavaModule {
             MapView mapView = mapViewList.get(mapViewId);
             PointF          viewPoint = JSPointF.getObjFromList(viewPointId);
             Model model = mapView.modelsOverlayHitTest(viewPoint);
-//            String   strModelID = JSModel.registerId(model);
-//            WritableMap map = Arguments.createMap();
-//            map.putString("_MGModelId", strModelID);
-//            promise.resolve(map);
+            String   strModelID = JSModel.registerId(model);
+            WritableMap map = Arguments.createMap();
+            map.putString("ModelId", strModelID);
+            promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -955,13 +959,16 @@ public class JSMapView extends ReactContextBaseJavaModule {
     {
         try {
             MapView mapView = mapViewList.get(mapViewId);
-          //  SimpleModelLayer simpleModelLayer = JSSimpleModelLayer.getObjFromList(modelLayerId);
-            PointF          viewPoint = JSPointF.getObjFromList(viewPointId);
-     //       Model model = mapView.modelLayerHitTest(simpleModelLayer,viewPoint);
-//            String   strModelID = JSModel.registerId(model);
-//            WritableMap map = Arguments.createMap();
-//            map.putString("_MGModelId", strModelID);
-//            promise.resolve(map);
+            MapLayer mapLayer = JSMapLayer.getObjFromList(modelLayerId);
+            if (mapLayer instanceof SimpleModelLayer)
+            {
+                PointF          viewPoint = JSPointF.getObjFromList(viewPointId);
+                Model model = mapView.modelLayerHitTest((SimpleModelLayer)mapLayer,viewPoint);
+                String   strModelID = JSModel.registerId(model);
+                WritableMap map = Arguments.createMap();
+                map.putString("ModelId", strModelID);
+                promise.resolve(map);
+            }
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -2160,9 +2167,9 @@ public class JSMapView extends ReactContextBaseJavaModule {
         try {
             m_mapView = mapViewList.get(mapViewId);
             MapLayer mapLayer = JSMapLayer.getObjFromList(swipeLayerId);
-           // Dots   swipeRegionDots = JSDots.getObjFromList(swipeRegionDotsId);
-           // int iSwip = m_mapView.swipe(mapLayer,swipeRegionDots);
-            //promise.resolve(iSwip);
+            Dots   swipeRegionDots = JSDots.getObjFromList(swipeRegionDotsId);
+            int iSwip = m_mapView.swipe(mapLayer,swipeRegionDots);
+            promise.resolve(iSwip);
         } catch (Exception e) {
             promise.reject(e);
         }
