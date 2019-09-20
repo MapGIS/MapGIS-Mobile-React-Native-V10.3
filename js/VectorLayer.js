@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: fjl
  * @Date: 2019-09-06 16:27:38
- * @LastEditTime: 2019-09-17 11:45:54
+ * @LastEditTime: 2019-09-19 15:00:25
  * @LastEditors: Please set LastEditors
  */
 /**
@@ -11,6 +11,8 @@
  */
 import { NativeModules } from "react-native";
 import MapLayer from "./MapLayer";
+import LinInfo from "./LinInfo.js";
+import Fields from "./Fields.js";
 let VL = NativeModules.JSVectorLayer;
 
 /**
@@ -229,11 +231,17 @@ export default class VectorLayer extends MapLayer {
    * 获取字段集合
    * 
    * @memberOf VectorLayer
-   * @returns {}
+   * @returns {Promise<Fields>} 返回Fields对象
    */
   async getFields(){
     try {
-     
+       var {FieldsId} = await VL.getFields(this._MGVectorLayerId);
+       var fields = null;
+       if(FieldsId != null){
+         fields = new Fields();
+         fields._MGFieldsId = FieldsId;
+       }
+       return fields;
     } catch (e) {
       console.error(e);
     }
@@ -243,11 +251,12 @@ export default class VectorLayer extends MapLayer {
    * 设置区域边界线图形信息
    * 
    * @memberOf VectorLayer
-   * @returns {}
+   * @param {LinInfo} linInfo 线图形信息
+   * @returns {Promise<Void>}
    */
-  async setRegBorderLinInfo(){
+  async setRegBorderLinInfo(linInfo){
     try {
-      
+      await VL.setRegBorderLinInfo(this._MGVectorLayerId, linInfo._MGLinInfoId);
     } catch (e) {
       console.error(e);
     }
@@ -257,11 +266,17 @@ export default class VectorLayer extends MapLayer {
    * 获取区域边界线图形信息
    * 
    * @memberOf VectorLayer
-   * @returns {}
+   * @returns {Promise<LinInfo>} 成功返回线图形信息
    */
   async getRegBorderLinInfo(){
     try {
-      
+       var {LinInfoId} = await VL.getRegBorderLinInfo(this._MGVectorLayerId);
+       var linInfo = null;
+       if(LinInfoId != null){
+         linInfo = new LinInfo();
+         linInfo._MGLinInfoId - LinInfoId;
+       }
+       return linInfo;
     } catch (e) {
       console.error(e);
     }

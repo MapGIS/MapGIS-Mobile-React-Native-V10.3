@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: xiaoying
  * @Date: 2019-09-03 16:44:08
- * @LastEditTime: 2019-09-09 15:16:45
+ * @LastEditTime: 2019-09-19 14:46:13
  * @LastEditors: Please set LastEditors
  */
 import {NativeModules} from "react-native";
@@ -272,7 +272,8 @@ export default class RangeTheme extends VectorTheme{
      */
     async merge(index, count, geomInfo, caption){
         try {
-            
+            let result = await RT.merge(this._MGRangeThemeId, index, count, geomInfo._MGGeomInfoId, caption);
+            return result;
         } catch (e) {
             console.error(e);
         }
@@ -292,6 +293,8 @@ export default class RangeTheme extends VectorTheme{
      */
     async split(index, splitValue, geomInfo1, caption1, geomInfo2, caption2){
         try {
+            let result = await RT.split(this._MGRangeThemeId, index, splitValue, geomInfo1._MGGeomInfoId, caption1, geomInfo2._MGGeomInfoId, caption2);
+            return result;
             
         } catch (e) {
             console.error(e);

@@ -2,10 +2,11 @@
  * @Description: In User Settings Edit
  * @Author: xiaoying
  * @Date: 2019-09-02 16:44:04
- * @LastEditTime: 2019-09-02 17:31:47
+ * @LastEditTime: 2019-09-19 14:58:23
  * @LastEditors: Please set LastEditors
  */
 import {NativeModules} from "react-native";
+import TextAnnInfo from "./TextAnnInfo.js";
 let LI = NativeModules.JSLabelInfo;
 
 /**
@@ -156,11 +157,17 @@ export default class LabelInfo{
      * 获取注记信息
      * 
      * @memberof LabelInfo
-     * @returns {Object} 注记信息(TextAnnInfo)
+     * @returns {TextAnnInfo} 注记信息(TextAnnInfo)
      */
     async getAnnInfo(){
         try {
-            
+            var {TextAnnInfoId} = await LI.getAnnInfo(this._MGLabelInfoId);
+            var textAnnInfo = null;
+            if(TextAnnInfoId != null){
+                textAnnInfo = new TextAnnInfo();
+                textAnnInfo._MGTextAnnInfoId = TextAnnInfoId;
+            }
+            return textAnnInfo;
         } catch (e) {
             console.error(e);
         }
@@ -175,7 +182,7 @@ export default class LabelInfo{
      */
     async setAnnInfo(textAnnInfo){
         try {
-            
+            await LI.setAnnInfo(this._MGLabelInfoId, textAnnInfo._MGTextAnnInfoId);
         } catch (e) {
             console.error(e);
         }

@@ -220,17 +220,27 @@ public class JSVectorLayer extends JSMapLayer {
     public void getFields(String VectorLayerId, Promise promise){
         try {
             VectorLayer VectorLayer = (VectorLayer) getObjFromList(VectorLayerId);
-
+            Fields fields = VectorLayer.getFields();
+            String fieldsId = null;
+            if(fields != null){
+                fieldsId = JSFields.registerId(fields);
+            }
+            WritableMap writableMap = Arguments.createMap();
+            writableMap.putString("FieldsId", fieldsId);
+            promise.resolve(writableMap);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void setRegBorderLinInfo(String VectorLayerId, Promise promise){
+    public void setRegBorderLinInfo(String VectorLayerId, String linInfoId, Promise promise){
         try {
             VectorLayer VectorLayer = (VectorLayer) getObjFromList(VectorLayerId);
+            LinInfo linInfo = (LinInfo) JSLinInfo.getObjFromList(linInfoId);
+            VectorLayer.setRegBorderLinInfo(linInfo);
 
+            promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -241,7 +251,13 @@ public class JSVectorLayer extends JSMapLayer {
         try {
             VectorLayer VectorLayer = (VectorLayer) getObjFromList(VectorLayerId);
             LinInfo linInfo = VectorLayer.getRegBorderLinInfo();
-
+            String linInfoId = null;
+            if(linInfo != null){
+                linInfoId = JSLinInfo.registerId(linInfo);
+            }
+            WritableMap writableMap = Arguments.createMap();
+            writableMap.putString("LinInfoId", linInfoId);
+            promise.resolve(writableMap);
         } catch (Exception e) {
             promise.reject(e);
         }

@@ -2,10 +2,11 @@
  * @Description: In User Settings Edit
  * @Author: xiaoying
  * @Date: 2019-09-10 16:52:12
- * @LastEditTime: 2019-09-17 15:40:37
+ * @LastEditTime: 2019-09-19 16:13:58
  * @LastEditors: Please set LastEditors
  */
 import { NativeModules } from "react-native";
+import Geometry from "./Geometry.js";
 let GP = NativeModules.JSGeometryParams;
 
 /**
@@ -31,27 +32,39 @@ export default class GeometryParams{
     }
     
     /**
+     * 获取几何对象
+     * 
      * @memberof GeometryParams
+     * @returns {Promise<Geometry>} 几何对象
      */
     async getGeometry(){
         try {
-            
+            let {GeometryId} = await GP.getGeometry(this._MGGeometryParamsId);
+            let geometry = null;
+            if(GeometryId != null){
+                geometry = new Geometry();
+                geometry._MGGeometryId = GeometryId;
+            }
+            return geometry;
         } catch (e) {
             console.error(e);
         }
     }
 
      /**
+      * 设置几何对象
+      * 
      * @memberof GeometryParams
+     * @param {Object} geometry 几何对象（Geometry类型的对象）
+     * @returns {Promise<Void>}
      */
-    async setGeometry(){
+    async setGeometry(geometry){
         try {
-            
+            await GP.setGeometry(this._MGGeometryParamsId, geometry._MGGeometryId);
         } catch (e) {
             console.error(e);
         }
     }
-
     
      /**
       * 获取当前索引

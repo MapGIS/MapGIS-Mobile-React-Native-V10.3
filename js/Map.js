@@ -70,7 +70,7 @@ export default class Map {
   /**
    * 设置地图范围
    * @memberOf Map
-   * @param {Object} EntireRange
+   * @param {Rect} EntireRange
    * @returns {Promise<void>}
    */
   async setEntireRange(EntireRange) {
@@ -168,7 +168,7 @@ export default class Map {
   /**
    * 获取地图名称
    * @memberOf Map
-   * @returns {Promise<*|*>}
+   * @returns {Promise<String>}
    */
   async getName() {
     try {
@@ -182,7 +182,7 @@ export default class Map {
   /**
    * 获取地图描述
    * @memberOf Map
-   * @returns {Promise<*>}
+   * @returns {Promise<String>}
    */
   async getDescription() {
     try {
@@ -212,7 +212,7 @@ export default class Map {
   /**
    * 获取最小显示比
    * @memberOf Map
-   * @returns {Promise<*>}
+   * @returns {Promise<double>}
    */
   async getMinScale() {
     try {
@@ -226,7 +226,7 @@ export default class Map {
   /**
    * 获取最大显示比
    * @memberOf Map
-   * @returns {Promise<*>}
+   * @returns {Promise<double>}
    */
   async getMaxScale() {
     try {
@@ -373,7 +373,7 @@ export default class Map {
   /**
    * 获取图层的名称
    * @memberOf Map
-   * @param index 图层索引
+   * @param {Number} index 图层索引（int类型的Number）
    * @returns {Promise<MapLayer>}
    */
   async getLayer(index) {
@@ -424,7 +424,7 @@ export default class Map {
   /**
    * 添加图层
    * @memberOf Map
-   * @param {Object} layer 图层
+   * @param {MapLayer} layer 图层
    * @returns {Promise<*>}
    */
   async append(layer) {
@@ -437,12 +437,12 @@ export default class Map {
   }
 
   /**
-   * 插入图层
+   * 插入图层（成功返回1，失败返回0）
    *
    * @memberOf Map
-   * @param index 索引
-   * @param layer 图层
-   * @returns {Promise<*|*|NavigationPreloadState>}
+   * @param {Number} index 索引
+   * @param {MapLayer} layer 图层
+   * @returns {Number}
    */
   async insert(index, layer) {
     try {
@@ -456,8 +456,8 @@ export default class Map {
   /**
    * 移除图层
    * @memberOf Map
-   * @param {Object} layer 图层
-   * @returns {Promise<*>}
+   * @param {MapLayer} layer 图层
+   * @returns {boolean}
    */
   async remove(layer) {
     try {
@@ -471,9 +471,9 @@ export default class Map {
   /**
    * 从FromIndex开始移除Count个图层
    * @memberOf Map
-   * @param fromIndex 开始索引
-   * @param count 移除个数
-   * @return 成功返回true，失败返回false
+   * @param {Number} fromIndex 开始索引（int范围的Number）
+   * @param {Number} count 移除个数（int范围的Number）
+   * @returns {boolean} 成功返回true，失败返回false
    */
   async remove(fromIndex, count) {
     try {
@@ -487,8 +487,8 @@ export default class Map {
   /**
    * 移除索引为index的图层
    * @memberOf Map
-   * @param index 图层索引
-   * @return 成功返回true，失败返回false
+   * @param {Number} index 图层索引（int范围的Number）
+   * @return {boolean} 成功返回true，失败返回false
    */
   async remove(index) {
     try {
@@ -502,7 +502,7 @@ export default class Map {
   /**
    * 移除所有图层，同时销毁图层
    * @memberOf Map
-   * @return 成功返回true，失败返回false
+   * @returns {boolean} 成功返回true，失败返回false
    */
   async removeAll() {
     try {
@@ -516,7 +516,7 @@ export default class Map {
   /**
    * 移除图层，不会销毁图层
    * @memberOf Map
-   * @param {Object}layer 图层
+   * @param {MapLayer} layer 图层
    * @return 成功返回1，失败返回0
    */
   async dragOut(layer) {
@@ -531,9 +531,9 @@ export default class Map {
   /**
    * 拽入图层
    * @memberOf Map
-   * @param index 索引
-   * @param layer 图层
-   * @return 成功返回1，失败返回0
+   * @param {Number} index 索引（int类型的Number）
+   * @param {MapLayer} layer 图层
+   * @return {Number} （int类型的Number）成功返回1，失败返回0
    */
   async dragIn(index, layer) {
     try {
@@ -560,7 +560,7 @@ export default class Map {
   /**
    * 根据图层查找索引
    * @memberOf Map
-   * @param layer 图层
+   * @param {MapLayer} layer 图层
    * @return 成功返回索引，失败返回-1
    */
   async indexOf(layer) {
@@ -574,8 +574,8 @@ export default class Map {
   /**
    * 移动图层到最下面（最后绘制）
    * @memberOf Map
-   * @param index 图层索引
-   * @return 成功返回true，失败返回false
+   * @param {Number} index 图层索引（int类型的Number）
+   * @return {boolean} 成功返回true，失败返回false
    */
   async moveToBottom(index) {
     try {
@@ -588,8 +588,8 @@ export default class Map {
   /**
    * 移动图层到最上面（最先绘制）
    * @memberOf Map
-   * @param index 图层索引
-   * @return 成功返回true，失败返回false
+   * @param {Number} index 图层索引 （int类型的Number）
+   * @return {boolean} 成功返回true，失败返回false
    */
   async moveToTop(index) {
     try {
@@ -602,8 +602,8 @@ export default class Map {
   /**
    * 下移图层
    * @memberOf Map
-   * @param index 图层索引
-   * @return 成功返回true，失败返回false
+   * @param {Number} index 图层索引（int类型的Number）
+   * @return {boolean} 成功返回true，失败返回false
    */
   async moveToDown(index) {
     try {
@@ -616,8 +616,8 @@ export default class Map {
   /**
    * 上移图层
    * @memberOf Map
-   * @param index 图层索引
-   * @return 成功返回true，失败返回false
+   * @param {int} index 图层索引（int类型的Number）
+   * @return {boolean} 成功返回true，失败返回false
    */
   async moveToUp(index) {
     try {
@@ -630,8 +630,8 @@ export default class Map {
   /**
    * 将图层从fromIndex移至toIndex
    * @memberOf Map
-   * @param fromIndex 移动前图层索引
-   * @param toIndex 移动后图层索引
+   * @param {Number} fromIndex 移动前图层索引（int范围的Number）
+   * @param {Number} toIndex 移动后图层索引 （int范围的Number）
    * @return 成功返回true，失败返回false
    */
   async move(fromIndex, toIndex) {
@@ -690,7 +690,7 @@ export default class Map {
   /**
    * 设置地图旋转中心
    * @memberOf Map
-   * @param center
+   * @param {Dot} center 旋转中心
    * @returns {Promise<void>}
    */
   async SetRotateCenter(center) {
@@ -722,7 +722,7 @@ export default class Map {
   /**
    * 设置地图旋转角
    * @memberOf Map
-   * @param angle
+   * @param {Number} angle 旋转角度 （doublef范围的Number）
    * @returns {Promise<void>}
    */
   async SetRotateAngle(angle) {
@@ -736,7 +736,7 @@ export default class Map {
   /**
    * 获取地图旋转角
    * @memberOf Map
-   * @returns {Promise<*>}
+   * @returns {double}
    */
   async GetRotateAngle() {
     try {
@@ -750,8 +750,8 @@ export default class Map {
   /**
    * 根据指定的地图范围生成一张指定大小的图片
    * @memberof Map
-   * @param {Object} dispRange 地图范围（Rect）
-   * @param {Object} bitmap 生成的图片（Image），用户负责构造指定大小的图片，要求像素格式为ARGB_8888
+   * @param {Rect} dispRange 地图范围
+   * @param {Image} bitmap 生成的图片，用户负责构造指定大小的图片，要求像素格式为ARGB_8888
    * @return {int} 
    */
   async outputToBitmap(dispRange,bitmap){
@@ -768,6 +768,8 @@ export default class Map {
   /**
    * 设置显示范围
    * @memberOf Map
+   * @param {Rect} rect 显示范围
+   * @returns {Promise<Void>}
    */
   async setViewRange(rect) {
     try {
@@ -779,7 +781,7 @@ export default class Map {
   /**
    * 获取显示范围
    * @memberOf Map
-   * @return 显示范围
+   * @return {Promise<Rect>}显示范围
    */
   async getViewRange() {
     try {

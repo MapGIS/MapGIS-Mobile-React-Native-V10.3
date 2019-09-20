@@ -10,6 +10,7 @@ import com.zondy.mapgis.core.geometry.Rect;
 import com.zondy.mapgis.core.map.MapServer;
 import com.zondy.mapgis.core.map.MapServerAccessMode;
 import com.zondy.mapgis.core.map.ServerLayer;
+import com.zondy.mapgis.core.map.TilePreFetchListener;
 import com.zondy.mapgis.core.object.Enumeration;
 
 /**
@@ -21,7 +22,6 @@ public class JSServerLayer extends JSGroupLayer {
     public JSServerLayer(ReactApplicationContext reactContext) {
         super(reactContext);
     }
-
     @Override
     public String getName() {
         return REACT_CLASS;
@@ -229,7 +229,7 @@ public class JSServerLayer extends JSGroupLayer {
     }
 
     @ReactMethod
-    public void setTilePreFetchListener(String serverLayerId, Promise promise){
+    public void setTilePreFetchListener(String serverLayerId, String tilePreFetchListenerId, Promise promise){
         try {
             ServerLayer serverLayer = (ServerLayer) getObjFromList(serverLayerId);
 
@@ -242,6 +242,8 @@ public class JSServerLayer extends JSGroupLayer {
     public void getTilePreFetchListener(String serverLayerId, Promise promise){
         try {
             ServerLayer serverLayer = (ServerLayer) getObjFromList(serverLayerId);
+            TilePreFetchListener tilePreFetchListener = serverLayer.getTilePreFetchListener();
+
 
         }catch (Exception e){
             promise.reject(e);

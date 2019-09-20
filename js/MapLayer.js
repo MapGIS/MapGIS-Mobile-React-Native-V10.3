@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: fjl
  * @Date: 2019-09-06 16:27:38
- * @LastEditTime: 2019-09-17 10:47:04
+ * @LastEditTime: 2019-09-19 15:36:08
  * @LastEditors: Please set LastEditors
  */
 /**
@@ -11,10 +11,14 @@
  */
 import { NativeModules } from "react-native";
 let ML = NativeModules.JSMapLayer;
+let XClsType = NativeModules.JSXClsType;
 import Rect from "./Rect.js";
 import SRefData from "./SRefData.js";
 import SimpleLabel from "./SimpleLabel.js";
 import Themes from "./Themes.js";
+import SFeatureCls from "./SFeatureCls.js";
+import AnnotationCls from "./AnnotationCls.js";
+
 
 /**
  * @class MapLayer
@@ -370,7 +374,7 @@ export default class MapLayer {
    */
   async attachData(cls){
     try {
-      let result = await ML.attachData(this._MGMapLayerId);
+      let result = await ML.attachData(this._MGMapLayerId, cls._MGBasClsId);
       return result;
     } catch (e) {
       console.error(e);
@@ -398,7 +402,23 @@ export default class MapLayer {
    */
   async getData(){
     try {
-      
+      let xClsType = await ML.getClsType(this._MGMapLayerId);
+      let {IBasClsId} = await ML.getData(this._MGMapLayerId);
+      let xCls = null;
+      if(IBasClsId != null){
+        switch(xClsType){
+          case XClsType.SFCls: // 30-简单要素类
+            xCls = new SFeatureCls();
+            xCls._MGVectorClsId = IBasClsId;
+            break;
+          case XClsType.ACls:  // 5-注记类 
+            xCls = new AnnotationCls();
+            xCls._MGVectorClsId = IBasClsId;
+            break;
+        }
+      }
+     
+      return xCls; 
     } catch (e) {
       console.error(e);
     }

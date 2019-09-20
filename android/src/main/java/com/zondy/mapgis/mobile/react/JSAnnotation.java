@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class JSAnnotation extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "JSMapPosition";
+    public static final String REACT_CLASS = "JSAnnotation";
     public static Map<String, Annotation> mAnnotationList = new HashMap<String, Annotation>();
     public JSAnnotation(ReactApplicationContext reactContext) {
         super(reactContext);

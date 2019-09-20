@@ -6,7 +6,10 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
+import com.zondy.mapgis.core.info.TextAnnInfo;
 import com.zondy.mapgis.core.map.LabelInfo;
+
+import org.w3c.dom.Text;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -151,8 +154,15 @@ public class JSLabelInfo extends ReactContextBaseJavaModule {
     public void getAnnInfo(String labelInfoId, Promise promise){
         try {
             LabelInfo labelInfo = getObjFromList(labelInfoId);
-            labelInfo.getAnnInfo();
+            TextAnnInfo textAnnInfo = labelInfo.getAnnInfo();
+            String textAnnInfoId = null;
+            if(textAnnInfo != null){
+                textAnnInfoId = JSTextAnnInfo.registerId(textAnnInfo);
+            }
 
+            WritableMap writableMap = Arguments.createMap();
+            writableMap.putString("TextAnnInfoId", textAnnInfoId);
+            promise.resolve(writableMap);
         }catch (Exception e){
             promise.reject(e);
         }
@@ -162,7 +172,10 @@ public class JSLabelInfo extends ReactContextBaseJavaModule {
     public void setAnnInfo(String labelInfoId, String textAnnInfoId, Promise promise){
         try {
             LabelInfo labelInfo = getObjFromList(labelInfoId);
+            TextAnnInfo textAnnInfo = (TextAnnInfo) JSTextAnnInfo.getObjFromList(textAnnInfoId);
+            labelInfo.setAnnInfo(textAnnInfo);
 
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }

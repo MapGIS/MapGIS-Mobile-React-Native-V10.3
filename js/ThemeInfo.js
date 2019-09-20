@@ -2,10 +2,15 @@
  * @Description: In User Settings Edit
  * @Author: xiaoying
  * @Date: 2019-09-03 14:26:49
- * @LastEditTime: 2019-09-03 16:50:17
+ * @LastEditTime: 2019-09-19 14:38:21
  * @LastEditors: Please set LastEditors
  */
 import {NativeModules} from "react-native";
+import PntInfo from "./PntInfo.js";
+import LinInfo from "./LinInfo.js";
+import RegInfo from "./RegInfo.js";
+import TextAnnInfo from "./TextAnnInfo.js";
+let GeomType = NativeModules.JSGeomType;
 let TI = NativeModules.JSThemeInfo;
 
 /**
@@ -151,17 +156,53 @@ export default class ThemeInfo{
         }
     }
 
-    async getGeoInfo(){
+    /**
+     * 根据图形类型设置图形信息
+     * 
+     * @memberof ThemeInfo
+     * @param {Number} geomType 图形信息类型（int类型的Number），例：0-GeomType.GeomUnknown
+     * @returns {Promise<GeomInfo>} 成功返回图形信息
+     */
+    async getGeoInfo(geomType){
         try {
-            
+            var {GeomInfoId} = await TI.getGeoInfo(this._MGThemeInfoId, geomType);
+            var geomInfo = null;
+            if(GeomInfoId != null){
+                switch(geomType){
+                    case GeomType.GeomPnt:
+                        geomInfo = new PntInfo();
+                        geomInfo._MGGeomInfoId = GeomInfoId;
+                        break;
+                    case GeomType.GeomLin:
+                        geomInfo = new LinInfo();
+                        geomInfo._MGGeomInfoId = GeomInfoId;
+                        break;
+                    case GeomType.GeomReg:
+                        geomInfo = new RegInfo();
+                        geomInfo._MGGeomInfoId = GeomInfoId;
+                        break;
+                    case GeomType.GeomAnno:
+                        geomInfo = new TextAnnInfo();
+                        geomInfo._MGGeomInfoId = GeomInfoId;
+                        break;
+                }
+            }
+            return geomInfo;
         } catch (e) {
             console.error(e);
         }
     }
 
+    /**
+     * 设置图形信息
+     * 
+     * @memberof ThemeInfo
+     * @param {Object} geomInfo 图形信息
+     * @returns {Promise<Void>}
+     */
     async setGeoInfo(geomInfo){
         try {
-            
+            await TI.setGeoInfo(this._MGThemeInfoId, geomInfo._MGGeomInfoId);
         } catch (e) {
             console.error(e);
         }

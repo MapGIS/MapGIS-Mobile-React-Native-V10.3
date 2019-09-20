@@ -6,7 +6,10 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
+import com.zondy.mapgis.core.geometry.GeomType;
+import com.zondy.mapgis.core.info.GeomInfo;
 import com.zondy.mapgis.core.map.ThemeInfo;
+import com.zondy.mapgis.core.object.Enumeration;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -152,17 +155,28 @@ public class JSThemeInfo extends ReactContextBaseJavaModule {
     public void getGeoInfo(String themeInfoId, int type, Promise promise){
         try {
             ThemeInfo themeInfo = getObjFromList(themeInfoId);
-
+            GeomType geomType = (GeomType) Enumeration.parse(GeomType.class, type);
+            GeomInfo geomInfo = themeInfo.getGeoInfo(geomType);
+            String geomInfoId = null;
+            if (geomInfo != null){
+                geomInfoId = JSGeomInfo.registerId(geomInfo);
+            }
+            WritableMap writableMap = Arguments.createMap();
+            writableMap.putString("GeomInfoId", geomInfoId);
+            promise.resolve(writableMap);
         }catch (Exception e){
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void setGeoInfo(String themeInfoId,  Promise promise){
+    public void setGeoInfo(String themeInfoId,  String geomInfoId, Promise promise){
         try {
             ThemeInfo themeInfo = getObjFromList(themeInfoId);
+            GeomInfo geomInfo = JSGeomInfo.getObjFromList(geomInfoId);
+            themeInfo.setGeoInfo(geomInfo);
 
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }

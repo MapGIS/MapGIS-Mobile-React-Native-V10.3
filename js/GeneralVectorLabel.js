@@ -2,11 +2,12 @@
  * @Description: In User Settings Edit
  * @Author: xiaoying
  * @Date: 2019-08-28 17:11:23
- * @LastEditTime: 2019-09-09 17:49:52
+ * @LastEditTime: 2019-09-19 14:23:31
  * @LastEditors: Please set LastEditors
  */
 import {NativeModules} from "react-native";
 import VectorLabel from "./VectorLabel.js";
+import LinInfo from "./LinInfo.js";
 let GVL = NativeModules.JSGeneralVectorLabel;
 
 /**
@@ -91,8 +92,14 @@ export default class GeneralVectorLabel extends VectorLabel{
 	 */
     async getBackGeoInfo(){
         try {
-            await GVL.getBackGeoInfo(this._MGGeneralVectorLabelId);
+            var {geomInfoId} = await GVL.getBackGeoInfo(this._MGGeneralVectorLabelId);
+            var linInfo = null;
+            if(geomInfoId != null){
+                linInfo = new LinInfo();
+                linInfo._MGGeomInfoId = geomInfoId;
+            }
             
+            return linInfo;
         } catch (e) {
             console.error(e);
         }
@@ -106,7 +113,7 @@ export default class GeneralVectorLabel extends VectorLabel{
 	 */
     async setBackGeoInfo(geomInfo){
         try {
-            
+            await GVL.setBackGeoInfo(this._MGGeneralVectorLabelId, geomInfo._MGGeomInfoId);
             
         } catch (e) {
             console.error(e);

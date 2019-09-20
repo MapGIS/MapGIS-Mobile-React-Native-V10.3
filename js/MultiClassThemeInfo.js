@@ -2,12 +2,18 @@
  * @Description: In User Settings Edit
  * @Author: xiaoying
  * @Date: 2019-09-03 10:21:27
- * @LastEditTime: 2019-09-06 14:44:07
+ * @LastEditTime: 2019-09-19 14:34:57
  * @LastEditors: Please set LastEditors
  */
 
 import {NativeModules} from "react-native";
 import ClassItemValue from "./ClassItemValue.js";
+import PntInfo from "./PntInfo.js";
+import LinInfo from "./LinInfo.js";
+import RegInfo from "./RegInfo.js";
+import TextAnnInfo from "./TextAnnInfo.js";
+
+let GeomType = NativeModules.JSGeomType;
 let MTI = NativeModules.JSMultiClassThemeInfo;
 
 /**
@@ -247,12 +253,34 @@ export default class MultiClassThemeInfo{
      * 获得专题图项的图形信息
      * 
      * @memberof MultiClassThemeInfo
-     * @param {int} geomType
-     * @returns {Promise<GeomInfo>} 
+     * @param {int} geomType 图形信息类型（int类型的Number），例：0-GeomType.GeomUnknown
+     * @returns {Promise<GeomInfo>} 成功返回专题图项的图形信息
      */
     async getGeoInfo(geomType){
         try {
-            
+            var {GeomInfoId} = await MTI.getGeoInfo(this._MGMultiClassThemeInfoId, geomType);
+            var geomInfo = null;
+            if(GeomInfoId != null){
+                switch(geomType){
+                    case GeomType.GeomPnt:
+                        geomInfo = new PntInfo();
+                        geomInfo._MGGeomInfoId = GeomInfoId;
+                        break;
+                    case GeomType.GeomLin:
+                        geomInfo = new LinInfo();
+                        geomInfo._MGGeomInfoId = GeomInfoId;
+                        break;
+                    case GeomType.GeomReg:
+                        geomInfo = new RegInfo();
+                        geomInfo._MGGeomInfoId = GeomInfoId;
+                        break;
+                    case GeomType.GeomAnno:
+                        geomInfo = new TextAnnInfo();
+                        geomInfo._MGGeomInfoId = GeomInfoId;
+                        break;
+                }
+            }
+            return geomInfo;
         } catch (e) {
             console.error(e);
         }
@@ -262,13 +290,14 @@ export default class MultiClassThemeInfo{
      * 设置专题图项的图形信息
      * 
      * @memberof MultiClassThemeInfo
-     * @param {Object} geomInfo  专题图图形信息
-     * @param {int} geomType 图形类型，例：GeomType.GeomUnknown
+     * @param {Object} geomInfo  专题图图形信息 （GeomInfo类型的Object）
+     * @param {Number} geomType 图形类型，（int类型的Number）例：0-GeomType.GeomUnknown
      * @returns {boolean}
      */
     async setGeoInfo(geomInfo, geomType){
         try {
-            
+            let result = await MTI.setGeoInfo(this._MGMultiClassThemeInfoId, geomInfo._MGGeomInfoId, geomType);
+            return result;
         } catch (e) {
             console.error(e);
         }

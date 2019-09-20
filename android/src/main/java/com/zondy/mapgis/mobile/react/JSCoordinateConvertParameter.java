@@ -38,8 +38,7 @@ public class JSCoordinateConvertParameter extends ReactContextBaseJavaModule {
         for (Map.Entry entry : mCoordinateConvertParameterList.entrySet()) {
             if (obj.equals(entry.getValue())) {
                 String id = (String) entry.getKey();
-                mCoordinateConvertParameterList.put(id, obj);
-                return (String) entry.getKey();
+                return id;
             }
         }
 
