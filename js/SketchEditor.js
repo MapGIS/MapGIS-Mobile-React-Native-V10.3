@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: xiaoying
  * @Date: 2019-09-10 19:43:30
- * @LastEditTime: 2019-09-19 16:21:44
+ * @LastEditTime: 2019-09-20 16:22:43
  * @LastEditors: Please set LastEditors
  */
 import React, { Component } from "react";
@@ -11,7 +11,29 @@ import SketchStyle from "./SketchStyle";
 import SnappingOption from "./SnappingOption";
 import Dot from "./Dot";
 import SRefData from "./SRefData";
-import Geometry from "./Geometry";
+import Geometry from "./Geometry.js";
+// import GeoPoint from "./GeoPoint";
+import GeoPoints from "./GeoPoints";
+// import GeoCir from "./GeoCir";
+// import GeoCir3 from "./GeoCir3";
+// import GeoEllipse from "./GeoEllipse";
+// import GeoArc from "./GeoArc";
+// import GeoArc3 from "./GeoArc3";
+// import GeoRect from "./GeoRect";
+// import GeoRect1 from "./GeoRect1";
+// import GeoSpline from "./GeoSpline";
+import GeoVarLine from "./GeoVarLine";
+import GeoLines from "./GeoLines";
+import GeoPolygon from "./GeoPolygon";
+import GeoPolygons from "./GeoPolygons";
+// import GeoGeometrys from "./GeoGeometrys";
+import GeoAnno from "./GeoAnno";
+
+// import ArcAnno from "./ArcAnno";
+// import CircleAnno from "./CircleAnno";
+// import HtmlAnno from "./HtmlAnno";
+// import ImageAnno from "./ImageAnno";
+import TextAnno from "./TextAnno";
 let SE = NativeModules.JSSketchEditor;
 
 /**
@@ -207,12 +229,8 @@ export default class SketchEditor {
      */
     async getGeometry(){
         try {
-            let {GeometryId} = await SE.getGeometry(this._MGSketchEditorId);
-            let geometry = null;
-            if(GeometryId != null){
-                geometry = new Geometry();
-                geometry._MGGeometryId = GeometryId;
-            }
+            let {GeometryId, GeometryType, GeometryAnnoType} = await SE.getGeometry(this._MGSketchEditorId);
+            let geometry = SketchEditor.getGeometryByType(GeometryId, GeometryType, GeometryAnnoType);
             return geometry;
         } catch (e) {
             console.error(e);
@@ -407,6 +425,146 @@ export default class SketchEditor {
             }
 
             return sRefData;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 根据返回的geometryId,geometryType，geometryAnnType构造geometry对象
+     * 
+     * @param {String} geometryId 几何对象对应的Id
+     * @param {int} geometryType  几何对象类型
+     * @param {int} geometryAnnType 几何对象为GeoAnno类型时候的AnnType
+     * @returns {Geometry} geometry或子类对象
+     */
+    static async getGeometryByType(GeometryId, geometryType, geometryAnnType){
+        try {
+            let geometry = null;
+           
+            if(GeometryId != null){
+                switch(geometryType){
+                    case -1:                              // GeoUnknown_Type : -1
+                        geometry = new Geometry();
+                        geometry._MGGeometryId = GeometryId;
+                        break;
+    
+                    case 1:                              // GeoPoint_Type : 1
+                        // geometry = new GeoPoint();
+                        // geometry._MGGeometryId = GeometryId;
+                        break;
+                        
+                    case 2:                             // GeoPoints_Type : 2
+                        geometry = new GeoPoints();
+                        geometry._MGGeometryId = GeometryId;
+                        break;
+    
+                    case 3:                             // GeoCir_Type : 3
+                        // geometry = new GeoCir();
+                        // geometry._MGGeometryId = GeometryId;
+                        break;
+    
+                    case 4:                             // GeoCir3_Type : 4
+                        // geometry = new GeoCir3();
+                        // geometry._MGGeometryId = GeometryId;
+                        break;
+    
+                    case 5:                             // GeoEllipse_Type : 5
+                        // geometry = new GeoEllipse();
+                        // geometry._MGGeometryId = GeometryId;
+                        break;
+    
+                    case 6:                             // GeoArc_Type: 6
+                        // geometry = new GeoArc();
+                        // geometry._MGGeometryId = GeometryId;
+                        break;
+                        
+                    case 7:                             // GeoArc3_Type : 7
+                        // geometry = new GeoArc3();
+                        // geometry._MGGeometryId = GeometryId;
+                        break; 
+                         
+                    case 8:                             // GeoRect_Type : 8
+                        // geometry = new GeoRect();
+                        // geometry._MGGeometryId = GeometryId;
+                        break;
+            
+                    case 9:                             // GeoRect1_Type : 9
+                        // geometry = new GeoRect1();
+                        // geometry._MGGeometryId = GeometryId;
+                        break;
+                        
+                    case 10:                            // GeoSpline_Type : 10
+                        // geometry = new GeoSpline();
+                        // geometry._MGGeometryId = GeometryId;
+                        break;
+    
+                    case 11:                            // GeoBezier_Type : 11
+                        // geometry = new GeoBezier();
+                        // geometry._MGGeometryId = GeometryId;
+                        break;
+    
+                    case 12:                            // GeoVarLine_Type : 12
+                        geometry = new GeoVarLine();
+                        geometry._MGGeometryId = GeometryId;
+                        break;
+    
+                    case 13:                            // GeoLines_Type : 13
+                        geometry = new GeoLines();
+                        geometry._MGGeometryId = GeometryId;
+                        break;
+    
+                    case 14:                            // GeoPolygon_Type : 14
+                        geometry = new GeoPolygon();
+                        geometry._MGGeometryId = GeometryId;
+                        break;
+                        
+                    case 15:                            // GeoPolygons_Type : 15
+                        geometry = new GeoPolygons();
+                        geometry._MGGeometryId = GeometryId;
+                        break;   
+                    
+                    case 16:                            // GeoGeometrys_Type : 16
+                        // geometry = new GeoGeometrys();
+                        // geometry._MGGeometryId = GeometryId;
+                        break;
+                            
+                    case 17:                            // GeoAnno_Type : 17
+                       switch(geometryAnnType){
+                           case -1:                     // 未知类型:-1-AnnType.AnnUnknown，直接返回GeoAnno
+                                geometry = new GeoAnno(); 
+                                geometry._MGGeometryId = GeometryId;
+                               break;
+                            case 0:                     //字符串注记类型标志:0-AnnType.AnnText
+                                geometry = new TextAnno(); 
+                                geometry._MGGeometryId = GeometryId;
+                                break;
+                            case 1:                    // html版面注记类型标志:1-AnnType.AnnHTML
+                                // geometry = new HtmlAnno(); 
+                                // geometry._MGGeometryId = GeometryId;
+                                break;
+                            case 2:                    // 2-AnnType.AnnAtt
+                                break;
+                            case 3:                    // 2-AnnType.AnnDim
+                                break;
+                            case 4:                    // 弧注记类型标志:4-AnnType.AnnDim
+                                // geometry = new ArcAnno();
+                                // geometry._MGGeometryId = GeometryId;
+                                break;
+                            case 5:                    // 圆注记类型标志:5-AnnType.AnnCirCle
+                                // geometry = new CircleAnno();
+                                // geometry._MGGeometryId = GeometryId;
+                                break;
+                            case 6:                    // 图像注记类型标志:6-AnnType.AnnImage
+                                // geometry = new ImageAnno();
+                                // geometry._MGGeometryId = GeometryId;
+                                break;
+                       }
+                        break; 
+                }
+            }
+            
+            return geometry;
         } catch (e) {
             console.error(e);
         }

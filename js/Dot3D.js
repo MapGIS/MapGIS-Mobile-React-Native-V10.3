@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-19 15:48:58
- * @LastEditTime: 2019-09-19 16:03:06
+ * @LastEditTime: 2019-09-20 10:14:15
  * @LastEditors: Please set LastEditors
  */
 import { NativeModules } from "react-native";
@@ -23,7 +23,7 @@ export default class Dot3D {
      */
     async createObj(){
         try {
-            if(arguments[0] === "number" && arguments[1] === "number" && arguments[1] === "number"){
+            if(typeof arguments[0] === "number" && typeof arguments[1] === "number" && typeof arguments[2] === "number"){
                 let {Dot3DId} = await D3D.createObjByXYZ(arguments[0],arguments[1],arguments[2]);
                 let dot3D = new Dot3D();
                 dot3D._MGDot3DId = Dot3DId;
