@@ -33,9 +33,9 @@ export default class GeoVarLine extends GeometryExp {
 	 */
     async createObj(){
         try{
-            var {geoVarLineId} = await GVL.createObj()
+            var {GeoVarLineId} = await GVL.createObj()
             var geoVarLine = new GeoVarLine()
-            geoVarLine._MGGeoVarLineId = geoVarLineId
+            geoVarLine._MGGeoVarLineId = GeoVarLineId
             return geoVarLine
         } catch(e) {
             console.error(e)

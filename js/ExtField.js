@@ -23,9 +23,9 @@ export default class ExtField {
         typeof arguments[0] === "number" &&
         typeof arguments[1] === "number"
       ) {
-        var { extFieldId } = await EF.createObj(arguments[0], arguments[1]);
+        var { ExtFieldId } = await EF.createObj(arguments[0], arguments[1]);
         var extField = new ExtField();
-        extField._MGExtFieldId = extFieldId;
+        extField._MGExtFieldId = ExtFieldId;
         return extField;
       } 
     } catch (e) {

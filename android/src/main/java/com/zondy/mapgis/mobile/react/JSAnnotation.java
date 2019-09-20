@@ -54,7 +54,7 @@ public class JSAnnotation extends ReactContextBaseJavaModule {
             Annotation annotation = new Annotation(title, description, point, image);
             String annotationId = registerId(annotation);
             WritableMap map = Arguments.createMap();
-            map.putString("annotationId", annotationId);
+            map.putString("AnnotationId", annotationId);
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
@@ -69,7 +69,7 @@ public class JSAnnotation extends ReactContextBaseJavaModule {
             Annotation annotation = new Annotation(uid, title, description, point, image);
             String annotationId = registerId(annotation);
             WritableMap map = Arguments.createMap();
-            map.putString("annotationId", annotationId);
+            map.putString("AnnotationId", annotationId);
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
@@ -157,7 +157,7 @@ public class JSAnnotation extends ReactContextBaseJavaModule {
             Dot dot = annotation.getPoint();
             String dotID = JSDot.registerId(dot);
             WritableMap map = Arguments.createMap();
-            map.putString("dotID", dotID);
+            map.putString("DotID", dotID);
             map.putDouble("x", dot.getX());
             map.putDouble("y", dot.getY());
             promise.resolve(map);
@@ -251,7 +251,7 @@ public class JSAnnotation extends ReactContextBaseJavaModule {
             PointF pointf = annotation.getCenterOffset();
             String pointFId = JSPointF.registerId(pointf);
             WritableMap map = Arguments.createMap();
-            map.putString("pointFId", pointFId);
+            map.putString("PointFId", pointFId);
             map.putDouble("x", pointf.x);
             map.putDouble("y", pointf.y);
             promise.resolve(map);

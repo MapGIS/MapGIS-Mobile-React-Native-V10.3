@@ -31,9 +31,9 @@ export default class LinInfo extends GeomInfo {
 	 */
     async createObj(){
         try{
-            var {linInfoId} = await LI.createObj()
+            var {LinInfoId} = await LI.createObj()
             var linInfo = new LinInfo()
-            linInfo._MGLinInfoId = linInfoId
+            linInfo._MGLinInfoId = LinInfoId
             return linInfo
         } catch(e) {
             console.error(e)

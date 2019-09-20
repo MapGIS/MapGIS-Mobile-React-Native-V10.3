@@ -24,9 +24,9 @@ export default class RecordSet{
    */
   async createObj() {
     try{
-        var {recordSetId} = await RS.createObj();
+        var {RecordSetId} = await RS.createObj();
         var recordSet = new RecordSet();
-        recordSet._MGRecordSetId = recordSetId;
+        recordSet._MGRecordSetId = RecordSetId;
         return recordSet;
     }catch(e){
         console.error(e);

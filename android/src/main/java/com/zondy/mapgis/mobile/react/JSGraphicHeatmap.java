@@ -71,7 +71,7 @@ public class JSGraphicHeatmap extends JSGraphic {
             if (graphicHeatmap != null) {
                 for (int i = 0; i < heatmapPointArray.size(); i++) {
                     ReadableMap readable = heatmapPointArray.getMap(i);
-                    String keyStr = readable.getString("_HeatmapPointId");
+                    String keyStr = readable.getString("HeatmapPointId");
                     heatmapPointLst.add(JSHeatmapPoint.getObjFromList(keyStr));
                 }
             }

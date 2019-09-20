@@ -128,8 +128,10 @@ public class JSTextAnno extends JSGeoAnno{
         try {
             TextAnno textAnno = getObjFromList(textAnnoId);
             TextAnnInfo annInfo = textAnno.getTextAnnInfo();
-           // String  annInfoId = JSTextAnnInfo.re
-           // promise.resolve(text);
+            String  annInfoId = JSTextAnnInfo.registerId(annInfo);
+            WritableMap map = Arguments.createMap();
+            map.putString("TextAnnInfoId", annInfoId);
+            promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -140,9 +142,9 @@ public class JSTextAnno extends JSGeoAnno{
     {
         try {
             TextAnno textAnno = getObjFromList(textAnnoId);
-           // TextAnnInfo textInfo;
-           // String  text = textAnno.setTextAnnInfo();
-           // promise.resolve(text);
+            TextAnnInfo textInfo = (TextAnnInfo)JSTextAnnInfo.getObjFromList(textInfoId);
+            textAnno.setTextAnnInfo(textInfo);
+            promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
         }

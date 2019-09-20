@@ -18,9 +18,9 @@ export default class Dots {
    */
   async createObj() {
     try {
-        var { point2DsId } = await DS.createObj();
+        var { DotsId } = await DS.createObj();
         var dots = new Dots();
-        dots._MGDotsId = point2DsId;
+        dots._MGDotsId = DotsId;
         return dots;
     } catch (e) {
       console.error(e);

@@ -52,7 +52,7 @@ public class JSMagnifierOption extends ReactContextBaseJavaModule {
             String magnifierOptionId = registerId(magnifierOption);
 
             WritableMap map = Arguments.createMap();
-            map.putString("magnifierOptionId", magnifierOptionId);
+            map.putString("MagnifierOptionId", magnifierOptionId);
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
@@ -67,7 +67,7 @@ public class JSMagnifierOption extends ReactContextBaseJavaModule {
             String magnifierOptionId = registerId(magnifierOption);
 
             WritableMap map = Arguments.createMap();
-            map.putString("magnifierOptionId", magnifierOptionId);
+            map.putString("MagnifierOptionId", magnifierOptionId);
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
@@ -82,7 +82,7 @@ public class JSMagnifierOption extends ReactContextBaseJavaModule {
             MagnifierOption mgOption = magnifierOption.setScale(scale);
             String mgOptionId = registerId(mgOption);
             WritableMap map = Arguments.createMap();
-            map.putString("magnifierOptionId", mgOptionId);
+            map.putString("MagnifierOptionId", mgOptionId);
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
@@ -109,7 +109,7 @@ public class JSMagnifierOption extends ReactContextBaseJavaModule {
             MagnifierOption mgOption = magnifierOption.setSize(size);
             String mgOptionId = registerId(mgOption);
             WritableMap map = Arguments.createMap();
-            map.putString("magnifierOptionId", mgOptionId);
+            map.putString("MagnifierOptionId", mgOptionId);
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
@@ -136,7 +136,7 @@ public class JSMagnifierOption extends ReactContextBaseJavaModule {
             MagnifierOption mgOption = magnifierOption.setPointAdjustMode(mode);
             String mgOptionId = registerId(mgOption);
             WritableMap map = Arguments.createMap();
-            map.putString("magnifierOptionId", mgOptionId);
+            map.putString("MagnifierOptionId", mgOptionId);
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
@@ -164,7 +164,7 @@ public class JSMagnifierOption extends ReactContextBaseJavaModule {
             MagnifierOption mgOption = magnifierOption.setPoint(point);
             String mgOptionId = registerId(mgOption);
             WritableMap map = Arguments.createMap();
-            map.putString("magnifierOptionId", mgOptionId);
+            map.putString("MagnifierOptionId", mgOptionId);
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
@@ -179,7 +179,7 @@ public class JSMagnifierOption extends ReactContextBaseJavaModule {
             PointF pointf = magnifierOption.getPoint();
             String pointFId = JSPointF.registerId(pointf);
             WritableMap map = Arguments.createMap();
-            map.putString("pointFId", pointFId);
+            map.putString("PointFId", pointFId);
             map.putDouble("x", pointf.x);
             map.putDouble("y", pointf.y);
             promise.resolve(map);

@@ -21,9 +21,9 @@ export default class Record {
    */
   async createObj() {
     try{
-        var {recordId} = await RD.createObj()
+        var {RecordId} = await RD.createObj()
         var record = new Record()
-        record._MGRecordId = recordId
+        record._MGRecordId = RecordId
         return record
     } catch(e) {
         console.error(e)

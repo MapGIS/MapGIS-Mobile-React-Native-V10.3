@@ -32,9 +32,9 @@ export default class GeoPolygons extends GeometryExp {
 	 */
     async createObj(){
         try{
-            var {geoPolygonsId} = await GPGS.createObj()
+            var {GeoPolygonsId} = await GPGS.createObj()
             var geoPolygons = new GeoPolygons()
-            geoPolygons._MGGeoPolygonsId = geoPolygonsId
+            geoPolygons._MGGeoPolygonsId = GeoPolygonsId
             return geoPolygons
         } catch(e) {
             console.error(e)

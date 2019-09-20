@@ -19,9 +19,9 @@ export default class QueryDef{
    */
   async createObj() {
     try{
-        var {queryDefId} = await QD.createObj();
+        var {QueryDefId} = await QD.createObj();
         var queryDef = new QueryDef();
-        queryDef._MGQueryDefId = queryDefId;
+        queryDef._MGQueryDefId = QueryDefId;
         return queryDef;
     }catch(e){
         console.error(e);

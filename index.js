@@ -130,6 +130,7 @@ import CoordinateConvertParameter from "./js/CoordinateConvertParameter";
 import ElpTransformation from "./js/ElpTransformation";
 
 import Dots from "./js/Dots";
+import Dots3D from "./js/Dots3D"
 import Geometry from "./js/Geometry";
 import GeometryExp from "./js/GeometryExp";
 import GeoAnno from "./js/GeoAnno";
@@ -160,7 +161,7 @@ import BasCls from "./js/BasCls"
 import VectorCls from "./js/VectorCls"
 import AnnotationCls from "./js/AnnotationCls"
 import SFeatureCls from "./js/SFeatureCls"
-import DataBase from "./js/ExtField"
+import DataBase from "./js/DataBase"
 import QueryDef from "./js/QueryDef"
 import RecordSet from "./js/RecordSet"
 
@@ -276,6 +277,7 @@ export {
   VDatumType,
   ZoneType,
   Dots,
+  Dots3D,
   Geometry,
   GeometryExp,
   GeoAnno,

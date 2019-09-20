@@ -39,9 +39,9 @@ export default class Fields {
 	async getField(index)
 	{
 		try {
-            let {fieldId} =  await FLDS.getField(this._MGFieldsId, index);
+            let {FieldsId} =  await FLDS.getField(this._MGFieldsId, index);
             var  field = new Field();
-            field._MGFieldId = fieldId;
+            field._MGFieldId = FieldsId;
             return field;            
           } catch (e) {
             console.error(e);

@@ -31,9 +31,9 @@ export default class PntInfo extends GeomInfo {
 	 */
     async createObj(){
         try{
-            var {pntInfoId} = await PI.createObj()
+            var {PntInfoId} = await PI.createObj()
             var pntInfo = new PntInfo()
-            pntInfo._MGPntInfoId = pntInfoId
+            pntInfo._MGPntInfoId = PntInfoId
             return pntInfo
         } catch(e) {
             console.error(e)

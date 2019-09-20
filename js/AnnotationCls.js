@@ -41,9 +41,9 @@ export default class AnnotationCls extends VectorCls{
    */
   async createObj(db) {
     try{
-        var {annotationClsId} = await ANNCLS.createObj(db._MGDataBaseId);
+        var {AnnotationClsId} = await ANNCLS.createObj(db._MGDataBaseId);
         var annotationCls = new AnnotationCls();
-        annotationCls._MGAnnotationClsId = annotationClsId;
+        annotationCls._MGAnnotationClsId = AnnotationClsId;
         return annotationCls;
     }catch(e){
         console.error(e);

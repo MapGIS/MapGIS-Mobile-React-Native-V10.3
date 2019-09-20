@@ -32,9 +32,9 @@ export default class GeoLines extends GeometryExp {
 	 */
     async createObj(){
         try{
-            var {geoLinesId} = await GLS.createObj()
+            var {GeoLinesId} = await GLS.createObj()
             var geoLines = new GeoLines()
-            geoLines._MGGeoLinesId = geoLinesId
+            geoLines._MGGeoLinesId = GeoLinesId
             return geoLines
         } catch(e) {
             console.error(e)

@@ -9,6 +9,7 @@ import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.attr.ExtField;
 import com.zondy.mapgis.core.attr.Field;
 import com.zondy.mapgis.core.attr.FieldType;
+import com.zondy.mapgis.core.attr.Fields;
 import com.zondy.mapgis.core.geometry.DistanceType;
 import com.zondy.mapgis.core.object.Enumeration;
 
@@ -45,6 +46,18 @@ public class JSField extends ReactContextBaseJavaModule {
         return id;
     }
 
+    @ReactMethod
+    public void createObj(Promise promise) {
+        try {
+            Field field = new Field();
+            String fieldId = registerId(field);
+            WritableMap map = Arguments.createMap();
+            map.putString("FieldId", fieldId);
+            promise.resolve(map);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
    @ReactMethod
     public void getFieldName(String fieldId, Promise promise)
     {

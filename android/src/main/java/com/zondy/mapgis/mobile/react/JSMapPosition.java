@@ -58,7 +58,7 @@ public class JSMapPosition extends ReactContextBaseJavaModule {
             String mapPositionId = registerId(mapPosition);
 
             WritableMap map = Arguments.createMap();
-            map.putString("mapPositionId", mapPositionId);
+            map.putString("MapPositionId", mapPositionId);
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
@@ -75,9 +75,9 @@ public class JSMapPosition extends ReactContextBaseJavaModule {
             String dotID = JSDot.registerId(centerDot);
 
             WritableMap map = Arguments.createMap();
-            map.putString("dotID", dotID);
+            map.putString("point2DId", dotID);
 
-            Log.d("dotID", "" + dotID);
+            Log.d("point2DId", "" + dotID);
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
@@ -145,9 +145,9 @@ public class JSMapPosition extends ReactContextBaseJavaModule {
             String dotID = JSDot.registerId(centerDot);
 
             WritableMap map = Arguments.createMap();
-            map.putString("dotID", dotID);
+            map.putString("point2DId", dotID);
 
-            Log.d("dotID", "" + dotID);
+            Log.d("point2DId", "" + dotID);
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);

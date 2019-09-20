@@ -18,9 +18,9 @@ export default class AnnotationView {
    */
   async createObj(mapView, annotation) {
     try {
-      var { annotationViewId } = await ANV.createObj(mapView._MGMapViewId, annotation._MGAnnotationId);
+      var { AnnotationViewId } = await ANV.createObj(mapView._MGMapViewId, annotation._MGAnnotationId);
       var annotationView = new AnnotationView();
-      annotationView._MGAnnotationViewId = annotationViewId;
+      annotationView._MGAnnotationViewId = AnnotationViewId;
       return annotationView;
     } catch (e) {
       console.error(e);

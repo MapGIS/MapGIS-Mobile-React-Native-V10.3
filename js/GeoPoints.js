@@ -32,9 +32,9 @@ export default class GeoPoints extends GeometryExp {
 	 */
     async createObj(){
         try{
-            var {geoPointsId} = await GP.createObj()
+            var {GeoPointsId} = await GP.createObj()
             var geoPoints = new GeoPoints()
-            geoPoints._MGGeoPointsId = geoPointsId
+            geoPoints._MGGeoPointsId = GeoPointsId
             return geoPoints
         } catch(e) {
             console.error(e)

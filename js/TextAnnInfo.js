@@ -31,9 +31,9 @@ export default class TextAnnInfo extends AnnInfo {
 	 */
     async createObj(){
         try{
-            var {textAnnInfoId} = await TAI.createObj()
+            var {TextAnnInfoId} = await TAI.createObj()
             var textAnnInfo = new TextAnnInfo()
-            textAnnInfo._MGTextAnnInfoId = textAnnInfoId
+            textAnnInfo._MGTextAnnInfoId = TextAnnInfoId
             return textAnnInfo
         } catch(e) {
             console.error(e)

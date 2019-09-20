@@ -120,7 +120,7 @@ public class JSGraphicText extends JSGraphic {
 
             String dotID = JSDot.registerId(dot);
             WritableMap map = Arguments.createMap();
-            map.putString("dotID", dotID);
+            map.putString("point2DId", dotID);
 
             promise.resolve(map);
         } catch (Exception e) {

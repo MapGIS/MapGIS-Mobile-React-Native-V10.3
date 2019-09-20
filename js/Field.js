@@ -21,9 +21,9 @@ export default class Field {
    */
   async createObj() {
     try{
-        var {fieldId} = await FLD.createObj()
+        var {FieldId} = await FLD.createObj()
         var field = new Field()
-        field._MGFieldId = fieldId
+        field._MGFieldId = FieldId
         return field
     } catch(e) {
         console.error(e)

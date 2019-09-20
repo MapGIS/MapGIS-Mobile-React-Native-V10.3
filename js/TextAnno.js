@@ -32,9 +32,9 @@ export default class TextAnno extends GeoAnno {
 	 */
     async createObj(){
         try{
-            var {geoAnnoId} = await TA.createObj()
+            var {TextAnnoId} = await TA.createObj()
             var textAnno = new TextAnno()
-            textAnno._MGTextAnnoId = geoAnnoId
+            textAnno._MGTextAnnoId = TextAnnoId
             return textAnno
         } catch(e) {
             console.error(e)

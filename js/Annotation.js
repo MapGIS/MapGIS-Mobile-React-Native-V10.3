@@ -18,9 +18,9 @@ export default class Annotation {
    */
   async createObj() {
     try {
-      var { annotationId } = await AN.createObj();
+      var { AnnotationId } = await AN.createObj();
       var annotation = new Annotation();
-      annotation._MGAnnotationId = annotationId;
+      annotation._MGAnnotationId = AnnotationId;
       return annotation;
     } catch (e) {
       console.error(e);

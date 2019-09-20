@@ -95,7 +95,7 @@ public class JSHeatmapPoint extends ReactContextBaseJavaModule {
 
             String pointID = JSDot.registerId(dot);
             WritableMap map = Arguments.createMap();
-            map.putString("pointID", pointID);
+            map.putString("point2DId", pointID);
 
             promise.resolve(map);
         } catch (Exception e) {

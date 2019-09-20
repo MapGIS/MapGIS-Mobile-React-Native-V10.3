@@ -161,7 +161,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
 
             String rectId = JSRect.registerId(rect);
             WritableMap map = Arguments.createMap();
-            map.putString("rectId", rectId);
+            map.putString("RectId", rectId);
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);

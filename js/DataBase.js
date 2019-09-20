@@ -21,9 +21,9 @@ export default class DataBase {
    */
   async createObj() {
     try{
-        var {dbId} = await DB.createObj();
+        var {DataBaseId} = await DB.createObj();
         var db = new DataBase();
-        db._MGDataBaseId = dbId;
+        db._MGDataBaseId = DataBaseId;
         return db;
     }catch(e){
         console.error(e);

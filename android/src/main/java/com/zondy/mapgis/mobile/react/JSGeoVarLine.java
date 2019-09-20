@@ -121,7 +121,7 @@ public class JSGeoVarLine extends JSGeoLine{
             Dot dot = geoVarLine.get2D(index);
             String dotId = JSDot.registerId(dot);
             WritableMap map = Arguments.createMap();
-            map.putString("DotId",dotId);
+            map.putString("point2DId",dotId);
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);

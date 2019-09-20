@@ -41,9 +41,9 @@ export default class SFeatureCls extends VectorCls{
    */
   async createObj(db) {
     try{
-        var {sFeatureClsId} = await SFCLS.createObj(db._MGDataBaseId);
+        var {SFeatureClsId} = await SFCLS.createObj(db._MGDataBaseId);
         var sFeatureCls = new SFeatureCls();
-        sFeatureCls._MGSFeatureClsId = sFeatureClsId;
+        sFeatureCls._MGSFeatureClsId = SFeatureClsId;
         return sFeatureCls;
     }catch(e){
         console.error(e);

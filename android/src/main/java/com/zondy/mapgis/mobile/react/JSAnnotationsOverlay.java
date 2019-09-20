@@ -56,7 +56,7 @@ public class JSAnnotationsOverlay extends ReactContextBaseJavaModule {
             AnnotationsOverlay annotationsOverlay = new AnnotationsOverlay();
             String annotationsOverlayId = registerId(annotationsOverlay);
             WritableMap map = Arguments.createMap();
-            map.putString("annotationsOverlayId", annotationsOverlayId);
+            map.putString("AnnotationsOverlayId", annotationsOverlayId);
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);

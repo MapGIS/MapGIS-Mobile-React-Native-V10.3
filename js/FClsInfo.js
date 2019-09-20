@@ -32,9 +32,9 @@ export default class FClsInfo extends XClsInfo{
    */
   async createObj() {
     try{
-        var {fClsInfoId} = await FI.createObj();
+        var {FClsInfoId} = await FI.createObj();
         var fClsInfo = new FClsInfo();
-        fClsInfo._MGFClsInfoId = fClsInfoId;
+        fClsInfo._MGFClsInfoId = FClsInfoId;
         return fClsInfo;
     }catch(e){
         console.error(e);

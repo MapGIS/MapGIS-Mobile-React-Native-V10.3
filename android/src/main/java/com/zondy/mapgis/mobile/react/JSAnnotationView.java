@@ -63,7 +63,7 @@ public class JSAnnotationView extends ReactContextBaseJavaModule {
             String annotationViewId = registerId(annotationView);
 
             WritableMap map = Arguments.createMap();
-            map.putString("annotationViewId",annotationViewId);
+            map.putString("AnnotationViewId",annotationViewId);
             promise.resolve(map);
         }catch(Exception e){
             promise.reject(e);
@@ -175,7 +175,7 @@ public class JSAnnotationView extends ReactContextBaseJavaModule {
             PointF pointF = annotationView.getCalloutOffset();
             String pointFId = JSPointF.registerId(pointF);
             WritableMap map = Arguments.createMap();
-            map.putString("pointFId", pointFId);
+            map.putString("PointFId", pointFId);
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);

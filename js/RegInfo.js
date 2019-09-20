@@ -31,9 +31,9 @@ export default class RegInfo extends GeomInfo {
 	 */
     async createObj(){
         try{
-            var {regInfoId} = await RI.createObj()
+            var {RegInfoId} = await RI.createObj()
             var regInfo = new RegInfo()
-            regInfo._MGRegInfoId = regInfoId
+            regInfo._MGRegInfoId = RegInfoId
             return regInfo
         } catch(e) {
             console.error(e)

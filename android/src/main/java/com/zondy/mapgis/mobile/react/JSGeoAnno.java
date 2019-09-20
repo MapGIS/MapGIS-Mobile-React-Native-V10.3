@@ -173,7 +173,7 @@ public class JSGeoAnno extends JSGeometry{
             Dot dot = geoAnno.getAnchorDot();
             String   dotId = JSDot.registerId(dot);
             WritableMap map = Arguments.createMap();
-            map.putString("DotId", dotId);
+            map.putString("point2DId", dotId);
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);

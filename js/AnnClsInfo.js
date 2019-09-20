@@ -33,9 +33,9 @@ export default class AnnClsInfo extends XClsInfo{
    */
   async createObj() {
     try{
-        var {annClsInfoId} = await ANNI.createObj();
+        var {AnnClsInfoId} = await ANNI.createObj();
         var annClsInfo = new AnnClsInfo();
-        annClsInfo._MGAnnClsInfoId = annClsInfoId;
+        annClsInfo._MGAnnClsInfoId = AnnClsInfoId;
         return annClsInfo;
     }catch(e){
         console.error(e);
