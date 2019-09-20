@@ -7,7 +7,9 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.android.tool.sketcheditor.GeometryParams;
+import com.zondy.mapgis.core.geometry.GeoAnno;
 import com.zondy.mapgis.core.geometry.Geometry;
+import com.zondy.mapgis.core.geometry.GeometryType;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -66,13 +68,8 @@ public class JSGeometryParams extends ReactContextBaseJavaModule {
         try {
             GeometryParams geometryParams = getObjFromList(geometryParamsId);
             Geometry geometry = geometryParams.getGeometry();
-            String geometryId = null;
-            if(geometry != null){
-                geometryId = JSGeometry.registerId(geometry);
-            }
+            WritableMap writableMap = JSSketchEditor.getGeometryWritableMap(geometry);
 
-            WritableMap writableMap = Arguments.createMap();
-            writableMap.putString("GeometryId", geometryId);
             promise.resolve(writableMap);
         }catch (Exception e){
             promise.reject(e);

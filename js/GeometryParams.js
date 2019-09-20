@@ -2,11 +2,13 @@
  * @Description: In User Settings Edit
  * @Author: xiaoying
  * @Date: 2019-09-10 16:52:12
- * @LastEditTime: 2019-09-19 16:13:58
+ * @LastEditTime: 2019-09-20 17:23:26
  * @LastEditors: Please set LastEditors
  */
 import { NativeModules } from "react-native";
 import Geometry from "./Geometry.js";
+import SketchEditor from "./SketchEditor.js";
+
 let GP = NativeModules.JSGeometryParams;
 
 /**
@@ -20,7 +22,7 @@ export default class GeometryParams{
      * @memberof GeometryParams
      * @returns {Promise<GeometryParams>}
      */
-    async creatObj(){
+    async createObj(){
         try {
             var {GeometryParamsId} = await GP.createObj();
             var geometryParams = new GeometryParams();
@@ -35,16 +37,13 @@ export default class GeometryParams{
      * 获取几何对象
      * 
      * @memberof GeometryParams
-     * @returns {Promise<Geometry>} 几何对象
+     * @returns {Promise<Geometry>} 成功：返回几何对象
      */
     async getGeometry(){
         try {
-            let {GeometryId} = await GP.getGeometry(this._MGGeometryParamsId);
-            let geometry = null;
-            if(GeometryId != null){
-                geometry = new Geometry();
-                geometry._MGGeometryId = GeometryId;
-            }
+            let {GeometryId, GeometryType, GeometryAnnoType} = await GP.getGeometry(this._MGGeometryParamsId);
+            let geometry = SketchEditor.getGeometryByType(GeometryId, GeometryType, GeometryAnnoType);
+                
             return geometry;
         } catch (e) {
             console.error(e);

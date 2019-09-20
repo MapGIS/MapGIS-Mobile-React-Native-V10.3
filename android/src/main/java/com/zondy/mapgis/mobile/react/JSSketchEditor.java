@@ -14,7 +14,9 @@ import com.zondy.mapgis.android.tool.sketcheditor.SketchEditor;
 import com.zondy.mapgis.android.tool.sketcheditor.SketchStyle;
 import com.zondy.mapgis.android.tool.sketcheditor.SnappingOption;
 import com.zondy.mapgis.core.geometry.Dot;
+import com.zondy.mapgis.core.geometry.GeoAnno;
 import com.zondy.mapgis.core.geometry.Geometry;
+import com.zondy.mapgis.core.geometry.GeometryType;
 import com.zondy.mapgis.core.object.Enumeration;
 import com.zondy.mapgis.core.srs.SRefData;
 
@@ -87,27 +89,27 @@ public class JSSketchEditor extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void addStateChangedListener(final String sketchEditorId, Promise promise){
+    public void addStateChangedListener(final String sketchEditorId, final Promise promise){
         try {
             mSketchStateChangedListener = new SketchEditor.SketchStateChangedListener() {
                 @Override
                 public void onGeometryChanged(SketchEditor.SketchGeometryChangedEvent sketchGeometryChangedEvent) {
-                    WritableMap writableMap = Arguments.createMap();
+                    WritableMap eventWritableMap = null;
                     if(sketchGeometryChangedEvent != null){
-                        Geometry geometry = sketchGeometryChangedEvent.getGeometry();        // 获取sketchGeometryChangedEvent返回的Geometry
-                        SketchEditor sketchEditor = sketchGeometryChangedEvent.getSource();  // 获取sketchGeometryChangedEvent返回的SketchEditor
-                        String geometryId = null;
+                        // 调用sketchGeometryChangedEvent.getGeometry获取几何对象
+                        Geometry geometry = sketchGeometryChangedEvent.getGeometry();
+                        eventWritableMap = getGeometryWritableMap(geometry);
+
+                        // 调用sketchGeometryChangedEvent.getSource获取源SketchEditor
+                        SketchEditor sketchEditor = sketchGeometryChangedEvent.getSource();
                         String sketchEditorId = null;
-                        if(geometry != null){
-                            geometryId = JSGeometry.registerId(geometry);
-                        }
                         if(sketchEditor != null){
                             sketchEditorId = registerId(sketchEditor);
                         }
-                        writableMap.putString("GeometryId", geometryId);
-                        writableMap.putString("SketchEditorId", sketchEditorId);
+                        eventWritableMap.putString("SketchEditorId", sketchEditorId);
                     }
-                    sendEvent(GEOMETRYCHANGED, writableMap);
+
+                    sendEvent(GEOMETRYCHANGED, eventWritableMap);
                 }
 
                 @Override
@@ -287,13 +289,8 @@ public class JSSketchEditor extends ReactContextBaseJavaModule {
         try {
             SketchEditor sketchEditor = getObjFromList(sketchEditorId);
             Geometry geometry = sketchEditor.getGeometry();
-            String geometryId = null;
-            if(geometry != null){
-                geometryId = JSGeometry.registerId(geometry);
-            }
+            WritableMap writableMap = getGeometryWritableMap(geometry);
 
-            WritableMap writableMap = Arguments.createMap();
-            writableMap.putString("GeometryId", geometryId);
             promise.resolve(writableMap);
         }catch (Exception e){
             promise.reject(e);
@@ -456,5 +453,36 @@ public class JSSketchEditor extends ReactContextBaseJavaModule {
         }catch (Exception e){
             promise.reject(e);
         }
+    }
+
+    /**
+     * 根据几何对象获取存储geometryId、geometryType、geometryAnnoType的WritableMap
+     * @param geometry 几何对象
+     * @return WritableMap
+     */
+    public static WritableMap getGeometryWritableMap(Geometry geometry){
+        String geometryId = null;
+        int geometryTypeValue = -1;
+        int geometryAnnoTypeValue = -1;
+
+        if(geometry != null){
+            GeometryType geometryType = geometry.getType();
+            geometryId = JSGeometry.registerId(geometry);
+
+            if (geometryType != null){
+                geometryTypeValue = geometryType.value();
+                // 当Geometry为GeoAnno
+                if(geometryTypeValue == GeometryType.GeoAnno.value()){
+                    GeoAnno geoAnno = (GeoAnno) geometry;
+                    geometryAnnoTypeValue = geoAnno.getAnnType().value();
+                }
+            }
+        }
+
+        WritableMap writableMap = Arguments.createMap();
+        writableMap.putString("GeometryId", geometryId);
+        writableMap.putInt("GeometryType", geometryTypeValue);
+        writableMap.putInt("GeometryAnnoType", geometryAnnoTypeValue);
+        return writableMap;
     }
 }
