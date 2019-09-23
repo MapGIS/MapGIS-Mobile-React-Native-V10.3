@@ -189,6 +189,7 @@ public class JSGroupLayer extends JSMapLayer {
         }
     }
 
+    // 底层会崩溃，暂时无法使用
     @ReactMethod
     public void clear(String groupLayerId, Promise promise){
         try {

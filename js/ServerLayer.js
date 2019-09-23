@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: xiaoying
  * @Date: 2019-09-10 10:46:01
- * @LastEditTime: 2019-09-12 11:27:40
+ * @LastEditTime: 2019-09-21 13:53:36
  * @LastEditors: Please set LastEditors
  */
 import { NativeModules } from "react-native";
@@ -298,9 +298,9 @@ export default class ServerLayer extends GroupLayer{
      * @memberof ServerLayer
      * @returns {Number} 1 ：成功，0：失败。
      */
-    async setTilePreFetchListener(){
+    async registerTilePreFetchListener(){
         try {
-            let result = await SL.setTilePreFetchListener(this._MGServerLayerId);
+            let result = await SL.registerTilePreFetchListener(this._MGServerLayerId);
             return result;
         } catch (e) {
             console.error(e);
@@ -308,14 +308,15 @@ export default class ServerLayer extends GroupLayer{
     }
 
     /**
-     * 获取预缓存状态监听类
+     * 移除预缓存状态监听类
      * 
      * @memberof ServerLayer
      * @returns {Object} 预缓存状态监听对象。
      */
-    async getTilePreFetchListener(){
+    async removeTilePreFetchListener(){
         try {
-            
+            await SL.removeTilePreFetchListener(this._MGServerLayerId);
+
         } catch (e) {
             console.error(e);
         }

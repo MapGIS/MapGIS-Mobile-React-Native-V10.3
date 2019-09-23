@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-30 17:44:32
- * @LastEditTime: 2019-09-12 09:59:24
+ * @LastEditTime: 2019-09-23 15:31:13
  * @LastEditors: Please set LastEditors
  */
 
@@ -68,56 +68,85 @@ export default class GroupLayer extends MapLayer{
         }
     }
 
-//    /**
-//     * 获取图层枚举对象
-//     *
-//     * @memberof GroupLayer
-//     * @returns {LayerEnum}
-//     */
-//    async getLayerEnum(){
-//        try {
-//            var {LayerEnumId} = await GL.getLayerEnum(this._MGGroupLayerId);
-//            var layerEnum = new LayerEnum();
-//            layerEnum._MGLayerEnumId = LayerEnumId;
-//            return layerEnum;
-//        } catch (e) {
-//            console.error(e);
-//        }
-//    }
+   /**
+    * 获取图层枚举对象
+    *
+    * @memberof GroupLayer
+    * @returns {LayerEnum}
+    */
+   async getLayerEnum(){
+       try {
+           var {LayerEnumId} = await GL.getLayerEnum(this._MGGroupLayerId);
+           var layerEnum = new LayerEnum();
+           layerEnum._MGLayerEnumId = LayerEnumId;
+           return layerEnum;
+       } catch (e) {
+           console.error(e);
+       }
+   }
 
 
     /**
+     * 通过 索引 获取GroupLayer中的图层，返回一个MapLayerId,MapLayerType属性的对象。<br/>
+     * 其中MapLayerType = 0 --> 矢量图层 | 2 --> 组图层 | 9 --> 服务图层 | 10 --> 简单模型图层。<br/>
      * 
+     * 使用示例：<br/>
+     * let object = groupLayer.item(0);<br/>
+     * let mapLayer = null;     // 图层<br/>
+     * if(object != null){<br/>
+     *  switch(object.MapLayerType){<br/>
+     *    case 0:              // 矢量图层 <br/>
+     *          mapLayer = new VectorLayer(); <br/>
+     *          mapLayer._MGMapLayerId = MapLayerId; <br/>
+     *         break; <br/>
+     *    ......
+     *   } <br/>
+     * }<br/>
+     * <br/>
      * @memberof GroupLayer
-     * @param {int} i  
-     * @returns {MapLayer}
+     * @param {int} i  索引
+     * @returns {Object} 含有MapLayerId（图层的标识id）、MapLayerType（图层类型）属性的对象
      */
     async item(i){
         try {
-            let mapLayer;
-            var { MapLayerId , MapLayerType} = await M.item(this._MGMapId, i); // 获取到图层id，图层类型
-            switch(MapLayerType){
-              case 0:     // 矢量图层
-                mapLayer = new VectorLayer();
-                mapLayer._MGMapLayerId = MapLayerId;
-                break;
-              case 2:    // 组图层
-                mapLayer = new GroupLayer();
-                mapLayer._MGMapLayerId = MapLayerId;
-                break;
-              case 9:    // 服务图层
-                // mapLayer = new ServerLayer();
-                // mapLayer._MGMapLayerId = MapLayerId;
-                break;
-              case 10:  // 简单模型图层
-                mapLayer = new SimpleModelLayer();
-                mapLayer._MGMapLayerId = MapLayerId;
-                break;
-              default:
-                break;
+            let object;
+            var { MapLayerId , MapLayerType} = await GL.item(this._MGGroupLayerId, i); // 获取到图层id，图层类型
+
+            if(MapLayerId !=null){
+                object = new Object();
+                object.MapLayerId = MapLayerId;
+                object.MapLayerType = MapLayerType;    
             }
+            return object;
+            // switch(MapLayerType){
+            //   case 0:     // 矢量图层
+            //     mapLayer = new VectorLayer();
+            //     mapLayer._MGMapLayerId = MapLayerId;
+            //     
+
+            //     break;
+            //   case 2:    // 组图层
+            //     mapLayer = new GroupLayer();
+            //     mapLayer._MGMapLayerId = MapLayerId;
+            //    
+            //     break;
+            //   case 9:    // 服务图层
+            //     // mapLayer = new ServerLayer();
+            //     // mapLayer._MGMapLayerId = MapLayerId;
+            //     mapLayer = new GroupLayer();
+            //     mapLayer._MGMapLayerId = MapLayerId;
+            //    
+            //     break;
+            //   case 10:  // 简单模型图层
+            //     mapLayer = new SimpleModelLayer();
+            //     mapLayer._MGMapLayerId = MapLayerId;
+            //    
+            //     break;
+            //   default:
+            //     break;
+            // }
            
-            return mapLayer;
+            // return mapLayer;
             
         } catch (e) {
             console.error(e);

@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: xiaoying
  * @Date: 2019-09-03 16:44:08
- * @LastEditTime: 2019-09-19 14:46:13
+ * @LastEditTime: 2019-09-23 10:21:17
  * @LastEditors: Please set LastEditors
  */
 import {NativeModules} from "react-native";
@@ -260,44 +260,44 @@ export default class RangeTheme extends VectorTheme{
         }
     }
 
-    /**
-     * 合并项,从index开始count个项合并
-     * 
-     * @memberof RangeTheme
-     * @param {int} index        合并项开始位置
-     * @param {int} count        合并项的数目
-     * @param {Object} geomInfo  合并后的图形信息
-     * @param {String} caption   合并后的标题
-     * @returns {boolean}        true-成功 ； false-失败 
-     */
-    async merge(index, count, geomInfo, caption){
-        try {
-            let result = await RT.merge(this._MGRangeThemeId, index, count, geomInfo._MGGeomInfoId, caption);
-            return result;
-        } catch (e) {
-            console.error(e);
-        }
-    }
+    // /**
+    //  * 合并项,从index开始count个项合并
+    //  * 
+    //  * @memberof RangeTheme
+    //  * @param {int} index        合并项开始位置
+    //  * @param {int} count        合并项的数目
+    //  * @param {Object} geomInfo  合并后的图形信息
+    //  * @param {String} caption   合并后的标题
+    //  * @returns {boolean}        true-成功 ； false-失败 
+    //  */
+    // async merge(index, count, geomInfo, caption){
+    //     try {
+    //         let result = await RT.merge(this._MGRangeThemeId, index, count, geomInfo._MGGeomInfoId, caption);
+    //         return result;
+    //     } catch (e) {
+    //         console.error(e);
+    //     }
+    // }
 
-    /**
-     * 拆分项（拆分为2个项）
-     * 
-     * @memberof RangeTheme
-     * @param {int} index          拆分项开始位置
-     * @param {double} splitValue  拆分值
-     * @param {Object} geomInfo1   拆分后的图形信息1
-     * @param {String} caption1    拆分后的标题1
-     * @param {Object} geomInfo2   拆分后的图形信息2
-     * @param {String} caption2    拆分后的标题2
-     * @returns {boolean}          true-成功 ； false-失败
-     */
-    async split(index, splitValue, geomInfo1, caption1, geomInfo2, caption2){
-        try {
-            let result = await RT.split(this._MGRangeThemeId, index, splitValue, geomInfo1._MGGeomInfoId, caption1, geomInfo2._MGGeomInfoId, caption2);
-            return result;
+    // /**
+    //  * 拆分项（拆分为2个项）
+    //  * 
+    //  * @memberof RangeTheme
+    //  * @param {int} index          拆分项开始位置
+    //  * @param {double} splitValue  拆分值
+    //  * @param {Object} geomInfo1   拆分后的图形信息1
+    //  * @param {String} caption1    拆分后的标题1
+    //  * @param {Object} geomInfo2   拆分后的图形信息2
+    //  * @param {String} caption2    拆分后的标题2
+    //  * @returns {boolean}          true-成功 ； false-失败
+    //  */
+    // async split(index, splitValue, geomInfo1, caption1, geomInfo2, caption2){
+    //     try {
+    //         let result = await RT.split(this._MGRangeThemeId, index, splitValue, geomInfo1._MGGeomInfoId, caption1, geomInfo2._MGGeomInfoId, caption2);
+    //         return result;
             
-        } catch (e) {
-            console.error(e);
-        }
-    }
+    //     } catch (e) {
+    //         console.error(e);
+    //     }
+    // }
 }

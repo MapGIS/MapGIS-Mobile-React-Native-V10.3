@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: xiaoying
  * @Date: 2019-09-02 19:28:54
- * @LastEditTime: 2019-09-11 19:57:34
+ * @LastEditTime: 2019-09-23 15:31:23
  * @LastEditors: Please set LastEditors
  */
 import {NativeModules} from "react-native";
@@ -273,25 +273,47 @@ export default class MapServer{
     }
 
     /**
-     * 获取索引对应的服务子对象
+     * 获取索引对应的有服务ID，服务类型的对象。用户根据不同的服务类型创建服务对象。<br/>
+     * object.MapServerType = 1时候，可创建TileMapServer； <br/>
+     * object.MapServerType = 2时候，可创建VectorMapServer；    <br/>
      * 
+     * 使用示例：<br/>
+     * let object = mapServer.getMapServer(0);<br/>
+     * let mapServer1 = null; <br/>
+     * if(object != null){ <br/>
+     *   switch(object.MapServerType){ <br/>
+     *      case 1:<br/>
+     *           mapServer1 = new TileMapServer();<br/>
+     *           mapServer1._MGMapServerId = object.MapServerId;<br/>
+     *           break;<br/>
+     *      case 2:<br/>
+     *           mapServer1 = new VectorMapServer();<br/>
+     *           mapServer1._MGMapServerId = object.MapServerId;<br/>
+     *           break;<br/>
+     *   }<br/>
+     * }<br/>
+     * <br/>
      * @memberof MapServer
      * @param {Number} index 索引 （int类型的Number）
-     * @returns {Object} MapServer 子服务对象
+     * @returns {Object} 返回具有服务对象的标识ID，服务类型属性的对象。例如：object.MapServerId，object.MapServerType
      */
     async getMapServer(index){
         try {
             var {MapServerId} = await MS.getMapServer(this._MGMapServerId, index);
             let mapBrowseType = MS.getMapBrowseType(this._MGMapServerId);
-            let mapServer = null;
-         
-            if(mapBrowseType == 1){                        // 瓦片地图服务
-                // mapServer = new TileMapServer();
-                // mapServer._MGMapServerId = MapServerId;
-            }else if(mapBrowseType == 2){                 // 矢量地图服务
-                // mapServer = new VectorMapServer();
-                // mapServer_MGMapServerId = MapServerId;
+            let object = null;
+            if(MapServerId != null){
+                object = new MapServer();
+                object.MapServerId = MapServerId;
+                object.MapServerType = mapBrowseType;
             }
+            // if(mapBrowseType == 1){                        // 瓦片地图服务
+            //     // mapServer = new TileMapServer();
+            //     // mapServer._MGMapServerId = MapServerId;
+            // }else if(mapBrowseType == 2){                 // 矢量地图服务
+            //     // mapServer = new VectorMapServer();
+            //     // mapServer_MGMapServerId = MapServerId;
+            // }
 
             return mapServer;
         } catch (e) {
