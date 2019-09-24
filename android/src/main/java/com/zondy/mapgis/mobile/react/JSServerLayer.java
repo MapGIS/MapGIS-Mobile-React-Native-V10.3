@@ -19,9 +19,12 @@ import com.zondy.mapgis.core.object.Enumeration;
  */
 public class JSServerLayer extends JSGroupLayer {
     private static final String REACT_CLASS = "JSServerLayer";
+    private ReactApplicationContext mReactContext;
     public JSServerLayer(ReactApplicationContext reactContext) {
         super(reactContext);
+        this.mReactContext = reactContext;
     }
+
     @Override
     public String getName() {
         return REACT_CLASS;
@@ -229,22 +232,25 @@ public class JSServerLayer extends JSGroupLayer {
     }
 
     @ReactMethod
-    public void setTilePreFetchListener(String serverLayerId, String tilePreFetchListenerId, Promise promise){
+    public void registerTilePreFetchListener(String serverLayerId, Promise promise){
         try {
             ServerLayer serverLayer = (ServerLayer) getObjFromList(serverLayerId);
+            LayerTilePreFetchListener layerTilePreFetchListener = new LayerTilePreFetchListener(mReactContext);
+            int result = serverLayer.setTilePreFetchListener(layerTilePreFetchListener);
 
+            promise.resolve(result);
         }catch (Exception e){
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void getTilePreFetchListener(String serverLayerId, Promise promise){
+    public void removeTilePreFetchListener(String serverLayerId, Promise promise){
         try {
             ServerLayer serverLayer = (ServerLayer) getObjFromList(serverLayerId);
-            TilePreFetchListener tilePreFetchListener = serverLayer.getTilePreFetchListener();
+            serverLayer.setTilePreFetchListener(null);
 
-
+            promise.resolve(true);
         }catch (Exception e){
             promise.reject(e);
         }

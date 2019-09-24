@@ -65,6 +65,7 @@ public class JSTileMapServer extends JSMapServer {
         }
     }
 
+    // 底层有误，暂时不可用
     @ReactMethod
     public void getTileSliceType(String tileMapServerId, Promise promise){
         try {
@@ -218,6 +219,7 @@ public class JSTileMapServer extends JSMapServer {
         }
     }
 
+    // 底层有误，暂时不可用
     @ReactMethod
     public void getTileMatrix(String tileMapServerId, int zoom, String topRowIntUserId, String leftColUserId, String bottomRowIntUserId, String rightColIntUserId, Promise promise){
         try {

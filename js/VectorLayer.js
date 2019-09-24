@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: fjl
  * @Date: 2019-09-06 16:27:38
- * @LastEditTime: 2019-09-19 15:00:25
+ * @LastEditTime: 2019-09-23 10:26:21
  * @LastEditors: Please set LastEditors
  */
 /**
@@ -65,50 +65,50 @@ export default class VectorLayer extends MapLayer {
     }
   }
 
-  /**
-   * 设置符号比
-   * 
-   * @memberOf VectorLayer
-   * @param {Number} symbolScale 符号比 -- double类型
-   * @returns {Promise<Void>}
-   */
-  async setSymbolScale(symbolScale){
-    try {
-      await VL.setSymbolScale(this._MGVectorLayerId, symbolScale);
-    } catch (e) {
-      console.error(e);
-    }
-  }
+  // /**
+  //  * 设置符号比
+  //  * 
+  //  * @memberOf VectorLayer
+  //  * @param {Number} symbolScale 符号比 -- double类型
+  //  * @returns {Promise<Void>}
+  //  */
+  // async setSymbolScale(symbolScale){
+  //   try {
+  //     await VL.setSymbolScale(this._MGVectorLayerId, symbolScale);
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+  // }
 
-   /**
-    * 获取系统库
-    * 
-    * @memberOf VectorLayer
-    * @returns {String} 系统库 -- UUID转换后的String
-   */
-  async getSystemLib(){
-    try {
-      let systemLib = await VL.getSystemLib(this._MGVectorLayerId);
-      return systemLib;
-    } catch (e) {
-      console.error(e);
-    }
-  }
+  //  /**
+  //   * 获取系统库
+  //   * 
+  //   * @memberOf VectorLayer
+  //   * @returns {String} 系统库 -- UUID转换后的String
+  //  */
+  // async getSystemLib(){
+  //   try {
+  //     let systemLib = await VL.getSystemLib(this._MGVectorLayerId);
+  //     return systemLib;
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+  // }
 
-  /**
-   * 设置系统库
-   * 
-   * @memberOf VectorLayer
-   * @param {String} lib 系统库 -- UUID转换后的String
-   * @returns {Promise<Void>}
-   */
-  async setSystemLib(lib){
-    try {
-      await VL.setSystemLib(this._MGVectorLayerId, lib);
-    } catch (e) {
-      console.error(e);
-    }
-  }
+  // /**
+  //  * 设置系统库
+  //  * 
+  //  * @memberOf VectorLayer
+  //  * @param {String} lib 系统库 -- UUID转换后的String
+  //  * @returns {Promise<Void>}
+  //  */
+  // async setSystemLib(lib){
+  //   try {
+  //     await VL.setSystemLib(this._MGVectorLayerId, lib);
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+  // }
 
   /**
    * 获取是否符号化显示

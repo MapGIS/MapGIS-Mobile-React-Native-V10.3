@@ -223,6 +223,7 @@ public class JSRangeTheme extends JSVectorTheme {
         }
     }
 
+    // 底层未实现，暂时不可用
     @ReactMethod
     public void merge(String rangeThemeId, int index, int count, String geomInfoId, String caption, Promise promise){
         try {
@@ -236,6 +237,7 @@ public class JSRangeTheme extends JSVectorTheme {
         }
     }
 
+    // 底层未实现，暂时不可用
     @ReactMethod
     public void split(String rangeThemeId, int index, double splitValue, String geomInfoId1, String caption1, String geomInfoId2, String caption2, Promise promise){
         try {
