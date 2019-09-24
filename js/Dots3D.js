@@ -1,11 +1,18 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-09-20 17:53:05
+ * @LastEditTime: 2019-09-24 13:59:11
+ * @LastEditors: Please set LastEditors
+ */
 /**
  * @content 实现对三维坐标点序列的相关操作功能组件
  * @author fjl 2019-6-14 下午2:52:36
  */
 import { NativeModules } from "react-native";
+import Dot3D from "./Dot3D.js"
 let DS3D = NativeModules.JSDots3D;
 
-import Dot3D from "./Dot3D.js"
 
 /**
  * @class Dots3D
@@ -21,9 +28,9 @@ export default class Dots3D {
     async createObj(){
         try {
             let {Dots3DId} = await DS3D.createObj();
-            let Dots3D = new Dots3D();
-            Dots3D._MGDots3DId = Dots3DId;
-            return Dots3D; 
+            let dots3D = new Dots3D();
+            dots3D._MGDots3DId = Dots3DId;
+            return dots3D; 
         } catch (e) {
             console.error(e);
         }
@@ -49,7 +56,7 @@ export default class Dots3D {
 	 * @param {object:Dot3D} dot3D 待添加的点对象
 	 * @return 新添加点的索引，小于0失败
 	 */
-	async appendDot3D(dot3D)
+	async append(dot3D)
 	{
 		try {
             return await DS3D.append(this._MGDots3DId, dot3D._MGDot3DId);
@@ -67,7 +74,7 @@ export default class Dots3D {
 	async appendDots3D(dots3D)
 	{
 		try {
-            let x = await DS3D.append(this._MGDots3DId, dots3D._MGDots3DId);
+            let x = await DS3D.appendDots3D(this._MGDots3DId, dots3D._MGDots3DId);
             return x;
           } catch (e) {
             console.error(e);
@@ -116,6 +123,23 @@ export default class Dots3D {
             var dot3D = new Dot3D();
             dot3D._MGDot3DId = Dot3DId;
             return dot3D;
+          } catch (e) {
+            console.error(e);
+          }
+	}
+
+	/**
+	 * 拷贝坐标点序列
+	 * @memberof Dots3D
+	 * @return 拷贝出的坐标点序列
+	 */
+	async clone()
+	{
+		try {
+            let {dots3DId} = await DS3D.clone(this._MGDots3DId);
+            var dots3D = new Dots3D();
+            dots3D._MGDot3DId = dots3DId;
+            return dots3D;
           } catch (e) {
             console.error(e);
           }

@@ -55,7 +55,7 @@ public class JSGeoVarLine extends JSGeoLine{
             String geoVarLineId = registerId(geoVarLine);
 
             WritableMap map = Arguments.createMap();
-            map.putString("GeoVarLinesId", geoVarLineId);
+            map.putString("GeoVarLineId", geoVarLineId);
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);

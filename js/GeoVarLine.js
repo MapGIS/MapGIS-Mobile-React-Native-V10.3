@@ -110,9 +110,9 @@ export default class GeoVarLine extends GeometryExp {
 	async get2D(index)
 	{
 		try{
-            let {dotId} = await GVL.get2D(this._MGGeoVarLineId, index)
+            let {point2DId} = await GVL.get2D(this._MGGeoVarLineId, index)
             var dot = new Dot();
-            dot._MGDotId = dotId;
+            dot._MGDotId = point2DId;
             return dot;
         } catch(e) {
             console.error(e)
@@ -128,9 +128,9 @@ export default class GeoVarLine extends GeometryExp {
 	async get3D(index)
 	{
 		try{
-            let {dot3DId} = await GVL.get3D(this._MGGeoVarLineId, index)
+            let {Dot3DId} = await GVL.get3D(this._MGGeoVarLineId, index)
             var dot3D = new Dot3D();
-            dot3D._MGDot3DId = dot3DId;
+            dot3D._MGDot3DId = Dot3DId;
             return dot3D;
         } catch(e) {
             console.error(e)
