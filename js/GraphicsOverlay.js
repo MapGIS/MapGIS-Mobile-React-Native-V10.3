@@ -243,7 +243,7 @@ export default class GraphicsOverlay {
    *@memberOf GraphicsOverlay
    * @param index
    */
-  async removeGraphic(index) {
+  async removeGraphicByIndex(index) {
     try {
       await X.removeGraphic(this._MGGraphicsOverlayId, index);
     } catch (e) {

@@ -101,7 +101,7 @@ export default class Fields {
 	 * @param fldName 字段名
 	 * @return {Promise}大于0成功，否则失败
 	 */
-	async deleteField(fldName)
+	async deleteFieldByName(fldName)
 	{
 		try {
             return await FLDS.deleteField(this._MGFieldsId, fldName);
@@ -116,7 +116,7 @@ export default class Fields {
 	 * @param index 字段序号
 	 * @return {Promise}大于0成功，否则失败
 	 */
-	async deleteField(index)
+	async deleteFieldByIndex(index)
 	{
 		try {
             return await FLDS.deleteField(this._MGFieldsId, index);

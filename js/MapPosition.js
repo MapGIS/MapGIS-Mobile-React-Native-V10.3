@@ -47,9 +47,9 @@ export default class MapPosition {
      */
     async getCenter() {
         try {
-            var { dotID } = await MP.getCenter(this._MMapPosition);
+            var { point2DId } = await MP.getCenter(this._MMapPosition);
             var dot = new Dot();
-            dot._MGDotId = dotID;
+            dot._MGDotId = point2DId;
             return dot;
         } catch (e) {
             console.error(e);
@@ -120,9 +120,9 @@ export default class MapPosition {
      */
     async getRotateCenter() {
         try {
-            var { dotID } = await MP.getRotateCenter(this._MMapPosition);
+            var { point2DId } = await MP.getRotateCenter(this._MMapPosition);
             var dot = new Dot();
-            dot._MGDotId = dotID;
+            dot._MGDotId = point2DId;
             return dot;
         } catch (e) {
             console.error(e);

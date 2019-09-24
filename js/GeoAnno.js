@@ -139,7 +139,7 @@ export default class GeoAnno extends Geometry {
 	 * @param param 椭球坐标系变换参数
 	 * @returns {Promise<Geometry>}投影后的几何对象
 	 */
-	async transSRS(origSRef, destSRef, param)
+	async transSRSOfParam(origSRef, destSRef, param)
 	{
 		try {
             let {geometryId} = await GA.transSRS(this._MGGeoAnnoId, origSRef._MGSRefDataId, destSRef._MGSRefDataId, param._MGElpTransParamId);
@@ -160,9 +160,9 @@ export default class GeoAnno extends Geometry {
 	async getAnchorDot()
 	{
 		try {
-            let {point2DDotId} = await GA.getAnchorDot(this._MGGeoAnnoId);
+            let {point2DId} = await GA.getAnchorDot(this._MGGeoAnnoId);
             var point2DDot = new Dot();
-            point2DDot._MGGeometryId = point2DDotId;
+            point2DDot._MGGeometryId = point2DId;
             return point2DDot;
         }
         catch (e) {

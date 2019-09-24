@@ -37,8 +37,4 @@ public class JSXClsInfo extends ReactContextBaseJavaModule {
         mXClsInfoList.put(id, obj);
         return id;
     }
-
-
-
-
 }

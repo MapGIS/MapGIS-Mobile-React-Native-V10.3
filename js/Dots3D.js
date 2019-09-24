@@ -49,7 +49,7 @@ export default class Dots3D {
 	 * @param {object:Dot3D} dot3D 待添加的点对象
 	 * @return 新添加点的索引，小于0失败
 	 */
-	async append(dot3D)
+	async appendDot3D(dot3D)
 	{
 		try {
             return await DS3D.append(this._MGDots3DId, dot3D._MGDot3DId);
@@ -64,7 +64,7 @@ export default class Dots3D {
 	 * @param {object:Dots3D}dots3D 待添加的点序列对象
 	 * @return 大于0成功，否则失败
 	 */
-	async append(dots3D)
+	async appendDots3D(dots3D)
 	{
 		try {
             let x = await DS3D.append(this._MGDots3DId, dots3D._MGDots3DId);

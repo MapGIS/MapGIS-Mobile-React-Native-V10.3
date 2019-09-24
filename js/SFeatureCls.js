@@ -65,9 +65,10 @@ export default class SFeatureCls extends VectorCls{
 	 * @param id 图层ID
 	 * @return {Promise} 成功：>0;失败：<=0
 	 */
-	async open(id)
+	async openById(id)
 	{
 		try {
+
             return await SFCLS.open(this._MGSFeatureClsId, id); 
         } catch (error) {
             console.error(e);
@@ -80,7 +81,7 @@ export default class SFeatureCls extends VectorCls{
 	 * @param name 简单要素名称
 	 * @return {Promise} 成功：类对象ID;失败：<=0
 	 */
-	async open(name)
+	async openByName(name)
 	{
 		try {
             return await SFCLS.open(this._MGSFeatureClsId, name); 
@@ -556,7 +557,7 @@ export default class SFeatureCls extends VectorCls{
 	 * @param objID 简单要素类ID
 	 * @return {Promise} 成功：>0;失败：<=0
 	 */
-	async delete(objID)
+	async deleteByID(objID)
 	{
 		try {
             return await SFCLS.delete(this._MGSFeatureClsId, objID); 
@@ -571,7 +572,7 @@ export default class SFeatureCls extends VectorCls{
 	 * @param objIDs 一组简单要素类ID
 	 * @return {Promise} 成功：>0;失败：<=0
 	 */
-	async delete(objIDArray)
+	async deleteByIDs(objIDArray)
 	{
 		try {
             return await SFCLS.delete(this._MGSFeatureClsId, objIDArray); 
@@ -649,7 +650,7 @@ export default class SFeatureCls extends VectorCls{
 	 * @param clsName 类名
 	 * @return {Promise} 成功：>0;失败：<=0
 	 */
-	async remove(db, clsName)
+	async removeByName(db, clsName)
 	{
 		try {
             return await SFCLS.remove(this._MGSFeatureClsId, db._MGDataBaseId, clsName); 
@@ -665,7 +666,7 @@ export default class SFeatureCls extends VectorCls{
 	 * @param clsID 类ID
 	 * @return {Promise} 成功：>0;失败：<=0
 	 */
-	async remove(db, clsID)
+	async removeByID(db, clsID)
 	{
 		try {
             return await SFCLS.remove(this._MGSFeatureClsId, db._MGDataBaseId, clsID); 

@@ -47,7 +47,7 @@ export default class GraphicImage extends Graphic {
    * @param {String} filePath
    * @returns {Promise<void>}
    */
-  async setImage(filePath) {
+  async setImageByFilePath(filePath) {
     try {
       await GI.setImage(this._MGGraphicImageId, filePath);
     } catch (e) {

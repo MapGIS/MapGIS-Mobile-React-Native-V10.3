@@ -57,7 +57,7 @@ export default class GeoLine extends GeometryExp {
 	 * @param ptSRef 投影参数
 	 * @return {Promise}平面长度
 	 */
-	async calLength(sRef)
+	async calLengthOfSRef(sRef)
 	{
 		try {
             return GL.calLength(this._MGGeoLineId, sRef._MGSRefDataId);

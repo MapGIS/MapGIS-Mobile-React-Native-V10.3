@@ -40,7 +40,7 @@ export default class GeometryExp extends Geometry{
 	 * @param param 椭球坐标系变换参数
 	 * @returns {Promise.<Geometry>} 投影后的几何对象
 	 */
-	async transSRS(origSRef, destSRef, param)
+	async transSRSOfParam(origSRef, destSRef, param)
 	{
 		try {
             let {GeometryId} = await GE.transSRS(this._MGGeometryId, origSRef._MGSRefDataId, destSRef._MGSRefDataId, param._MGElpTransParamId);

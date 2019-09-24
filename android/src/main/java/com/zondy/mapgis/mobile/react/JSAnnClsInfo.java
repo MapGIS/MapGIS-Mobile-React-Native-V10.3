@@ -75,7 +75,7 @@ public class JSAnnClsInfo extends JSXClsInfo {
     }
 
     @ReactMethod
-    public void getClsName(String annClsInfoId, Promise promise) {
+    public void getName(String annClsInfoId, Promise promise) {
         try {
             AnnClsInfo annClsInfo = (AnnClsInfo)getObjFromList(annClsInfoId);
             String strName = annClsInfo.getName();

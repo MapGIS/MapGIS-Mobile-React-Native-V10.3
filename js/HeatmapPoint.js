@@ -34,9 +34,9 @@ export default class HeatmapPoint {
    */
   async getPoint() {
     try {
-        let { pointID } = await HP.getPoint(this._MGHeatmapPointId);
+        let { point2DId } = await HP.getPoint(this._MGHeatmapPointId);
         var dot = new Dot();
-        dot._MGDotId = pointID;
+        dot._MGDotId = point2DId;
   
         return dot;
       } catch (e) {

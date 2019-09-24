@@ -36,7 +36,7 @@ export default class Record {
 	 * @param fldIndex 字段索引
 	 * @return {Promise<Field>}字段值
 	 */
-	async getFldVal(fldIndex)
+	async getFldValByIndex(fldIndex)
 	{
 		try {
             var {value} =  await RD.getFldVal(this._MGRecordId, fldIndex);
@@ -52,7 +52,7 @@ export default class Record {
 	 * @param fldName 字段名
 	 * @return {Promise<string>}字段值
 	 */
-	async getFldVal(fldName)
+	async getFldValByName(fldName)
 	{
 		try {
             var {value} = await RD.getFldVal(this._MGRecordId, fldName);
@@ -69,7 +69,7 @@ export default class Record {
 	 * @param newVal 字段值
 	 * @return {Promise<Number>}大于0成功，否则失败
 	 */
-	async setFldVal(fldIndex, newVal)
+	async setFldValByIndex(fldIndex, newVal)
 	{
 		try {
             return await RD.setFldVal(this._MGRecordId, fldIndex, newVal);
@@ -85,7 +85,7 @@ export default class Record {
 	 * @param newVal 字段值
 	 * @return {Promise<Number>}大于0成功，否则失败
 	 */
-	async setFldVal(fldName, newVal)
+	async setFldValByName(fldName, newVal)
 	{
 		try {
             return await RD.setFldVal(this._MGRecordId, fldName, newVal);
@@ -101,7 +101,7 @@ export default class Record {
 	 * @param newVal 字符串值
 	 * @return {Promise<Number>}大于0成功，否则失败
 	 */
-	async setFldFromStr(fldIndex, newVal)
+	async setFldFromStrAndIndex(fldIndex, newVal)
 	{
 		try {
             return await RD.setFldFromStr(this._MGRecordId, fldIndex, newVal);
@@ -117,7 +117,7 @@ export default class Record {
 	 * @param newVal 字符串值
 	 * @return {Promise<Number>}大于0成功，否则失败
 	 */
-	async setFldFromStr(fldName, newVal)
+	async setFldFromStrAndName(fldName, newVal)
 	{
 		try {
             return await RD.setFldFromStr(this._MGRecordId, fldName, newVal);
@@ -132,7 +132,7 @@ export default class Record {
 	 * @param fldIndex 字段索引
 	 * @return {Promise<Number>}非0/0 ：是/否
 	 */
-	async isFldNULL(fldIndex)
+	async isFldNULLOfFldIndex(fldIndex)
 	{
 		try {
             return await RD.isFldNULL(this._MGRecordId, fldIndex);           
@@ -147,7 +147,7 @@ export default class Record {
 	 * @param fldName 字段名
 	 * @return {Promise<Number>}非0/0 ：是/否
 	 */
-	async isFldNULL(fldName)
+	async isFldNULLOfFldName(fldName)
 	{
 		try {
             return await RD.isFldNULL(this._MGRecordId, fldName);         
@@ -162,7 +162,7 @@ export default class Record {
 	 * @param fldIndex 字段索引
 	 * @return {Promise<Number>}大于0成功，否则失败
 	 */
-	async setFldNULL(fldIndex)
+	async setFldNULLByIndex(fldIndex)
 	{
 		try {
             return await RD.setFldNULL(this._MGRecordId, fldIndex);
@@ -177,7 +177,7 @@ export default class Record {
 	 * @param fldName 字段名
 	 * @return {Promise<Number>}大于0成功，否则失败
 	 */
-	async setFldNULL(fldName)
+	async setFldNULLByName(fldName)
 	{
 		try {
             return await RD.setFldNULL(this._MGRecordId, fldName);
@@ -206,7 +206,7 @@ export default class Record {
 	 * @param fldIndex 字段索引
 	 * @return {Promise<Number>}字段类型
 	 */
-	async getFieldType(fldIndex)
+	async getFieldTypeByIndex(fldIndex)
 	{
 		try {
             return await RD.getFieldType(this._MGRecordId, fldIndex);           
@@ -221,7 +221,7 @@ export default class Record {
 	 * @param fldName 字段名
 	 * @return {Promise<Number>}字段类型
 	 */
-	async getFieldType(fldName)
+	async getFieldTypeByName(fldName)
 	{
 		try {
             return await RD.getFieldType(this._MGRecordId, fldName);         

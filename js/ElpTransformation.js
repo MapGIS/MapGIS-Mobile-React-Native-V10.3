@@ -33,7 +33,7 @@ export default class ElpTransformation {
 	 * @param index 椭球索引
 	 * @return {Promise.<ElpParam>} 成功返回椭球参数对象，失败返回空
 	 */
-	static async getElpParam(index)
+	static async getElpParamByIndex(index)
 	{
 		try {
             let {elpParamId} = await ET.getElpParam(index);
@@ -52,7 +52,7 @@ export default class ElpTransformation {
 	 * @param name 椭球名称
 	 * @return {Promise.<ElpParam>} 成功返回椭球参数对象，失败返回空
 	 */
-	static async getElpParam(name)
+	static async getElpParamByName(name)
 	{
 		try {
             let {elpParamId} = await ET.getElpParam(name);
@@ -101,7 +101,7 @@ export default class ElpTransformation {
 	 * @param index 转换参数的索引值
 	 * @return {Promise.<ElpTransParam>} 成功返回椭球转换参数对象，失败返回空
 	 */
-	static async getElpTransParam(index)
+	static async getElpTransParamByIndex(index)
 	{
 		try {
             let {elpTransParamId} = await ET.getElpTransParam(index);
@@ -120,7 +120,7 @@ export default class ElpTransformation {
 	 * @param name 椭球转换参数对象的名称
 	 * @return {Promise.<ElpTransParam>} 成功返回椭球转换参数对象，失败返回空
 	 */
-	static async getElpTransParam(name)
+	static async getElpTransParamByName(name)
 	{
 		try {
             let {elpTransParamId} = await ET.getElpTransParam(name);
@@ -140,7 +140,7 @@ export default class ElpTransformation {
 	 * @param param 椭球转换参数对象
 	 * @return {Promise.<boolean>} 成功返回true，失败返回false
 	 */
-	static async setElpTransParam(index, param)
+	static async setElpTransParamByIndex(index, param)
 	{
 		try {
             return await ET.setElpTransParam(index, param._MGElpTransParamId);
@@ -156,7 +156,7 @@ export default class ElpTransformation {
 	 * @param param 椭球转换参数对象
 	 * @return {Promise.<boolean>} 成功返回true，失败返回false
 	 */
-	static async setElpTransParam(name, param)
+	static async setElpTransParamByName(name, param)
 	{
 		try {
             return await ET.setElpTransParam(name, param._MGElpTransParamId);
@@ -186,7 +186,7 @@ export default class ElpTransformation {
 	 * @param index 椭球转换参数对象索引
 	 * @return {Promise.<boolean>} 成功返回true，失败返回false
 	 */
-	static async delElpTransParam(index)
+	static async delElpTransParamByIndex(index)
 	{
 		try {
             return await ET.delElpTransParam(index);
@@ -201,7 +201,7 @@ export default class ElpTransformation {
 	 * @param name 椭球转换参数对象名称
 	 * @return {Promise.<boolean>} 成功返回true，失败返回false
 	 */
-	static async delElpTransParam(name)
+	static async delElpTransParamByName(name)
 	{
 		try {
             return await ET.delElpTransParam(name);

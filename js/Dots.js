@@ -48,7 +48,7 @@ export default class Dots {
 	 * @param dot 待添加的点对象
 	 * @returns {Promise} 新添加点的索引，小于0失败
 	 */
-	async append(dot)
+	async appendDot(dot)
 	{
 		try {
             return await DS.append(this._MGDotsId, dot._MGDotId);
@@ -64,7 +64,7 @@ export default class Dots {
 	 * @param dots 待添加的点序列对象
 	 * @returns {Promise} 大于0成功，否则失败
 	 */
-	async append(dots)
+	async appendDots(dots)
 	{
 		try {
             return await DS.append(this._MGDotsId, dots._MGDotsId);

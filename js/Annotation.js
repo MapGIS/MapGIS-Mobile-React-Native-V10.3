@@ -122,9 +122,9 @@ export default class Annotation {
 	async getPoint()
 	{
 		try {
-            let {dotID} = await AN.getPoint(this._MGAnnotationId);
-            var dot = new Dot();
-            dot._MGDotId = dotID;
+            let {point2DId} = await AN.getPoint(this._MGAnnotationId);
+			var dot = new Dot();
+            dot._MGDotId = point2DId;
             return dot;
         } catch (e) {
             console.error(e);
@@ -152,7 +152,7 @@ export default class Annotation {
 	 * @param filePath 图标路径
      * @returns {Promise.<void>}
 	 */
-	async setImage(filePath)
+	async setImageByPath(filePath)
 	{
 		try {
             await AN.setImageByFilePath(this._MGAnnotationId, filePath);

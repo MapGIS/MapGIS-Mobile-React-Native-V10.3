@@ -157,7 +157,7 @@ public class JSAnnotation extends ReactContextBaseJavaModule {
             Dot dot = annotation.getPoint();
             String dotID = JSDot.registerId(dot);
             WritableMap map = Arguments.createMap();
-            map.putString("DotID", dotID);
+            map.putString("point2DId", dotID);
             map.putDouble("x", dot.getX());
             map.putDouble("y", dot.getY());
             promise.resolve(map);
