@@ -150,9 +150,9 @@ export default class AnnotationCls extends VectorCls{
 	async getGDataBase()
 	{
 		try {
-            let {dbId} = await ANNCLS.getGDataBase(this._MGAnnotationClsId); 
+            let {DataBaseId} = await ANNCLS.getGDataBase(this._MGAnnotationClsId); 
             var db = new DataBase();
-            db._MGDataBaseId = dbId;
+            db._MGDataBaseId = DataBaseId;
             return db;
         } catch (error) {
             console.error(e);
@@ -181,9 +181,9 @@ export default class AnnotationCls extends VectorCls{
 	async getRange()
 	{
 		try {
-            let {rcId} = await ANNCLS.getRange(this._MGAnnotationClsId); 
+            let {RectId} = await ANNCLS.getRange(this._MGAnnotationClsId); 
             var rc = new Rect();
-            rc._MGRectId = rcId;
+            rc._MGRectId = RectId;
             return rc;
         } catch (error) {
             console.error(e);
@@ -226,9 +226,9 @@ export default class AnnotationCls extends VectorCls{
 	async getClsInfo()
 	{
 		try {
-            let {annClsInfoId} =  await ANNCLS.getClsInfo(this._MGAnnotationClsId); 
+            let {XClsInfoId} =  await ANNCLS.getClsInfo(this._MGAnnotationClsId); 
             var annClsInfo = new AnnClsInfo();
-            annClsInfo._MGAnnClsInfoId = annClsInfoId;
+            annClsInfo._MGAnnClsInfoId = XClsInfoId;
             return annClsInfo;
         } catch (error) {
             console.error(e);
@@ -243,9 +243,9 @@ export default class AnnotationCls extends VectorCls{
 	async getFields()
 	{
 		try {
-            let {fieldsId} =  await ANNCLS.getClsInfo(this._MGAnnotationClsId); 
+            let {FieldsId} =  await ANNCLS.getFields(this._MGAnnotationClsId); 
             var fields = new Fields();
-            fields._MGFieldsId = fieldsId;
+            fields._MGFieldsId = FieldsId;
             return fields;
         } catch (error) {
             console.error(e);
@@ -278,9 +278,9 @@ export default class AnnotationCls extends VectorCls{
 	async select(def)
 	{
 		try {
-            let {recordSetId} = await ANNCLS.select(this._MGAnnotationClsId, def._MGQueryDefId); 
+            let {RecordSetId} = await ANNCLS.select(this._MGAnnotationClsId, def._MGQueryDefId); 
             var recordSet = new RecordSet();
-            recordSet._MGRecordSetId = recordSetId;
+            recordSet._MGRecordSetId = RecordSetId;
             return recordSet;
         } catch (error) {
             console.error(e);
@@ -295,9 +295,9 @@ export default class AnnotationCls extends VectorCls{
 	 */
 	async getRect(objID) {
 		try {
-            let {rectId} = await ANNCLS.getRect(this._MGAnnotationClsId, objID); 
+            let {RectId} = await ANNCLS.getRect(this._MGAnnotationClsId, objID); 
             var rect = new Rect();
-            rect._MGRectId = rectId;
+            rect._MGRectId = RectId;
             return rect;
         } catch (error) {
             console.error(e);
@@ -330,9 +330,9 @@ export default class AnnotationCls extends VectorCls{
 	async getAtt(objID)
 	{
 		try {
-            let {rcId} = await ANNCLS.getAtt(this._MGAnnotationClsId, objID); 
+            let {RecordId} = await ANNCLS.getAtt(this._MGAnnotationClsId, objID); 
             var record = new Record();
-            record._MGRecordId = rcId;
+            record._MGRecordId = RecordId;
             return record;
         } catch (error) {
             console.error(e);
@@ -347,9 +347,9 @@ export default class AnnotationCls extends VectorCls{
 	 */
 	async getGeometry(objID) {
 		try {
-            let {geometryId} = await ANNCLS.getGeometry(this._MGAnnotationClsId, objID); 
+            let {GeometryId} = await ANNCLS.getGeometry(this._MGAnnotationClsId, objID); 
             var geometry = new Geometry();
-            geometry._MGGeometryId = geometryId;
+            geometry._MGGeometryId = GeometryId;
             return geometry;
         } catch (error) {
             console.error(e);
@@ -364,9 +364,9 @@ export default class AnnotationCls extends VectorCls{
 	 */
 	async getInfo(objID) {
 		try {
-            let {geomInfoId} = await ANNCLS.getInfo(this._MGAnnotationClsId, objID); 
+            let {GeomInfoId} = await ANNCLS.getInfo(this._MGAnnotationClsId, objID); 
             var geomInfo = new GeomInfo();
-            geomInfo._MGGeomInfoId = geomInfoId;
+            geomInfo._MGGeomInfoId = GeomInfoId;
             return geomInfo;
         } catch (error) {
             console.error(e);
@@ -602,7 +602,7 @@ export default class AnnotationCls extends VectorCls{
 	 */
 	async updateGeometry(objID, geom) {
 		try {
-            return await ANNCLS.updateAtt(this._MGAnnotationClsId, objID, geom._MGGeometryId); 
+            return await ANNCLS.updateGeometry(this._MGAnnotationClsId, objID, geom._MGGeometryId); 
         } catch (error) {
             console.error(e);
         }
@@ -617,7 +617,7 @@ export default class AnnotationCls extends VectorCls{
 	 */
 	async updateInfo(objID, info) {
 		try {
-            return await ANNCLS.updateAtt(this._MGAnnotationClsId, objID, info._MGGeomInfoId); 
+            return await ANNCLS.updateInfo(this._MGAnnotationClsId, objID, info._MGGeomInfoId); 
         } catch (error) {
             console.error(e);
         }

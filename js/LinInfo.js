@@ -494,9 +494,9 @@ export default class LinInfo extends GeomInfo {
 	 */
 	async Clone() {
 		try {
-            let {geomInfoId} = await LI.Clone(this._MGLinInfoId);
+            let {GeomInfoId} = await LI.Clone(this._MGLinInfoId);
             var geomInfo = new GeomInfo();
-            geomInfo._MGGeomInfoId = geomInfoId;
+            geomInfo._MGGeomInfoId = GeomInfoId;
             return geomInfo;
         } catch (e) {
             console.error(e);

@@ -54,9 +54,9 @@ export default class GeoAnno extends Geometry {
 	async calRect()
 	{
 		try {
-            let {rectId}  = await GA.calRect(this._MGGeoAnnoId);
+            let {RectId}  = await GA.calRect(this._MGGeoAnnoId);
             var rect = new Rect();
-            rect._MGRectId = rectId;
+            rect._MGRectId = RectId;
             return rect;
         }
         catch (e) {
@@ -121,9 +121,9 @@ export default class GeoAnno extends Geometry {
 	async transSRS(origSRef, destSRef)
 	{
 		try {
-            let {geometryId} = await GA.transSRS(this._MGGeoAnnoId, origSRef._MGSRefDataId, destSRef._MGSRefDataId);
+            let {GeometryId} = await GA.transSRS(this._MGGeoAnnoId, origSRef._MGSRefDataId, destSRef._MGSRefDataId);
             var geometry = new Geometry();
-            geometry._MGGeometryId = geometryId;
+            geometry._MGGeometryId = GeometryId;
             return geometry;
         }
         catch (e) {
@@ -142,9 +142,9 @@ export default class GeoAnno extends Geometry {
 	async transSRSOfParam(origSRef, destSRef, param)
 	{
 		try {
-            let {geometryId} = await GA.transSRS(this._MGGeoAnnoId, origSRef._MGSRefDataId, destSRef._MGSRefDataId, param._MGElpTransParamId);
+            let {GeometryId} = await GA.transSRS(this._MGGeoAnnoId, origSRef._MGSRefDataId, destSRef._MGSRefDataId, param._MGElpTransParamId);
             var geometry = new Geometry();
-            geometry._MGGeometryId = geometryId;
+            geometry._MGGeometryId = GeometryId;
             return geometry;
         }
         catch (e) {

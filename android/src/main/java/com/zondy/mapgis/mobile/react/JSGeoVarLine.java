@@ -148,7 +148,7 @@ public class JSGeoVarLine extends JSGeoLine{
     {
         try {
             GeoVarLine geoVarLine = getObjFromList(geoVarLineId);
-            short dim = geoVarLine.getDim();
+            int dim = geoVarLine.getDim();
             promise.resolve(dim);
         } catch (Exception e) {
             promise.reject(e);

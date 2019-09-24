@@ -555,11 +555,11 @@ public class JSAnnotationCls extends JSVectorCls {
     }
 
     @ReactMethod
-    public void annToField(String annotationClsId, short fldIndex, String whereClause, Promise promise)
+    public void annToField(String annotationClsId, int fldIndex, String whereClause, Promise promise)
     {
         try {
             AnnotationCls annotationCls = (AnnotationCls)getObjFromList(annotationClsId);
-            int iVal = (int)annotationCls.annToField(fldIndex, whereClause);
+            int iVal = (int)annotationCls.annToField((short)fldIndex, whereClause);
             promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);

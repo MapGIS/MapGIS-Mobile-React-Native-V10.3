@@ -112,27 +112,10 @@ export default class Dots3D {
 	async  get(index)
 	{
 		try {
-            let {dot3DId} = await DS3D.get(this._MGDots3DId, index);
+            let {Dot3DId} = await DS3D.get(this._MGDots3DId, index);
             var dot3D = new Dot3D();
-            dot3D._MGDot3DId = dot3DId;
+            dot3D._MGDot3DId = Dot3DId;
             return dot3D;
-          } catch (e) {
-            console.error(e);
-          }
-	}
-
-	/**
-	 * 拷贝坐标点序列
-	 * @memberof Dots3D
-	 * @return 拷贝出的坐标点序列
-	 */
-	async clone()
-	{
-		try {
-            let {dots3DId} = await DS3D.clone(this._MGDots3DId);
-            var dots3D = new Dots3D();
-            dots3D._MGDot3DId = dots3DId;
-            return dots3D;
           } catch (e) {
             console.error(e);
           }

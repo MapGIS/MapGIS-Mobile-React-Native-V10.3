@@ -162,7 +162,7 @@ public class JSTextAnnInfo extends JSAnnInfo{
     {
         try {
             TextAnnInfo textAnnInfo = (TextAnnInfo)getObjFromList(textAnnInfoId);
-            short ifnt = textAnnInfo.getIfnt();
+            int ifnt = textAnnInfo.getIfnt();
             promise.resolve(ifnt);
         } catch (Exception e) {
             promise.reject(e);
@@ -170,11 +170,11 @@ public class JSTextAnnInfo extends JSAnnInfo{
     }
 
     @ReactMethod
-    public void setIfnt(String textAnnInfoId, short newVal, Promise promise)
+    public void setIfnt(String textAnnInfoId, int newVal, Promise promise)
     {
         try {
             TextAnnInfo textAnnInfo = (TextAnnInfo)getObjFromList(textAnnInfoId);
-            textAnnInfo.setIfnt(newVal);
+            textAnnInfo.setIfnt((short)newVal);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -186,7 +186,7 @@ public class JSTextAnnInfo extends JSAnnInfo{
     {
         try {
             TextAnnInfo textAnnInfo = (TextAnnInfo)getObjFromList(textAnnInfoId);
-            short chnt = textAnnInfo.getChnt();
+            int chnt = textAnnInfo.getChnt();
             promise.resolve(chnt);
         } catch (Exception e) {
             promise.reject(e);
@@ -194,11 +194,11 @@ public class JSTextAnnInfo extends JSAnnInfo{
     }
 
     @ReactMethod
-    public void setChnt(String textAnnInfoId, short newVal, Promise promise)
+    public void setChnt(String textAnnInfoId, int newVal, Promise promise)
     {
         try {
             TextAnnInfo textAnnInfo = (TextAnnInfo)getObjFromList(textAnnInfoId);
-            textAnnInfo.setChnt(newVal);
+            textAnnInfo.setChnt((short)newVal);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -210,7 +210,7 @@ public class JSTextAnnInfo extends JSAnnInfo{
     {
         try {
             TextAnnInfo textAnnInfo = (TextAnnInfo)getObjFromList(textAnnInfoId);
-            short ifnx = textAnnInfo.getIfnx();
+            int ifnx = textAnnInfo.getIfnx();
             promise.resolve(ifnx);
         } catch (Exception e) {
             promise.reject(e);
@@ -218,11 +218,11 @@ public class JSTextAnnInfo extends JSAnnInfo{
     }
 
     @ReactMethod
-    public void setIfnx(String textAnnInfoId, short newVal, Promise promise)
+    public void setIfnx(String textAnnInfoId, int newVal, Promise promise)
     {
         try {
             TextAnnInfo textAnnInfo = (TextAnnInfo)getObjFromList(textAnnInfoId);
-            textAnnInfo.setIfnx(newVal);
+            textAnnInfo.setIfnx((short)newVal);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);

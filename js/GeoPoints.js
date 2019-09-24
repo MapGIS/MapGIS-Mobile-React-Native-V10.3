@@ -79,7 +79,7 @@ export default class GeoPoints extends GeometryExp {
 	async distance(type, destGeom)
 	{
 		try{
-            return await GP.getDimension(this._MGGeoPointsId, type, destGeom._MGGeometryId)
+            return await GP.distance(this._MGGeoPointsId, type, destGeom._MGGeometryId)
         } catch(e) {
             console.error(e)
         }
@@ -124,9 +124,9 @@ export default class GeoPoints extends GeometryExp {
 	async get(index)
 	{
 		try{
-            let {dot3DId} = await GP.get(this._MGGeoPointsId, index)
+            let {Dot3DId} = await GP.get(this._MGGeoPointsId, index)
             var dot3D = new Dot3D();
-            dot3D._MGDot3DId = dot3DId;
+            dot3D._MGDot3DId = Dot3DId;
             return dot3D;
         } catch(e) {
             console.error(e)
@@ -155,9 +155,9 @@ export default class GeoPoints extends GeometryExp {
 	async getDots()
 	{
 		try{
-            let {dots3DId} = await GP.get(this._MGGeoPointsId)
+            let {Dots3DId} = await GP.getDots(this._MGGeoPointsId)
             var dots3D = new Dots3D();
-            dots3D._MGDots3DId = dots3DId;
+            dots3D._MGDots3DId = Dots3DId;
             return dots3D;
         } catch(e) {
             console.error(e)

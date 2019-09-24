@@ -495,9 +495,9 @@ export default class PntInfo extends GeomInfo {
 	 */
 	async Clone() {
 		try {
-            let {geomInfoId} = await PI.Clone(this._MGPntInfoId);
+            let {GeomInfoId} = await PI.Clone(this._MGPntInfoId);
             var geomInfo = new GeomInfo()
-            geomInfo._MGGeomInfoId = geomInfoId;
+            geomInfo._MGGeomInfoId = GeomInfoId;
             return geomInfo;
         } catch (e) {
             console.error(e);

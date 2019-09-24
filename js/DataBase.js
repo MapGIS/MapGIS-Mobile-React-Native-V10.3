@@ -23,7 +23,6 @@ export default class DataBase {
    */
   async createObj() {
     try{
-		alert("DataBase: createObj()" );
         var {DataBaseId} = await DB.createObj();
         var db = new DataBase();
         db._MGDataBaseId = DataBaseId;

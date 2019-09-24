@@ -227,9 +227,9 @@ export default class Annotation {
 	async getCenterOffset()
 	{
 		try {
-            let {pointFId} = await AN.getCenterOffset(this._MGAnnotationId);
+            let {PointFId} = await AN.getCenterOffset(this._MGAnnotationId);
             var pointF = new PointF();
-            pointF._MGPointFId = pointFId;
+            pointF._MGPointFId = PointFId;
             return pointF;
         } catch (e) {
             console.error(e);

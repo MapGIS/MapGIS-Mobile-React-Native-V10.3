@@ -120,9 +120,9 @@ export default class TextAnno extends GeoAnno {
 	async getTextAnnInfo()
 	{
 		try{
-            let {textAnnInfoId} = await TA.getTextAnnInfo(this._MGTextAnnoId)
+            let {TextAnnInfoId} = await TA.getTextAnnInfo(this._MGTextAnnoId)
             var annInfo = new TextAnnInfo();
-            annInfo._MGTextAnnInfoId = textAnnInfoId;
+            annInfo._MGTextAnnInfoId = TextAnnInfoId;
             return annInfo;
         } catch(e) {
             console.error(e)

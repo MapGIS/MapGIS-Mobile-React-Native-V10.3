@@ -59,11 +59,11 @@ public class JSFields extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void getField(String fieldsId, short index, Promise promise)
+    public void getField(String fieldsId, int index, Promise promise)
     {
         try {
             Fields fields = getObjFromList(fieldsId);
-            Field field = fields.getField(index);
+            Field field = fields.getField((short)index);
             String  fieldId = JSField.registerId(field);
             WritableMap map = Arguments.createMap();
             map.putString("FieldId", fieldId);
@@ -74,12 +74,12 @@ public class JSFields extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setField(String fieldsId, short index, String fieldId, Promise promise)
+    public void setField(String fieldsId, int index, String fieldId, Promise promise)
     {
         try {
             Fields fields = getObjFromList(fieldsId);
             Field field = JSField.getObjFromList(fieldId);
-            int iVal = fields.setField(index, field);
+            int iVal = fields.setField((short)index, field);
             promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
@@ -100,12 +100,12 @@ public class JSFields extends ReactContextBaseJavaModule {
     }
 
    @ReactMethod
-    public void insertField(String fieldsId, short position, String fieldId, Promise promise)
+    public void insertField(String fieldsId, int position, String fieldId, Promise promise)
     {
         try {
             Fields fields = getObjFromList(fieldsId);
             Field field = JSField.getObjFromList(fieldId);
-            int iVal = fields.insertField(position, field);
+            int iVal = fields.insertField((short)position, field);
             promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
@@ -125,11 +125,11 @@ public class JSFields extends ReactContextBaseJavaModule {
     }
 
    @ReactMethod
-    public void deleteField(String fieldsId, short index, Promise promise)
+    public void deleteField(String fieldsId, int index, Promise promise)
     {
         try {
             Fields fields = getObjFromList(fieldsId);
-            int iVal = fields.deleteField(index);
+            int iVal = fields.deleteField((short)index);
             promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
@@ -141,7 +141,7 @@ public class JSFields extends ReactContextBaseJavaModule {
     {
         try {
             Fields fields = getObjFromList(fieldsId);
-            short iCount = fields.getFieldCount();
+            int iCount = fields.getFieldCount();
             promise.resolve(iCount);
         } catch (Exception e) {
             promise.reject(e);

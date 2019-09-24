@@ -69,9 +69,9 @@ export default class RecordSet{
 	async getAtt()
 	{
 		try {
-            let {recordId} = await RS.getAtt(this._MGRecordSetId); 
+            let {RecordId} = await RS.getAtt(this._MGRecordSetId); 
             var record = new Record();
-            record._MGRecordId = recordId;
+            record._MGRecordId = RecordId;
             return record;
         } catch (error) {
             console.error(e);
@@ -100,9 +100,9 @@ export default class RecordSet{
 	async getFields()
 	{
 		try {
-            let {fieldsId} = await RS.getFields(this._MGRecordSetId); 
+            let {FieldsId} = await RS.getFields(this._MGRecordSetId); 
             var fields = new Fields();
-            fields._MGFieldsId = fieldsId;
+            fields._MGFieldsId = FieldsId;
             return fields;
         } catch (error) {
             console.error(e);
@@ -117,9 +117,9 @@ export default class RecordSet{
 	async getGeometry()
 	{
 		try {
-            let {geometryId} = await RS.getGeometry(this._MGRecordSetId); 
+            let {GeometryId} = await RS.getGeometry(this._MGRecordSetId); 
             var geometry = new Geometry();
-            geometry._MGGeometryId = geometryId;
+            geometry._MGGeometryId = GeometryId;
             return geometry;
         } catch (error) {
             console.error(e);
@@ -134,9 +134,9 @@ export default class RecordSet{
 	async getInfo()
 	{
 		try {
-            let {geomInfoId} = await RS.getInfo(this._MGRecordSetId); 
+            let {GeomInfoId} = await RS.getInfo(this._MGRecordSetId); 
             var geomInfo = new GeomInfo();
-            geomInfo._MGGeomInfoId = geomInfoId;
+            geomInfo._MGGeomInfoId = GeomInfoId;
             return geomInfo;
         } catch (error) {
             console.error(e);
@@ -174,7 +174,8 @@ export default class RecordSet{
 	/**
 	 * 取要素矩形范围
 	 * @memberOf RecordSet
-	 * @return {Promise<Rect>}矩形范围
+	 * @param rc 矩形范围对象
+	 * @return {Promise<void>}
 	 */
 	async getRect(rc)
 	{

@@ -37,11 +37,11 @@ public class JSRegInfo extends JSGeomInfo{
         }
     }
 
-    public void createObj(double ang, int endClr, int fillClr, short fillMode, short fullPatFlg, short libId, double outPenW, boolean ovprnt, int patCls, int patId,
+    public void createObj(double ang, int endClr, int fillClr, int fillMode, int fullPatFlg, int libId, double outPenW, boolean ovprnt, int patCls, int patId,
                    double patHeight, double patWidth, Promise promise)
     {
         try{
-            RegInfo regInfo = new RegInfo(ang, endClr, fillClr, fillMode, fullPatFlg, libId, outPenW, ovprnt, patCls, patId, patHeight, patWidth);
+            RegInfo regInfo = new RegInfo(ang, endClr, fillClr, (short)fillMode, (short)fullPatFlg, (short)libId, outPenW, ovprnt, patCls, patId, patHeight, patWidth);
             String regInfoId = registerId(regInfo);
 
             WritableMap map = Arguments.createMap();
@@ -116,7 +116,7 @@ public class JSRegInfo extends JSGeomInfo{
     {
         try {
             RegInfo regInfo = (RegInfo)getObjFromList(regInfoId);
-            short fillMode = regInfo.getFillMode();
+            int fillMode = regInfo.getFillMode();
             promise.resolve(fillMode);
         } catch (Exception e) {
             promise.reject(e);
@@ -124,11 +124,11 @@ public class JSRegInfo extends JSGeomInfo{
     }
 
     @ReactMethod
-    public void setFillMode(String regInfoId, short newVal, Promise promise)
+    public void setFillMode(String regInfoId, int newVal, Promise promise)
     {
         try {
             RegInfo regInfo = (RegInfo)getObjFromList(regInfoId);
-            regInfo.setFillMode(newVal);
+            regInfo.setFillMode((short)newVal);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -308,7 +308,7 @@ public class JSRegInfo extends JSGeomInfo{
     {
         try {
             RegInfo regInfo = (RegInfo)getObjFromList(regInfoId);
-            short fullPatFlg = regInfo.getFullPatFlg();
+            int fullPatFlg = regInfo.getFullPatFlg();
             promise.resolve(fullPatFlg);
         } catch (Exception e) {
             promise.reject(e);
@@ -316,11 +316,11 @@ public class JSRegInfo extends JSGeomInfo{
     }
 
     @ReactMethod
-    public void setFullPatFlg(String regInfoId, short newVal, Promise promise)
+    public void setFullPatFlg(String regInfoId, int newVal, Promise promise)
     {
         try {
             RegInfo regInfo = (RegInfo)getObjFromList(regInfoId);
-            regInfo.setFullPatFlg(newVal);
+            regInfo.setFullPatFlg((short)newVal);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);

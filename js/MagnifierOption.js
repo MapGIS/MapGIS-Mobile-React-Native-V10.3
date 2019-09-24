@@ -144,9 +144,9 @@ export default class MagnifierOption {
      */
     async getPoint() {
         try {
-            var { pointFId } = await MO.getPoint(this._MGMagnifierOptionId);
+            var { PointFId } = await MO.getPoint(this._MGMagnifierOptionId);
             var pointF = new PointF();
-            pointF._MGPointFId = pointFId;
+            pointF._MGPointFId = PointFId;
             return pointF;
         } catch (e) {
             console.error(e);

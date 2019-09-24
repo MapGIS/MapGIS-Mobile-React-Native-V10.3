@@ -138,9 +138,9 @@ export default class GeoPolygons extends GeometryExp {
 	async getPolygon(index)
 	{
 		try{
-            let {geoPolygonId} = GPGS.getPolygon(this._MGGeoPolygonsId, index)
+            let {GeoPolygonId} = GPGS.getPolygon(this._MGGeoPolygonsId, index)
             var geoPolygon = new GeoPolygon();
-            geoPolygon._MGGeoPolygonId = geoPolygonId;
+            geoPolygon._MGGeoPolygonId = GeoPolygonId;
             return geoPolygon;
         } catch(e) {
             console.error(e)

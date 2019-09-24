@@ -36,9 +36,9 @@ export default class ElpTransformation {
 	static async getElpParamByIndex(index)
 	{
 		try {
-            let {elpParamId} = await ET.getElpParam(index);
+            let {ElpParamId} = await ET.getElpParam(index);
             var elpParam = new ElpParam();
-            elpParam._MGElpParamId = elpParamId;
+            elpParam._MGElpParamId = ElpParamId;
       
             return elpParam;
           } catch (e) {
@@ -55,9 +55,9 @@ export default class ElpTransformation {
 	static async getElpParamByName(name)
 	{
 		try {
-            let {elpParamId} = await ET.getElpParam(name);
+            let {ElpParamId} = await ET.getElpParam(name);
             var elpParam = new ElpParam();
-            elpParam._MGElpParamId = elpParamId;
+            elpParam._MGElpParamId = ElpParamId;
       
             return elpParam;
           } catch (e) {
@@ -104,9 +104,9 @@ export default class ElpTransformation {
 	static async getElpTransParamByIndex(index)
 	{
 		try {
-            let {elpTransParamId} = await ET.getElpTransParam(index);
+            let {ElpTransParamId} = await ET.getElpTransParam(index);
             var elpTransParam = new ElpTransParam();
-            elpTransParam._MGElpTransParamId = elpTransParamId;
+            elpTransParam._MGElpTransParamId = ElpTransParamId;
       
             return elpTransParam;
           } catch (e) {
@@ -123,9 +123,9 @@ export default class ElpTransformation {
 	static async getElpTransParamByName(name)
 	{
 		try {
-            let {elpTransParamId} = await ET.getElpTransParam(name);
+            let {ElpTransParamId} = await ET.getElpTransParam(name);
             var elpTransParam = new ElpTransParam();
-            elpTransParam._MGElpTransParamId = elpTransParamId;
+            elpTransParam._MGElpTransParamId = ElpTransParamId;
       
             return elpTransParam;
           } catch (e) {
@@ -290,9 +290,9 @@ export default class ElpTransformation {
 	static async countCoeByPntList(transType, pnts, sourceSpheroid, sourceAngUnit, spheroid, angUnit)
 	{
           try {
-            let { elpTransParamId } = await ET.countCoeByPntList(transType, pnts, sourceSpheroid, sourceAngUnit, spheroid, angUnit);
+            let { ElpTransParamId } = await ET.countCoeByPntList(transType, pnts, sourceSpheroid, sourceAngUnit, spheroid, angUnit);
             var elpTransParam = new ElpTransParam();
-            elpTransParam._MGElpTransParamId = elpTransParamId;
+            elpTransParam._MGElpTransParamId = ElpTransParamId;
             return elpTransParam;
           } catch (e) {
             console.error(e);

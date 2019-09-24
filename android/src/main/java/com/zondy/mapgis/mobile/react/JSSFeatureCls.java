@@ -67,7 +67,7 @@ public class JSSFeatureCls extends JSVectorCls{
     }
 
     @ReactMethod
-    public void open(String sFeatureClsId, int id, Promise promise)
+    public void openById(String sFeatureClsId, int id, Promise promise)
     {
         try {
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
@@ -647,11 +647,11 @@ public class JSSFeatureCls extends JSVectorCls{
     }
 
     @ReactMethod
-    public void areaToField(String sFeatureClsId, boolean bRealArea, short fldIndex, Promise promise)
+    public void areaToField(String sFeatureClsId, boolean bRealArea, int fldIndex, Promise promise)
     {
         try {
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
-            int iVal = sFeatureCls.areaToField(bRealArea, fldIndex);
+            int iVal = sFeatureCls.areaToField(bRealArea, (short)fldIndex);
             promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
@@ -659,11 +659,11 @@ public class JSSFeatureCls extends JSVectorCls{
     }
 
     @ReactMethod
-    public void lengthToField(String sFeatureClsId, boolean bRealLen, short fldIndex, Promise promise)
+    public void lengthToField(String sFeatureClsId, boolean bRealLen, int fldIndex, Promise promise)
     {
         try {
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
-            int iVal = sFeatureCls.lengthToField(bRealLen, fldIndex);
+            int iVal = sFeatureCls.lengthToField(bRealLen, (short)fldIndex);
             promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);

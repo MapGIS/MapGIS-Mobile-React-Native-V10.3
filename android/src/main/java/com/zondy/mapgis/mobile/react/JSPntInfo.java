@@ -38,11 +38,11 @@ public class JSPntInfo extends JSGeomInfo{
     }
 
     @ReactMethod
-    public void createObj(double ang, int backClr, double backExp, short fillFlg, double height, short libId, int outClr1, int outClr2, int outClr3, double outPenW1,
+    public void createObj(double ang, int backClr, double backExp, int fillFlg, double height, int libId, int outClr1, int outClr2, int outClr3, double outPenW1,
                    double outPenW2, double outPenW3, boolean ovprnt, int symId, double width, Promise promise)
     {
         try{
-            PntInfo pntInfo = new PntInfo(ang,backClr,backExp,fillFlg,height,libId,outClr1,outClr2,outClr3,outPenW1,outPenW2,outPenW3,ovprnt,symId,width);
+            PntInfo pntInfo = new PntInfo(ang,backClr,backExp,(short)fillFlg,height,(short)libId,outClr1,outClr2,outClr3,outPenW1,outPenW2,outPenW3,ovprnt,symId,width);
             String pntInfoId = registerId(pntInfo);
 
             WritableMap map = Arguments.createMap();
@@ -334,7 +334,7 @@ public class JSPntInfo extends JSGeomInfo{
     {
         try {
             PntInfo pntInfo = (PntInfo)getObjFromList(pntInfoId);
-            short fillFlg = pntInfo.getFillFlg();
+            int fillFlg = pntInfo.getFillFlg();
             promise.resolve(fillFlg);
         } catch (Exception e) {
             promise.reject(e);
@@ -342,11 +342,11 @@ public class JSPntInfo extends JSGeomInfo{
     }
 
     @ReactMethod
-    public void setFillFlg(String pntInfoId, short newVal, Promise promise)
+    public void setFillFlg(String pntInfoId, int newVal, Promise promise)
     {
         try {
             PntInfo pntInfo = (PntInfo)getObjFromList(pntInfoId);
-            pntInfo.setFillFlg(newVal);
+            pntInfo.setFillFlg((short)newVal);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);

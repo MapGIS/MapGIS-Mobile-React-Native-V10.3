@@ -238,9 +238,9 @@ export default class Record {
 	async getFields()
 	{
 		try {
-            let {fieldsId} =  await RD.getFields(this._MGRecordId);
+            let {FieldsId} =  await RD.getFields(this._MGRecordId);
             var  fields = new Fields();
-            fields._MGFieldsId = fieldsId;
+            fields._MGFieldsId = FieldsId;
             return fields;            
           } catch (e) {
             console.error(e);
