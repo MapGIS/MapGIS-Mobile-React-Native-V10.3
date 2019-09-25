@@ -35,9 +35,9 @@ export default class Geometry {
 	async calRect()
 	{
 		try {
-            let {rectId} = await G.calRect(this._MGGeometryId);
+            let {RectId} = await G.calRect(this._MGGeometryId);
             var rect = new Rect();
-            rect._MGRectId = rectId;
+            rect._MGRectId = RectId;
             return rect;
         }
         catch (e) {

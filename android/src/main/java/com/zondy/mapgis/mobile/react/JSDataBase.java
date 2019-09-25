@@ -1,5 +1,8 @@
 package com.zondy.mapgis.mobile.react;
 
+import android.os.Environment;
+import android.util.Log;
+
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -7,12 +10,20 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
+import com.zondy.mapgis.core.geodatabase.AnnClsInfo;
 import com.zondy.mapgis.core.geodatabase.DataBase;
+import com.zondy.mapgis.core.geodatabase.FClsInfo;
 import com.zondy.mapgis.core.geodatabase.IXClsInfo;
 import com.zondy.mapgis.core.geodatabase.XClsType;
+import com.zondy.mapgis.core.map.GroupLayer;
+import com.zondy.mapgis.core.map.MapLayer;
+import com.zondy.mapgis.core.map.ServerLayer;
+import com.zondy.mapgis.core.map.SimpleModelLayer;
+import com.zondy.mapgis.core.map.VectorLayer;
 import com.zondy.mapgis.core.object.Enumeration;
 import com.zondy.mapgis.core.object.IntList;
 
+import java.io.File;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +31,7 @@ import java.util.Map;
 public class JSDataBase extends ReactContextBaseJavaModule {
     public static final String REACT_CLASS = "JSDataBase";
     public static Map<String, DataBase> mDataBaseList = new HashMap<String, DataBase>();
+    public static final String PHONE_SDCARD_PATH = Environment.getExternalStorageDirectory().getPath();
 
     public JSDataBase(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -60,7 +72,7 @@ public class JSDataBase extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void getDbName(String dataBaseId, Promise promise)
+    public void getName(String dataBaseId, Promise promise)
     {
         try {
             DataBase dataBase = getObjFromList(dataBaseId);
@@ -99,8 +111,9 @@ public class JSDataBase extends ReactContextBaseJavaModule {
     public void create(String dataBaseId, String strDatabasePath, Promise promise)
     {
         try {
+            String strRootPath = PHONE_SDCARD_PATH + File.separator;
             DataBase dataBase = getObjFromList(dataBaseId);
-            int iVal = (int)dataBase.create(strDatabasePath);
+            int iVal = (int)dataBase.create(strRootPath + strDatabasePath);
             promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
@@ -129,10 +142,10 @@ public class JSDataBase extends ReactContextBaseJavaModule {
             WritableArray xclseIDsArray = Arguments.createArray();
             for (int i = 0; i < intLst.size(); i++) {
                 xclseIDsArray.pushInt(intLst.get(i));
+                Log.e("DataBase:", "  i:"+ i + " intLst.get(i):" + intLst.get(i));
             }
-            WritableMap map = Arguments.createMap();
-            map.putArray("XclseIDsArray", xclseIDsArray);
-            promise.resolve(map);
+            Log.e("DataBase:", "getXclseIDs: size"+ intLst.size());
+            promise.resolve(xclseIDsArray);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -145,9 +158,19 @@ public class JSDataBase extends ReactContextBaseJavaModule {
             DataBase dataBase = getObjFromList(dataBaseId);
             XClsType type = (XClsType) Enumeration.parse(XClsType.class, xClsType);
             IXClsInfo xClsInfo = dataBase.getXclsInfo(type, clsID);
-            String xClsInfoId = JSXClsInfo.registerId(xClsInfo);
+            String XClsInfoId = JSXClsInfo.registerId(xClsInfo);
+            int InfoType = -1; // 不是任何类型
+            if(xClsInfo instanceof FClsInfo){                // 简单要素类信息
+                Log.e("getXclsInfo", " xClsInfo instanceof FClsInfo" );
+                InfoType = 1;
+            }else if (xClsInfo instanceof AnnClsInfo){         // 注记类信息
+                Log.e("getXclsInfo", " xClsInfo instanceof AnnClsInfo" );
+                InfoType = 2;
+            }
+            Log.e("getXclsInfo", " InfoType= " + InfoType  + " XClsInfoId:" + XClsInfoId);
             WritableMap map = Arguments.createMap();
-            map.putString("XClsInfoId", xClsInfoId);
+            map.putString("XClsInfoId", XClsInfoId);
+            map.putInt("XClsInfoType", InfoType);
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
@@ -184,8 +207,10 @@ public class JSDataBase extends ReactContextBaseJavaModule {
     public void open(String dataBaseId, String strDatabasePath, Promise promise)
     {
         try {
+            String strRootPath = PHONE_SDCARD_PATH + File.separator;
             DataBase dataBase = getObjFromList(dataBaseId);
-            int iVal = (int)dataBase.open(strDatabasePath);
+            int iVal = (int)dataBase.open(strRootPath + strDatabasePath);
+            Log.e("Database:test","open: param :" + strDatabasePath + "open:return" + iVal);
             promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
@@ -208,8 +233,9 @@ public class JSDataBase extends ReactContextBaseJavaModule {
     public void updateAsync(String dataBaseId, final String strUpdateDatabasePath, final Promise promise)
     {
         try {
+            String strRootPath = PHONE_SDCARD_PATH + File.separator;
             DataBase dataBase = getObjFromList(dataBaseId);
-            dataBase.updateAsync(strUpdateDatabasePath, new DataBase.DataBaseUpdateCallback()
+            dataBase.updateAsync(strRootPath + strUpdateDatabasePath, new DataBase.DataBaseUpdateCallback()
             {
                 @Override
                 public void onUpdating(long totalClsCount, long curClsIndex, double curClsUpdateProgress) {

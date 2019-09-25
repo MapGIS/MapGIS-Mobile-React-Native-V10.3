@@ -33,12 +33,12 @@ export default class ElpTransformation {
 	 * @param index 椭球索引
 	 * @return {Promise.<ElpParam>} 成功返回椭球参数对象，失败返回空
 	 */
-	static async getElpParam(index)
+	static async getElpParamByIndex(index)
 	{
 		try {
-            let {elpParamId} = await ET.getElpParam(index);
+            let {ElpParamId} = await ET.getElpParam(index);
             var elpParam = new ElpParam();
-            elpParam._MGElpParamId = elpParamId;
+            elpParam._MGElpParamId = ElpParamId;
       
             return elpParam;
           } catch (e) {
@@ -52,12 +52,12 @@ export default class ElpTransformation {
 	 * @param name 椭球名称
 	 * @return {Promise.<ElpParam>} 成功返回椭球参数对象，失败返回空
 	 */
-	static async getElpParam(name)
+	static async getElpParamByName(name)
 	{
 		try {
-            let {elpParamId} = await ET.getElpParam(name);
+            let {ElpParamId} = await ET.getElpParam(name);
             var elpParam = new ElpParam();
-            elpParam._MGElpParamId = elpParamId;
+            elpParam._MGElpParamId = ElpParamId;
       
             return elpParam;
           } catch (e) {
@@ -101,12 +101,12 @@ export default class ElpTransformation {
 	 * @param index 转换参数的索引值
 	 * @return {Promise.<ElpTransParam>} 成功返回椭球转换参数对象，失败返回空
 	 */
-	static async getElpTransParam(index)
+	static async getElpTransParamByIndex(index)
 	{
 		try {
-            let {elpTransParamId} = await ET.getElpTransParam(index);
+            let {ElpTransParamId} = await ET.getElpTransParam(index);
             var elpTransParam = new ElpTransParam();
-            elpTransParam._MGElpTransParamId = elpTransParamId;
+            elpTransParam._MGElpTransParamId = ElpTransParamId;
       
             return elpTransParam;
           } catch (e) {
@@ -120,12 +120,12 @@ export default class ElpTransformation {
 	 * @param name 椭球转换参数对象的名称
 	 * @return {Promise.<ElpTransParam>} 成功返回椭球转换参数对象，失败返回空
 	 */
-	static async getElpTransParam(name)
+	static async getElpTransParamByName(name)
 	{
 		try {
-            let {elpTransParamId} = await ET.getElpTransParam(name);
+            let {ElpTransParamId} = await ET.getElpTransParam(name);
             var elpTransParam = new ElpTransParam();
-            elpTransParam._MGElpTransParamId = elpTransParamId;
+            elpTransParam._MGElpTransParamId = ElpTransParamId;
       
             return elpTransParam;
           } catch (e) {
@@ -140,7 +140,7 @@ export default class ElpTransformation {
 	 * @param param 椭球转换参数对象
 	 * @return {Promise.<boolean>} 成功返回true，失败返回false
 	 */
-	static async setElpTransParam(index, param)
+	static async setElpTransParamByIndex(index, param)
 	{
 		try {
             return await ET.setElpTransParam(index, param._MGElpTransParamId);
@@ -156,7 +156,7 @@ export default class ElpTransformation {
 	 * @param param 椭球转换参数对象
 	 * @return {Promise.<boolean>} 成功返回true，失败返回false
 	 */
-	static async setElpTransParam(name, param)
+	static async setElpTransParamByName(name, param)
 	{
 		try {
             return await ET.setElpTransParam(name, param._MGElpTransParamId);
@@ -186,7 +186,7 @@ export default class ElpTransformation {
 	 * @param index 椭球转换参数对象索引
 	 * @return {Promise.<boolean>} 成功返回true，失败返回false
 	 */
-	static async delElpTransParam(index)
+	static async delElpTransParamByIndex(index)
 	{
 		try {
             return await ET.delElpTransParam(index);
@@ -201,7 +201,7 @@ export default class ElpTransformation {
 	 * @param name 椭球转换参数对象名称
 	 * @return {Promise.<boolean>} 成功返回true，失败返回false
 	 */
-	static async delElpTransParam(name)
+	static async delElpTransParamByName(name)
 	{
 		try {
             return await ET.delElpTransParam(name);
@@ -290,9 +290,9 @@ export default class ElpTransformation {
 	static async countCoeByPntList(transType, pnts, sourceSpheroid, sourceAngUnit, spheroid, angUnit)
 	{
           try {
-            let { elpTransParamId } = await ET.countCoeByPntList(transType, pnts, sourceSpheroid, sourceAngUnit, spheroid, angUnit);
+            let { ElpTransParamId } = await ET.countCoeByPntList(transType, pnts, sourceSpheroid, sourceAngUnit, spheroid, angUnit);
             var elpTransParam = new ElpTransParam();
-            elpTransParam._MGElpTransParamId = elpTransParamId;
+            elpTransParam._MGElpTransParamId = ElpTransParamId;
             return elpTransParam;
           } catch (e) {
             console.error(e);

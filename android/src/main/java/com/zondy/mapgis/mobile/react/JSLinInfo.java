@@ -38,11 +38,11 @@ public class JSLinInfo extends JSGeomInfo{
     }
 
     @ReactMethod
-    public void createObj(short adjustFlg, short headType, short joinType, short libId, int linStyId, short makeMethod, int outClr1, int outClr2, int outClr3,
+    public void createObj(int adjustFlg, int headType, int joinType, int libId, int linStyId, int makeMethod, int outClr1, int outClr2, int outClr3,
                    double outPenW1, double outPenW2, double outPenW3, boolean ovprnt, double xScale, double yScale, Promise promise)
     {
         try{
-            LinInfo linInfo = new LinInfo(adjustFlg, headType, joinType, libId, linStyId, makeMethod, outClr1, outClr2, outClr3, outPenW1, outPenW2, outPenW3, ovprnt, xScale, yScale);
+            LinInfo linInfo = new LinInfo((short)adjustFlg, (short)headType, (short)joinType, (short)libId, linStyId, (short)makeMethod, outClr1, outClr2, outClr3, outPenW1, outPenW2, outPenW3, ovprnt, xScale, yScale);
             String linInfoId = registerId(linInfo);
 
             WritableMap map = Arguments.createMap();
@@ -262,7 +262,7 @@ public class JSLinInfo extends JSGeomInfo{
     {
         try {
             LinInfo linInfo = (LinInfo)getObjFromList(linInfoId);
-            short type = linInfo.getHeadType();
+            int type = linInfo.getHeadType();
             promise.resolve(type);
         } catch (Exception e) {
             promise.reject(e);
@@ -270,11 +270,11 @@ public class JSLinInfo extends JSGeomInfo{
     }
 
    @ReactMethod
-    public void setHeadType(String linInfoId, short newVal, Promise promise)
+    public void setHeadType(String linInfoId, int newVal, Promise promise)
     {
         try {
             LinInfo linInfo = (LinInfo)getObjFromList(linInfoId);
-            linInfo.setHeadType(newVal);
+            linInfo.setHeadType((short)newVal);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -286,7 +286,7 @@ public class JSLinInfo extends JSGeomInfo{
     {
         try {
             LinInfo linInfo = (LinInfo)getObjFromList(linInfoId);
-            short type = linInfo.getJoinType();
+            int type = linInfo.getJoinType();
             promise.resolve(type);
         } catch (Exception e) {
             promise.reject(e);
@@ -294,11 +294,11 @@ public class JSLinInfo extends JSGeomInfo{
     }
 
    @ReactMethod
-    public void setJoinType(String linInfoId, short newVal, Promise promise)
+    public void setJoinType(String linInfoId, int newVal, Promise promise)
     {
         try {
             LinInfo linInfo = (LinInfo)getObjFromList(linInfoId);
-            linInfo.setJoinType(newVal);
+            linInfo.setJoinType((short)newVal);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -310,7 +310,7 @@ public class JSLinInfo extends JSGeomInfo{
     {
         try {
             LinInfo linInfo = (LinInfo)getObjFromList(linInfoId);
-            short adjustFlg = linInfo.getAdjustFlg();
+            int adjustFlg = linInfo.getAdjustFlg();
             promise.resolve(adjustFlg);
         } catch (Exception e) {
             promise.reject(e);
@@ -318,11 +318,11 @@ public class JSLinInfo extends JSGeomInfo{
     }
 
     @ReactMethod
-    public void setAdjustFlg(String linInfoId, short newVal, Promise promise)
+    public void setAdjustFlg(String linInfoId, int newVal, Promise promise)
     {
         try {
             LinInfo linInfo = (LinInfo)getObjFromList(linInfoId);
-            linInfo.setAdjustFlg(newVal);
+            linInfo.setAdjustFlg((short)newVal);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -334,7 +334,7 @@ public class JSLinInfo extends JSGeomInfo{
     {
         try {
             LinInfo linInfo = (LinInfo)getObjFromList(linInfoId);
-            short makeMethod = linInfo.getMakeMethod();
+            int makeMethod = linInfo.getMakeMethod();
             promise.resolve(makeMethod);
         } catch (Exception e) {
             promise.reject(e);
@@ -342,11 +342,11 @@ public class JSLinInfo extends JSGeomInfo{
     }
 
     @ReactMethod
-    public void setMakeMethod(String linInfoId, short newVal, Promise promise)
+    public void setMakeMethod(String linInfoId, int newVal, Promise promise)
     {
         try {
             LinInfo linInfo = (LinInfo)getObjFromList(linInfoId);
-            linInfo.setMakeMethod(newVal);
+            linInfo.setMakeMethod((short)newVal);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);

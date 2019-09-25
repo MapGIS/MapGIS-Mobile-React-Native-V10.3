@@ -23,9 +23,9 @@ export default class GeoLine extends GeometryExp {
 	async get2Dots()
 	{
 		try {
-            let {dotsId} = await GL.get2Dots(this._MGGeoLineId);
+            let {DotsId} = await GL.get2Dots(this._MGGeoLineId);
             var dots = new Dots();
-            dots._MGDotsId = dotsId;
+            dots._MGDotsId = DotsId;
             return dots;
         }
         catch (e) {
@@ -41,9 +41,9 @@ export default class GeoLine extends GeometryExp {
 	async get3Dots()
 	{
 		try {
-            let {dots3DId} = await GL.get3Dots(this._MGGeoLineId);
+            let {Dots3DId} = await GL.get3Dots(this._MGGeoLineId);
             var dots3D = new Dots3D();
-            dots3D._MGDots3DId = dots3DId;
+            dots3D._MGDots3DId = Dots3DId;
             return dots3D;
         }
         catch (e) {
@@ -57,7 +57,7 @@ export default class GeoLine extends GeometryExp {
 	 * @param ptSRef 投影参数
 	 * @return {Promise}平面长度
 	 */
-	async calLength(sRef)
+	async calLengthOfSRef(sRef)
 	{
 		try {
             return GL.calLength(this._MGGeoLineId, sRef._MGSRefDataId);

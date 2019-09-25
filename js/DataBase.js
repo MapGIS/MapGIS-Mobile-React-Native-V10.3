@@ -7,6 +7,8 @@ import { NativeModules } from "react-native";
 let DB = NativeModules.JSDataBase;
 
 import XClsInfo from "./XClsInfo.js"
+import FClsInfo from "./FClsInfo.js"
+import AnnClsInfo from "./AnnClsInfo.js"
 
 /**
  * @class DataBase
@@ -111,7 +113,7 @@ export default class DataBase {
 	async getXclseIDs(type, dsID)
 	{
 		try {
-            let {clsIDArray} = await DB.getXclseIDs(this._MGDataBaseId, type, dsID); 
+            let clsIDArray = await DB.getXclseIDs(this._MGDataBaseId, type, dsID); 
             return clsIDArray;
         } catch (error) {
             console.error(e);
@@ -128,10 +130,21 @@ export default class DataBase {
 	async getXclsInfo(type, clsID)
 	{
 		try {
-            let {xClsInfoId} = await DB.getXclsInfo(this._MGDataBaseId, type, clsID); 
-            var xClsInfo = new XClsInfo();
-            xClsInfo._MGXClsInfoId = xClsInfoId;
-            return xClsInfo;
+			let xClsInfo;
+			var { XClsInfoId, XClsInfoType} = await DB.getXclsInfo(this._MGDataBaseId, type, clsID); // 获取到要素类信息id，要素类类型		
+			switch(XClsInfoType){
+				case 1:     // 矢量图层
+				xClsInfo = new FClsInfo();
+				xClsInfo._MGXClsInfoId = XClsInfoId;
+				break;
+				case 2:    // 组图层
+				xClsInfo = new AnnClsInfo();
+				xClsInfo._MGXClsInfoId = XClsInfoId;
+				break;
+				default:
+				break;
+        	}     
+	    	return xClsInfo;
         } catch (error) {
             console.error(e);
         }

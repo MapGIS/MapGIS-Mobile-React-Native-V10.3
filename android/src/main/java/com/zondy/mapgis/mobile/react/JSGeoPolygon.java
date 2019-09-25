@@ -252,8 +252,8 @@ public class JSGeoPolygon extends JSGeometryExp{
         try {
             GeoPolygon geoPolygon = getObjFromList(geoPolygonId);
             Dot label = JSDot.getObjFromList(labelDotId);
-            short val = geoPolygon.calLabel(label);
-            promise.resolve(val);
+            int iVal = geoPolygon.calLabel(label);
+            promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
         }

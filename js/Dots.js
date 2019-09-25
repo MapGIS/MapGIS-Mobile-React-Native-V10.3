@@ -64,10 +64,10 @@ export default class Dots {
 	 * @param dots 待添加的点序列对象
 	 * @returns {Promise} 大于0成功，否则失败
 	 */
-	async append(dots)
+	async appendDots(dots)
 	{
 		try {
-            return await DS.append(this._MGDotsId, dots._MGDotsId);
+            return await DS.appendDots(this._MGDotsId, dots._MGDotsId);
         }
         catch (e) {
             console.error(e);

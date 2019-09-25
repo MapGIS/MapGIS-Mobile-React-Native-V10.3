@@ -61,11 +61,11 @@ public class JSRecord extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void getFldVal(String recordId, short fldIndex, Promise promise)
+    public void getFldVal(String recordId, int fldIndex, Promise promise)
     {
         try {
             Record record = getObjFromList(recordId);
-            Object fldVal = record.getFldVal(fldIndex);
+            Object fldVal = record.getFldVal((short)fldIndex);
             WritableMap map = Arguments.createMap();
             map.putString("value", fldVal.toString());
             promise.resolve(map);
@@ -133,11 +133,11 @@ public class JSRecord extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setFldFromStr(String recordId, short fldIndex, String newVal, Promise promise)
+    public void setFldFromStr(String recordId, int fldIndex, String newVal, Promise promise)
     {
         try {
             Record record = getObjFromList(recordId);
-            int iVal = record.setFldFromStr(fldIndex, newVal);
+            int iVal = record.setFldFromStr((short)fldIndex, newVal);
             promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
@@ -157,11 +157,11 @@ public class JSRecord extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void isFldNULL(String recordId, short fldIndex, Promise promise)
+    public void isFldNULL(String recordId, int fldIndex, Promise promise)
     {
         try {
             Record record = getObjFromList(recordId);
-            int iVal = record.isFldNULL(fldIndex);
+            int iVal = record.isFldNULL((short)fldIndex);
             promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
@@ -181,11 +181,11 @@ public class JSRecord extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setFldNULL(String recordId, short fldIndex, Promise promise)
+    public void setFldNULL(String recordId, int fldIndex, Promise promise)
     {
         try {
             Record record = getObjFromList(recordId);
-            int iVal = record.setFldNULL(fldIndex);
+            int iVal = record.setFldNULL((short)fldIndex);
             promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
@@ -217,11 +217,11 @@ public class JSRecord extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void getFieldType(String recordId, short fldIndex, Promise promise)
+    public void getFieldType(String recordId, int fldIndex, Promise promise)
     {
         try {
             Record record = getObjFromList(recordId);
-            FieldType fieldType = record.getFieldType(fldIndex);
+            FieldType fieldType = record.getFieldType((short)fldIndex);
             int type = Enumeration.getValueByName(FieldType.class, fieldType.name());
             promise.resolve(type);
         } catch (Exception e) {

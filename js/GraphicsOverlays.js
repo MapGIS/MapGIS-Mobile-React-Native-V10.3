@@ -85,7 +85,7 @@ export default class GraphicsOverlays {
    * @param {String} graphicLayerName
    * @returns {Promise<*|NavigationPreloadState>}
    */
-  async indexOf(graphicLayerName) {
+  async indexOfByName(graphicLayerName) {
     try {
       let index = await X.indexOfByName(
         this._MGGraphicsOverlaysId,
@@ -180,7 +180,7 @@ export default class GraphicsOverlays {
    * @param index
    * @returns {Promise<void>}
    */
-  async remove(index) {
+  async removeByIndex(index) {
     try {
       await X.remove(this._MGGraphicsOverlaysId, index);
     } catch (e) {
@@ -191,7 +191,7 @@ export default class GraphicsOverlays {
   /**
    * 移除图形覆盖物
    * @memberOf GraphicsOverlays
-   * @param index
+   * @param graphicsOverlay
    * @returns {Promise<void>}
    */
   async remove(graphicsOverlay) {

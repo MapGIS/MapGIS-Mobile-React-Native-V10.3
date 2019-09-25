@@ -137,7 +137,7 @@ public class JSField extends ReactContextBaseJavaModule {
     {
         try {
             Field field = getObjFromList(fieldId);
-            short fieldLength = field.getFieldLength();
+            int fieldLength = field.getFieldLength();
             promise.resolve(fieldLength);
         } catch (Exception e) {
             promise.reject(e);
@@ -145,11 +145,11 @@ public class JSField extends ReactContextBaseJavaModule {
     }
 
    @ReactMethod
-    public void setFieldLength(String fieldId, short length, Promise promise)
+    public void setFieldLength(String fieldId, int length, Promise promise)
     {
         try {
             Field field = getObjFromList(fieldId);
-            field.setFieldLength(length);
+            field.setFieldLength((short)length);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -161,7 +161,7 @@ public class JSField extends ReactContextBaseJavaModule {
     {
         try {
             Field field = getObjFromList(fieldId);
-            short mskLength = field.getMskLength();
+            int mskLength = field.getMskLength();
             promise.resolve(mskLength);
         } catch (Exception e) {
             promise.reject(e);
@@ -169,11 +169,11 @@ public class JSField extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setMskLength(String fieldId, short length, Promise promise)
+    public void setMskLength(String fieldId, int length, Promise promise)
     {
         try {
             Field field = getObjFromList(fieldId);
-            field.setMskLength(length);
+            field.setMskLength((short)length);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -185,7 +185,7 @@ public class JSField extends ReactContextBaseJavaModule {
     {
         try {
             Field field = getObjFromList(fieldId);
-            short pointLength = field.getPointLength();
+            int pointLength = field.getPointLength();
             promise.resolve(pointLength);
         } catch (Exception e) {
             promise.reject(e);
@@ -193,11 +193,11 @@ public class JSField extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setPointLength(String fieldId, short length, Promise promise)
+    public void setPointLength(String fieldId, int length, Promise promise)
     {
         try {
             Field field = getObjFromList(fieldId);
-            field.setPointLength(length);
+            field.setPointLength((short)length);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -209,7 +209,7 @@ public class JSField extends ReactContextBaseJavaModule {
     {
         try {
             Field field = getObjFromList(fieldId);
-            short editable = field.getEditable();
+            int editable = field.getEditable();
             promise.resolve(editable);
         } catch (Exception e) {
             promise.reject(e);
@@ -217,11 +217,11 @@ public class JSField extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setEditable(String fieldId, short value, Promise promise)
+    public void setEditable(String fieldId, int value, Promise promise)
     {
         try {
             Field field = getObjFromList(fieldId);
-            field.setEditable(value);
+            field.setEditable((short)value);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -233,7 +233,7 @@ public class JSField extends ReactContextBaseJavaModule {
     {
         try {
             Field field = getObjFromList(fieldId);
-            short ptFlag = field.getPtFlag();
+            int ptFlag = field.getPtFlag();
             promise.resolve(ptFlag);
         } catch (Exception e) {
             promise.reject(e);
@@ -241,11 +241,11 @@ public class JSField extends ReactContextBaseJavaModule {
     }
 
    @ReactMethod
-    public void setPtFlag(String fieldId, short flag, Promise promise)
+    public void setPtFlag(String fieldId, int flag, Promise promise)
     {
         try {
             Field field = getObjFromList(fieldId);
-            field.setPtFlag(flag);
+            field.setPtFlag((short)flag);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -257,7 +257,7 @@ public class JSField extends ReactContextBaseJavaModule {
     {
         try {
             Field field = getObjFromList(fieldId);
-            short ptcPosition = field.getPtcPosition();
+            int ptcPosition = field.getPtcPosition();
             promise.resolve(ptcPosition);
         } catch (Exception e) {
             promise.reject(e);
@@ -265,11 +265,11 @@ public class JSField extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setPtcPosition(String fieldId, short position, Promise promise)
+    public void setPtcPosition(String fieldId, int position, Promise promise)
     {
         try {
             Field field = getObjFromList(fieldId);
-            field.setPtcPosition(position);
+            field.setPtcPosition((short)position);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);

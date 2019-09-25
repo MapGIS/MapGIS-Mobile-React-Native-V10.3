@@ -73,7 +73,7 @@ public class JSFClsInfo extends JSXClsInfo{
     }
 
     @ReactMethod
-    public void getClsName(String fClsInfoId, Promise promise)
+    public void getName(String fClsInfoId, Promise promise)
     {
         try {
             FClsInfo fClsInfo = (FClsInfo)getObjFromList(fClsInfoId);
@@ -85,7 +85,7 @@ public class JSFClsInfo extends JSXClsInfo{
     }
 
     @ReactMethod
-    public void setClsName(String fClsInfoId, String newVal, Promise promise)
+    public void setName(String fClsInfoId, String newVal, Promise promise)
     {
         try {
             FClsInfo fClsInfo = (FClsInfo)getObjFromList(fClsInfoId);

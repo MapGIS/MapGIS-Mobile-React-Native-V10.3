@@ -60,7 +60,7 @@ export default class AnnotationsOverlay {
 	 * 
 	 * @param index 索引
 	 */
-	async removeAnnotation(index)
+	async removeAnnotationByIndex(index)
 	{
 		try {
             await ANLY.removeAnnotation(this._MGAnnotationsOverlayId, index);

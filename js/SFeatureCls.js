@@ -5,6 +5,7 @@
 import { NativeModules } from "react-native";
 
 import VectorCls from "./VectorCls.js"
+import BasCls from "./BasCls.js"
 import DataBase from "./DataBase.js"
 import Rect from "./Rect.js"
 import Record from "./Record.js";
@@ -26,10 +27,10 @@ export default class SFeatureCls extends VectorCls{
         super()
         Object.defineProperty(this,"_MGSFeatureClsId", {
             get:function(){
-                return this. _MGVectorClsId
+                return this._MGVectorClsId
             },
             set:function(_MGSFeatureClsId){
-                this. _MGVectorClsId = _MGSFeatureClsId
+                this._MGVectorClsId = _MGSFeatureClsId
             },
         })
 	}
@@ -65,10 +66,12 @@ export default class SFeatureCls extends VectorCls{
 	 * @param id 图层ID
 	 * @return {Promise} 成功：>0;失败：<=0
 	 */
-	async open(id)
+	async openById(id)
 	{
+		alert("SFeatureCls: openById(id):");
 		try {
-            return await SFCLS.open(this._MGSFeatureClsId, id); 
+           // alert("SFeatureCls: openById(id):" + openById(id));
+            return await SFCLS.openById(this._MGSFeatureClsId, id); 
         } catch (error) {
             console.error(e);
         }
@@ -80,9 +83,10 @@ export default class SFeatureCls extends VectorCls{
 	 * @param name 简单要素名称
 	 * @return {Promise} 成功：类对象ID;失败：<=0
 	 */
-	async open(name)
+	async openByName(name)
 	{
 		try {
+			alert("SFeatureCls: openByName(name):" + openByName(name));
             return await SFCLS.open(this._MGSFeatureClsId, name); 
         } catch (error) {
             console.error(e);
@@ -139,9 +143,9 @@ export default class SFeatureCls extends VectorCls{
 	async getGDataBase()
 	{
 		try {
-            let {dbId} = await SFCLS.getGDataBase(this._MGSFeatureClsId); 
+            let {DataBaseId} = await SFCLS.getGDataBase(this._MGSFeatureClsId); 
             var db = new DataBase();
-            db._MGDataBaseId = dbId;
+            db._MGDataBaseId = DataBaseId;
             return db;
         } catch (error) {
             console.error(e);
@@ -170,9 +174,9 @@ export default class SFeatureCls extends VectorCls{
 	async getRange()
 	{
 		try {
-            let {rcId} = await SFCLS.getRange(this._MGSFeatureClsId); 
+            let {RectId} = await SFCLS.getRange(this._MGSFeatureClsId); 
             var rc = new Rect();
-            rc._MGRectId = rcId;
+            rc._MGRectId = RectId;
             return rc;
         } catch (error) {
             console.error(e);
@@ -229,9 +233,9 @@ export default class SFeatureCls extends VectorCls{
 	async getClsInfo()
 	{
 		try {
-            let {fCLSInfoId} =  await SFCLS.getClsInfo(this._MGSFeatureClsId); 
+            let {FClsInfoId} =  await SFCLS.getClsInfo(this._MGSFeatureClsId); 
             var fClsInfo = new FClsInfo();
-            fClsInfo._MGSFCLSInfoId = fCLSInfoId;
+            fClsInfo._MGSFCLSInfoId = FClsInfoId;
             return fClsInfo;
         } catch (error) {
             console.error(e);
@@ -246,9 +250,9 @@ export default class SFeatureCls extends VectorCls{
 	async getFields()
 	{
 		try {
-            let {fieldsId} =  await SFCLS.getClsInfo(this._MGSFeatureClsId); 
+            let {FieldsId} =  await SFCLS.getFields(this._MGSFeatureClsId); 
             var fields = new Fields();
-            fields._MGFieldsId = fieldsId;
+            fields._MGFieldsId = FieldsId;
             return fields;
         } catch (error) {
             console.error(e);
@@ -280,9 +284,9 @@ export default class SFeatureCls extends VectorCls{
 	async selectAllFeature()
 	{
         try {
-            let {recordSetId} = await SFCLS.selectAllFeature(this._MGSFeatureClsId); 
+            let {RecordSetId} = await SFCLS.selectAllFeature(this._MGSFeatureClsId); 
             var recordSet = new RecordSet();
-            recordSet._MGRecordSetId = recordSetId;
+            recordSet._MGRecordSetId = RecordSetId;
             return recordSet;
         } catch (error) {
             console.error(e);
@@ -298,9 +302,9 @@ export default class SFeatureCls extends VectorCls{
 	async select(def)
 	{
 		try {
-            let {recordSetId} = await SFCLS.select(this._MGSFeatureClsId, def._MGQueryDefId); 
+            let {RecordSetId} = await SFCLS.select(this._MGSFeatureClsId, def._MGQueryDefId); 
             var recordSet = new RecordSet();
-            recordSet._MGRecordSetId = recordSetId;
+            recordSet._MGRecordSetId = RecordSetId;
             return recordSet;
         } catch (error) {
             console.error(e);
@@ -315,9 +319,9 @@ export default class SFeatureCls extends VectorCls{
 	 */
 	async getRect(objID) {
 		try {
-            let {rectId} = await SFCLS.getRect(this._MGSFeatureClsId, objID); 
+            let {RectId} = await SFCLS.getRect(this._MGSFeatureClsId, objID); 
             var rect = new Rect();
-            rect._MGRectId = rectId;
+            rect._MGRectId = RectId;
             return rect;
         } catch (error) {
             console.error(e);
@@ -350,9 +354,9 @@ export default class SFeatureCls extends VectorCls{
 	async getAtt(objID)
 	{
 		try {
-            let {rcId} = await SFCLS.getAtt(this._MGSFeatureClsId, objID); 
+            let {RecordId} = await SFCLS.getAtt(this._MGSFeatureClsId, objID); 
             var record = new Record();
-            record._MGRecordId = rcId;
+            record._MGRecordId = RecordId;
             return record;
         } catch (error) {
             console.error(e);
@@ -367,9 +371,9 @@ export default class SFeatureCls extends VectorCls{
 	 */
 	async getGeometry(objID) {
 		try {
-            let {geometryId} = await SFCLS.getGeometry(this._MGSFeatureClsId, objID); 
+            let {GeometryId} = await SFCLS.getGeometry(this._MGSFeatureClsId, objID); 
             var geometry = new Geometry();
-            geometry._MGGeometryId = geometryId;
+            geometry._MGGeometryId = GeometryId;
             return geometry;
         } catch (error) {
             console.error(e);
@@ -384,9 +388,9 @@ export default class SFeatureCls extends VectorCls{
 	 */
 	async getInfo(objID) {
 		try {
-            let {geomInfoId} = await SFCLS.getInfo(this._MGSFeatureClsId, objID); 
+            let {GeomInfoId} = await SFCLS.getInfo(this._MGSFeatureClsId, objID); 
             var geomInfo = new GeomInfo();
-            geomInfo._MGGeomInfoId = geomInfoId;
+            geomInfo._MGGeomInfoId = GeomInfoId;
             return geomInfo;
         } catch (error) {
             console.error(e);
@@ -556,7 +560,7 @@ export default class SFeatureCls extends VectorCls{
 	 * @param objID 简单要素类ID
 	 * @return {Promise} 成功：>0;失败：<=0
 	 */
-	async delete(objID)
+	async deleteByID(objID)
 	{
 		try {
             return await SFCLS.delete(this._MGSFeatureClsId, objID); 
@@ -571,7 +575,7 @@ export default class SFeatureCls extends VectorCls{
 	 * @param objIDs 一组简单要素类ID
 	 * @return {Promise} 成功：>0;失败：<=0
 	 */
-	async delete(objIDArray)
+	async deleteByIDs(objIDArray)
 	{
 		try {
             return await SFCLS.delete(this._MGSFeatureClsId, objIDArray); 
@@ -621,7 +625,7 @@ export default class SFeatureCls extends VectorCls{
 	 */
 	async updateGeometry(objID, geom) {
 		try {
-            return await SFCLS.updateAtt(this._MGSFeatureClsId, objID, geom._MGGeometryId); 
+            return await SFCLS.updateGeometry(this._MGSFeatureClsId, objID, geom._MGGeometryId); 
         } catch (error) {
             console.error(e);
         }
@@ -636,7 +640,7 @@ export default class SFeatureCls extends VectorCls{
 	 */
 	async updateInfo(objID, info) {
 		try {
-            return await SFCLS.updateAtt(this._MGSFeatureClsId, objID, info._MGGeomInfoId); 
+            return await SFCLS.updateInfo(this._MGSFeatureClsId, objID, info._MGGeomInfoId); 
         } catch (error) {
             console.error(e);
         }
@@ -649,7 +653,7 @@ export default class SFeatureCls extends VectorCls{
 	 * @param clsName 类名
 	 * @return {Promise} 成功：>0;失败：<=0
 	 */
-	async remove(db, clsName)
+	async removeByName(db, clsName)
 	{
 		try {
             return await SFCLS.remove(this._MGSFeatureClsId, db._MGDataBaseId, clsName); 
@@ -665,7 +669,7 @@ export default class SFeatureCls extends VectorCls{
 	 * @param clsID 类ID
 	 * @return {Promise} 成功：>0;失败：<=0
 	 */
-	async remove(db, clsID)
+	async removeByID(db, clsID)
 	{
 		try {
             return await SFCLS.remove(this._MGSFeatureClsId, db._MGDataBaseId, clsID); 

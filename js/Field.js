@@ -342,9 +342,9 @@ export default class Field {
 	async getExtField()
 	{
 		try {
-            let {extFieldId} =  await FLD.getExtField(this._MGFieldId);
+            let {ExtFieldId} =  await FLD.getExtField(this._MGFieldId);
             var extField = new ExtField();
-            extFieldId._MGExtFieldId = extFieldId;
+            extFieldId._MGExtFieldId = ExtFieldId;
             return extField;
           } catch (e) {
             console.error(e);

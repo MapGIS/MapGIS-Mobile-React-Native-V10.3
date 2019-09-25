@@ -21,9 +21,9 @@ export default class Fields {
    */
   async createObj() {
     try{
-        var {fieldsId} = await FLDS.createObj()
+        var {FieldsId} = await FLDS.createObj()
         var fields = new Fields()
-        fields._MGFieldsId = fieldsId
+        fields._MGFieldsId = FieldsId
         return fields
     } catch(e) {
         console.error(e)
@@ -39,9 +39,9 @@ export default class Fields {
 	async getField(index)
 	{
 		try {
-            let {FieldsId} =  await FLDS.getField(this._MGFieldsId, index);
+            let {FieldId} =  await FLDS.getField(this._MGFieldsId, index);
             var  field = new Field();
-            field._MGFieldId = FieldsId;
+            field._MGFieldId = FieldId;
             return field;            
           } catch (e) {
             console.error(e);
@@ -101,7 +101,7 @@ export default class Fields {
 	 * @param fldName 字段名
 	 * @return {Promise}大于0成功，否则失败
 	 */
-	async deleteField(fldName)
+	async deleteFieldByName(fldName)
 	{
 		try {
             return await FLDS.deleteField(this._MGFieldsId, fldName);
@@ -116,7 +116,7 @@ export default class Fields {
 	 * @param index 字段序号
 	 * @return {Promise}大于0成功，否则失败
 	 */
-	async deleteField(index)
+	async deleteFieldByIndex(index)
 	{
 		try {
             return await FLDS.deleteField(this._MGFieldsId, index);

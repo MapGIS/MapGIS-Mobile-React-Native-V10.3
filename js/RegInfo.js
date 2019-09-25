@@ -407,9 +407,9 @@ export default class RegInfo extends GeomInfo {
 	 */
 	async Clone() {
 		try {
-            let {geomInfoId} = await RI.Clone(this._MGPntInfoId);
+            let {GeomInfoId} = await RI.Clone(this._MGPntInfoId);
             var geomInfo = new GeomInfo()
-            geomInfo._MGGeomInfoId = geomInfoId;
+            geomInfo._MGGeomInfoId = GeomInfoId;
             return geomInfo;
         } catch (e) {
             console.error(e);

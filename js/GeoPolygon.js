@@ -139,9 +139,9 @@ export default class GeoPolygon extends GeometryExp {
 	async get(index)
 	{
 		try{
-            let {geoLinesId} = await GPG.get(this._MGGeoPolygonId, index)
+            let {GeoLinesId} = await GPG.get(this._MGGeoPolygonId, index)
             var geoLines = new GeoLines();
-            geoLines._MGGeoLinesId = geoLinesId;
+            geoLines._MGGeoLinesId = GeoLinesId;
             return geoLines;
         } catch(e) {
             console.error(e)
@@ -173,9 +173,9 @@ export default class GeoPolygon extends GeometryExp {
 	async getDots(index)
 	{
 		try{
-           let {dotsId} =  await GPG.getDots(this._MGGeoPolygonId, index)
+           let {DotsId} =  await GPG.getDots(this._MGGeoPolygonId, index)
            var dots = new Dots();
-           dots._MGDotsId = dotsId;
+           dots._MGDotsId = DotsId;
            return dots;
         } catch(e) {
             console.error(e)
@@ -188,7 +188,7 @@ export default class GeoPolygon extends GeometryExp {
 	 * @param sRef 投影系
 	 * @return {Promise} 面积
 	 */
-	async calArea(sRef)
+	async calAreaOfSRef(sRef)
 	{
 		try{
             return await GPG.calArea(this._MGGeoPolygonId, sRef._MGSRefDataId)
@@ -217,7 +217,7 @@ export default class GeoPolygon extends GeometryExp {
 	 * @param sRef 投影系
 	 * @return {Promise}周长
 	 */
-	async calPerimeter(sRef)
+	async calPerimeterOfSRef(sRef)
 	{
 		try{
             return await GPG.calPerimeter(this._MGGeoPolygonId, sRef._MGSRefDataId)

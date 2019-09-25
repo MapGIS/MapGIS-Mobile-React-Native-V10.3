@@ -109,6 +109,7 @@ public class ReactNativeViewPackage implements ReactPackage {
 
         modules.add(new JSDot3D(reactContext));
         modules.add(new JSDots(reactContext));
+        modules.add(new JSDots3D(reactContext));
         modules.add(new JSAnnType(reactContext));
         modules.add(new JSGeoAnno(reactContext));
         modules.add(new JSDistanceType(reactContext));

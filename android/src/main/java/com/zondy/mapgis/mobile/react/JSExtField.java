@@ -45,10 +45,10 @@ public class JSExtField extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void createObj(int fieldType, short shapeInfoNum, Promise promise) {
+    public void createObj(int fieldType, int shapeInfoNum, Promise promise) {
         try {
             FieldType type = (FieldType) Enumeration.parse(FieldType.class, fieldType);
-            ExtField extField = new ExtField(type, shapeInfoNum);
+            ExtField extField = new ExtField(type, (short)shapeInfoNum);
             String extFieldId = registerId(extField);
             WritableMap map = Arguments.createMap();
             map.putString("ExtFieldId", extFieldId);
@@ -161,7 +161,7 @@ public class JSExtField extends ReactContextBaseJavaModule {
     {
         try {
             ExtField extField = getObjFromList(extFieldId);
-            short iNum = extField.getShapeInfoNum();
+            int iNum = extField.getShapeInfoNum();
             promise.resolve(iNum);
         } catch (Exception e) {
             promise.reject(e);

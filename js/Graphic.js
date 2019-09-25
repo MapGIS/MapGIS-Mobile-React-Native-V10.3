@@ -209,7 +209,7 @@ export default class Graphic {
    * @param index 图形属性的索引，从0开始到属性数目减1
    * @returns {Promise<*>}
    */
-  async getAttributeValue(index) {
+  async getAttributeValueByIndex(index) {
     try {
       let attributeValue = await G.getAttributeName(this._MGGraphicId, index);
       return attributeValue;
@@ -224,7 +224,7 @@ export default class Graphic {
    * @param name
    * @returns {Promise<*>}
    */
-  async getAttributeValue(name) {
+  async getAttributeValueByName(name) {
     try {
       let attributeValue = await G.getAttributeName(this._MGGraphicId, name);
       return attributeValue;

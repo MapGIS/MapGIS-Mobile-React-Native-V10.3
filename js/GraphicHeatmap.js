@@ -83,9 +83,9 @@ export default class GraphicHeatmap {
    */
   async getVisualMap() {
     try {
-      let visualMapId = await GH.getVisualMap(this._MGGraphicHeatmapId);
+      let VisualMapId = await GH.getVisualMap(this._MGGraphicHeatmapId);
       var visualMap = new VisualMap();
-      visualMap._MGVisualMapId = visualMapId;
+      visualMap._MGVisualMapId = VisualMapId;
 
       return visualMap;
     } catch (e) {

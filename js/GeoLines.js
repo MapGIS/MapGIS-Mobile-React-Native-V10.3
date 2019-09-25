@@ -169,9 +169,9 @@ export default class GeoLines extends GeometryExp {
 	async getLine(index)
 	{
 		try{
-            var {geoLineId} = await GLS.getLine(this._MGGeoLinesId, index)
+            var {GeoLineId} = await GLS.getLine(this._MGGeoLinesId, index)
             var geoLine = new GeoLine()
-            geoLine._MGGeoLineId = geoLineId
+            geoLine._MGGeoLineId = GeoLineId
             return geoLine
         } catch(e) {
             console.error(e)
@@ -184,7 +184,7 @@ export default class GeoLines extends GeometryExp {
 	 * @param sRef 投影系参数
 	 * @return {Promise}实地长度
 	 */
-	async calLength(sRef)
+	async calLengthOfSRef(sRef)
 	{
 		try{
             return await GLS.calLength(this._MGGeoLinesId, sRef._MGSRefDataId);

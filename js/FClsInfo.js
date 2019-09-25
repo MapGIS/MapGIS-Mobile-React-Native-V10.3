@@ -17,10 +17,10 @@ export default class FClsInfo extends XClsInfo{
         super()
         Object.defineProperty(this,"_MGFClsInfoId", {
             get:function(){
-                return this. _MGXClsInfoId
+                return this._MGXClsInfoId
             },
-            set:function(_MGFClsInfoId){
-                this. _MGXClsInfoId = _MGFClsInfoId
+            set:function(_MGFClsInfoId){                
+                this._MGXClsInfoId = _MGFClsInfoId
             },
         })
     }

@@ -36,7 +36,7 @@ export default class AnnotationView {
 	async setAnnotation(annotation)
 	{
 		try {
-            await ANV.setTitle(this._MGAnnotationViewId, annotation._MGAnnotationId);
+            await ANV.setAnnotation(this._MGAnnotationViewId, annotation._MGAnnotationId);
         } catch (e) {
             console.error(e);
         }
@@ -50,9 +50,9 @@ export default class AnnotationView {
 	async getAnnotation()
 	{
 		try {
-            let {annotationId} = await AN.getAnnotation(this._MGAnnotationViewId);
+            let {AnnotationId} = await AN.getAnnotation(this._MGAnnotationViewId);
             var annotation = new Annotation();
-            annotation._MGAnnotationId = annotationId;
+            annotation._MGAnnotationId = AnnotationId;
             return annotation;
         } catch (e) {
             console.error(e);
