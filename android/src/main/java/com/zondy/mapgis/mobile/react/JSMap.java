@@ -61,6 +61,19 @@ public class JSMap extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public static void getLayerTypeByID(String mapLayerId,  Promise promise){
+             try {
+                        MapLayer mapLayer = JSMapLayer.getObjFromList(mapLayerId);
+                        int type = NativeMap.jni_GetLayerType(mapLayer.getHandle());
+                        WritableMap map = Arguments.createMap();
+                        map.putInt("MapLayerType", type);
+                        promise.resolve(map);
+              } catch (Exception e) {
+                  promise.reject(e);
+              }
+    }
+
+    @ReactMethod
     public void createObj(Promise promise) {
         try {
             Map Map = new Map();

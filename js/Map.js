@@ -23,6 +23,40 @@ import ServerLayer from "./ServerLayer.js";
  * @description 地图类，负责地图显示环境的管理。
  */
 export default class Map {
+
+    static async  creatMapLayerInstanceByID(mapLayerID) {
+
+        try {
+            let mapLayer;
+            var {MapLayerType} = await
+            M.getLayerTypeByID(mapLayerID); // 获取到图层id，图层类型
+
+            switch (MapLayerType) {
+                case 0:     // 矢量图层
+                    mapLayer = new VectorLayer();
+                    mapLayer._MGMapLayerId = mapLayerID;
+                    break;
+                case 2:    // 组图层
+                    mapLayer = new GroupLayer();
+                    mapLayer._MGMapLayerId = mapLayerID;
+                    break;
+                case 9:    // 服务图层
+                    mapLayer = new ServerLayer();
+                    mapLayer._MGMapLayerId = mapLayerID;
+                    break;
+                case 10:  // 简单模型图层
+                    mapLayer = new SimpleModelLayer();
+                    mapLayer._MGMapLayerId = mapLayerID;
+                    break;
+                default:
+                    break;
+            }
+            return mapLayer;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
   /**
    * 构造一个新的 Map 对象。
    * @memberOf Map
@@ -377,35 +411,15 @@ export default class Map {
    * @returns {Promise<MapLayer>}
    */
   async getLayer(index) {
-    try {
-      let mapLayer;
-      var { MapLayerId , MapLayerType} = await M.getLayer(this._MGMapId, index); // 获取到图层id，图层类型
-      switch(MapLayerType){
-        case 0:     // 矢量图层
-          mapLayer = new VectorLayer();
-          mapLayer._MGMapLayerId = MapLayerId;
-          break;
-        case 2:    // 组图层
-          mapLayer = new GroupLayer();
-          mapLayer._MGMapLayerId = MapLayerId;
-          break;
-        case 9:    // 服务图层
-          mapLayer = new ServerLayer();
-          mapLayer._MGMapLayerId = MapLayerId;
-          break;
-        case 10:  // 简单模型图层
-          mapLayer = new SimpleModelLayer();
-          mapLayer._MGMapLayerId = MapLayerId;
-          break;
-        default:
-          break;
-      }
-     
-      return mapLayer;
-    } catch (e) {
-      console.error(e);
+        try {
+            let mapLayer;
+            var {MapLayerId, MapLayerType} = await M.getLayer(this._MGMapId, index); // 获取到图层id，图层类型
+            mapLayer = await Map.creatMapLayerInstanceByID(MapLayerId);
+            return mapLayer;
+        } catch (e) {
+            console.error(e);
+        }
     }
-  }
 
   /**
    * 获取是否编辑

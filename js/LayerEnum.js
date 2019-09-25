@@ -6,7 +6,8 @@
  * @LastEditors: Please set LastEditors
  */
 import {NativeModules} from "react-native";
-import MapLayer from "./MapLayer";
+import MapLayer from "./MapLayer.js";
+import Map from "./Map.js";
 let LE = NativeModules.JSLayerEnum;
 
 /**
@@ -82,9 +83,9 @@ export default class LayerEnum{
      */
     async next(){
         try {
-           var {MapLayerId}= await LE.next(this._MGLayerEnumId);
-           var mapLayer = new MapLayer();
-            mapLayer._MGMapLayerId = MapLayerId;
+            let mapLayer;
+            var {MapLayerId}= await LE.next(this._MGLayerEnumId);
+            mapLayer = await Map.creatMapLayerInstanceByID(MapLayerId);
             return mapLayer;
         } catch (e) {
             console.error(e);
@@ -98,13 +99,12 @@ export default class LayerEnum{
      */
     async prev(){
         try {
+            let mapLayer;
             var {MapLayerId} = await LE.prev(this._MGLayerEnumId);
-            var mapLayer = new MapLayer();
-            mapLayer._MGMapLayerId = MapLayerId;
+            mapLayer = await Map.creatMapLayerInstanceByID(MapLayerId);
             return mapLayer;
         } catch (e) {
             console.error(e);
         }
     }
-
 }
