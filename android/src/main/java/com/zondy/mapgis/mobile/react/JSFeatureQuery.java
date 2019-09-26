@@ -10,6 +10,7 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.featureservice.FeaturePagedResult;
 import com.zondy.mapgis.core.featureservice.FeatureQuery;
+import com.zondy.mapgis.core.geodatabase.IVectorCls;
 import com.zondy.mapgis.core.map.MapLayer;
 import com.zondy.mapgis.core.map.VectorLayer;
 
@@ -69,6 +70,46 @@ public class JSFeatureQuery extends ReactContextBaseJavaModule {
         }
     }
 
+    @ReactMethod
+    public void createObjByVectorCls(String clsID, Promise promise) {
+        try {
+            IVectorCls cls = (IVectorCls)JSVectorCls.getObjFromList(clsID);
+            FeatureQuery FeatureQuery = new FeatureQuery(cls);
+            String FeatureQueryId = registerId(FeatureQuery);
+            WritableMap map = Arguments.createMap();
+            map.putString("FeatureQueryId", FeatureQueryId);
+            promise.resolve(map);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void createObjByIGSDoc(String strIGServerBaseURL, String strDocName, int mapID, int layerID, Promise promise) {
+        try {
+            FeatureQuery FeatureQuery = new FeatureQuery(strIGServerBaseURL, strDocName, mapID, layerID);
+            String FeatureQueryId = registerId(FeatureQuery);
+            Log.e("FeatureQueryId:", FeatureQueryId);
+            WritableMap map = Arguments.createMap();
+            map.putString("FeatureQueryId", FeatureQueryId);
+            promise.resolve(map);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void createObjByIGSData(String strIGServerBaseURL, String strDataURL, Promise promise) {
+        try {
+            FeatureQuery FeatureQuery = new FeatureQuery(strIGServerBaseURL, strDataURL);
+            String FeatureQueryId = registerId(FeatureQuery);
+            WritableMap map = Arguments.createMap();
+            map.putString("FeatureQueryId", FeatureQueryId);
+            promise.resolve(map);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
 
     @ReactMethod
     public void getWhereClause(String FeatureQueryId, Promise promise) {
@@ -288,30 +329,26 @@ public class JSFeatureQuery extends ReactContextBaseJavaModule {
         }
     }
 
-//    @ReactMethod
-//    public void query(String FeatureQueryId,String vectorLayerID,String strWhereClause,String queryBoundID,int spatialRel,boolean returnGeometry,boolean returnAttribute,boolean returnGeoInfo,String strOutFields,int pageSize,Promise promise)
-//    {
-//        try {
-//            FeatureQuery featureQuery = getObjFromList(FeatureQueryId);
-////            VectorLayer vectorLayer = JSVectorLayer.mVectorLayerList.get(vectorLayerID);
-//            MapLayer mapLayer = JSMapLayer.mMapLayerList.get(vectorLayerID);
-//            if(mapLayer instanceof VectorLayer )
-//            {
-//               return;
-//            }
-//            com.zondy.mapgis.core.featureservice.FeatureQuery.QueryBound queryBound = JSQueryBound.mQueryBoundList.get(queryBoundID);
-//
-//            FeaturePagedResult featurePagedResult =  FeatureQuery.query((VectorLayer) mapLayer,strWhereClause,queryBound,spatialRel,returnGeometry,returnAttribute,returnGeoInfo,strOutFields,pageSize);
-//
-//            String featurePageResultHandle = JSFeaturePagedResult.registerId(featurePagedResult);
-//            WritableMap map = Arguments.createMap();
-//            map.putString("featurePageResultHandle",featurePageResultHandle);
-//            promise.resolve(map);
-//        }
-//        catch (Exception e)
-//        {
-//            promise.reject(e);
-//        }
-//    }
+    @ReactMethod
+    public static void query(String vectorLayerID, String strWhereClause, String queryBoundID,int spatialRel,boolean returnGeometry,boolean returnAttribute,boolean returnGeoInfo,String strOutFields,int pageSize,Promise promise)
+    {
+        try {
+            MapLayer mapLayer = JSMapLayer.getObjFromList(vectorLayerID);
+            if(mapLayer instanceof VectorLayer )
+            {
+                com.zondy.mapgis.core.featureservice.FeatureQuery.QueryBound queryBound = JSQueryBound.mQueryBoundList.get(queryBoundID);
 
+                FeaturePagedResult featurePagedResult =  FeatureQuery.query((VectorLayer) mapLayer,strWhereClause,queryBound,spatialRel,returnGeometry,returnAttribute,returnGeoInfo,strOutFields,pageSize);
+
+                String featurePageResultHandle = JSFeaturePagedResult.registerId(featurePagedResult);
+                WritableMap map = Arguments.createMap();
+                map.putString("featurePageResultHandle",featurePageResultHandle);
+                promise.resolve(map);
+            }
+        }
+        catch (Exception e)
+        {
+            promise.reject(e);
+        }
+    }
 }

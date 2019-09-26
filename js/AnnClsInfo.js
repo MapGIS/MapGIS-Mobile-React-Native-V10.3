@@ -18,10 +18,10 @@ export default class AnnClsInfo extends XClsInfo{
         super()
         Object.defineProperty(this,"_MGAnnClsInfoId", {
             get:function(){
-                return this. _MGXClsInfoId
+                return this._MGXClsInfoId
             },
             set:function(_MGAnnClsInfoId){
-                this. _MGXClsInfoId = _MGAnnClsInfoId
+                this._MGXClsInfoId = _MGAnnClsInfoId
             },
         })
     }

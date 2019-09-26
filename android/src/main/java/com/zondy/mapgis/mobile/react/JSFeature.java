@@ -1,5 +1,6 @@
 package com.zondy.mapgis.mobile.react;
 
+import android.support.v4.app.INotificationSideChannel;
 import android.util.Log;
 
 import com.facebook.react.bridge.Arguments;
@@ -16,6 +17,8 @@ import com.zondy.mapgis.android.graphic.GraphicMultiPoint;
 import com.zondy.mapgis.android.internal.chart.json.GsonUtil;
 import com.zondy.mapgis.core.featureservice.Feature;
 import com.zondy.mapgis.core.geometry.Dot;
+import com.zondy.mapgis.core.geometry.Geometry;
+import com.zondy.mapgis.core.info.GeomInfo;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -106,6 +109,36 @@ public class JSFeature extends ReactContextBaseJavaModule {
         }
     }
 
+   @ReactMethod
+    public void getGeometry(String FeatureId, Promise promise)
+    {
+        try {
+            Feature feature = getObjFromList(FeatureId);
+            Geometry geometry = feature.getGeometry();
+            String geometryId = JSGeometry.registerId(geometry);
+            WritableMap map = Arguments.createMap();
+            map.putString("GeometryId", geometryId);
+            promise.resolve(map);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getInfo(String FeatureId, Promise promise)
+    {
+        try {
+            Feature feature = getObjFromList(FeatureId);
+            GeomInfo info = feature.getInfo();
+            String infoId = JSGeomInfo.registerId(info);
+            WritableMap map = Arguments.createMap();
+            map.putString("GeomInfoId", infoId);
+            promise.resolve(map);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
     @ReactMethod
     public void toGraphics(String FeatureId, Promise promise) {
         try {
@@ -130,4 +163,28 @@ public class JSFeature extends ReactContextBaseJavaModule {
             promise.reject(e);
         }
     }
+
+    public void reSet(String FeatureId, Promise promise)
+    {
+        try {
+            Feature feature = getObjFromList(FeatureId);
+            int iVal = (int)feature.reSet();
+            promise.resolve(iVal);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+//    public void modifyFeatureValue(String FeatureId, HashMap<String, String> attributes, String geomId, String infoId, Promise promise)
+//    {
+//        try {
+//            Geometry geom = JSGeometry.getObjFromList(geomId);
+//            GeomInfo info = JSGeomInfo.getObjFromList(infoId);
+//            Feature feature = getObjFromList(FeatureId);
+//            int iVal = (int)feature.modifyFeatureValue(, geom, info);
+//            promise.resolve(iVal);
+//        } catch (Exception e) {
+//            promise.reject(e);
+//        }
+//    }
 }
