@@ -8,8 +8,7 @@
 import {NativeModules} from "react-native";
 import SRefData from "./SRefData.js";
 import Rect from "./Rect.js";
-// import TileMapServer from "./TileMapServer.js";
-// import VectorMapServer from "./VectorMapServer.js";
+import ServerLayer from "./ServerLayer.js";
 let MS = NativeModules.JSMapServer;
 
 /**
@@ -273,47 +272,17 @@ export default class MapServer{
     }
 
     /**
-     * 获取索引对应的有服务ID，服务类型的对象。用户根据不同的服务类型创建服务对象。<br/>
-     * object.MapServerType = 1时候，可创建TileMapServer； <br/>
-     * object.MapServerType = 2时候，可创建VectorMapServer；    <br/>
+     * 获取索引对应的地图服务对象
      * 
-     * 使用示例：<br/>
-     * let object = mapServer.getMapServer(0);<br/>
-     * let mapServer1 = null; <br/>
-     * if(object != null){ <br/>
-     *   switch(object.MapServerType){ <br/>
-     *      case 1:<br/>
-     *           mapServer1 = new TileMapServer();<br/>
-     *           mapServer1._MGMapServerId = object.MapServerId;<br/>
-     *           break;<br/>
-     *      case 2:<br/>
-     *           mapServer1 = new VectorMapServer();<br/>
-     *           mapServer1._MGMapServerId = object.MapServerId;<br/>
-     *           break;<br/>
-     *   }<br/>
-     * }<br/>
-     * <br/>
      * @memberof MapServer
      * @param {Number} index 索引 （int类型的Number）
-     * @returns {Object} 返回具有服务对象的标识ID，服务类型属性的对象。例如：object.MapServerId，object.MapServerType
+     * @returns {Object} 返回地图服务对象
+     * 
      */
     async getMapServer(index){
         try {
-            var {MapServerId} = await MS.getMapServer(this._MGMapServerId, index);
-            let mapBrowseType = MS.getMapBrowseType(this._MGMapServerId);
-            let object = null;
-            if(MapServerId != null){
-                object = new MapServer();
-                object.MapServerId = MapServerId;
-                object.MapServerType = mapBrowseType;
-            }
-            // if(mapBrowseType == 1){                        // 瓦片地图服务
-            //     // mapServer = new TileMapServer();
-            //     // mapServer._MGMapServerId = MapServerId;
-            // }else if(mapBrowseType == 2){                 // 矢量地图服务
-            //     // mapServer = new VectorMapServer();
-            //     // mapServer_MGMapServerId = MapServerId;
-            // }
+            var {MapServerId, MapBrowseType, Type} = await MS.getMapServer(this._MGMapServerId, index);
+            let mapServer = ServerLayer.createMapServerByIdAndType(MapServerId, MapBrowseType, Type);
 
             return mapServer;
         } catch (e) {

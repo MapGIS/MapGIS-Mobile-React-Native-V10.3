@@ -85,33 +85,42 @@ export default class ServerLayer extends GroupLayer{
      */
     async getMapServer(){
         try {
-            var {MapServerId, MapServerBrowseType, Type} = await SL.getMapServer(this._MGServerLayerId);
-            let mapServer = null;
-            if(MapServerId != null && MapServerBrowseType != -1){
-                if(MapServerBrowseType == 1){
-                    mapServer = new VectorMapServer();
-                    mapServer._MGMapServerId = MapServerId;
-
-                }else if(MapServerBrowseType == 2){
-                    mapServer = new VectorTileMapServer();
-                    mapServer._MGMapServerId = MapServerId;
-
-                }else{
-                    if(Type == "OGCWMTS"){
-                        mapServer = new OGCWMTSMapServer();
-                        mapServer._MGMapServerId = MapServerId;
-                    }else{
-                        mapServer = new TileMapServer();
-                        mapServer._MGMapServerId = MapServerId;
-                    }
-                }
-            }
+            var {MapServerId, MapBrowseType, Type}= await SL.getMapServer(this._MGServerLayerId);
+            let mapServer = ServerLayer.createMapServerByIdAndType(MapServerId, MapBrowseType, Type);
             return mapServer;
         } catch (e) {
             console.error(e);
         }
     }
+    
+    // 通过地图服务类型、地图浏览类型创建MapServer对象
+    static async createMapServerByIdAndType(mapServerId, mapBrowseType, type){
+    
+       let mapServer = null;
+       if(mapServerId != null) {
+        if(mapBrowseType == 1){                                   // 地图浏览类型 -- 矢量
+            mapServer = new VectorMapServer();
+            mapServer._MGMapServerId = mapServerId;
 
+        }else if(mapBrowseType == 2){                            // 地图浏览类型 -- 矢量瓦片
+            mapServer = new VectorTileMapServer();
+            mapServer._MGMapServerId = mapServerId;
+
+        }else{                                                  // 地图浏览类型 -- 任意
+            if(type != null){
+                if(type == "OGCWMTS"){                          // 服务类型 -- OGCWMTS地图服务 
+                    mapServer = new OGCWMTSMapServer();
+                    mapServer._MGMapServerId = mapServerId;
+                }else{                                     
+                    mapServer = new TileMapServer();   
+                    mapServer._MGMapServerId = mapServerId;
+                }
+            }
+        }
+       }
+
+       return mapServer;
+    }
     /**
      * 获取服务图层的数据读取模式
      * 

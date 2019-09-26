@@ -75,21 +75,7 @@ public class JSServerLayer extends JSGroupLayer {
         try {
             ServerLayer serverLayer = (ServerLayer) getObjFromList(serverLayerId);
             MapServer mapServer = serverLayer.getMapServer();
-
-            String mapServerId = null;
-            int mapServerBrowseType = -1;
-            String mapServerType = "";
-            WritableMap writableMap = Arguments.createMap();
-
-            if(mapServer != null){
-                mapServerId = JSMapServer.registerId(mapServer);
-                mapServerBrowseType = mapServer.getMapBrowseType().value();
-                mapServerType = mapServer.getType();
-
-            }
-            writableMap.putString("MapServerId", mapServerId);
-            writableMap.putInt("MapServerBrowseType", mapServerBrowseType);
-            writableMap.putString("Type", mapServerType);
+            WritableMap writableMap = JSMapServer.getWritableMapByMapServer(mapServer, true);
             promise.resolve(writableMap);
         }catch (Exception e){
             promise.reject(e);
