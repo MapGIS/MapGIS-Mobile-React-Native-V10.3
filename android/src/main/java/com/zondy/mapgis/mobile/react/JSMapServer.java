@@ -215,14 +215,40 @@ public class JSMapServer extends ReactContextBaseJavaModule {
     public void getMapServer(String mapServerId, int index, Promise promise){
         try {
             MapServer mapServer = getObjFromList(mapServerId);
-            String desServerId = registerId(mapServer);
-
-            WritableMap writableMap = Arguments.createMap();
-            writableMap.putString("MapServerId", desServerId);
+            MapServer desMapServer = mapServer.getMapServer(index);
+            WritableMap writableMap = getWritableMapByMapServer(desMapServer, false);
             promise.resolve(writableMap);
         }catch (Exception e){
             promise.reject(e);
         }
+    }
+
+    /**
+     * 通过MapServer对象获取含有MapServerId、地图浏览类型、服务类型的WritableMap
+     *
+     * @param mapServer 地图服务对象
+     * @param isGetType 是否获取服务类型
+     * @return WritableMap
+     */
+    public static WritableMap getWritableMapByMapServer(MapServer mapServer, boolean isGetType){
+        String mapServerId = null;
+        int mapBrowseType = -1;
+        String type = null;
+        WritableMap writableMap = Arguments.createMap();
+
+        if(mapServer != null){
+            mapServerId = registerId(mapServer);
+            if (mapServer.getMapBrowseType() != null){
+                mapBrowseType = mapServer.getMapBrowseType().value();
+            }
+            if (isGetType){
+                type = mapServer.getType();
+            }
+        }
+        writableMap.putString("MapServerId", mapServerId);
+        writableMap.putInt("MapBrowseType", mapBrowseType);
+        writableMap.putString("Type", type);
+        return writableMap;
     }
 
     @ReactMethod
