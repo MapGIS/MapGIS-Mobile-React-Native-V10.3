@@ -9,6 +9,7 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.android.graphic.Graphic;
 import com.zondy.mapgis.android.graphic.GraphicCircle;
@@ -24,6 +25,7 @@ import com.zondy.mapgis.android.graphic.GraphicsOverlay;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -52,12 +54,9 @@ public class JSGraphicsOverlay extends ReactContextBaseJavaModule {
     public static String registerId(GraphicsOverlay obj) {
         for (Map.Entry entry : mGraphicsOverlayList.entrySet()) {
             if (obj.equals(entry.getValue())) {
-                String id = (String) entry.getKey();
-                mGraphicsOverlayList.put(id, obj);
                 return (String) entry.getKey();
             }
         }
-
         Calendar calendar = Calendar.getInstance();
         String id = Long.toString(calendar.getTimeInMillis());
         mGraphicsOverlayList.put(id, obj);
@@ -227,6 +226,150 @@ public class JSGraphicsOverlay extends ReactContextBaseJavaModule {
             }
             graphicsOverlay.removeGraphics(graphicLst);
             promise.resolve(true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getAllGraphics(String GraphicsOverlayId, Promise promise)
+    {
+        try {
+            GraphicsOverlay graphicsOverlay = getObjFromList(GraphicsOverlayId);
+            List<Graphic> graphicList = graphicsOverlay.getAllGraphics();
+            String strGraphicID = "";
+            WritableArray arr = Arguments.createArray();
+            if (graphicsOverlay != null) {
+                for (int i = 0; i < graphicList.size(); i++) {
+                    strGraphicID = JSGraphic.registerId(graphicList.get(i));
+                    arr.pushString(strGraphicID);
+                }
+            }
+            WritableMap map = Arguments.createMap();
+            map.putArray("AllGraphicArr", arr);
+            promise.resolve(map);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getGraphicCount(String GraphicsOverlayId, Promise promise)
+    {
+        try {
+            GraphicsOverlay graphicsOverlay = getObjFromList(GraphicsOverlayId);
+            int count = graphicsOverlay.getGraphicCount();
+            promise.resolve(count);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void indexOf(String GraphicsOverlayId, String graphicID, Promise promise)
+    {
+        try {
+            GraphicsOverlay graphicsOverlay = getObjFromList(GraphicsOverlayId);
+            Graphic graphic = getGraphicByID(graphicID);
+            int   index = -1;
+            if (graphic != null) {
+                index = graphicsOverlay.indexOf(graphic);
+            }
+            promise.resolve(index);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getGraphic(String GraphicsOverlayId, int index, Promise promise)
+    {
+        try {
+            GraphicsOverlay graphicsOverlay = getObjFromList(GraphicsOverlayId);
+            Graphic  graphic = graphicsOverlay.getGraphic(index);
+            String   strGraphicID = JSGraphic.registerId(graphic);
+            WritableMap map = Arguments.createMap();
+            map.putString("_MGGraphicId", strGraphicID);
+            promise.resolve(map);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void insertGraphic(String GraphicsOverlayId, int index, String graphicID, Promise promise)
+    {
+        try {
+            GraphicsOverlay graphicsOverlay = getObjFromList(GraphicsOverlayId);
+            Graphic graphic = getGraphicByID(graphicID);
+            int  iRes  = -1;
+            if (graphic != null) {
+                iRes = graphicsOverlay.insertGraphic(index,graphic);
+            }
+            promise.resolve(iRes);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    /**
+     * 删除指定索引的图形
+     *
+     * @param index
+     */
+    @ReactMethod
+    public void removeGraphic(String GraphicsOverlayId, int index, Promise promise)
+    {
+        try {
+            GraphicsOverlay graphicsOverlay = getObjFromList(GraphicsOverlayId);
+            graphicsOverlay.removeGraphic(index);
+            promise.resolve(true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void moveGraphic(String GraphicsOverlayId, int fromIndex, int toIndex, Promise promise)
+    {
+        try {
+            GraphicsOverlay graphicsOverlay = getObjFromList(GraphicsOverlayId);
+            graphicsOverlay.moveGraphic(fromIndex, toIndex);
+            promise.resolve(true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void removeGraphicByAttribute(String GraphicsOverlayId, String name, String value, Promise promise)
+    {
+        try {
+            GraphicsOverlay graphicsOverlay = getObjFromList(GraphicsOverlayId);
+            graphicsOverlay.removeGraphicByAttribute(name, value);
+            promise.resolve(true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getGraphicsByAttribute(String GraphicsOverlayId, String name, String value, Promise promise)
+    {
+        try {
+            GraphicsOverlay graphicsOverlay = getObjFromList(GraphicsOverlayId);
+            List<Graphic> graphicList = graphicsOverlay.getGraphicsByAttribute(name, value);
+            String strGraphicID = "";
+            WritableArray arr = Arguments.createArray();
+            if (graphicsOverlay != null) {
+                for (int i = 0; i < graphicList.size(); i++) {
+                    strGraphicID = JSGraphic.registerId(graphicList.get(i));
+                    arr.pushString(strGraphicID);
+                }
+            }
+            WritableMap map = Arguments.createMap();
+            map.putArray("AllGraphicArr", arr);
+            promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
         }

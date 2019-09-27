@@ -46,8 +46,6 @@ public class JSGraphicMultiPoint extends JSGraphic {
     public static String registerId(GraphicMultiPoint obj) {
         for (Map.Entry entry : mGraphicMultiPointList.entrySet()) {
             if (obj.equals(entry.getValue())) {
-                String id = (String) entry.getKey();
-                mGraphicMultiPointList.put(id, obj);
                 return (String) entry.getKey();
             }
         }

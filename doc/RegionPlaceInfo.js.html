@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: RegionPlaceInfo.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: RegionPlaceInfo.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*
+ * @Description: In User Settings Edit
+ * @Author: xiaoying
+ * @Date: 2019-09-03 17:45:37
+ * @LastEditTime: 2019-09-04 19:43:06
+ * @LastEditors: Please set LastEditors
+ */
+import {NativeModules} from "react-native";
+let RPI = NativeModules.JSRegionPlaceInfo;
+
+/**
+ * @class RegionPlaceInfo
+ * @description 区放置样式
+ */
+export default class RegionPlaceInfo{
+
+    /**
+     * 创建一个新的RegionPlaceInfo对象
+     * 
+     * @memberof RegionPlaceInfo
+     * @returns {Promise&lt;RegionPlaceInfo>}
+     */
+    async createObj(){
+        try {
+            var {RegionPlaceInfoId} = await RPI.createObj();
+            var regionPlaceInfo = new RegionPlaceInfo();
+            regionPlaceInfo._MGRegionPlaceInfoId = RegionPlaceInfoId;
+            return regionPlaceInfo;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取区标注类型
+     * 
+     * @memberof RegionPlaceInfo
+     * @returns {int} 区标注类型,例：RegPlaceType.HorizationPlace
+     */
+    async getType(){
+        try {
+            let type = await RPI.getType(this._MGRegionPlaceInfoId);
+            return type;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置区标注类型
+     * 
+     * @memberof RegionPlaceInfo
+     * @param {int} regPlaceType 区标注类型,例：RegPlaceType.HorizationPlace
+     * @returns {Promise&lt;Void>} 
+     */
+    async setType(regPlaceType){
+        try {
+            await RPI.setType(this._MGRegionPlaceInfoId, regPlaceType);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 当区内部无法标注时，是否尝试水平标注在区的外面
+     * 
+     * @memberof RegionPlaceInfo
+     * @returns {boolean} 
+     */
+    async getTryLabelOutside(){
+        try {
+            let tryLabelOutside = await RPI.getTryLabelOutside(this._MGRegionPlaceInfoId);
+            return tryLabelOutside;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置是否尝试水平标注在区的外面
+     * 
+     * @memberof RegionPlaceInfo
+     * @param {boolean} tryLabelOutside 是否尝试水平标注在区的外面
+     * @returns {Promise&lt;Void>} 
+     */
+    async setTryLabelOutside(tryLabelOutside){
+        try {
+            await RPI.setTryLabelOutside(this._MGRegionPlaceInfoId, tryLabelOutside);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+
+    /**
+     * 获取是否限制小区标注
+     * 
+     * @memberof RegionPlaceInfo
+     * @returns {boolean} 
+     */
+    async getLimitLabelSmallRegion(){
+        try {
+            let limitLabelSmallRegion = await RPI.getLimitLabelSmallRegion(this._MGRegionPlaceInfoId);
+            return limitLabelSmallRegion;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置是否尝试水平标注在区的外面
+     * 
+     * @memberof RegionPlaceInfo
+     * @param {boolean} limitLabelSmallRegion 是否限制小区标注
+     * @returns {Promise&lt;Void>} 
+     */
+    async setLimitLabelSmallRegion(limitLabelSmallRegion){
+        try {
+            await RPI.setLimitLabelSmallRegion(this._MGRegionPlaceInfoId, limitLabelSmallRegion);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+
+    /**
+     * 获取限制小区标注的最大面积(设备单位 * 设备单位,小于该面积则小区不标注)
+     * 
+     * @memberof RegionPlaceInfo
+     * @returns {double} 
+     */
+    async getSmallRegionMaxArea(){
+        try {
+            let smallRegionMaxArea = await RPI.getSmallRegionMaxArea(this._MGRegionPlaceInfoId);
+            return smallRegionMaxArea;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置限制小区标注的最大面积(设备单位 * 设备单位,小于该面积则小区不标注)
+     * 
+     * @memberof RegionPlaceInfo
+     * @param {double} smallRegionMaxArea 是限制小区标注的最大面积
+     * @returns {Promise&lt;Void>} 
+     */
+    async setSmallRegionMaxArea(smallRegionMaxArea){
+        try {
+            await RPI.setSmallRegionMaxArea(this._MGRegionPlaceInfoId, smallRegionMaxArea);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取重复类型
+     * 
+     * @memberof RegionPlaceInfo
+     * @returns {int} 重复类型，例：DuplicateType.OneLabelPreFeaturePart的值0
+     */
+    async getDuplicateType(){
+        try {
+            let duplicateType = await RPI.getDuplicateType(this._MGRegionPlaceInfoId);
+            return duplicateType;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置重复类型
+     * 
+     * @memberof RegionPlaceInfo
+     * @param {int} duplicateType 重复类型，例：DuplicateType.OneLabelPreFeaturePart
+     * @returns {Promise&lt;Void>} 
+     */
+    async setDuplicateType(duplicateType){
+        try {
+            await RPI.setDuplicateType(this._MGRegionPlaceInfoId, duplicateType);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+    
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ClassItemValue.html">ClassItemValue</a></li><li><a href="CoordinateConvertParameter.html">CoordinateConvertParameter</a></li><li><a href="Document.html">Document</a></li><li><a href="DocumentItem.html">DocumentItem</a></li><li><a href="Dot.html">Dot</a></li><li><a href="Environment.html">Environment</a></li><li><a href="Feature.html">Feature</a></li><li><a href="FeaturePagedResult.html">FeaturePagedResult</a></li><li><a href="FeatureQuery.html">FeatureQuery</a></li><li><a href="FillStyle.html">FillStyle</a></li><li><a href="GeneralVectorLabel.html">GeneralVectorLabel</a></li><li><a href="GeometryParams.html">GeometryParams</a></li><li><a href="Graphic.html">Graphic</a></li><li><a href="GraphicCircle.html">GraphicCircle</a></li><li><a href="GraphicImage.html">GraphicImage</a></li><li><a href="GraphicMultiPoint.html">GraphicMultiPoint</a></li><li><a href="GraphicPoint.html">GraphicPoint</a></li><li><a href="GraphicPolygon.html">GraphicPolygon</a></li><li><a href="GraphicPolylin.html">GraphicPolylin</a></li><li><a href="GraphicsOverlay.html">GraphicsOverlay</a></li><li><a href="GraphicsOverlays.html">GraphicsOverlays</a></li><li><a href="GraphicStippleLine.html">GraphicStippleLine</a></li><li><a href="GraphicText.html">GraphicText</a></li><li><a href="GroupLayer.html">GroupLayer</a></li><li><a href="Image.html">Image</a></li><li><a href="IntUser.html">IntUser</a></li><li><a href="Label.html">Label</a></li><li><a href="LabelInfo.html">LabelInfo</a></li><li><a href="LayerEnum.html">LayerEnum</a></li><li><a href="LinePlaceInfo.html">LinePlaceInfo</a></li><li><a href="LineStyle.html">LineStyle</a></li><li><a href="MagnifierOption.html">MagnifierOption</a></li><li><a href="Map.html">Map</a></li><li><a href="MapLayer.html">MapLayer</a></li><li><a href="MapPosition.html">MapPosition</a></li><li><a href="Maps.html">Maps</a></li><li><a href="MapServer.html">MapServer</a></li><li><a href="MapView.html">MapView</a></li><li><a href="Model.html">Model</a></li><li><a href="ModelsOverlay.html">ModelsOverlay</a></li><li><a href="MultiClassTheme.html">MultiClassTheme</a></li><li><a href="MultiClassThemeInfo.html">MultiClassThemeInfo</a></li><li><a href="OGCWMTSMapServer.html">OGCWMTSMapServer</a></li><li><a href="PointF.html">PointF</a></li><li><a href="PointPlaceInfo.html">PointPlaceInfo</a></li><li><a href="PointStyle.html">PointStyle</a></li><li><a href="QueryBound.html">QueryBound</a></li><li><a href="RangeTheme.html">RangeTheme</a></li><li><a href="RangeThemeInfo.html">RangeThemeInfo</a></li><li><a href="Rect.html">Rect</a></li><li><a href="RegionPlaceInfo.html">RegionPlaceInfo</a></li><li><a href="ServerLayer.html">ServerLayer</a></li><li><a href="SimpleLabel.html">SimpleLabel</a></li><li><a href="SimpleModelLayer.html">SimpleModelLayer</a></li><li><a href="SimpleModelLayerUtil.html">SimpleModelLayerUtil</a></li><li><a href="SimpleTheme.html">SimpleTheme</a></li><li><a href="SketchEditor.html">SketchEditor</a></li><li><a href="SketchStyle.html">SketchStyle</a></li><li><a href="SnappingOption.html">SnappingOption</a></li><li><a href="SRefData.html">SRefData</a></li><li><a href="TextStyle.html">TextStyle</a></li><li><a href="Theme.html">Theme</a></li><li><a href="ThemeInfo.html">ThemeInfo</a></li><li><a href="Themes.html">Themes</a></li><li><a href="TileMapServer.html">TileMapServer</a></li><li><a href="UniqueTheme.html">UniqueTheme</a></li><li><a href="UniqueThemeInfo.html">UniqueThemeInfo</a></li><li><a href="VectorLabel.html">VectorLabel</a></li><li><a href="VectorLayer.html">VectorLayer</a></li><li><a href="VectorMapServer.html">VectorMapServer</a></li><li><a href="VectorTheme.html">VectorTheme</a></li><li><a href="VectorTileMapServer.html">VectorTileMapServer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#initialize">initialize</a></li><li><a href="global.html#removeAnimationListener">removeAnimationListener</a></li><li><a href="global.html#removeCenterChangedListener">removeCenterChangedListener</a></li><li><a href="global.html#removeDoubleTapListener">removeDoubleTapListener</a></li><li><a href="global.html#removeLongTapListener">removeLongTapListener</a></li><li><a href="global.html#removeMapLoadListener">removeMapLoadListener</a></li><li><a href="global.html#removeRefreshListener">removeRefreshListener</a></li><li><a href="global.html#removeRotateChangedListener">removeRotateChangedListener</a></li><li><a href="global.html#removeTapListener">removeTapListener</a></li><li><a href="global.html#removeTouchListener">removeTouchListener</a></li><li><a href="global.html#removeZoomChangedListener">removeZoomChangedListener</a></li><li><a href="global.html#requestAuthorization">requestAuthorization</a></li><li><a href="global.html#setResolution">setResolution</a></li><li><a href="global.html#setScale">setScale</a></li><li><a href="global.html#setSize">setSize</a></li><li><a href="global.html#setSystemLibraryPath">setSystemLibraryPath</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Sep 18 2019 09:06:20 GMT+0800 (GMT+08:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

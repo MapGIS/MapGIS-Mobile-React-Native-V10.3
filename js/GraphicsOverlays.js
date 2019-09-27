@@ -5,7 +5,6 @@
 import { NativeModules } from "react-native";
 
 let X = NativeModules.JSGraphicsOverlays;
-import Graphic from "./Graphic.js";
 import GraphicsOverlay from "./GraphicsOverlay.js";
 
 /**
@@ -68,11 +67,29 @@ export default class GraphicsOverlays {
    */
   async indexOf(graphicsOverlay) {
     try {
-      let index = await X.getState(
+      let index = await X.indexOf(
         this._MGGraphicsOverlaysId,
         graphicsOverlay._MGGraphicsOverlayId
       );
+      return index;
+    } catch (e) {
+      console.error(e);
+    }
+  }
 
+
+   /**
+   * 获取图形覆盖物的索引
+   * @memberOf GraphicsOverlays
+   * @param {String} graphicLayerName
+   * @returns {Promise<*|NavigationPreloadState>}
+   */
+  async indexOfByName(graphicLayerName) {
+    try {
+      let index = await X.indexOfByName(
+        this._MGGraphicsOverlaysId,
+        graphicLayerName
+      );
       return index;
     } catch (e) {
       console.error(e);
@@ -162,7 +179,7 @@ export default class GraphicsOverlays {
    * @param index
    * @returns {Promise<void>}
    */
-  async remove(index) {
+  async removeByIndex(index) {
     try {
       await X.remove(this._MGGraphicsOverlaysId, index);
     } catch (e) {
@@ -173,7 +190,7 @@ export default class GraphicsOverlays {
   /**
    * 移除图形覆盖物
    * @memberOf GraphicsOverlays
-   * @param index
+   * @param graphicsOverlay
    * @returns {Promise<void>}
    */
   async remove(graphicsOverlay) {

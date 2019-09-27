@@ -3,8 +3,8 @@
  * @author fjl 2019-6-17 下午2:52:36
  */
 import { NativeModules } from "react-native";
-import Dot from "./Dot";
-import Rect from "./Rect";
+import Dot from "./Dot.js";
+import Rect from "./Rect.js";
 
 let G = NativeModules.JSGraphic;
 /**
@@ -29,7 +29,7 @@ export default class Graphic {
 
   /**
    * 获取覆盖物的可见状态
-   *@memberOf Graphic
+   * @memberOf Graphic
    * @return 返回层的状态 0 不可见 1 可见
    */
   async getState() {
@@ -204,12 +204,27 @@ export default class Graphic {
   }
 
   /**
+   * 根据索引获取图形属性值
+   * @memberOf Graphic
+   * @param index 图形属性的索引，从0开始到属性数目减1
+   * @returns {Promise<*>}
+   */
+  async getAttributeValueByIndex(index) {
+    try {
+      let attributeValue = await G.getAttributeName(this._MGGraphicId, index);
+      return attributeValue;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
    * 根据属性名称获取图形属性值
    * @memberOf Graphic
    * @param name
    * @returns {Promise<*>}
    */
-  async getAttributeValue(name) {
+  async getAttributeValueByName(name) {
     try {
       let attributeValue = await G.getAttributeName(this._MGGraphicId, name);
       return attributeValue;
@@ -232,6 +247,11 @@ export default class Graphic {
     }
   }
 
+  /**
+   * 移除所有属性.
+   * @memberOf Graphic
+   * @returns {Promise<void>}
+   */
   async removeAllAttributes() {
     try {
       await G.removeAllAttributes(this._MGGraphicId);

@@ -45,12 +45,9 @@ public class JSGraphicPolygon extends JSGraphicMultiPoint {
     public static String registerId(GraphicPolygon obj) {
         for (Map.Entry entry : mGraphicPolygonList.entrySet()) {
             if (obj.equals(entry.getValue())) {
-                String id = (String) entry.getKey();
-                mGraphicPolygonList.put(id, obj);
                 return (String) entry.getKey();
             }
         }
-
         Calendar calendar = Calendar.getInstance();
         String id = Long.toString(calendar.getTimeInMillis());
         mGraphicPolygonList.put(id, obj);
@@ -148,10 +145,11 @@ public class JSGraphicPolygon extends JSGraphicMultiPoint {
     }
 
     @ReactMethod
-    public void setBorderlineWidth(String GraphicPolygonId, float width, Promise promise) {
+    public void setBorderlineWidth(String GraphicPolygonId, Float width, Promise promise) {
         try {
             GraphicPolygon graphicPolygon = getObjFromList(GraphicPolygonId);
-            graphicPolygon.setBorderlineWidth(width);
+            graphicPolygon.setBorderlineWidth((float)width);
+            Log.d("setBorderlineWidth:", "" + width);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);

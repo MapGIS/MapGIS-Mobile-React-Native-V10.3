@@ -38,12 +38,9 @@ public class JSGraphicStippleLine extends JSGraphic {
     public static String registerId(GraphicStippleLine obj) {
         for (Map.Entry entry : mGraphicStippleLineList.entrySet()) {
             if (obj.equals(entry.getValue())) {
-                String id = (String) entry.getKey();
-                mGraphicStippleLineList.put(id, obj);
                 return (String) entry.getKey();
             }
         }
-
         Calendar calendar = Calendar.getInstance();
         String id = Long.toString(calendar.getTimeInMillis());
         mGraphicStippleLineList.put(id, obj);

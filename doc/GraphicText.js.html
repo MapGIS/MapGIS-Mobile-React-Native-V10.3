@@ -30,7 +30,7 @@
  * @content 虚线线对象功能组件
  * @author fjl 2019-6-24 下午2:52:36
  */
-import {NativeModules} from 'react-native';
+import { NativeModules } from "react-native";
 import Graphic from "./Graphic";
 import Dot from "./Dot";
 import PointF from "./PointF";
@@ -41,223 +41,233 @@ let GT = NativeModules.JSGraphicText;
  * @class GraphicText
  */
 export default class GraphicText extends Graphic {
+  constructor() {
+    super();
+    Object.defineProperty(this, "_MGGraphicTextId", {
+      get: function() {
+        return this._MGGraphicId;
+      },
+      set: function(_MGGraphicTextId) {
+        this._MGGraphicId = _MGGraphicTextId;
+      }
+    });
+  }
 
-    constructor() {
-        super();
-        Object.defineProperty(this, "_MGGraphicTextId", {
-            get: function () {
-                return this._MGGraphicId
-            },
-            set: function (_MGGraphicTextId) {
-                this._MGGraphicId = _MGGraphicTextId;
-            }
-        })
+  /**
+   * 构造一个新的 GraphicText 对象。
+   * @memberOf GraphicText
+   * @returns {Promise.&lt;GraphicText>}
+   */
+  async createObj() {
+    try {
+      var { GraphicTextId } = await GT.createObj();
+      var graphicText = new GraphicText();
+      graphicText._MGGraphicTextId = GraphicTextId;
+      return graphicText;
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-    /**
-     * 构造一个新的 GraphicText 对象。
-     * @memberOf GraphicText
-     * @returns {Promise.&lt;GraphicText>}
-     */
-    async createObj() {
-        try {
-            var {GraphicTextId} = await GT.createObj();
-            var graphicText = new GraphicText();
-            graphicText._MGGraphicTextId = GraphicTextId;
-            return graphicText;
-        } catch (e) {
-            console.error(e);
-        }
+  /**
+   * 设置位置
+   * @memberOf GraphicText
+   * @param point 定位点相对于文字的位置
+   * @returns {Promise&lt;void>}
+   */
+  async setPoint(point) {
+    try {
+      await GT.setPoint(this._MGGraphicTextId, point._MGDotId);
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-    /**
-     * 设置位置
-     * @memberOf GraphicText
-     * @param point 定位点相对于文字的位置
-     * @returns {Promise&lt;void>}
-     */
-    async setPoint(point) {
-        try {
-            await GT.setPoint(this._MGGraphicTextId, point._MGDotId);
-        } catch (e) {
-            console.error(e);
-        }
+  /**
+   * 设置文本
+   * @memberOf GraphicText
+   * @param text
+   * @returns {Promise&lt;void>}
+   */
+  async setText(text) {
+    try {
+      await GT.setText(this._MGGraphicTextId, text);
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-    /**
-     * 设置文本
-     * @memberOf GraphicText
-     * @param text
-     * @returns {Promise&lt;void>}
-     */
-    async setText(text) {
-        try {
-            await GT.setText(this._MGGraphicTextId, text);
-        } catch (e) {
-            console.error(e);
-        }
+  /**
+   * 设置线宽
+   * @memberOf GraphicText
+   * @param fontSize
+   * @returns {Promise&lt;void>}
+   */
+  async setFontSize(fontSize) {
+    try {
+      await GT.setFontSize(this._MGGraphicTextId, fontSize);
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-    /**
-     * 设置线宽
-     * @memberOf GraphicText
-     * @param fontSize
-     * @returns {Promise&lt;void>}
-     */
-    async setFontSize(fontSize) {
-        try {
-            await GT.setFontSize(this._MGGraphicTextId, fontSize);
-        } catch (e) {
-            console.error(e);
-        }
+  /**
+   * 设置是否随地图倾斜
+   * @memberOf GraphicText
+   * @param isSlope
+   * @returns {Promise&lt;void>}
+   */
+  async setSlope(isSlope) {
+    try {
+      await GT.setSlope(this._MGGraphicTextId, isSlope);
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-    /**
-     * 设置是否随地图倾斜
-     * @memberOf GraphicText
-     * @param isSlope
-     * @returns {Promise&lt;void>}
-     */
-    async setSlope(isSlope) {
-        try {
-            await GT.setSlope(this._MGGraphicTextId, isSlope);
-        } catch (e) {
-            console.error(e);
-        }
+  /**
+   * 获取文本的位置
+   * @memberOf GraphicText
+   * @returns {Promise&lt;Dot>}
+   */
+  async getPoint() {
+    try {
+      let { dotID } = await GT.getPoint(this._MGGraphicTextId);
+      var dot = new Dot();
+      dot._MGDotId = dotID;
+      return dot;
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-    /**
-     * 获取文本的位置
-     * @memberOf GraphicText
-     * @returns {Promise&lt;Dot>}
-     */
-    async getPoint() {
-        try {
-            let {dotID} = await GT.getPoint(this._MGGraphicTextId);
-            var dot = new Dot();
-            dot._MGDotId = dotID;
-            return dot;
-        } catch (e) {
-            console.error(e);
-        }
+  /**
+   * 获取文本
+   * @memberOf GraphicText
+   * @returns {Promise&lt;*>}
+   */
+  async getText() {
+    try {
+      let text = await GT.getText(this._MGGraphicTextId);
+      return text;
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-    /**
-     * 获取文本
-     * @memberOf GraphicText
-     * @returns {Promise&lt;*>}
-     */
-    async getText() {
-        try {
-            let text = await GT.getText(this._MGGraphicTextId);
-            return text;
-        } catch (e) {
-            console.error(e);
-        }
+  /**
+   * 获取字体大小
+   * @memberOf GraphicText
+   * @returns {Promise&lt;*>}
+   */
+  async getFontSize() {
+    try {
+      let fontSize = await GT.getFontSize(this._MGGraphicTextId);
+      return fontSize;
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-    /**
-     * 获取字体大小
-     * @memberOf GraphicText
-     * @returns {Promise&lt;*>}
-     */
-    async getFontSize() {
-        try {
-            let fontSize = await GT.getFontSize(this._MGGraphicTextId);
-            return fontSize;
-        } catch (e) {
-            console.error(e);
-        }
+  /**
+   * 获取是否随地图倾斜
+   * @memberOf GraphicText
+   * @returns {Promise&lt;*>}
+   */
+  async isSlope() {
+    try {
+      let isSlope = await GT.isSlope(this._MGGraphicTextId);
+      return isSlope;
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-    /**
-     * 获取是否随地图倾斜
-     * @memberOf GraphicText
-     * @returns {Promise&lt;*>}
-     */
-    async isSlope() {
-        try {
-            let isSlope = await GT.isSlope(this._MGGraphicTextId);
-            return isSlope;
-        } catch (e) {
-            console.error(e);
-        }
+  /**
+   * 获取文本宽度
+   * @memberOf GraphicText
+   * @returns {Promise&lt;*|*>}
+   */
+  async getTextWidth() {
+    try {
+      let textWidth = await GT.getTextWidth(this._MGGraphicTextId);
+      return textWidth;
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-    /**
-     * 获取文本宽度
-     * @memberOf GraphicText
-     * @returns {Promise&lt;*|*>}
-     */
-    async getTextWidth() {
-        try {
-            let textWidth = await GT.getTextWidth(this._MGGraphicTextId);
-            return textWidth;
-        } catch (e) {
-            console.error(e);
-        }
+  /**
+   * 获取文本高度
+   * @memberOf GraphicText
+   * @returns {Promise&lt;*>}
+   */
+  async getTextHeight() {
+    try {
+      let textHeight = await GT.getTextHeight(this._MGGraphicTextId);
+      return textHeight;
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-    /**
-     * 获取文本高度
-     * @memberOf GraphicText
-     * @returns {Promise&lt;*>}
-     */
-    async getTextHeight() {
-        try {
-            let textHeight = await GT.getTextHeight(this._MGGraphicTextId);
-            return textHeight;
-        } catch (e) {
-            console.error(e);
-        }
+  /**
+   * 设置锚点
+   * @memberOf GraphicText
+   * @param anchorPoint 图片锚点的位置：左下角为(0,0),右上角为(1,1)
+   * @returns {Promise&lt;void>}
+   */
+  async setAnchorPoint(anchorPoint) {
+    try {
+      await GI.setAnchorPoint(this._MGGraphicTextId, anchorPoint._MGPointFId);
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-    /**
-     * 设置锚点
-     * @memberOf GraphicText
-     * @param anchorPoint 图片锚点的位置：左下角为(0,0),右上角为(1,1)
-     * @returns {Promise&lt;void>}
-     */
-    async setAnchorPoint(anchorPoint) {
-        try {
-            await GI.setAnchorPoint(this._MGGraphicTextId, anchorPoint._MGPointFId);
-        } catch (e) {
-            console.error(e);
-        }
+  /**
+   * 获取锚点
+   * @memberOf GraphicText
+   * @returns {Promise&lt;*>}
+   */
+  async getAnchorPoint() {
+    try {
+      let { PointFID } = await GT.getAnchorPoint(this._MGGraphicTextId);
+      var pointF = new PointF();
+      pointF._MGPointFId = PointFID;
+      return pointF;
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-    /**
-     * 获取锚点
-     * @memberOf GraphicText
-     * @returns {Promise&lt;*>}
-     */
-    async getAnchorPoint() {
-        try {
-            let {PointFID} = await GT.getAnchorPoint(this._MGGraphicTextId);
-            var pointF = new PointF();
-            pointF._MGPointFId = PointFID;
-            return pointF;
-        } catch (e) {
-            console.error(e);
-        }
+  /**
+   * 设置锚点
+   * @memberOf GraphicText
+   * @param referenceWidth
+   * @param referenceHeight
+   * @param referenceInterval
+   * @param anchorPoint
+   * @returns {Promise&lt;void>}
+   */
+  async setAnchorPoint(
+    referenceWidth,
+    referenceHeight,
+    referenceInterval,
+    anchorPoint
+  ) {
+    try {
+      await GT.setAnchorPoint(
+        this._MGGraphicTextId,
+        referenceWidth,
+        referenceHeight,
+        referenceInterval,
+        anchorPoint._MGPointFId
+      );
+    } catch (e) {
+      console.error(e);
     }
-
-    /**
-     * 设置锚点
-     * @memberOf GraphicText
-     * @param referenceWidth
-     * @param referenceHeight
-     * @param referenceInterval
-     * @param anchorPoint
-     * @returns {Promise&lt;void>}
-     */
-    async setAnchorPoint(referenceWidth, referenceHeight, referenceInterval, anchorPoint) {
-        try {
-            await GT.setAnchorPoint(this._MGGraphicTextId, referenceWidth, referenceHeight, referenceInterval, anchorPoint._MGPointFId);
-        } catch (e) {
-            console.error(e);
-        }
-    }
+  }
 }
 </code></pre>
         </article>
@@ -269,13 +279,13 @@ export default class GraphicText extends Graphic {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Dot.html">Dot</a></li><li><a href="Environment.html">Environment</a></li><li><a href="Feature.html">Feature</a></li><li><a href="FeaturePagedResult.html">FeaturePagedResult</a></li><li><a href="FeatureQuery.html">FeatureQuery</a></li><li><a href="Graphic.html">Graphic</a></li><li><a href="GraphicCircle.html">GraphicCircle</a></li><li><a href="GraphicImage.html">GraphicImage</a></li><li><a href="GraphicMultiPoint.html">GraphicMultiPoint</a></li><li><a href="GraphicPoint.html">GraphicPoint</a></li><li><a href="GraphicPolygon.html">GraphicPolygon</a></li><li><a href="GraphicPolylin.html">GraphicPolylin</a></li><li><a href="GraphicsOverlay.html">GraphicsOverlay</a></li><li><a href="GraphicsOverlays.html">GraphicsOverlays</a></li><li><a href="GraphicStippleLine.html">GraphicStippleLine</a></li><li><a href="GraphicText.html">GraphicText</a></li><li><a href="Image.html">Image</a></li><li><a href="Map.html">Map</a></li><li><a href="MapLayer.html">MapLayer</a></li><li><a href="MapView.html">MapView</a></li><li><a href="PointF.html">PointF</a></li><li><a href="QueryBound.html">QueryBound</a></li><li><a href="Rect.html">Rect</a></li><li><a href="VectorLayer.html">VectorLayer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#initialize">initialize</a></li><li><a href="global.html#setSystemLibraryPath">setSystemLibraryPath</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ClassItemValue.html">ClassItemValue</a></li><li><a href="CoordinateConvertParameter.html">CoordinateConvertParameter</a></li><li><a href="Document.html">Document</a></li><li><a href="DocumentItem.html">DocumentItem</a></li><li><a href="Dot.html">Dot</a></li><li><a href="Environment.html">Environment</a></li><li><a href="Feature.html">Feature</a></li><li><a href="FeaturePagedResult.html">FeaturePagedResult</a></li><li><a href="FeatureQuery.html">FeatureQuery</a></li><li><a href="FillStyle.html">FillStyle</a></li><li><a href="GeneralVectorLabel.html">GeneralVectorLabel</a></li><li><a href="GeometryParams.html">GeometryParams</a></li><li><a href="Graphic.html">Graphic</a></li><li><a href="GraphicCircle.html">GraphicCircle</a></li><li><a href="GraphicImage.html">GraphicImage</a></li><li><a href="GraphicMultiPoint.html">GraphicMultiPoint</a></li><li><a href="GraphicPoint.html">GraphicPoint</a></li><li><a href="GraphicPolygon.html">GraphicPolygon</a></li><li><a href="GraphicPolylin.html">GraphicPolylin</a></li><li><a href="GraphicsOverlay.html">GraphicsOverlay</a></li><li><a href="GraphicsOverlays.html">GraphicsOverlays</a></li><li><a href="GraphicStippleLine.html">GraphicStippleLine</a></li><li><a href="GraphicText.html">GraphicText</a></li><li><a href="GroupLayer.html">GroupLayer</a></li><li><a href="Image.html">Image</a></li><li><a href="IntUser.html">IntUser</a></li><li><a href="Label.html">Label</a></li><li><a href="LabelInfo.html">LabelInfo</a></li><li><a href="LayerEnum.html">LayerEnum</a></li><li><a href="LinePlaceInfo.html">LinePlaceInfo</a></li><li><a href="LineStyle.html">LineStyle</a></li><li><a href="MagnifierOption.html">MagnifierOption</a></li><li><a href="Map.html">Map</a></li><li><a href="MapLayer.html">MapLayer</a></li><li><a href="MapPosition.html">MapPosition</a></li><li><a href="Maps.html">Maps</a></li><li><a href="MapServer.html">MapServer</a></li><li><a href="MapView.html">MapView</a></li><li><a href="Model.html">Model</a></li><li><a href="ModelsOverlay.html">ModelsOverlay</a></li><li><a href="MultiClassTheme.html">MultiClassTheme</a></li><li><a href="MultiClassThemeInfo.html">MultiClassThemeInfo</a></li><li><a href="OGCWMTSMapServer.html">OGCWMTSMapServer</a></li><li><a href="PointF.html">PointF</a></li><li><a href="PointPlaceInfo.html">PointPlaceInfo</a></li><li><a href="PointStyle.html">PointStyle</a></li><li><a href="QueryBound.html">QueryBound</a></li><li><a href="RangeTheme.html">RangeTheme</a></li><li><a href="RangeThemeInfo.html">RangeThemeInfo</a></li><li><a href="Rect.html">Rect</a></li><li><a href="RegionPlaceInfo.html">RegionPlaceInfo</a></li><li><a href="ServerLayer.html">ServerLayer</a></li><li><a href="SimpleLabel.html">SimpleLabel</a></li><li><a href="SimpleModelLayer.html">SimpleModelLayer</a></li><li><a href="SimpleModelLayerUtil.html">SimpleModelLayerUtil</a></li><li><a href="SimpleTheme.html">SimpleTheme</a></li><li><a href="SketchEditor.html">SketchEditor</a></li><li><a href="SketchStyle.html">SketchStyle</a></li><li><a href="SnappingOption.html">SnappingOption</a></li><li><a href="SRefData.html">SRefData</a></li><li><a href="TextStyle.html">TextStyle</a></li><li><a href="Theme.html">Theme</a></li><li><a href="ThemeInfo.html">ThemeInfo</a></li><li><a href="Themes.html">Themes</a></li><li><a href="TileMapServer.html">TileMapServer</a></li><li><a href="UniqueTheme.html">UniqueTheme</a></li><li><a href="UniqueThemeInfo.html">UniqueThemeInfo</a></li><li><a href="VectorLabel.html">VectorLabel</a></li><li><a href="VectorLayer.html">VectorLayer</a></li><li><a href="VectorMapServer.html">VectorMapServer</a></li><li><a href="VectorTheme.html">VectorTheme</a></li><li><a href="VectorTileMapServer.html">VectorTileMapServer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#initialize">initialize</a></li><li><a href="global.html#removeAnimationListener">removeAnimationListener</a></li><li><a href="global.html#removeCenterChangedListener">removeCenterChangedListener</a></li><li><a href="global.html#removeDoubleTapListener">removeDoubleTapListener</a></li><li><a href="global.html#removeLongTapListener">removeLongTapListener</a></li><li><a href="global.html#removeMapLoadListener">removeMapLoadListener</a></li><li><a href="global.html#removeRefreshListener">removeRefreshListener</a></li><li><a href="global.html#removeRotateChangedListener">removeRotateChangedListener</a></li><li><a href="global.html#removeTapListener">removeTapListener</a></li><li><a href="global.html#removeTouchListener">removeTouchListener</a></li><li><a href="global.html#removeZoomChangedListener">removeZoomChangedListener</a></li><li><a href="global.html#requestAuthorization">requestAuthorization</a></li><li><a href="global.html#setResolution">setResolution</a></li><li><a href="global.html#setScale">setScale</a></li><li><a href="global.html#setSize">setSize</a></li><li><a href="global.html#setSystemLibraryPath">setSystemLibraryPath</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.2</a> on Thu Jul 11 2019 10:20:54 GMT+0800 (GMT+08:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Sep 18 2019 09:06:20 GMT+0800 (GMT+08:00)
 </footer>
 
 <script> prettyPrint(); </script>

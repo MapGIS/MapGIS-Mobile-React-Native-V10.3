@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: TextStyle.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: TextStyle.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*
+ * @Description: In User Settings Edit
+ * @Author: xiaoying
+ * @Date: 2019-09-10 17:32:54
+ * @LastEditTime: 2019-09-17 11:30:23
+ * @LastEditors: Please set LastEditors
+ */
+import { NativeModules } from "react-native";
+let TS = NativeModules.JSTextStyle;
+
+/**
+ * @class TextStyle
+ * @description  文本样式
+ */
+export default class TextStyle{
+
+    /**
+     * 构造一个新的TextStyle对象，可通过无参或有参构造。
+     * 有参构造的参数为文本颜色（int类型的Number）、文本大小（float类型的Number）
+     * 
+     * @memberof TextStyle
+     * @returns {Promise&lt;TextStyle>}
+     */
+    async createObj(){
+        try {
+            if(typeof arguments[0] === "number" &amp;&amp; typeof arguments[1] === "number"){
+                var {TextStyleId} = await TS.createObjByCS(arguments[0], arguments[1]);
+               
+                var textStyle = new TextStyle();
+                textStyle._MGTextStyleId = TextStyleId;
+                return textStyle;
+            }else{
+                var {TextStyleId} = await TS.createObj();
+                var textStyle = new TextStyle();
+                
+                textStyle._MGTextStyleId = TextStyleId;
+                return textStyle;
+            }
+          
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    // /**
+    //  * 通过文本颜色、大小构造一个新的TextStyle对象
+    //  * 
+    //  * @memberof TextStyle
+    //  * @param {Number} color 文本颜色（int类型的Number）
+    //  * @param {Number} size  文本大小（float类型的Number）
+    //  * @returns {Promise&lt;TextStyle>}
+    //  */
+    // async createObjByCS(color, size){
+    //     try {
+    //         var {TextStyleId} = await TS.createObjByCS(color, size);
+    //         var textStyle = new TextStyle();
+    //         textStyle._MGTextStyleId = TextStyleId;
+    //         return textStyle;
+    //     } catch (e) {
+    //         console.error(e);
+    //     }
+    // }
+
+    /**
+     * 获取颜色
+     * 
+     * @memberof TextStyle
+     * @returns {Number} 颜色（int类型的Number）
+     */
+    async getColor(){
+        try {
+            let color = await TS.getColor(this._MGTextStyleId);
+            return color;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * @memberof TextStyle
+     * @param {Number} color 颜色（int类型的Number）
+     * @returns {Promise&lt;Void>}
+     */
+    async setColor(color){
+        try {
+            await TS.setColor(this._MGTextStyleId, color);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取文本的大小
+     * 
+     * @memberof TextStyle
+     * @returns {Number} 文本大小（单位：dp，float类型的Number）
+     */
+    async getSize(){
+        try {
+            let size = await TS.getSize(this._MGTextStyleId);
+            return size;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置文本的大小
+     * 
+     * @memberof TextStyle
+     * @param {Number} size 文本大小（单位：dp，float类型的Number）
+     * @returns {Promise&lt;Void>}
+     */
+    async setSize(size){
+        try {
+            await TS.setSize(this._MGTextStyleId, size);
+            
+        } catch (e) {
+            console.error(e);
+        }
+    }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ClassItemValue.html">ClassItemValue</a></li><li><a href="CoordinateConvertParameter.html">CoordinateConvertParameter</a></li><li><a href="Document.html">Document</a></li><li><a href="DocumentItem.html">DocumentItem</a></li><li><a href="Dot.html">Dot</a></li><li><a href="Environment.html">Environment</a></li><li><a href="Feature.html">Feature</a></li><li><a href="FeaturePagedResult.html">FeaturePagedResult</a></li><li><a href="FeatureQuery.html">FeatureQuery</a></li><li><a href="FillStyle.html">FillStyle</a></li><li><a href="GeneralVectorLabel.html">GeneralVectorLabel</a></li><li><a href="GeometryParams.html">GeometryParams</a></li><li><a href="Graphic.html">Graphic</a></li><li><a href="GraphicCircle.html">GraphicCircle</a></li><li><a href="GraphicImage.html">GraphicImage</a></li><li><a href="GraphicMultiPoint.html">GraphicMultiPoint</a></li><li><a href="GraphicPoint.html">GraphicPoint</a></li><li><a href="GraphicPolygon.html">GraphicPolygon</a></li><li><a href="GraphicPolylin.html">GraphicPolylin</a></li><li><a href="GraphicsOverlay.html">GraphicsOverlay</a></li><li><a href="GraphicsOverlays.html">GraphicsOverlays</a></li><li><a href="GraphicStippleLine.html">GraphicStippleLine</a></li><li><a href="GraphicText.html">GraphicText</a></li><li><a href="GroupLayer.html">GroupLayer</a></li><li><a href="Image.html">Image</a></li><li><a href="IntUser.html">IntUser</a></li><li><a href="Label.html">Label</a></li><li><a href="LabelInfo.html">LabelInfo</a></li><li><a href="LayerEnum.html">LayerEnum</a></li><li><a href="LinePlaceInfo.html">LinePlaceInfo</a></li><li><a href="LineStyle.html">LineStyle</a></li><li><a href="MagnifierOption.html">MagnifierOption</a></li><li><a href="Map.html">Map</a></li><li><a href="MapLayer.html">MapLayer</a></li><li><a href="MapPosition.html">MapPosition</a></li><li><a href="Maps.html">Maps</a></li><li><a href="MapServer.html">MapServer</a></li><li><a href="MapView.html">MapView</a></li><li><a href="Model.html">Model</a></li><li><a href="ModelsOverlay.html">ModelsOverlay</a></li><li><a href="MultiClassTheme.html">MultiClassTheme</a></li><li><a href="MultiClassThemeInfo.html">MultiClassThemeInfo</a></li><li><a href="OGCWMTSMapServer.html">OGCWMTSMapServer</a></li><li><a href="PointF.html">PointF</a></li><li><a href="PointPlaceInfo.html">PointPlaceInfo</a></li><li><a href="PointStyle.html">PointStyle</a></li><li><a href="QueryBound.html">QueryBound</a></li><li><a href="RangeTheme.html">RangeTheme</a></li><li><a href="RangeThemeInfo.html">RangeThemeInfo</a></li><li><a href="Rect.html">Rect</a></li><li><a href="RegionPlaceInfo.html">RegionPlaceInfo</a></li><li><a href="ServerLayer.html">ServerLayer</a></li><li><a href="SimpleLabel.html">SimpleLabel</a></li><li><a href="SimpleModelLayer.html">SimpleModelLayer</a></li><li><a href="SimpleModelLayerUtil.html">SimpleModelLayerUtil</a></li><li><a href="SimpleTheme.html">SimpleTheme</a></li><li><a href="SketchEditor.html">SketchEditor</a></li><li><a href="SketchStyle.html">SketchStyle</a></li><li><a href="SnappingOption.html">SnappingOption</a></li><li><a href="SRefData.html">SRefData</a></li><li><a href="TextStyle.html">TextStyle</a></li><li><a href="Theme.html">Theme</a></li><li><a href="ThemeInfo.html">ThemeInfo</a></li><li><a href="Themes.html">Themes</a></li><li><a href="TileMapServer.html">TileMapServer</a></li><li><a href="UniqueTheme.html">UniqueTheme</a></li><li><a href="UniqueThemeInfo.html">UniqueThemeInfo</a></li><li><a href="VectorLabel.html">VectorLabel</a></li><li><a href="VectorLayer.html">VectorLayer</a></li><li><a href="VectorMapServer.html">VectorMapServer</a></li><li><a href="VectorTheme.html">VectorTheme</a></li><li><a href="VectorTileMapServer.html">VectorTileMapServer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#initialize">initialize</a></li><li><a href="global.html#removeAnimationListener">removeAnimationListener</a></li><li><a href="global.html#removeCenterChangedListener">removeCenterChangedListener</a></li><li><a href="global.html#removeDoubleTapListener">removeDoubleTapListener</a></li><li><a href="global.html#removeLongTapListener">removeLongTapListener</a></li><li><a href="global.html#removeMapLoadListener">removeMapLoadListener</a></li><li><a href="global.html#removeRefreshListener">removeRefreshListener</a></li><li><a href="global.html#removeRotateChangedListener">removeRotateChangedListener</a></li><li><a href="global.html#removeTapListener">removeTapListener</a></li><li><a href="global.html#removeTouchListener">removeTouchListener</a></li><li><a href="global.html#removeZoomChangedListener">removeZoomChangedListener</a></li><li><a href="global.html#requestAuthorization">requestAuthorization</a></li><li><a href="global.html#setResolution">setResolution</a></li><li><a href="global.html#setScale">setScale</a></li><li><a href="global.html#setSize">setSize</a></li><li><a href="global.html#setSystemLibraryPath">setSystemLibraryPath</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Sep 18 2019 09:06:20 GMT+0800 (GMT+08:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

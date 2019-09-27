@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Themes.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Themes.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*
+ * @Description: In User Settings Edit
+ * @Author: xiaoying
+ * @Date: 2019-09-04 16:02:23
+ * @LastEditTime: 2019-09-04 16:25:15
+ * @LastEditors: Please set LastEditors
+ */
+import {NativeModules} from "react-native";
+import Theme from "./Theme";
+let TS = NativeModules.JSThemes;
+
+/**
+ * @class Themes
+ * @description 专题图集合
+ */
+export default class Themes{
+    
+    /**
+     * 创建一个新的Themes对象
+     * 
+     * @memberof Themes
+     * @returns {Promise&lt;Themes>}
+     */
+    async createObj(){
+        try {
+            var {ThemesId} = await TS.createObj();
+            var themes = new Themes();
+            themes._MGThemesId = ThemesId;
+            return themes;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获得专题图个数
+     * 
+     * @memberof Themes
+     * @returns {int} 专题图个数
+     */
+    async getCount(){
+        try {
+            let count = await TS.getCount(this._MGThemesId);
+            return count;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获得可见的单值或统计专题图
+     * 
+     * @memberof Themes
+     * @returns {Promise&lt;Theme>}
+     */
+    async getVisibleBaseTheme(){
+        try {
+            try {
+                var {ThemeId} = await TS.getVisibleBaseTheme(this._MGThemesId);
+                var theme = null;
+                if(ThemeId != null){
+                    theme = new Theme();
+                    theme._MGThemeId = ThemeId;
+                }
+                return theme;
+            } catch (e) {
+                console.error(e);
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获得可见的专题图
+     * 
+     * @memberof Themes
+     * @returns {Promise&lt;Theme>}
+     */
+    async getVisibleSurfaceTheme(){
+        try {
+            try {
+                var {ThemeId} = await TS.getVisibleSurfaceTheme(this._MGThemesId);
+                var theme = null;
+                if(ThemeId != null){
+                  theme = new Theme();
+                  theme._MGThemeId = ThemeId;
+                }
+                return theme;
+            } catch (e) {
+                console.error(e);
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 向集合中添加专题图
+     * 
+     * @memberof Themes
+     * @param {Object} theme 专题图 (Object--Theme)
+     * @returns {boolean} true-成功 ；false-失败
+     */
+    async append(theme){
+        try {
+            let result = await TS.append(this._MGThemesId, theme._MGThemeId);
+            return result;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 移除指定位置处的专题图
+     * 
+     * @memberof Themes
+     * @param {int} index 专题图位置
+     * @returns {boolean} true-成功 ；false-失败
+     */
+    async remove(index){
+        try {
+            let result = await TS.remove(this._MGThemesId, index);
+            return result;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 清空集合中所有的专题图
+     * 
+     * @memberof Themes
+     * @returns {boolean} true-成功 ；false-失败
+     */
+    async clear(){
+        try {
+            let result = await TS.clear(this._MGThemesId);
+            return result;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获得指定位置的专题图
+     * 
+     * @memberof Themes
+     * @param {int} index 专题图索引
+     * @returns {Promise&lt;Theme>} 成功返回指定位置的专题图
+     */
+    async getThemeByIndex(index){
+        try {
+            var {ThemeId} = await TS.getThemeByIndex(this._MGThemesId, index);
+            var theme = null;
+            if(ThemeId != null){
+                theme = new Theme();
+                theme._MGThemeId = ThemeId;
+            }
+            return theme;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 根据名称和索引获得专题图
+     * 
+     * @memberof Themes
+     * @param {String} name 专题图名称
+     * @param {int} index 专题图索引
+     * @returns {Promise&lt;Theme>} 成功返回指定位置的专题图
+     */
+    async getThemeByName(name, index){
+        try {
+            var {ThemeId} = await TS.getThemeByName(this._MGThemesId, name, index);
+            var theme = null;
+            if(ThemeId != null){
+                theme = new Theme();
+                theme._MGThemeId = ThemeId;
+            }
+            return theme;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ClassItemValue.html">ClassItemValue</a></li><li><a href="CoordinateConvertParameter.html">CoordinateConvertParameter</a></li><li><a href="Document.html">Document</a></li><li><a href="DocumentItem.html">DocumentItem</a></li><li><a href="Dot.html">Dot</a></li><li><a href="Environment.html">Environment</a></li><li><a href="Feature.html">Feature</a></li><li><a href="FeaturePagedResult.html">FeaturePagedResult</a></li><li><a href="FeatureQuery.html">FeatureQuery</a></li><li><a href="FillStyle.html">FillStyle</a></li><li><a href="GeneralVectorLabel.html">GeneralVectorLabel</a></li><li><a href="GeometryParams.html">GeometryParams</a></li><li><a href="Graphic.html">Graphic</a></li><li><a href="GraphicCircle.html">GraphicCircle</a></li><li><a href="GraphicImage.html">GraphicImage</a></li><li><a href="GraphicMultiPoint.html">GraphicMultiPoint</a></li><li><a href="GraphicPoint.html">GraphicPoint</a></li><li><a href="GraphicPolygon.html">GraphicPolygon</a></li><li><a href="GraphicPolylin.html">GraphicPolylin</a></li><li><a href="GraphicsOverlay.html">GraphicsOverlay</a></li><li><a href="GraphicsOverlays.html">GraphicsOverlays</a></li><li><a href="GraphicStippleLine.html">GraphicStippleLine</a></li><li><a href="GraphicText.html">GraphicText</a></li><li><a href="GroupLayer.html">GroupLayer</a></li><li><a href="Image.html">Image</a></li><li><a href="IntUser.html">IntUser</a></li><li><a href="Label.html">Label</a></li><li><a href="LabelInfo.html">LabelInfo</a></li><li><a href="LayerEnum.html">LayerEnum</a></li><li><a href="LinePlaceInfo.html">LinePlaceInfo</a></li><li><a href="LineStyle.html">LineStyle</a></li><li><a href="MagnifierOption.html">MagnifierOption</a></li><li><a href="Map.html">Map</a></li><li><a href="MapLayer.html">MapLayer</a></li><li><a href="MapPosition.html">MapPosition</a></li><li><a href="Maps.html">Maps</a></li><li><a href="MapServer.html">MapServer</a></li><li><a href="MapView.html">MapView</a></li><li><a href="Model.html">Model</a></li><li><a href="ModelsOverlay.html">ModelsOverlay</a></li><li><a href="MultiClassTheme.html">MultiClassTheme</a></li><li><a href="MultiClassThemeInfo.html">MultiClassThemeInfo</a></li><li><a href="OGCWMTSMapServer.html">OGCWMTSMapServer</a></li><li><a href="PointF.html">PointF</a></li><li><a href="PointPlaceInfo.html">PointPlaceInfo</a></li><li><a href="PointStyle.html">PointStyle</a></li><li><a href="QueryBound.html">QueryBound</a></li><li><a href="RangeTheme.html">RangeTheme</a></li><li><a href="RangeThemeInfo.html">RangeThemeInfo</a></li><li><a href="Rect.html">Rect</a></li><li><a href="RegionPlaceInfo.html">RegionPlaceInfo</a></li><li><a href="ServerLayer.html">ServerLayer</a></li><li><a href="SimpleLabel.html">SimpleLabel</a></li><li><a href="SimpleModelLayer.html">SimpleModelLayer</a></li><li><a href="SimpleModelLayerUtil.html">SimpleModelLayerUtil</a></li><li><a href="SimpleTheme.html">SimpleTheme</a></li><li><a href="SketchEditor.html">SketchEditor</a></li><li><a href="SketchStyle.html">SketchStyle</a></li><li><a href="SnappingOption.html">SnappingOption</a></li><li><a href="SRefData.html">SRefData</a></li><li><a href="TextStyle.html">TextStyle</a></li><li><a href="Theme.html">Theme</a></li><li><a href="ThemeInfo.html">ThemeInfo</a></li><li><a href="Themes.html">Themes</a></li><li><a href="TileMapServer.html">TileMapServer</a></li><li><a href="UniqueTheme.html">UniqueTheme</a></li><li><a href="UniqueThemeInfo.html">UniqueThemeInfo</a></li><li><a href="VectorLabel.html">VectorLabel</a></li><li><a href="VectorLayer.html">VectorLayer</a></li><li><a href="VectorMapServer.html">VectorMapServer</a></li><li><a href="VectorTheme.html">VectorTheme</a></li><li><a href="VectorTileMapServer.html">VectorTileMapServer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#initialize">initialize</a></li><li><a href="global.html#removeAnimationListener">removeAnimationListener</a></li><li><a href="global.html#removeCenterChangedListener">removeCenterChangedListener</a></li><li><a href="global.html#removeDoubleTapListener">removeDoubleTapListener</a></li><li><a href="global.html#removeLongTapListener">removeLongTapListener</a></li><li><a href="global.html#removeMapLoadListener">removeMapLoadListener</a></li><li><a href="global.html#removeRefreshListener">removeRefreshListener</a></li><li><a href="global.html#removeRotateChangedListener">removeRotateChangedListener</a></li><li><a href="global.html#removeTapListener">removeTapListener</a></li><li><a href="global.html#removeTouchListener">removeTouchListener</a></li><li><a href="global.html#removeZoomChangedListener">removeZoomChangedListener</a></li><li><a href="global.html#requestAuthorization">requestAuthorization</a></li><li><a href="global.html#setResolution">setResolution</a></li><li><a href="global.html#setScale">setScale</a></li><li><a href="global.html#setSize">setSize</a></li><li><a href="global.html#setSystemLibraryPath">setSystemLibraryPath</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Sep 18 2019 09:06:20 GMT+0800 (GMT+08:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -39,12 +39,9 @@ public class JSGraphicPolylin extends JSGraphicMultiPoint {
     public static String registerId(GraphicPolylin obj) {
         for (Map.Entry entry : mGraphicPolylinList.entrySet()) {
             if (obj.equals(entry.getValue())) {
-                String id = (String) entry.getKey();
-                mGraphicPolylinList.put(id, obj);
                 return (String) entry.getKey();
             }
         }
-
         Calendar calendar = Calendar.getInstance();
         String id = Long.toString(calendar.getTimeInMillis());
         mGraphicPolylinList.put(id, obj);

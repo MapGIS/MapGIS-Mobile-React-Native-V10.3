@@ -45,8 +45,6 @@ public class JSEnvironment extends ReactContextBaseJavaModule {
     public static String registerId(Environment obj) {
         for (Map.Entry entry : mEnvironmentList.entrySet()) {
             if (obj.equals(entry.getValue())) {
-                String id = (String) entry.getKey();
-                mEnvironmentList.put(id, obj);
                 return (String) entry.getKey();
             }
         }

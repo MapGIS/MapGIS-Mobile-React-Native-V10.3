@@ -103,9 +103,9 @@ export default class GraphicPoint extends Graphic {
    * @param {Number} size
    * @returns {Promise<void>}
    */
-  async setPoint(point, size) {
+  async setPointAndSize(point, size) {
     try {
-      await GP.setPoints(this._MGGraphicPointId, point._MGDotId, size);
+      await GP.setPointAndSize(this._MGGraphicPointId, point._MGDotId, size);
     } catch (e) {
       console.error(e);
     }

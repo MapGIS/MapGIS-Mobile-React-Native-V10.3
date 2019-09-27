@@ -41,12 +41,9 @@ public class JSGraphicText extends JSGraphic {
     public static String registerId(GraphicText obj) {
         for (Map.Entry entry : mGraphicTextList.entrySet()) {
             if (obj.equals(entry.getValue())) {
-                String id = (String) entry.getKey();
-                mGraphicTextList.put(id, obj);
                 return (String) entry.getKey();
             }
         }
-
         Calendar calendar = Calendar.getInstance();
         String id = Long.toString(calendar.getTimeInMillis());
         mGraphicTextList.put(id, obj);
@@ -123,7 +120,7 @@ public class JSGraphicText extends JSGraphic {
 
             String dotID = JSDot.registerId(dot);
             WritableMap map = Arguments.createMap();
-            map.putString("dotID", dotID);
+            map.putString("point2DId", dotID);
 
             promise.resolve(map);
         } catch (Exception e) {
@@ -216,6 +213,19 @@ public class JSGraphicText extends JSGraphic {
             map.putString("PointFID", PointFID);
             promise.resolve(map);
 
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void setReferenceInfo(String GraphicTextId, int referenceWidth, int referenceHeight, int referenceInterval, String pointfID, Promise promise)
+    {
+        try {
+            GraphicText graphicText = getObjFromList(GraphicTextId);
+            PointF pointf = JSPointF.getObjFromList(pointfID);
+            graphicText.setReferenceInfo(referenceWidth,referenceHeight,referenceInterval,pointf);
+            promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
         }

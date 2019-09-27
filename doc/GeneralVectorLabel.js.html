@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: GeneralVectorLabel.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: GeneralVectorLabel.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*
+ * @Description: In User Settings Edit
+ * @Author: xiaoying
+ * @Date: 2019-08-28 17:11:23
+ * @LastEditTime: 2019-09-09 17:49:52
+ * @LastEditors: Please set LastEditors
+ */
+import {NativeModules} from "react-native";
+import VectorLabel from "./VectorLabel.js";
+let GVL = NativeModules.JSGeneralVectorLabel;
+
+/**
+ * @class GeneralVectorLabel
+ * @description 矢量标注
+ */
+export default class GeneralVectorLabel extends VectorLabel{
+    constructor(){
+        super();
+        Object.defineProperty(this, "_MGGeneralVectorLabelId", {
+            get:function(){
+                return this._MGVectorLabelId;
+            },
+            set:function(_MGGeneralVectorLabelId){
+                this._MGVectorLabelId = _MGGeneralVectorLabelId;
+            }
+        })
+    }
+    
+
+    /**
+     * 获取标注表达式
+     * @memberof GeneralVectorLabel
+     * @returns {String} 标注表达式
+     */
+    async getLabelExpression(){
+        try {
+            let labelExpression = await GVL.getLabelExpression(this._MGGeneralVectorLabelId);
+            return labelExpression;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置标注表达式
+     * @memberof GeneralVectorLabel
+     * @param {String} labelExpression 标注表达式
+     * @returns {Promise&lt;Void>}
+     */
+    async setLabelExpression(labelExpression){
+        try {
+            await GVL.setLabelExpression(this._MGGeneralVectorLabelId, labelExpression);
+
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+     /**
+     * 获取标注背景类型
+     * @memberof GeneralVectorLabel
+     * @returns {Number} 标注背景类型（int类型，例如 1--LabelBackType.Rect）
+     */
+    async getLabelBackType(){
+        try {
+            let labelBackType = await GVL.getLabelBackType(this._MGGeneralVectorLabelId);
+            return labelBackType;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置标注背景类型
+     * @memberof GeneralVectorLabel
+     * @param {Number} labelBackType 标注背景类型（int类型，例如 1--LabelBackType.Rect）
+     * @returns {Promise&lt;Void>}
+     */
+    async setLabelBackType(labelBackType){
+        try {
+            await GVL.setLabelBackType(this._MGGeneralVectorLabelId, labelBackType);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+	 * 获取背景图形信息,可同时设置点,线,面以及注记
+     * @memberof GeneralVectorLabel
+     * @returns {Object} geomInfo 背景图形信息
+	 */
+    async getBackGeoInfo(){
+        try {
+            await GVL.getBackGeoInfo(this._MGGeneralVectorLabelId);
+            
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+	 * 设置背景图形信息,可同时设置点,线,面以及注记
+     * @memberof GeneralVectorLabel
+     * @param {Object} geomInfo 背景图形信息
+     * @returns {Promise&lt;Void>}
+	 */
+    async setBackGeoInfo(geomInfo){
+        try {
+            
+            
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 精度,小数点后有效位数,eg.精度为1时,那么123.456表示为123.5
+     * @memberof GeneralVectorLabel
+     * @returns {Number} 精度（int范围的Number)
+     */
+    async getNumericPrecision(){
+        try {
+            let numericPrecision = await GVL.getNumericPrecision(this._MGGeneralVectorLabelId);
+            return numericPrecision;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置精度
+     * @memberof GeneralVectorLabel
+     * @param {Number} numericPrecision 精度（int范围的Number)
+     * @returns {Promise&lt;Void>}
+     */
+    async setNumericPrecision(numericPrecision){
+        try {
+            await GVL.setNumericPrecision(this._MGGeneralVectorLabelId, numericPrecision);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 是否换行去标注超过单行字符限制的注记 (线可能支持可能不支持)
+     * @memberof GeneralVectorLabel
+     * @returns {boolean}
+     */
+    async getNewLineToLabel(){
+        try {
+            let newLineToLabel = await GVL.getNewLineToLabel(this._MGGeneralVectorLabelId);
+            return newLineToLabel;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置是否换行去标注超过单行字符限制的注记 (线可能支持可能不支持)
+     * @memberof GeneralVectorLabel
+     * @param {boolean} newLineToLabel 是否换行去标注超过单行字符限制的注记
+     * @returns {Promise&lt;Void>}
+     */
+    async setNewLineToLabel(newLineToLabel){
+        try {
+            await GVL.setNewLineToLabel(this._MGGeneralVectorLabelId, newLineToLabel);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+    
+    /**
+     * 获取当行的最大长度
+     * @memberof GeneralVectorLabel
+     * @returns {Number} 当行的最大长度 （int范围的Number）
+     */
+    async getMaxLengthPreLine(){
+        try {
+            let maxLengthPreLine = await GVL.getMaxLengthPreLine(this._MGGeneralVectorLabelId);
+            return maxLengthPreLine;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置当行的最大长度
+     * @memberof GeneralVectorLabel
+     * @param {Number} maxLengthPreLine （int范围的Number）
+     * @returns {Promise&lt;Void>}
+     */
+    async setMaxLengthPreLine(maxLengthPreLine){
+        try {
+            await GVL.setMaxLengthPreLine(this._MGGeneralVectorLabelId, maxLengthPreLine);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+    
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ClassItemValue.html">ClassItemValue</a></li><li><a href="CoordinateConvertParameter.html">CoordinateConvertParameter</a></li><li><a href="Document.html">Document</a></li><li><a href="DocumentItem.html">DocumentItem</a></li><li><a href="Dot.html">Dot</a></li><li><a href="Environment.html">Environment</a></li><li><a href="Feature.html">Feature</a></li><li><a href="FeaturePagedResult.html">FeaturePagedResult</a></li><li><a href="FeatureQuery.html">FeatureQuery</a></li><li><a href="FillStyle.html">FillStyle</a></li><li><a href="GeneralVectorLabel.html">GeneralVectorLabel</a></li><li><a href="GeometryParams.html">GeometryParams</a></li><li><a href="Graphic.html">Graphic</a></li><li><a href="GraphicCircle.html">GraphicCircle</a></li><li><a href="GraphicImage.html">GraphicImage</a></li><li><a href="GraphicMultiPoint.html">GraphicMultiPoint</a></li><li><a href="GraphicPoint.html">GraphicPoint</a></li><li><a href="GraphicPolygon.html">GraphicPolygon</a></li><li><a href="GraphicPolylin.html">GraphicPolylin</a></li><li><a href="GraphicsOverlay.html">GraphicsOverlay</a></li><li><a href="GraphicsOverlays.html">GraphicsOverlays</a></li><li><a href="GraphicStippleLine.html">GraphicStippleLine</a></li><li><a href="GraphicText.html">GraphicText</a></li><li><a href="GroupLayer.html">GroupLayer</a></li><li><a href="Image.html">Image</a></li><li><a href="IntUser.html">IntUser</a></li><li><a href="Label.html">Label</a></li><li><a href="LabelInfo.html">LabelInfo</a></li><li><a href="LayerEnum.html">LayerEnum</a></li><li><a href="LinePlaceInfo.html">LinePlaceInfo</a></li><li><a href="LineStyle.html">LineStyle</a></li><li><a href="MagnifierOption.html">MagnifierOption</a></li><li><a href="Map.html">Map</a></li><li><a href="MapLayer.html">MapLayer</a></li><li><a href="MapPosition.html">MapPosition</a></li><li><a href="Maps.html">Maps</a></li><li><a href="MapServer.html">MapServer</a></li><li><a href="MapView.html">MapView</a></li><li><a href="Model.html">Model</a></li><li><a href="ModelsOverlay.html">ModelsOverlay</a></li><li><a href="MultiClassTheme.html">MultiClassTheme</a></li><li><a href="MultiClassThemeInfo.html">MultiClassThemeInfo</a></li><li><a href="OGCWMTSMapServer.html">OGCWMTSMapServer</a></li><li><a href="PointF.html">PointF</a></li><li><a href="PointPlaceInfo.html">PointPlaceInfo</a></li><li><a href="PointStyle.html">PointStyle</a></li><li><a href="QueryBound.html">QueryBound</a></li><li><a href="RangeTheme.html">RangeTheme</a></li><li><a href="RangeThemeInfo.html">RangeThemeInfo</a></li><li><a href="Rect.html">Rect</a></li><li><a href="RegionPlaceInfo.html">RegionPlaceInfo</a></li><li><a href="ServerLayer.html">ServerLayer</a></li><li><a href="SimpleLabel.html">SimpleLabel</a></li><li><a href="SimpleModelLayer.html">SimpleModelLayer</a></li><li><a href="SimpleModelLayerUtil.html">SimpleModelLayerUtil</a></li><li><a href="SimpleTheme.html">SimpleTheme</a></li><li><a href="SketchEditor.html">SketchEditor</a></li><li><a href="SketchStyle.html">SketchStyle</a></li><li><a href="SnappingOption.html">SnappingOption</a></li><li><a href="SRefData.html">SRefData</a></li><li><a href="TextStyle.html">TextStyle</a></li><li><a href="Theme.html">Theme</a></li><li><a href="ThemeInfo.html">ThemeInfo</a></li><li><a href="Themes.html">Themes</a></li><li><a href="TileMapServer.html">TileMapServer</a></li><li><a href="UniqueTheme.html">UniqueTheme</a></li><li><a href="UniqueThemeInfo.html">UniqueThemeInfo</a></li><li><a href="VectorLabel.html">VectorLabel</a></li><li><a href="VectorLayer.html">VectorLayer</a></li><li><a href="VectorMapServer.html">VectorMapServer</a></li><li><a href="VectorTheme.html">VectorTheme</a></li><li><a href="VectorTileMapServer.html">VectorTileMapServer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#initialize">initialize</a></li><li><a href="global.html#removeAnimationListener">removeAnimationListener</a></li><li><a href="global.html#removeCenterChangedListener">removeCenterChangedListener</a></li><li><a href="global.html#removeDoubleTapListener">removeDoubleTapListener</a></li><li><a href="global.html#removeLongTapListener">removeLongTapListener</a></li><li><a href="global.html#removeMapLoadListener">removeMapLoadListener</a></li><li><a href="global.html#removeRefreshListener">removeRefreshListener</a></li><li><a href="global.html#removeRotateChangedListener">removeRotateChangedListener</a></li><li><a href="global.html#removeTapListener">removeTapListener</a></li><li><a href="global.html#removeTouchListener">removeTouchListener</a></li><li><a href="global.html#removeZoomChangedListener">removeZoomChangedListener</a></li><li><a href="global.html#requestAuthorization">requestAuthorization</a></li><li><a href="global.html#setResolution">setResolution</a></li><li><a href="global.html#setScale">setScale</a></li><li><a href="global.html#setSize">setSize</a></li><li><a href="global.html#setSystemLibraryPath">setSystemLibraryPath</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Sep 18 2019 09:06:20 GMT+0800 (GMT+08:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

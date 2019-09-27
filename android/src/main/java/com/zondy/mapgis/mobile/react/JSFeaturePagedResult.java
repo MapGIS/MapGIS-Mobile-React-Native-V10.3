@@ -46,8 +46,6 @@ public class JSFeaturePagedResult extends ReactContextBaseJavaModule {
     public static String registerId(FeaturePagedResult obj) {
         for (Map.Entry entry : mFeaturePagedResultList.entrySet()) {
             if (obj.equals(entry.getValue())) {
-                String id = (String) entry.getKey();
-                mFeaturePagedResultList.put(id, obj);
                 return (String) entry.getKey();
             }
         }

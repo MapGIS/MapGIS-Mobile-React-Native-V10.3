@@ -44,6 +44,21 @@ export default class GraphicImage extends Graphic {
   /**
    * 设置图片
    * @memberOf GraphicImage
+   * @param {String} filePath
+   * @returns {Promise<void>}
+   */
+  async setImageByFilePath(filePath) {
+    try {
+      await GI.setImage(this._MGGraphicImageId, filePath);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+
+  /**
+   * 设置图片
+   * @memberOf GraphicImage
    * @param {Object} image
    * @returns {Promise<void>}
    */

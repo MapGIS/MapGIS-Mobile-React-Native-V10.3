@@ -1,10 +1,24 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: fjl
+ * @Date: 2019-09-06 16:27:38
+ * @LastEditTime: 2019-09-19 15:36:08
+ * @LastEditors: Please set LastEditors
+ */
 /**
  * @content android视图点对象功能组件
  * @author fjl 2019-6-24 下午2:52:36
  */
 import { NativeModules } from "react-native";
 let ML = NativeModules.JSMapLayer;
+let XClsType = NativeModules.JSXClsType;
 import Rect from "./Rect.js";
+import SRefData from "./SRefData.js";
+import SimpleLabel from "./SimpleLabel.js";
+import Themes from "./Themes.js";
+import SFeatureCls from "./SFeatureCls.js";
+import AnnotationCls from "./AnnotationCls.js";
+
 
 /**
  * @class MapLayer
@@ -43,11 +57,12 @@ export default class MapLayer {
   /**
    * 获取图层名称
    * @memberOf MapLayer
+   * @param {String} Name 图层名称
    * @returns {Promise<*>}
    */
-  async setName() {
+  async setName(Name) {
     try {
-      await ML.setName(this._MGMapLayerId);
+      await ML.setName(this._MGMapLayerId,Name);
     } catch (e) {
       console.error(e);
     }
@@ -101,7 +116,7 @@ export default class MapLayer {
    */
   async setState(State) {
     try {
-      await ML.setURL(this._MGMapLayerId, State);
+      await ML.setState(this._MGMapLayerId, State);
     } catch (e) {
       console.error(e);
     }
@@ -111,7 +126,7 @@ export default class MapLayer {
    * @memberOf MapLayer
    * @param {Boolean} visible 图层是否显示
    */
-  async setVisible(State) {
+  async setVisible(visible) {
     try {
       await ML.setVisible(this._MGMapLayerId, visible);
     } catch (e) {
@@ -227,10 +242,214 @@ export default class MapLayer {
    */
   async getRange() {
     try {
-      var { rectId } = await M.getRange(this._MGMapLayerId);
-      var rect = new Rect();
-      rect._MGRectId = rectId;
+      var { rectId } = await ML.getViewRange(this._MGMapLayerId);
+      var rect = null;
+      if(rectId != null){
+        rect = new Rect();
+        rect._MGRectId = rectId;
+      }
       return rect;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取空间参照系
+   * @memberof MapLayer
+   * @returns {Promise<SRefData>}
+   */
+  async getSrefInfo(){
+    try {
+      var { SRefDataId } = await ML.getSrefInfo(this._MGMapLayerId);
+      var sRefInfo = null;
+      if(SRefDataId != null){
+         sRefInfo = new SRefData();
+         sRefInfo._MGSRefDataId = SRefDataId;
+      }
+
+      return sRefInfo;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取类类型
+   * @memberof MapLayer
+   * @returns {Number} 类类型（int类型的数值；例如 30 -- XClsType.SFCls）
+   */
+  async getClsType(){
+    try {
+      let clsType = await ML.getClsType(this._MGMapLayerId);
+      return clsType;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取要素几何类型
+   * @memberof MapLayer
+   * @returns {Number} 要素几何类型（int类型的数值；例如 1--GeomType.GeomPnt
+   */
+  async GetGeometryType(){
+    try {
+      let geometryType = await ML.GetGeometryType(this._MGMapLayerId);
+      return geometryType;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+   /**
+   * 获取当前的标注
+   * @memberof MapLayer
+   * @returns {Promise<Label>}} 成功返回当前的标注
+   */
+  async getLabel(){
+    try {
+      var {LabelId, LabelType} = await ML.getLabel(this._MGMapLayerId);
+      let label = null;
+      if(LabelId != null){
+         switch(LabelType){
+              case 0x0100:
+                  label = new SimpleLabel();
+                  label._MGLabelId = LabelId;
+                break;
+         }
+      }
+
+      return label;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+   /**
+   * 获获取专题图列表
+   * @memberof MapLayer
+   * @returns {Promise<Themes>}} 成功返回专题图列表
+   */
+  async getThemes(){
+    try {
+      var {ThemesId} = await ML.getThemes(this._MGMapLayerId);
+      var themes = null;
+      if(ThemesId != null){
+         themes = new Themes();
+         themes._MGThemesId = ThemesId;
+      }
+
+      return themes;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 复制图层
+   * @memberof MapLayer
+   * @returns {Promise<MapLayer>}} 成功返回克隆之后的图层
+   */
+  async clone(){
+    try {
+      var {MapLayerId} = await ML.clone(this._MGMapLayerId);
+      var mapLayer = null;
+      if(MapLayerId != null){
+          mapLayer = new MapLayer();
+          mapLayer._MGMapLayerId = MapLayerId;
+      }
+
+      return mapLayer;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 附加外部数据
+   * @memberof MapLayer
+   * @param {Object} cls 地理类对象
+   * @return {boolean} true/false 成功/失败
+   */
+  async attachData(cls){
+    try {
+      let result = await ML.attachData(this._MGMapLayerId, cls._MGBasClsId);
+      return result;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 附加解除
+   * @memberof MapLayer
+   * @return {boolean} true/false 成功/失败
+   */
+  async detachData(){
+    try {
+      let result = await ML.detachData(this._MGMapLayerId);
+      return result;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+   /**
+   * 获取图层要素数据类
+   * @memberof MapLayer
+   * @return {Promise<IBasCls>} 成功获得数据类
+   */
+  async getData(){
+    try {
+      let xClsType = await ML.getClsType(this._MGMapLayerId);
+      let {IBasClsId} = await ML.getData(this._MGMapLayerId);
+      let xCls = null;
+      if(IBasClsId != null){
+        switch(xClsType){
+          case XClsType.SFCls: // 30-简单要素类
+            xCls = new SFeatureCls();
+            xCls._MGVectorClsId = IBasClsId;
+            break;
+          case XClsType.ACls:  // 5-注记类 
+            xCls = new AnnotationCls();
+            xCls._MGVectorClsId = IBasClsId;
+            break;
+        }
+      }
+     
+      return xCls; 
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+   /**
+   * 存为XML
+   * @memberof MapLayer
+   * @param {boolean} onlyStyle true:仅导出样式  false:除图层样式信息外还包括图层的name、geometryType、url、layerWeight、state信息
+   * @return {String} xml
+   */
+  async toXML(onlyStyle){
+    try {
+      let xml = await ML.toXML(this._MGMapLayerId, onlyStyle);
+      return xml;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+	 * 从XML导入
+	 * @memberof MapLayer
+	 * @param strXML 
+	 * @param onlyStyle true:仅导入样式信息  false:除图层样式信息外还包括图层的name、geometryType、url、layerWeight、state信息
+   * @return {int} 1-成功；0-失败
+	 */
+  async fromXML(strXMl, onlyStyle){
+    try {
+      let result = await ML.fromXML(this._MGMapLayerId, strXMl, onlyStyle);
+      return result;
     } catch (e) {
       console.error(e);
     }

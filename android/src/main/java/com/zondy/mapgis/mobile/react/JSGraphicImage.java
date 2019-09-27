@@ -44,8 +44,6 @@ public class JSGraphicImage extends JSGraphic {
     public static String registerId(GraphicImage obj) {
         for (Map.Entry entry : mGraphicImageList.entrySet()) {
             if (obj.equals(entry.getValue())) {
-                String id = (String) entry.getKey();
-                mGraphicImageList.put(id, obj);
                 return (String) entry.getKey();
             }
         }
@@ -65,6 +63,18 @@ public class JSGraphicImage extends JSGraphic {
             WritableMap map = Arguments.createMap();
             map.putString("GraphicImageId", GraphicImageId);
             promise.resolve(map);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void setImageFromPath(String GraphicImageId, String filePath, Promise promise)
+    {
+        try {
+            GraphicImage GraphicImage = getObjFromList(GraphicImageId);
+            GraphicImage.setImage(filePath);
+            promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
         }

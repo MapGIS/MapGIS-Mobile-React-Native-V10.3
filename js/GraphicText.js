@@ -70,9 +70,9 @@ export default class GraphicText extends Graphic {
   }
 
   /**
-   * 设置线宽
+   * 设置字体大小
    * @memberOf GraphicText
-   * @param fontSize
+   * @param fontSize  字体大小
    * @returns {Promise<void>}
    */
   async setFontSize(fontSize) {
@@ -186,12 +186,12 @@ export default class GraphicText extends Graphic {
   /**
    * 设置锚点
    * @memberOf GraphicText
-   * @param anchorPoint 图片锚点的位置：左下角为(0,0),右上角为(1,1)
+   * @param anchorPoint 文本锚点的位置：左下角为(0,0),右上角为(1,1)
    * @returns {Promise<void>}
    */
-  async setAnchorPoint(anchorPoint) {
+  async setAnchorPointByPoint(anchorPoint) {
     try {
-      await GI.setAnchorPoint(this._MGGraphicTextId, anchorPoint._MGPointFId);
+      await GT.setAnchorPoint(this._MGGraphicTextId, anchorPoint._MGPointFId);
     } catch (e) {
       console.error(e);
     }
@@ -200,7 +200,7 @@ export default class GraphicText extends Graphic {
   /**
    * 获取锚点
    * @memberOf GraphicText
-   * @returns {Promise<*>}
+   * @returns {Promise<*>} 文本锚点的位置：左下角为(0,0),右上角为(1,1)
    */
   async getAnchorPoint() {
     try {
@@ -216,10 +216,10 @@ export default class GraphicText extends Graphic {
   /**
    * 设置锚点
    * @memberOf GraphicText
-   * @param referenceWidth
-   * @param referenceHeight
-   * @param referenceInterval
-   * @param anchorPoint
+   * @param referenceWidth    参考宽度
+   * @param referenceHeight   参考高度
+   * @param referenceInterval 参考间隔
+   * @param anchorPoint       文本锚点的位置：左下角为(0,0),右上角为(1,1)
    * @returns {Promise<void>}
    */
   async setAnchorPoint(

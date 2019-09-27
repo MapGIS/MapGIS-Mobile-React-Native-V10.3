@@ -3,8 +3,6 @@
  * @author fjl 2019-6-24 下午2:52:36
  */
 import { NativeModules } from "react-native";
-import Graphic from "./Graphic";
-import Dot from "./Dot";
 import GraphicMultiPoint from "./GraphicMultiPoint";
 let GP = NativeModules.JSGraphicPolygon;
 
@@ -57,8 +55,8 @@ export default class GraphicPolygon extends GraphicMultiPoint {
   /**
    * 设置一组坐标点
    * @memberOf GraphicPolygon
-   * @param pointArray
-   * @param circlesArray
+   * @param {Array} pointArray
+   * @param {Array} circlesArray
    * @returns {Promise<void>}
    */
   async setPoints(pointArray, circlesArray) {
@@ -72,7 +70,7 @@ export default class GraphicPolygon extends GraphicMultiPoint {
   /**
    * 获取圈序列
    * @memberOf GraphicPolygon
-   * @returns {Promise<*>}
+   * @returns {Promise<Array>}
    */
   async getCirclesToList() {
     try {

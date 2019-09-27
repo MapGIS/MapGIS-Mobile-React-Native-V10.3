@@ -30,1160 +30,1384 @@
  * @content 地图视图功能组件
  * @author fjl 2019-6-14 下午2:52:36
  */
-import { NativeModules, Platform } from 'react-native';
+import {NativeModules, Platform} from "react-native";
+
 let MV = NativeModules.JSMapView;
-import Dot from './Dot.js';
-import PointF from './PointF.js';
-import Rect from './Rect.js';
-import Map from './Map.js';
-import GraphicsOverlay from './GraphicsOverlay.js';
-import GraphicsOverlays from './GraphicsOverlays.js';
+import Dot from "./Dot.js";
+import PointF from "./PointF.js";
+import Rect from "./Rect.js";
+import Map from "./Map.js";
+import GraphicsOverlay from "./GraphicsOverlay.js";
+import GraphicsOverlays from "./GraphicsOverlays.js";
+import MapPosition from "./MapPosition";
+
 /**
  * @class MapView
  * @description 地图显示控件容器类。
  */
 export default class JSMapView {
-
-  /**
-   * 设置视图背景色
-   *  @memberOf JSMapView
-   * @param {String} color  eg:'rgba(128, 128, 128, 0.5)'
-   * @returns {Promise&lt;void>}
-   */
-  async setBackGroundColor(color) {
-    try {
-      await MV.setBackGroundColor(this._MGMapViewId, color);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 获取视图背景色
-   * @memberOf JSMapView
-   * @returns {Promise&lt;void>}
-   */
-  async getBackGroundColor() {
-    try {
-      var { color } =  await MV.getBackGroundColor(this._MGMapViewId);
-      return color;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 加载地图
-   * @memberOf JSMapView
-   * @param {String} strMapPath
-   * @returns {Promise&lt;void>}
-   */
-  async loadFromFile(strMapPath) {
-    try {
-      await MV.loadFromFile(this._MGMapViewId, strMapPath);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 获取地图对象
-   * @memberOf JSMapView
-   * @returns {Promise&lt;Map>}
-   */
-  async getMap() {
-    try {
-      var { mapID } =  await MV.getMap(this._MGMapViewId);
-      var map = new Map();
-      map._MGMapId = mapID;
-      return map;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-  /**
-   * 地图刷新
-   * @memberOf JSMapView
-   * @returns {Promise&lt;void>}
-   */
-  async refresh() {
-    try {
-      await MV.refresh(this._MGMapViewId);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 地图强制刷新
-   * @memberOf JSMapView
-   * @returns {Promise&lt;void>}
-   */
-  async forceRefresh() {
-    try {
-      await MV.forceRefresh(this._MGMapViewId);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 地图坐标转视图坐标
-   * @memberOf JSMapView
-   * @param dot
-   * @returns {Promise&lt;void>}
-   */
-  async mapPointToViewPoint(dot) {
-      try {
-        var { pointFId, x, y } = await MV.mapPointToViewPoint(this._MGMapViewId,dot._MGDotId);
-        var pointF = new PointF();
-        pointF._MGPointFId = pointFId;
-        pointF.x = x;
-        pointF.y = y;
-        return pointF;
-      } catch (e) {
-        console.error(e);
-      }
-    }
-
-  /**
-   * 视图坐标转地图坐标
-   * @memberOf JSMapView
-   * @param pointF
-   * @returns {Promise&lt;Dot>}
-   */
-  async viewPointToMapPoint(pointF) {
-    try {
-      var { dotID, x, y } = await MV.viewPointToMapPoint(this._MGMapViewId,pointF._MGDotId);
-      var dot = new Dot();
-      dot._MGPointFId = dotID;
-      dot.x = x;
-      dot.y = y;
-      return dot;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   *获取地图分辨率
-   * @memberOf JSMapView
-   * @returns {Promise&lt;Dot>}
-   */
-  async getResolution() {
-    try {
-      var { resolution } = await MV.getResolution(this._MGMapViewId);
-      return resolution;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 获取最大分辨率
-   * @memberOf JSMapView
-   * @returns {Promise&lt;Dot.resolution>}
-   */
-  async getMaxResolution() {
-    try {
-      var { maxResolution } = await MV.getMaxResolution(this._MGMapViewId);
-      return maxResolution;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 获取最小分辨率
-   * @memberOf JSMapView
-   * @returns {Promise&lt;void>}
-   */
-  async getMinResolution() {
-    try {
-      var { minResolution } = await MV.getMinResolution(this._MGMapViewId);
-      return minResolution;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 获取地图中心点
-   * @memberOf JSMapView
-   * @returns {Promise&lt;Dot>}
-   */
-  async getCenter() {
-    try {
-      var { point2DId, x, y } = await MV.getMapCenter(this._MGMapViewId);
-      var dot = new Dot();
-      dot._MGDotId = point2DId;
-      dot.x = x;
-      dot.y = y;
-      return dot;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 设置地图中心点
-   * @memberOf JSMapView
-   * @param dot
-   * @returns {Promise&lt;void>}
-   */
-  async panToCenter(dot) {
-    try {
-      await MV.setMapCenter(this._MGMapViewId, dot._MGDotId);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 获取当前显示地图的显示范围
-   * @memberOf JSMapView
-   * @returns {Promise&lt;Dot>}
-   */
-  async getDispRange() {
-    try {
-      var { rectId} = await MV.getDispRange(this._MGMapViewId);
-      var rect = new Rect();
-      rect._MGRectId = rectId;
-      return rect;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   *   * 移动地图（单位像素） 如果传入的mx = 5 、 my = 0，则系统将可视区域向右移动，所以地图将显示为向左移动5 个像素。 如果传入的mx =
-   * 0 、 my = 5，则系统将可视区域向下移动，所以地图显示为向上移动了5 个像素。
-   * @memberOf JSMapView
-   * @param mx 水平方向移动的像素大小，正值代表可视区域向右移动，负值代表可视区域向左移动
-   * @param my 垂直方向移动的像素大小，正值代表可视区域向下移动，负值代表可视区域向上移动
-   * @param animated 是否开启动画模式
-   * @returns {Promise&lt;void>}
-   */
-  async moveMap(mx,my,animated) {
-    try {
-      await MV.moveMap(this._MGMapViewId, mx,my,animated);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-
-
-  /**
-   * 缩地图到指定分辨率并将指定坐标点移动到视图中心(视图高宽1/2处，绝对中心)
-   * @memberOf JSMapView
-   * @param centerPoint 中心坐标
-   * @param resolution 分辨率
-   * @param animated 是否启用动画
-   * @returns {Promise&lt;void>}
-   */
-  async zoomToCenter(centerPoint,resolution,animated) {
-    try {
-      await MV.zoomToCenter(this._MGMapViewId, centerPoint._MGDotId,resolution,animated);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-  /**
-   * 放缩地图到指定级别并将指定坐标点移动到自定义视图中心
-   * @memberOf JSMapView
-   *
-   * @param mapCenterPoint 中心坐标
-   * @param viewCenterPoint 自定义视图中心
-   * @param resolution 分辨率
-   * @param animated 是否启用动画
-   */
-  async zoomToCenter(centerPoint,viewCenterPoint,resolution,animated) {
-    try {
-      await MV.zoomToCenter(this._MGMapViewId, centerPoint._MGDotId,viewCenterPoint._MGPointFId,resolution,animated);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 放缩地图到指定范围
-   * @memberOf JSMapView
-   * @param dispRange 新的视图范围
-   * @param animated 是否开启动画模式
-   * @returns {Promise&lt;void>}
-   */
-  async zoomToRange(dispRange,animated) {
-    try {
-      await MV.zoomToCenter(this._MGMapViewId,dispRange._MGRectId,animated);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 地图放大一级
-   * @memberOf JSMapView
-   * @param animated 是否开启动画模式
-   * @returns {Promise&lt;void>}
-   */
-  async zoomIn(animated) {
-    try {
-      await MV.zoomIn(this._MGMapViewId,animated);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 地图缩小一级
-   * @memberOf JSMapView
-   * @param animated 是否开启动画模式
-   * @returns {Promise&lt;void>}
-   */
-  async zoomOut(animated) {
-    try {
-      await MV.zoomOut(this._MGMapViewId,animated);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 地图复位
-   * @memberOf JSMapView
-   * @param animated
-   * @returns {Promise&lt;void>}
-   */
-  async restore(animated) {
-    try {
-      await MV.restore(this._MGMapViewId,animated);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   *设置当前地图的旋转中心和旋转角
-   * @memberOf JSMapView
-   * @param rotateCenter 旋转中心点坐标
-   * @param rotateAngle 旋转角度（单位为角度制，逆时针为正）
-   * @param animated 是否开启动画模式
-   * @returns {Promise&lt;void>}
-   */
-  async setRotateCenterAndAngle(rotateCenter,rotateAngle,animated) {
-    try {
-      await MV.setRotateCenterAndAngle(this._MGMapViewId,rotateCenter._MGDotId,rotateAngle,animated);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   *设置地图的旋转角
-   * @memberOf JSMapView
-   * @param rotateAngle 旋转角（单位为角度制，逆时针为正）
-   * @param animated 是否启用动画
-   * @returns {Promise&lt;void>}
-   */
-  async setRotateAngle(rotateAngle,animated) {
-    try {
-      await MV.setRotateAngle(this._MGMapViewId,rotateAngle,animated);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   *绕视图坐标旋转
-   * @memberOf JSMapView
-   * @param rotation 旋转增量（单位为角度制，逆时针为正）
-   * @param pivotX 视图旋转中心X坐标
-   * @param pivotY 视图旋转中心Y坐标
-   * @param animated 是否启用动画
-   * @returns {Promise&lt;void>}
-   */
-  async rotate(rotation,pivotX,pivotY,animated) {
-    try {
-      await MV.rotate(this._MGMapViewId,rotation,pivotX,pivotY,animated);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-
-  /**
-   * 获取地图的旋转中心
-   * @memberOf JSMapView
-   * @returns {Promise&lt;Dot>}
-   */
-  async getRotateCenter() {
-    try {
-      var { point2DId, x, y } = await MV.getRotateCenter(this._MGMapViewId);
-      var dot = new Dot();
-      dot._MGDotId = point2DId;
-      dot.x = x;
-      dot.y = y;
-      return dot;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 获取当前地图的旋转角
-   * @memberOf JSMapView
-   * @returns {Promise&lt;Dot.rotateAngle>}
-   */
-  async getRotateAngle() {
-    try {
-      var { rotateAngle } = await MV.getRotateAngle(this._MGMapViewId);
-      return rotateAngle;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 设置当前地图的倾斜角,并将地图按该角度进行倾斜
-   * @memberOf JSMapView
-   * @param slopeAngle 倾斜角度(单位为角度制,0到45度,当天空场景启用后,角度范围为0到65度）
-   * @param animated 是否开启动画
-   * @returns {Promise&lt;void>}
-   */
-  async setSlopeAngle(slopeAngle,animated) {
-    try {
-      await MV.setSlopeAngle(this._MGMapViewId,slopeAngle,animated);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 获取当前地图的倾斜角
-   * @memberOf JSMapView
-   * @returns {Promise&lt;void>}
-   */
-  async getSlopeAngle() {
-    try {
-      var {slopeAngle} = await MV.getSlopeAngle(this._MGMapViewId);
-      return slopeAngle;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 停止动画效果
-   * @memberOf JSMapView
-   * @returns {Promise&lt;void>}
-   */
-  async stopAnimation() {
-    try {
-      await MV.stopAnimation(this._MGMapViewId);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 获取缺省的图形覆盖物列表
-   * @memberOf JSMapView
-   * @returns {Promise&lt;GraphicsOverlay>}
-   */
-  async getGraphicsOverlay() {
-    try {
-      var { GraphicsOverlayID} = await MV.getGraphicsOverlay(this._MGMapViewId);
-      var graphicsOverlay = new GraphicsOverlay();
-      graphicsOverlay._MGGraphicsOverlayId = GraphicsOverlayID;
-
-      return graphicsOverlay;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 获取图形覆盖物列表的集合
-   * @memberOf JSMapView
-   * @returns {Promise&lt;GraphicsOverlays>}
-   */
-  async getGraphicsOverlays() {
-    try {
-      var { GraphicsOverlaysID } = await MV.getGraphicsOverlays(this._MGMapViewId);
-      var graphicsOverlays = new GraphicsOverlays();
-      graphicsOverlays._MGGraphicsOverlaysId = GraphicsOverlaysID;
-      return graphicsOverlays;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 设置纹理缓存的最大限额（单位为字节）
-   * @memberOf JSMapView
-   */
-  async setMaxTextureCacheSize(size) {
-    try {
-      await MV.setMaxTextureCacheSize(this._MGMapViewId,size);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 获取纹理缓存的最大限额（单位为字节）
-   * @memberOf JSMapView
-   * @returns {Promise&lt;void>}
-   */
-  async getMaxTextureCacheSize() {
-    try {
-      var {MaxTextureCacheSize} = await MV.getMaxTextureCacheSize(this._MGMapViewId);
-      return MaxTextureCacheSize;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 清除纹理缓存
-   * @memberOf JSMapView
-   */
-  async clearTextureCache() {
-    try {
-      await MV.clearTextureCache(this._MGMapViewId);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 设置支持任意透明度
-   * @memberOf JSMapView
-   *
-   * @param support true(支持矢量数据或者瓦片数据中的任意透明度值) false(仅支持全透)
-   */
-  async setSupportTransparency(support) {
-    try {
-      await MV.setSupportTransparency(this._MGMapViewId,support);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 是否支持任意透明度
-   * @memberOf JSMapView
-   */
-  async isSupportTransparency() {
-    try {
-      var {isSupportTransparency} =  await MV.isSupportTransparency(this._MGMapViewId);
-      return isSupportTransparency;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 设置是否显示指北针图标
-   * @memberOf JSMapView
-   *
-   * @param show show的值为true时显示指北针图标，反正不显示指北针图标
-   */
-  async setShowNorthArrow(show) {
-    try {
-      await MV.setShowNorthArrow(this._MGMapViewId,show);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 获取是否显示指北针图标
-   * @memberOf JSMapView
-   * @returns {Promise&lt;void>}
-   */
-  async isShowNorthArrow() {
-    try {
-      var {isShowNorthArrow} = await MV.isShowNorthArrow(this._MGMapViewId);
-      return isShowNorthArrow;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 设置指北针图标在地图视图中的显示位置
-   * @memberOf JSMapView
-   *
-   * @param point 指北针图标的中心在地图视图中的坐标
-   */
-  async setNorthArrowPosition(point) {
-    try {
-      await MV.setNorthArrowPosition(this._MGMapViewId,point._MGPointFId);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-
-  /**
-   * 获取指北针图标中心点在地图视图中的显示位置
-   * @memberOf JSMapView
-   * @returns {Promise&lt;PointF>}
-   */
-  async getNorthArrowPosition() {
-    try {
-      var { pointFId, x, y } = await MV.getRotateCenter(this._MGMapViewId);
-      var pointf = new PointF();
-      pointf._MGDotId = pointFId;
-      pointf.x = x;
-      pointf.y = y;
-      return pointf;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 设置指北针图标
-   * @memberOf JSMapView
-   * @param image 指北针图标位图
-   */
-  async setNorthArrowImage(image) {
-    try {
-      await MV.setNorthArrowImage(this._MGMapViewId,image._MGImageId);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 设置是否显示中地公司logo
-   * @memberOf JSMapView
-   *
-   * @param show 值为true时显示，反之，不显示
-   */
-  async setShowLogo(show) {
-    try {
-      await MV.setShowLogo(this._MGMapViewId,show);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 获取是否显示中地公司logo
-   * @memberOf JSMapView
-   * @returns {Promise&lt;void>}
-   */
-  async isShowLogo() {
-    try {
-      var {isShowLogo} = await MV.isShowLogo(this._MGMapViewId);
-      return isShowLogo;
-
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 设置中地公司logo在地图视图中显示的位置
-   * @memberOf JSMapView
-   * @param position logo的方位
-   * @see LOGO_POSITION_BOTTOM_LEFT等
-   */
-  async setLogoPoistion(position) {
-    try {
-      await MV.setShowLogo(this._MGMapViewId,position);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 获取中地公司logo在地图视图中的显示位置
-   * @memberOf JSMapView
-   * @returns {Promise&lt;void>}
-   */
-  async getLogoPoistion() {
-    try {
-      var {LogoPoistion} = await MV.getLogoPoistion(this._MGMapViewId);
-      return LogoPoistion;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 设置是否显示比例尺
-   * @memberOf JSMapView
-   * @param show 值为true时显示，反之，不显示
-   */
-  async setShowScaleBar(show) {
-    try {
-      await MV.setShowScaleBar(this._MGMapViewId,show);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 获取是否显示比例尺
-   * @memberOf JSMapView
-   * @returns {Promise&lt;void>}
-   */
-  async isShowScaleBar() {
-    try {
-      var {isShowScaleBar} = await MV.isShowScaleBar(this._MGMapViewId);
-      return isShowScaleBar;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 设置比例尺在地图视图中显示的位置
-   * @memberOf JSMapView
-   * @param point 视图坐标
-   */
-  async setScaleBarPoistion(pointf) {
-    try {
-      await MV.setShowScaleBar(this._MGMapViewId,pointf._MGPointFId);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 获取比例尺在地图视图中的显示位置
-   * @memberOf JSMapView
-   * @returns {Promise&lt;PointF>}
-   */
-  async getScaleBarPoistion() {
-    try {
-      var { pointFId, x, y } = await MV.getScaleBarPoistion(this._MGMapViewId);
-      var pointf = new PointF();
-      pointf._MGDotId = pointFId;
-      pointf.x = x;
-      pointf.y = y;
-      return pointf;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 设置天空图片
-   * @memberOf JSMapView
-   * @param image 天空图片
-   */
-  async setSkyImage(image) {
-    try {
-      await MV.setSkyImage(this._MGMapViewId,image._MGImageId);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 设置天空场景是否启用,天空场景启用后,倾斜角可以加大到65度,默认情况下,天空场景处于启用状态
-   * @memberOf JSMapView
-   * @param enabled 天空场景是否启用
-   */
-  async setSkySceneEnabled(enabled) {
-    try {
-      await MV.setSkySceneEnabled(this._MGMapViewId,enabled);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 获取天空场景是否启用的标志
-   * @memberOf JSMapView
-   * @returns {Promise&lt;void>}
-   */
-  async isSkySceneEnabled() {
-    try {
-      var {isSkySceneEnabled} = await MV.isSkySceneEnabled(this._MGMapViewId);
-      return isSkySceneEnabled;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 设置是否启用MapView内置的地图放大、缩小按钮。通过内置的缩放按钮，可实现对地图的放大和缩小
-   * @memberOf JSMapView
-   * @param enabled 值为true时启用，反之，不启用
-   */
-  async setZoomControlsEnabled(enabled) {
-    try {
-      await MV.setZoomControlsEnabled(this._MGMapViewId,enabled);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 获取是否启用了内置的缩放按钮
-   * @memberOf JSMapView
-   * @returns {Promise&lt;void>}
-   */
-  async isZoomControlsEnabled() {
-    try {
-      var {isZoomControlsEnabled} = await MV.isZoomControlsEnabled(this._MGMapViewId);
-      return isZoomControlsEnabled;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 设置是否启用地图平移手势
-   * @memberOf JSMapView
-   * @param enabled 值为true时启用，反之，不启用
-   */
-  async setMapPanGesturesEnabled(enabled) {
-    try {
-      await MV.setMapPanGesturesEnabled(this._MGMapViewId,enabled);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 获取是否启用了平移手势
-   * @memberOf JSMapView
-   */
-  async isMapPanGesturesEnabled() {
-    try {
-      var {isMapPanGesturesEnabled} = await MV.isMapPanGesturesEnabled(this._MGMapViewId);
-      return isMapPanGesturesEnabled;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 设置是否启用地图缩放手势
-   * @memberOf JSMapView
-   * @param enabled 值为true时启用，反之，不启用
-   */
-  async setMapZoomGesturesEnabled(enabled) {
-    try {
-      await MV.setMapZoomGesturesEnabled(this._MGMapViewId,enabled);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 获取是否启用了地图缩放手势
-   * @memberOf JSMapView
-   */
-  async isMapZoomGesturesEnabled() {
-    try {
-      var {isMapZoomGesturesEnabled} = await MV.isMapZoomGesturesEnabled(this._MGMapViewId);
-      return isMapZoomGesturesEnabled;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 设置是否启用地图旋转手势
-   * @memberOf JSMapView
-   *
-   * @param enabled 值为true时启用，反之，不启用
-   */
-  async setMapRotateGesturesEnabled(enabled) {
-    try {
-      await MV.setMapRotateGesturesEnabled(this._MGMapViewId,enabled);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 获取是否启用了地图旋转手势
-   * @memberOf JSMapView
-   */
-  async isMapRotateGesturesEnabled() {
-    try {
-      var {isMapRotateGesturesEnabled} = await MV.isMapRotateGesturesEnabled(this._MGMapViewId);
-      return isMapRotateGesturesEnabled;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 设置是否启用地图倾斜手势
-   * @memberOf JSMapView
-   * @param enabled 值为true时启用，反之，不启用
-   */
-  async setMapSlopeGesturesEnabled(enabled) {
-    try {
-      await MV.setMapSlopeGesturesEnabled(this._MGMapViewId,enabled);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 获取是否启用了地图倾斜手势
-   * @memberOf JSMapView
-   * @returns {Promise&lt;void>}
-   */
-  async isMapSlopeGesturesEnabled() {
-    try {
-      var {isMapSlopeGesturesEnabled} = await MV.isMapSlopeGesturesEnabled(this._MGMapViewId);
-      return isMapSlopeGesturesEnabled;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 设置是否双击放大地图
-   * @memberOf JSMapView
-   * @param {Boolean} enabled 值为true时启用，反之，不启用
-   */
-  async setDoubleTapZooming(enabled) {
-    try {
-      await MV.setDoubleTapZooming(this._MGMapViewId,enabled);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-
-  /**
-   * 获取是否双击放大地图
-   * @memberOf JSMapView
-   * @returns {Promise&lt;void>}
-   */
-  async isDoubleTapZooming() {
-    try {
-      var {isDoubleTapZooming} = await MV.isDoubleTapZooming(this._MGMapViewId);
-      return isDoubleTapZooming;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 设置是否双指单击缩小地图
-   * @memberOf JSMapView
-   * @param {Boolean} enabled 值为true时启用，反之，不启用
-   */
-  async setTwoFingerTapZooming(enabled) {
-    try {
-      await MV.setTwoFingerTapZooming(this._MGMapViewId,enabled);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 获取是否双指单击缩小地图
-   * @memberOf JSMapView
-   * @returns {Promise&lt;void>}
-   */
-  async isTwoFingerTapZooming() {
-    try {
-      var {isTwoFingerTapZooming} = await MV.isTwoFingerTapZooming(this._MGMapViewId);
-      return isTwoFingerTapZooming;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 设置是否启用平移结束后的动画
-   * @memberOf JSMapView
-   * @param enabled 值为true时启用，反之，不启用
-   */
-  async setPanEndAnimating(enabled) {
-    try {
-      await MV.setPanEndAnimating(this._MGMapViewId,enabled);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 获取是否启用平移结束后的动画
-   * @memberOf JSMapView
-   */
-  async isPanEndAnimating() {
-    try {
-      var {isPanEndAnimating} = await MV.isPanEndAnimating(this._MGMapViewId);
-      return isPanEndAnimating;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 设置是否启用标记渲染的动画
-   * @memberOf JSMapView
-   * @param enabled 值为true时启用，反之，不启用
-   */
-  async setLabelRenderAnimating(enabled) {
-    try {
-      await MV.setLabelRenderAnimating(this._MGMapViewId,enabled);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 获取是否启用标记渲染的动画
-   * @memberOf JSMapView
-   * @returns {Promise&lt;void>}
-   */
-  async isLabelRenderAnimating() {
-    try {
-      var {isLabelRenderAnimating} = await MV.isLabelRenderAnimating(this._MGMapViewId);
-      return isLabelRenderAnimating;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 添加单击事件监听
-   * @memberOf JSMapView
-   * @returns {Promise&lt;void>}
-   */
-  async setTapListener() {
-    try {
-      await MV.setTapListener(this._MGMapViewId);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 添加长按事件监听
-   * @memberOf JSMapView
-   * @returns {Promise&lt;void>}
-   */
+    /**
+     * 设置视图背景色
+     *  @memberOf JSMapView
+     * @param {String} color  eg:'rgba(128, 128, 128, 0.5)'
+     * @returns {Promise&lt;void>}
+     */
+    async setBackGroundColor(color) {
+        try {
+            await MV.setBackGroundColor(this._MGMapViewId, color);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取视图背景色
+     * @memberOf JSMapView
+     * @returns {Promise&lt;void>}
+     */
+    async getBackGroundColor() {
+        try {
+            var {color} = await MV.getBackGroundColor(this._MGMapViewId);
+            return color;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 加载地图
+     * @memberOf JSMapView
+     * @param {String} strMapPath
+     * @returns {Promise&lt;void>}
+     */
+    async loadFromFile(strMapPath) {
+        try {
+            await MV.loadFromFile(this._MGMapViewId, strMapPath);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取地图对象
+     * @memberOf JSMapView
+     * @returns {Promise&lt;Map>}
+     */
+    async getMap() {
+        try {
+            var {mapID} = await MV.getMap(this._MGMapViewId);
+            var map = new Map();
+            map._MGMapId = mapID;
+            return map;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 地图刷新
+     * @memberOf JSMapView
+     * @returns {Promise&lt;void>}
+     */
+    async refresh() {
+        try {
+            await MV.refresh(this._MGMapViewId);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 地图强制刷新
+     * @memberOf JSMapView
+     * @returns {Promise&lt;void>}
+     */
+    async forceRefresh() {
+        try {
+            await MV.forceRefresh(this._MGMapViewId);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 地图坐标转视图坐标
+     * @memberOf JSMapView
+     * @param dot
+     * @returns {Promise&lt;void>}
+     */
+    async mapPointToViewPoint(dot) {
+        try {
+            var {pointFId, x, y} = await MV.mapPointToViewPoint(
+                this._MGMapViewId,
+                dot._MGDotId
+            );
+            var pointF = new PointF();
+            pointF._MGPointFId = pointFId;
+            pointF.x = x;
+            pointF.y = y;
+            return pointF;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 视图坐标转地图坐标
+     * @memberOf JSMapView
+     * @param pointF
+     * @returns {Promise&lt;Dot>}
+     */
+    async viewPointToMapPoint(pointF) {
+        try {
+            var {dotID, x, y} = await MV.viewPointToMapPoint(
+                this._MGMapViewId,
+                pointF._MGPointFId
+            );
+            var dot = new Dot();
+            dot._MGDotId = dotID;
+            dot.x = x;
+            dot.y = y;
+            return dot;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     *获取地图分辨率
+     * @memberOf JSMapView
+     * @returns {Promise&lt;Dot>}
+     */
+    async getResolution() {
+        try {
+            var {resolution} = await MV.getResolution(this._MGMapViewId);
+            return resolution;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取最大分辨率
+     * @memberOf JSMapView
+     * @returns {Promise&lt;Dot.resolution>}
+     */
+    async getMaxResolution() {
+        try {
+            var {maxResolution} = await MV.getMaxResolution(this._MGMapViewId);
+            return maxResolution;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取最小分辨率
+     * @memberOf JSMapView
+     * @returns {Promise&lt;void>}
+     */
+    async getMinResolution() {
+        try {
+            var {minResolution} = await MV.getMinResolution(this._MGMapViewId);
+            return minResolution;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取地图中心点
+     * @memberOf JSMapView
+     * @returns {Promise&lt;Dot>}
+     */
+    async getCenterPoint() {
+        try {
+            var {dotID, x, y} = await MV.getCenterPoint(this._MGMapViewId);
+            var dot = new Dot();
+            dot._MGDotId = dotID;
+            dot.x = x;
+            dot.y = y;
+            return dot;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 平移地图到视图中心(视图高宽1/2处，绝对中心)
+     * @memberOf JSMapView
+     * @param mapCenterPoint
+     * @param animated
+     * @returns {Promise&lt;void>}
+     */
+    async panToCenter(mapCenterPoint, animated) {
+        try {
+            await MV.panToCenter(
+                this._MGMapViewId,
+                mapCenterPoint._MGDotId,
+                animated
+            );
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 平移地图到自定义视图中心(视图高宽1/2处，绝对中心)
+     * @memberOf JSMapView
+     * @param mapCenterPoint
+     * @param viewCenterPoint
+     * @param animated
+     * @returns {Promise&lt;void>}
+     */
+    async panToCenterWithView(mapCenterPoint, viewCenterPoint, animated) {
+        try {
+            await MV.panToCenterWithView(
+                this._MGMapViewId,
+                mapCenterPoint._MGDotId,
+                viewCenterPoint._MGPointFId,
+                animated
+            );
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取当前显示地图的显示范围
+     * @memberOf JSMapView
+     * @returns {Promise&lt;Dot>}
+     */
+    async getDispRange() {
+        try {
+            var {rectId} = await MV.getDispRange(this._MGMapViewId);
+            var rect = new Rect();
+            rect._MGRectId = rectId;
+            return rect;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     *   * 移动地图（单位像素） 如果传入的mx = 5 、 my = 0，则系统将可视区域向右移动，所以地图将显示为向左移动5 个像素。 如果传入的mx =
+     * 0 、 my = 5，则系统将可视区域向下移动，所以地图显示为向上移动了5 个像素。
+     * @memberOf JSMapView
+     * @param mx 水平方向移动的像素大小，正值代表可视区域向右移动，负值代表可视区域向左移动
+     * @param my 垂直方向移动的像素大小，正值代表可视区域向下移动，负值代表可视区域向上移动
+     * @param animated 是否开启动画模式
+     * @returns {Promise&lt;void>}
+     */
+    async moveMap(mx, my, animated) {
+        try {
+            await MV.moveMap(this._MGMapViewId, mx, my, animated);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 缩放地图到指定分辨率并将指定坐标点移动到视图中心(视图高宽1/2处，绝对中心)
+     * @memberOf JSMapView
+     * @param mapCenterPoint 中心坐标
+     * @param resolution 分辨率
+     * @param animated 是否启用动画
+     * @returns {Promise&lt;void>}
+     */
+    async zoomToCenter(mapCenterPoint, resolution, animated) {
+        try {
+            await MV.zoomToCenter(
+                this._MGMapViewId,
+                mapCenterPoint._MGDotId,
+                resolution,
+                animated
+            );
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 缩放地图到指定级别并将指定坐标点移动到自定义视图中心
+     * @memberOf JSMapView
+     *
+     * @param mapCenterPoint 中心坐标
+     * @param viewCenterPoint 自定义视图中心
+     * @param resolution 分辨率
+     * @param animated 是否启用动画
+     */
+    async zoomToCenterWithView(
+        mapCenterPoint,
+        viewCenterPoint,
+        resolution,
+        animated
+    ) {
+        try {
+            await MV.zoomToCenterWithView(
+                this._MGMapViewId,
+                mapCenterPoint._MGDotId,
+                viewCenterPoint._MGPointFId,
+                resolution,
+                animated
+            );
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 放缩地图到指定范围
+     * @memberOf JSMapView
+     * @param dispRange 新的视图范围
+     * @param animated 是否开启动画模式
+     * @returns {Promise&lt;void>}
+     */
+    async zoomToRange(dispRange, animated) {
+        try {
+            await MV.zoomToRange(this._MGMapViewId, dispRange._MGRectId, animated);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 地图放大一级
+     * @memberOf JSMapView
+     * @param animated 是否开启动画模式
+     * @returns {Promise&lt;void>}
+     */
+    async zoomIn(animated) {
+        try {
+            await MV.zoomIn(this._MGMapViewId, animated);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 地图缩小一级
+     * @memberOf JSMapView
+     * @param animated 是否开启动画模式
+     * @returns {Promise&lt;void>}
+     */
+    async zoomOut(animated) {
+        try {
+            await MV.zoomOut(this._MGMapViewId, animated);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 地图复位
+     * @memberOf JSMapView
+     * @param animated
+     * @returns {Promise&lt;void>}
+     */
+    async restore(animated) {
+        try {
+            await MV.restore(this._MGMapViewId, animated);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     *设置当前地图的旋转中心和旋转角
+     * @memberOf JSMapView
+     * @param rotateCenter 旋转中心点坐标
+     * @param rotateAngle 旋转角度（单位为角度制，逆时针为正）
+     * @param animated 是否开启动画模式
+     * @returns {Promise&lt;void>}
+     */
+    async setRotateCenterAndAngle(rotateCenter, rotateAngle, animated) {
+        try {
+            await MV.setRotateCenterAndAngle(
+                this._MGMapViewId,
+                rotateCenter._MGDotId,
+                rotateAngle,
+                animated
+            );
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     *设置地图的旋转角
+     * @memberOf JSMapView
+     * @param rotateAngle 旋转角（单位为角度制，逆时针为正）
+     * @param animated 是否启用动画
+     * @returns {Promise&lt;void>}
+     */
+    async setRotateAngle(rotateAngle, animated) {
+        try {
+            await MV.setRotateAngle(this._MGMapViewId, rotateAngle, animated);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     *绕视图坐标旋转
+     * @memberOf JSMapView
+     * @param rotation 旋转增量（单位为角度制，逆时针为正）
+     * @param pivotX 视图旋转中心X坐标
+     * @param pivotY 视图旋转中心Y坐标
+     * @param animated 是否启用动画
+     * @returns {Promise&lt;void>}
+     */
+    async rotate(rotation, pivotX, pivotY, animated) {
+        try {
+            await MV.rotate(this._MGMapViewId, rotation, pivotX, pivotY, animated);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取地图的旋转中心
+     * @memberOf JSMapView
+     * @returns {Promise&lt;Dot>}
+     */
+    async getRotateCenter() {
+        try {
+            var {dotID, x, y} = await MV.getRotateCenter(this._MGMapViewId);
+            var dot = new Dot();
+            dot._MGDotId = dotID;
+            dot.x = x;
+            dot.y = y;
+            return dot;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取当前地图的旋转角
+     * @memberOf JSMapView
+     * @returns {Promise&lt;Dot.rotateAngle>}
+     */
+    async getRotateAngle() {
+        try {
+            var {rotateAngle} = await MV.getRotateAngle(this._MGMapViewId);
+            return rotateAngle;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置当前地图的倾斜角,并将地图按该角度进行倾斜
+     * @memberOf JSMapView
+     * @param slopeAngle 倾斜角度(单位为角度制,0到45度,当天空场景启用后,角度范围为0到65度）
+     * @param animated 是否开启动画
+     * @returns {Promise&lt;void>}
+     */
+    async setSlopeAngle(slopeAngle, animated) {
+        try {
+            await MV.setSlopeAngle(this._MGMapViewId, slopeAngle, animated);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取当前地图的倾斜角
+     * @memberOf JSMapView
+     * @returns {Promise&lt;void>}
+     */
+    async getSlopeAngle() {
+        try {
+            var {slopeAngle} = await MV.getSlopeAngle(this._MGMapViewId);
+            return slopeAngle;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 停止动画效果
+     * @memberOf JSMapView
+     * @returns {Promise&lt;void>}
+     */
+    async updatePosition(postion, animated) {
+        try {
+            await MV.updatePosition(this._MGMapViewId, postion._MMapPosition, animated);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 停止动画效果
+     * @memberOf JSMapView
+     * @returns {Promise&lt;void>}
+     */
+    async stopAnimation() {
+        try {
+            await MV.stopAnimation(this._MGMapViewId);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取当前位置
+     * @memberOf JSMapView
+     * @returns {Promise&lt;MapPosition>}
+     */
+    async getPosition() {
+        try {
+            var {mapPositionID} = await MV.getPosition(this._MGMapViewId);
+            var mapPosition = new MapPosition();
+            mapPosition._MMapPosition = mapPositionID;
+            return mapPosition;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取缺省的图形覆盖物列表
+     * @memberOf JSMapView
+     * @returns {Promise&lt;GraphicsOverlay>}
+     */
+    async getGraphicsOverlay() {
+        try {
+            var {GraphicsOverlayID} = await MV.getGraphicsOverlay(
+                this._MGMapViewId
+            );
+            var graphicsOverlay = new GraphicsOverlay();
+            graphicsOverlay._MGGraphicsOverlayId = GraphicsOverlayID;
+
+            return graphicsOverlay;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取图形覆盖物列表的集合
+     * @memberOf JSMapView
+     * @returns {Promise&lt;GraphicsOverlays>}
+     */
+    async getGraphicsOverlays() {
+        try {
+            var {GraphicsOverlaysID} = await MV.getGraphicsOverlays(
+                this._MGMapViewId
+            );
+            var graphicsOverlays = new GraphicsOverlays();
+            graphicsOverlays._MGGraphicsOverlaysId = GraphicsOverlaysID;
+            return graphicsOverlays;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置纹理缓存的最大限额（单位为字节）
+     * @memberOf JSMapView
+     */
+    async setMaxTextureCacheSize(size) {
+        try {
+            await MV.setMaxTextureCacheSize(this._MGMapViewId, size);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取纹理缓存的最大限额（单位为字节）
+     * @memberOf JSMapView
+     * @returns {Promise&lt;void>}
+     */
+    async getMaxTextureCacheSize() {
+        try {
+            var {MaxTextureCacheSize} = await MV.getMaxTextureCacheSize(
+                this._MGMapViewId
+            );
+            return MaxTextureCacheSize;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 清除纹理缓存
+     * @memberOf JSMapView
+     */
+    async clearTextureCache() {
+        try {
+            await MV.clearTextureCache(this._MGMapViewId);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置支持任意透明度
+     * @memberOf JSMapView
+     *
+     * @param support true(支持矢量数据或者瓦片数据中的任意透明度值) false(仅支持全透)
+     */
+    async setSupportTransparency(support) {
+        try {
+            await MV.setSupportTransparency(this._MGMapViewId, support);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 是否支持任意透明度
+     * @memberOf JSMapView
+     */
+    async isSupportTransparency() {
+        try {
+            var {isSupportTransparency} = await MV.isSupportTransparency(
+                this._MGMapViewId
+            );
+            return isSupportTransparency;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置是否显示指北针图标
+     * @memberOf JSMapView
+     *
+     * @param show show的值为true时显示指北针图标，反正不显示指北针图标
+     */
+    async setShowNorthArrow(show) {
+        try {
+            await MV.setShowNorthArrow(this._MGMapViewId, show);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取是否显示指北针图标
+     * @memberOf JSMapView
+     * @returns {Promise&lt;void>}
+     */
+    async isShowNorthArrow() {
+        try {
+            var {isShowNorthArrow} = await MV.isShowNorthArrow(this._MGMapViewId);
+            return isShowNorthArrow;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置指北针图标在地图视图中的显示位置
+     * @memberOf JSMapView
+     *
+     * @param point 指北针图标的中心在地图视图中的坐标
+     */
+    async setNorthArrowPosition(point) {
+        try {
+            await MV.setNorthArrowPosition(this._MGMapViewId, point._MGPointFId);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取指北针图标中心点在地图视图中的显示位置
+     * @memberOf JSMapView
+     * @returns {Promise&lt;PointF>}
+     */
+    async getNorthArrowPosition() {
+        try {
+            var {pointFId, x, y} = await MV.getRotateCenter(this._MGMapViewId);
+            var pointf = new PointF();
+            pointf._MGDotId = pointFId;
+            pointf.x = x;
+            pointf.y = y;
+            return pointf;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置指北针图标
+     * @memberOf JSMapView
+     * @param image 指北针图标位图
+     */
+    async setNorthArrowImage(image) {
+        try {
+            await MV.setNorthArrowImage(this._MGMapViewId, image._MGImageId);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置是否显示中地公司logo
+     * @memberOf JSMapView
+     *
+     * @param show 值为true时显示，反之，不显示
+     */
+    async setShowLogo(show) {
+        try {
+            await MV.setShowLogo(this._MGMapViewId, show);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取是否显示中地公司logo
+     * @memberOf JSMapView
+     * @returns {Promise&lt;void>}
+     */
+    async isShowLogo() {
+        try {
+            var {isShowLogo} = await MV.isShowLogo(this._MGMapViewId);
+            return isShowLogo;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置中地公司logo在地图视图中显示的位置
+     * @memberOf JSMapView
+     * @param position logo的方位
+     * @see LOGO_POSITION_BOTTOM_LEFT等
+     */
+    async setLogoPoistion(position) {
+        try {
+            await MV.setShowLogo(this._MGMapViewId, position);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取中地公司logo在地图视图中的显示位置
+     * @memberOf JSMapView
+     * @returns {Promise&lt;void>}
+     */
+    async getLogoPoistion() {
+        try {
+            var {LogoPoistion} = await MV.getLogoPoistion(this._MGMapViewId);
+            return LogoPoistion;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置是否显示比例尺
+     * @memberOf JSMapView
+     * @param show 值为true时显示，反之，不显示
+     */
+    async setShowScaleBar(show) {
+        try {
+            await MV.setShowScaleBar(this._MGMapViewId, show);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取是否显示比例尺
+     * @memberOf JSMapView
+     * @returns {Promise&lt;void>}
+     */
+    async isShowScaleBar() {
+        try {
+            var {isShowScaleBar} = await MV.isShowScaleBar(this._MGMapViewId);
+            return isShowScaleBar;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置比例尺在地图视图中显示的位置
+     * @memberOf JSMapView
+     * @param point 视图坐标
+     */
+    async setScaleBarPoistion(pointf) {
+        try {
+            await MV.setShowScaleBar(this._MGMapViewId, pointf._MGPointFId);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取比例尺在地图视图中的显示位置
+     * @memberOf JSMapView
+     * @returns {Promise&lt;PointF>}
+     */
+    async getScaleBarPoistion() {
+        try {
+            var {pointFId, x, y} = await MV.getScaleBarPoistion(this._MGMapViewId);
+            var pointf = new PointF();
+            pointf._MGDotId = pointFId;
+            pointf.x = x;
+            pointf.y = y;
+            return pointf;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置天空图片
+     * @memberOf JSMapView
+     * @param image 天空图片
+     */
+    async setSkyImage(image) {
+        try {
+            await MV.setSkyImage(this._MGMapViewId, image._MGImageId);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置天空场景是否启用,天空场景启用后,倾斜角可以加大到65度,默认情况下,天空场景处于启用状态
+     * @memberOf JSMapView
+     * @param enabled 天空场景是否启用
+     */
+    async setSkySceneEnabled(enabled) {
+        try {
+            await MV.setSkySceneEnabled(this._MGMapViewId, enabled);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取天空场景是否启用的标志
+     * @memberOf JSMapView
+     * @returns {Promise&lt;void>}
+     */
+    async isSkySceneEnabled() {
+        try {
+            var {isSkySceneEnabled} = await MV.isSkySceneEnabled(this._MGMapViewId);
+            return isSkySceneEnabled;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置是否启用MapView内置的地图放大、缩小按钮。通过内置的缩放按钮，可实现对地图的放大和缩小
+     * @memberOf JSMapView
+     * @param enabled 值为true时启用，反之，不启用
+     */
+    async setZoomControlsEnabled(enabled) {
+        try {
+            await MV.setZoomControlsEnabled(this._MGMapViewId, enabled);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取是否启用了内置的缩放按钮
+     * @memberOf JSMapView
+     * @returns {Promise&lt;void>}
+     */
+    async isZoomControlsEnabled() {
+        try {
+            var {isZoomControlsEnabled} = await MV.isZoomControlsEnabled(
+                this._MGMapViewId
+            );
+            return isZoomControlsEnabled;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置是否启用地图平移手势
+     * @memberOf JSMapView
+     * @param enabled 值为true时启用，反之，不启用
+     */
+    async setMapPanGesturesEnabled(enabled) {
+        try {
+            await MV.setMapPanGesturesEnabled(this._MGMapViewId, enabled);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取是否启用了平移手势
+     * @memberOf JSMapView
+     */
+    async isMapPanGesturesEnabled() {
+        try {
+            var {isMapPanGesturesEnabled} = await MV.isMapPanGesturesEnabled(
+                this._MGMapViewId
+            );
+            return isMapPanGesturesEnabled;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置是否启用地图缩放手势
+     * @memberOf JSMapView
+     * @param enabled 值为true时启用，反之，不启用
+     */
+    async setMapZoomGesturesEnabled(enabled) {
+        try {
+            await MV.setMapZoomGesturesEnabled(this._MGMapViewId, enabled);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取是否启用了地图缩放手势
+     * @memberOf JSMapView
+     */
+    async isMapZoomGesturesEnabled() {
+        try {
+            var {isMapZoomGesturesEnabled} = await MV.isMapZoomGesturesEnabled(
+                this._MGMapViewId
+            );
+            return isMapZoomGesturesEnabled;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置是否启用地图旋转手势
+     * @memberOf JSMapView
+     *
+     * @param enabled 值为true时启用，反之，不启用
+     */
+    async setMapRotateGesturesEnabled(enabled) {
+        try {
+            await MV.setMapRotateGesturesEnabled(this._MGMapViewId, enabled);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取是否启用了地图旋转手势
+     * @memberOf JSMapView
+     */
+    async isMapRotateGesturesEnabled() {
+        try {
+            var {isMapRotateGesturesEnabled} = await MV.isMapRotateGesturesEnabled(
+                this._MGMapViewId
+            );
+            return isMapRotateGesturesEnabled;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置是否启用地图倾斜手势
+     * @memberOf JSMapView
+     * @param enabled 值为true时启用，反之，不启用
+     */
+    async setMapSlopeGesturesEnabled(enabled) {
+        try {
+            await MV.setMapSlopeGesturesEnabled(this._MGMapViewId, enabled);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取是否启用了地图倾斜手势
+     * @memberOf JSMapView
+     * @returns {Promise&lt;void>}
+     */
+    async isMapSlopeGesturesEnabled() {
+        try {
+            var {isMapSlopeGesturesEnabled} = await MV.isMapSlopeGesturesEnabled(
+                this._MGMapViewId
+            );
+            return isMapSlopeGesturesEnabled;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置是否双击放大地图
+     * @memberOf JSMapView
+     * @param {Boolean} enabled 值为true时启用，反之，不启用
+     */
+    async setDoubleTapZooming(enabled) {
+        try {
+            await MV.setDoubleTapZooming(this._MGMapViewId, enabled);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取是否双击放大地图
+     * @memberOf JSMapView
+     * @returns {Promise&lt;void>}
+     */
+    async isDoubleTapZooming() {
+        try {
+            var {isDoubleTapZooming} = await MV.isDoubleTapZooming(
+                this._MGMapViewId
+            );
+            return isDoubleTapZooming;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置是否双指单击缩小地图
+     * @memberOf JSMapView
+     * @param {Boolean} enabled 值为true时启用，反之，不启用
+     */
+    async setTwoFingerTapZooming(enabled) {
+        try {
+            await MV.setTwoFingerTapZooming(this._MGMapViewId, enabled);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取是否双指单击缩小地图
+     * @memberOf JSMapView
+     * @returns {Promise&lt;void>}
+     */
+    async isTwoFingerTapZooming() {
+        try {
+            var {isTwoFingerTapZooming} = await MV.isTwoFingerTapZooming(
+                this._MGMapViewId
+            );
+            return isTwoFingerTapZooming;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置是否启用平移结束后的动画
+     * @memberOf JSMapView
+     * @param enabled 值为true时启用，反之，不启用
+     */
+    async setPanEndAnimating(enabled) {
+        try {
+            await MV.setPanEndAnimating(this._MGMapViewId, enabled);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取是否启用平移结束后的动画
+     * @memberOf JSMapView
+     */
+    async isPanEndAnimating() {
+        try {
+            var {isPanEndAnimating} = await MV.isPanEndAnimating(this._MGMapViewId);
+            return isPanEndAnimating;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 设置是否启用标记渲染的动画
+     * @memberOf JSMapView
+     * @param enabled 值为true时启用，反之，不启用
+     */
+    async setLabelRenderAnimating(enabled) {
+        try {
+            await MV.setLabelRenderAnimating(this._MGMapViewId, enabled);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取是否启用标记渲染的动画
+     * @memberOf JSMapView
+     * @returns {Promise&lt;void>}
+     */
+    async isLabelRenderAnimating() {
+        try {
+            var {isLabelRenderAnimating} = await MV.isLabelRenderAnimating(
+                this._MGMapViewId
+            );
+            return isLabelRenderAnimating;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 添加单击事件监听
+     * @memberOf JSMapView
+     * @returns {Promise&lt;void>}
+     */
+    async setTapListener() {
+        try {
+            await MV.setTapListener(this._MGMapViewId);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 移除单击事件监听
+     * @returns {Promise&lt;void>}
+     */
+    async removeTapListener() {
+        try {
+            await MV.removeTapListener(this._MGMapViewId);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 添加长按事件监听
+     * @memberOf JSMapView
+     * @returns {Promise&lt;void>}
+     */
     async setLongTapListener() {
-    try {
-      await MV.setLongTapListener(this._MGMapViewId);
-    } catch (e) {
-      console.error(e);
+        try {
+            await MV.setLongTapListener(this._MGMapViewId);
+        } catch (e) {
+            console.error(e);
+        }
     }
-  }
-  /**
-   * 添加双击事件监听
-   * @memberOf JSMapView
-   * @returns {Promise&lt;void>}
-   */
-  async setDoubleTapListener() {
-    try {
-      await MV.setDoubleTapListener(this._MGMapViewId);
-    } catch (e) {
-      console.error(e);
-    }
-  }
 
-  /**
-   * 添加触摸事件监听
-   * @memberOf JSMapView
-   * @returns {Promise&lt;void>}
-   */
-  async setTouchListener() {
-    try {
-      await MV.setTouchListener(this._MGMapViewId);
-    } catch (e) {
-      console.error(e);
+    /**
+     * 移除长按事件监听
+     * @returns {Promise&lt;void>}
+     */
+    async removeLongTapListener() {
+        try {
+            await MV.removeLongTapListener(this._MGMapViewId);
+        } catch (e) {
+            console.error(e);
+        }
     }
-  }
 
-  /**
-   * 添加地图视图级别改变的监听
-   * @memberOf JSMapView
-   * @returns {Promise&lt;void>}
-   */
-  async setZoomChangedListener() {
-    try {
-      await MV.setZoomChangedListener(this._MGMapViewId);
-    } catch (e) {
-      console.error(e);
+    /**
+     * 添加双击事件监听
+     * @memberOf JSMapView
+     * @returns {Promise&lt;void>}
+     */
+    async setDoubleTapListener() {
+        try {
+            await MV.setDoubleTapListener(this._MGMapViewId);
+        } catch (e) {
+            console.error(e);
+        }
     }
-  }
 
-  /**
-   * 添加地图视图中心点变化的监听
-   * @memberOf JSMapView
-   * @returns {Promise&lt;void>}
-   */
-  async setCenterChangedListener() {
-    try {
-      await MV.setCenterChangedListener(this._MGMapViewId);
-    } catch (e) {
-      console.error(e);
+    /**
+     * 移除双击事件监听
+     * @returns {Promise&lt;void>}
+     */
+    async removeDoubleTapListener() {
+        try {
+            await MV.removeDoubleTapListener(this._MGMapViewId);
+        } catch (e) {
+            console.error(e);
+        }
     }
-  }
 
-  /**
-   * 添加地图视图旋转角度变化的监听
-   * @memberOf JSMapView
-   * @returns {Promise&lt;void>}
-   */
-  async setRotateChangedListener() {
-    try {
-      await MV.setRotateChangedListener(this._MGMapViewId);
-    } catch (e) {
-      console.error(e);
+    /**
+     * 添加触摸事件监听
+     * @memberOf JSMapView
+     * @returns {Promise&lt;void>}
+     */
+    async setTouchListener() {
+        try {
+            await MV.setTouchListener(this._MGMapViewId);
+        } catch (e) {
+            console.error(e);
+        }
     }
-  }
 
-  /**
-   * 地图视图动画的监听
-   * @memberOf JSMapView
-   * @returns {Promise&lt;void>}
-   */
-  async setAnimationListener() {
-    try {
-      await MV.setAnimationListener(this._MGMapViewId);
-    } catch (e) {
-      console.error(e);
+    /**
+     * 移除触摸事件监听
+     * @returns {Promise&lt;void>}
+     */
+    async removeTouchListener() {
+        try {
+            await MV.removeTouchListener(this._MGMapViewId);
+        } catch (e) {
+            console.error(e);
+        }
     }
-  }
-  /**
-   * 地图视图刷新的监听
-   * @memberOf JSMapView
-   * @returns {Promise&lt;void>}
-   */
-  async setRefreshListener() {
-    try {
-      await MV.setRefreshListener(this._MGMapViewId);
-    } catch (e) {
-      console.error(e);
+
+    /**
+     * 添加地图视图级别改变的监听
+     * @memberOf JSMapView
+     * @returns {Promise&lt;void>}
+     */
+    async setZoomChangedListener() {
+        try {
+            await MV.setZoomChangedListener(this._MGMapViewId);
+        } catch (e) {
+            console.error(e);
+        }
     }
-  }
-  /**
-   * 地图视图地图加载的监听
-   * @memberOf JSMapView
-   * @returns {Promise&lt;void>}
-   */
-  async setMapLoadListener() {
-    try {
-      await MV.setMapLoadListener(this._MGMapViewId);
-    } catch (e) {
-      console.error(e);
+
+    /**
+     * 移除地图视图级别改变的监听
+     * @returns {Promise&lt;void>}
+     */
+    async removeZoomChangedListener() {
+        try {
+            await MV.removeZoomChangedListener(this._MGMapViewId);
+        } catch (e) {
+            console.error(e);
+        }
     }
-  }
 
-  }
+    /**
+     * 添加地图视图中心点变化的监听
+     * @memberOf JSMapView
+     * @returns {Promise&lt;void>}
+     */
+    async setCenterChangedListener() {
+        try {
+            await MV.setCenterChangedListener(this._MGMapViewId);
+        } catch (e) {
+            console.error(e);
+        }
+    }
 
+    /**
+     * 移除地图视图中心点变化的监听
+     * @returns {Promise&lt;void>}
+     */
+    async removeCenterChangedListener() {
+        try {
+            await MV.removeCenterChangedListener(this._MGMapViewId);
+        } catch (e) {
+            console.error(e);
+        }
+    }
 
+    /**
+     * 添加地图视图旋转角度变化的监听
+     * @memberOf JSMapView
+     * @returns {Promise&lt;void>}
+     */
+    async setRotateChangedListener() {
+        try {
+            await MV.setRotateChangedListener(this._MGMapViewId);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 移除地图视图旋转角度变化的监听
+     * @returns {Promise&lt;void>}
+     */
+    async removeRotateChangedListener() {
+        try {
+            await MV.removeRotateChangedListener(this._MGMapViewId);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 地图视图动画的监听
+     * @memberOf JSMapView
+     * @returns {Promise&lt;void>}
+     */
+    async setAnimationListener() {
+        try {
+            await MV.setAnimationListener(this._MGMapViewId);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 移除地图视图动画的监听
+     * @returns {Promise&lt;void>}
+     */
+    async removeAnimationListener() {
+        try {
+            await MV.removeAnimationListener(this._MGMapViewId);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 地图视图刷新的监听
+     * @memberOf JSMapView
+     * @returns {Promise&lt;void>}
+     */
+    async setRefreshListener() {
+        try {
+            await MV.setRefreshListener(this._MGMapViewId);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 移除地图视图刷新的监听
+     * @returns {Promise&lt;void>}
+     */
+    async removeRefreshListener() {
+        try {
+            await MV.removeRefreshListener(this._MGMapViewId);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 地图视图地图加载的监听
+     * @memberOf JSMapView
+     * @returns {Promise&lt;void>}
+     */
+    async setMapLoadListener() {
+        try {
+            await MV.setMapLoadListener(this._MGMapViewId);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 移除地图加载监听
+     * @returns {Promise&lt;void>}
+     */
+    async removeMapLoadListener() {
+        try {
+            await MV.removeMapLoadListener(this._MGMapViewId);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+}
 </code></pre>
         </article>
     </section>
@@ -1194,13 +1418,13 @@ export default class JSMapView {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Dot.html">Dot</a></li><li><a href="Environment.html">Environment</a></li><li><a href="Feature.html">Feature</a></li><li><a href="FeaturePagedResult.html">FeaturePagedResult</a></li><li><a href="FeatureQuery.html">FeatureQuery</a></li><li><a href="Graphic.html">Graphic</a></li><li><a href="GraphicCircle.html">GraphicCircle</a></li><li><a href="GraphicImage.html">GraphicImage</a></li><li><a href="GraphicMultiPoint.html">GraphicMultiPoint</a></li><li><a href="GraphicPoint.html">GraphicPoint</a></li><li><a href="GraphicPolygon.html">GraphicPolygon</a></li><li><a href="GraphicPolylin.html">GraphicPolylin</a></li><li><a href="GraphicsOverlay.html">GraphicsOverlay</a></li><li><a href="GraphicsOverlays.html">GraphicsOverlays</a></li><li><a href="GraphicStippleLine.html">GraphicStippleLine</a></li><li><a href="GraphicText.html">GraphicText</a></li><li><a href="Image.html">Image</a></li><li><a href="Map.html">Map</a></li><li><a href="MapLayer.html">MapLayer</a></li><li><a href="MapView.html">MapView</a></li><li><a href="PointF.html">PointF</a></li><li><a href="QueryBound.html">QueryBound</a></li><li><a href="Rect.html">Rect</a></li><li><a href="VectorLayer.html">VectorLayer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#initialize">initialize</a></li><li><a href="global.html#setSystemLibraryPath">setSystemLibraryPath</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ClassItemValue.html">ClassItemValue</a></li><li><a href="CoordinateConvertParameter.html">CoordinateConvertParameter</a></li><li><a href="Document.html">Document</a></li><li><a href="DocumentItem.html">DocumentItem</a></li><li><a href="Dot.html">Dot</a></li><li><a href="Environment.html">Environment</a></li><li><a href="Feature.html">Feature</a></li><li><a href="FeaturePagedResult.html">FeaturePagedResult</a></li><li><a href="FeatureQuery.html">FeatureQuery</a></li><li><a href="FillStyle.html">FillStyle</a></li><li><a href="GeneralVectorLabel.html">GeneralVectorLabel</a></li><li><a href="GeometryParams.html">GeometryParams</a></li><li><a href="Graphic.html">Graphic</a></li><li><a href="GraphicCircle.html">GraphicCircle</a></li><li><a href="GraphicImage.html">GraphicImage</a></li><li><a href="GraphicMultiPoint.html">GraphicMultiPoint</a></li><li><a href="GraphicPoint.html">GraphicPoint</a></li><li><a href="GraphicPolygon.html">GraphicPolygon</a></li><li><a href="GraphicPolylin.html">GraphicPolylin</a></li><li><a href="GraphicsOverlay.html">GraphicsOverlay</a></li><li><a href="GraphicsOverlays.html">GraphicsOverlays</a></li><li><a href="GraphicStippleLine.html">GraphicStippleLine</a></li><li><a href="GraphicText.html">GraphicText</a></li><li><a href="GroupLayer.html">GroupLayer</a></li><li><a href="Image.html">Image</a></li><li><a href="IntUser.html">IntUser</a></li><li><a href="Label.html">Label</a></li><li><a href="LabelInfo.html">LabelInfo</a></li><li><a href="LayerEnum.html">LayerEnum</a></li><li><a href="LinePlaceInfo.html">LinePlaceInfo</a></li><li><a href="LineStyle.html">LineStyle</a></li><li><a href="MagnifierOption.html">MagnifierOption</a></li><li><a href="Map.html">Map</a></li><li><a href="MapLayer.html">MapLayer</a></li><li><a href="MapPosition.html">MapPosition</a></li><li><a href="Maps.html">Maps</a></li><li><a href="MapServer.html">MapServer</a></li><li><a href="MapView.html">MapView</a></li><li><a href="Model.html">Model</a></li><li><a href="ModelsOverlay.html">ModelsOverlay</a></li><li><a href="MultiClassTheme.html">MultiClassTheme</a></li><li><a href="MultiClassThemeInfo.html">MultiClassThemeInfo</a></li><li><a href="OGCWMTSMapServer.html">OGCWMTSMapServer</a></li><li><a href="PointF.html">PointF</a></li><li><a href="PointPlaceInfo.html">PointPlaceInfo</a></li><li><a href="PointStyle.html">PointStyle</a></li><li><a href="QueryBound.html">QueryBound</a></li><li><a href="RangeTheme.html">RangeTheme</a></li><li><a href="RangeThemeInfo.html">RangeThemeInfo</a></li><li><a href="Rect.html">Rect</a></li><li><a href="RegionPlaceInfo.html">RegionPlaceInfo</a></li><li><a href="ServerLayer.html">ServerLayer</a></li><li><a href="SimpleLabel.html">SimpleLabel</a></li><li><a href="SimpleModelLayer.html">SimpleModelLayer</a></li><li><a href="SimpleModelLayerUtil.html">SimpleModelLayerUtil</a></li><li><a href="SimpleTheme.html">SimpleTheme</a></li><li><a href="SketchEditor.html">SketchEditor</a></li><li><a href="SketchStyle.html">SketchStyle</a></li><li><a href="SnappingOption.html">SnappingOption</a></li><li><a href="SRefData.html">SRefData</a></li><li><a href="TextStyle.html">TextStyle</a></li><li><a href="Theme.html">Theme</a></li><li><a href="ThemeInfo.html">ThemeInfo</a></li><li><a href="Themes.html">Themes</a></li><li><a href="TileMapServer.html">TileMapServer</a></li><li><a href="UniqueTheme.html">UniqueTheme</a></li><li><a href="UniqueThemeInfo.html">UniqueThemeInfo</a></li><li><a href="VectorLabel.html">VectorLabel</a></li><li><a href="VectorLayer.html">VectorLayer</a></li><li><a href="VectorMapServer.html">VectorMapServer</a></li><li><a href="VectorTheme.html">VectorTheme</a></li><li><a href="VectorTileMapServer.html">VectorTileMapServer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#initialize">initialize</a></li><li><a href="global.html#removeAnimationListener">removeAnimationListener</a></li><li><a href="global.html#removeCenterChangedListener">removeCenterChangedListener</a></li><li><a href="global.html#removeDoubleTapListener">removeDoubleTapListener</a></li><li><a href="global.html#removeLongTapListener">removeLongTapListener</a></li><li><a href="global.html#removeMapLoadListener">removeMapLoadListener</a></li><li><a href="global.html#removeRefreshListener">removeRefreshListener</a></li><li><a href="global.html#removeRotateChangedListener">removeRotateChangedListener</a></li><li><a href="global.html#removeTapListener">removeTapListener</a></li><li><a href="global.html#removeTouchListener">removeTouchListener</a></li><li><a href="global.html#removeZoomChangedListener">removeZoomChangedListener</a></li><li><a href="global.html#requestAuthorization">requestAuthorization</a></li><li><a href="global.html#setResolution">setResolution</a></li><li><a href="global.html#setScale">setScale</a></li><li><a href="global.html#setSize">setSize</a></li><li><a href="global.html#setSystemLibraryPath">setSystemLibraryPath</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.2</a> on Thu Jul 11 2019 10:20:54 GMT+0800 (GMT+08:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Sep 18 2019 09:06:20 GMT+0800 (GMT+08:00)
 </footer>
 
 <script> prettyPrint(); </script>
