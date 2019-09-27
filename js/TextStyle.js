@@ -24,14 +24,14 @@ export default class TextStyle{
     async createObj(){
         try {
             if(typeof arguments[0] === "number" && typeof arguments[1] === "number"){
-                var {TextStyleId} = await TS.createObjByCS(arguments[0], arguments[1]);
+                let {TextStyleId} = await TS.createObjByCS(arguments[0], arguments[1]);
                
-                var textStyle = new TextStyle();
+                let textStyle = new TextStyle();
                 textStyle._MGTextStyleId = TextStyleId;
                 return textStyle;
             }else{
-                var {TextStyleId} = await TS.createObj();
-                var textStyle = new TextStyle();
+                let {TextStyleId} = await TS.createObj();
+                let textStyle = new TextStyle();
                 
                 textStyle._MGTextStyleId = TextStyleId;
                 return textStyle;

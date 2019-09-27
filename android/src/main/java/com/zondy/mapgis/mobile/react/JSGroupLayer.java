@@ -111,19 +111,9 @@ public class JSGroupLayer extends JSMapLayer {
             GroupLayer groupLayer = (GroupLayer) getObjFromList(groupLayerId);
             MapLayer mapLayer = groupLayer.item(i);
             String MapLayerId = JSMapLayer.registerId(mapLayer);
-            int type = -1; // 不是任何类型
-            if(mapLayer instanceof VectorLayer){                // 矢量图层
-                type = 0;
-            }else if (mapLayer instanceof GroupLayer){         // 组图层
-                type = 2;
-            }else if (mapLayer instanceof ServerLayer){        // 服务图层
-                type = 9;
-            }else if (mapLayer instanceof SimpleModelLayer){   // 简单模型图层
-                type = 10;
-            }
+
             WritableMap map = Arguments.createMap();
             map.putString("MapLayerId", MapLayerId);
-            map.putInt("MapLayerType", type);
             promise.resolve(map);
         }catch (Exception e){
             promise.reject(e);

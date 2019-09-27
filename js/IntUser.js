@@ -24,13 +24,13 @@ export default class IntUser{
     async createObj(){
         try {
             if(typeof arguments[0] === "number"){
-                var {IntUserId} = await IU.createObj(arguments[0]);
-                var intUser = new IntUser();
+                let {IntUserId} = await IU.createObj(arguments[0]);
+                let intUser = new IntUser();
                 intUser._MGIntUserId = IntUserId;
                 return intUser;
             }else{
-                var {IntUserId} = await IU.createObj();
-                var intUser = new IntUser();
+                let {IntUserId} = await IU.createObj();
+                let intUser = new IntUser();
                 intUser._MGIntUserId = IntUserId;
                 return intUser;
             }

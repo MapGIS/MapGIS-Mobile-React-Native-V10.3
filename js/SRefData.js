@@ -67,7 +67,7 @@ export default class SRefData {
         try {
             let srsName = await SR.getSRSName(this._MGSRefDataId);
             return srsName;
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
     }

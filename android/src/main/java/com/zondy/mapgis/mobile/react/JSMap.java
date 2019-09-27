@@ -370,19 +370,9 @@ public class JSMap extends ReactContextBaseJavaModule {
             MapLayer mapLayer = Map.getLayer(index);
 
             String MapLayerId = JSMapLayer.registerId(mapLayer);
-            int type = -1; // 不是任何类型
-            if(mapLayer instanceof VectorLayer){                // 矢量图层
-                type = 0;
-            }else if (mapLayer instanceof GroupLayer){         // 组图层
-                type = 2;
-            }else if (mapLayer instanceof ServerLayer){        // 服务图层
-                type = 9;
-            }else if (mapLayer instanceof SimpleModelLayer){   // 简单模型图层
-                type = 10;
-            }
+
             WritableMap map = Arguments.createMap();
             map.putString("MapLayerId", MapLayerId);
-            map.putInt("MapLayerType", type);
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
@@ -426,7 +416,7 @@ public class JSMap extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void remove(String MapId, String layerID, Promise promise) {
+    public void removeByLayer(String MapId, String layerID, Promise promise) {
         try {
             Map map = getObjFromList(MapId);
             MapLayer mapLayer = JSMapLayer.mMapLayerList.get(layerID);
@@ -449,7 +439,7 @@ public class JSMap extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void remove(String MapId, int index, Promise promise) {
+    public void removeByIndex(String MapId, int index, Promise promise) {
         try {
             Map map = getObjFromList(MapId);
             map.remove(index);
@@ -495,13 +485,25 @@ public class JSMap extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void indexOf(String MapId, String name, Promise promise) {
+    public void indexOfByName(String MapId, String name, Promise promise) {
         try {
             Map map = getObjFromList(MapId);
             int result = map.indexOf(name);
 
             promise.resolve(result);
         } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void indexOfByLayer(String MapId, String layerId, Promise promise){
+        try {
+            Map map = getObjFromList(MapId);
+            MapLayer mapLayer = JSMapLayer.getObjFromList(layerId);
+            int index = map.indexOf(mapLayer);
+            promise.resolve(index);
+        }catch (Exception e){
             promise.reject(e);
         }
     }

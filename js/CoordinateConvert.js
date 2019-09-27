@@ -5,11 +5,10 @@
  * @LastEditTime: 2019-09-18 15:10:51
  * @LastEditors: Please set LastEditors
  */
-import {NativeModules, DeviceEventEmitter, NativeEventEmitter, Platform} from "react-native";
+import {NativeModules} from "react-native";
 import CoordinateConvertParameter from "./CoordinateConvertParameter";
 import Dot from "./Dot";
 let CC = NativeModules.JSCoordinateConvert;
-const nativeEvt = new NativeEventEmitter(CC);
 
 /**
  * @class CoordinateConvert
