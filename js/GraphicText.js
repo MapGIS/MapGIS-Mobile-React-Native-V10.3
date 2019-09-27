@@ -189,9 +189,9 @@ export default class GraphicText extends Graphic {
    * @param anchorPoint 文本锚点的位置：左下角为(0,0),右上角为(1,1)
    * @returns {Promise<void>}
    */
-  async setAnchorPoint(anchorPoint) {
+  async setAnchorPointByPoint(anchorPoint) {
     try {
-      await GI.setAnchorPoint(this._MGGraphicTextId, anchorPoint._MGPointFId);
+      await GT.setAnchorPoint(this._MGGraphicTextId, anchorPoint._MGPointFId);
     } catch (e) {
       console.error(e);
     }

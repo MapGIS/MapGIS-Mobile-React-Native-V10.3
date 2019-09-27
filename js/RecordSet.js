@@ -42,7 +42,7 @@ export default class RecordSet{
 	{
 		try {
             return await RS.moveFirst(this._MGRecordSetId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -56,7 +56,7 @@ export default class RecordSet{
 	{
 		try {
             return await RS.moveNext(this._MGRecordSetId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -73,7 +73,7 @@ export default class RecordSet{
             var record = new Record();
             record._MGRecordId = RecordId;
             return record;
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -87,7 +87,7 @@ export default class RecordSet{
 	{
 		try {
             return await RS.getCurrentID(this._MGRecordSetId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -104,7 +104,7 @@ export default class RecordSet{
             var fields = new Fields();
             fields._MGFieldsId = FieldsId;
             return fields;
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -121,7 +121,7 @@ export default class RecordSet{
             var geometry = new Geometry();
             geometry._MGGeometryId = GeometryId;
             return geometry;
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -138,7 +138,7 @@ export default class RecordSet{
             var geomInfo = new GeomInfo();
             geomInfo._MGGeomInfoId = GeomInfoId;
             return geomInfo;
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -152,7 +152,7 @@ export default class RecordSet{
 	{
 		try {
             return await RS.isBOF(this._MGRecordSetId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -166,7 +166,7 @@ export default class RecordSet{
 	{
 		try {
             return await RS.isEOF(this._MGRecordSetId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
     }
@@ -181,7 +181,7 @@ export default class RecordSet{
 	{
 		try {
             await RS.getRect(this._MGRecordSetId, rc._MGRectId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -198,7 +198,7 @@ export default class RecordSet{
 	{
 		try {
             return await RS.get(this._MGRecordSetId, geom._MGGeometryId, rcd._MGRecordId, info._MGGeomInfoId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -212,7 +212,7 @@ export default class RecordSet{
 	{
 		try {
             return await RS.getGeometryType(this._MGRecordSetId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}

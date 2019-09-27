@@ -3,7 +3,7 @@
  * @author  2019-09-11
  */
 import { NativeModules } from "react-native";
-import Rect from "./Rect";
+
 
 let GI = NativeModules.JSGeomInfo;
 

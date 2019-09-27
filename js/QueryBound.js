@@ -5,8 +5,6 @@
 import { NativeModules } from "react-native";
 
 let QB = NativeModules.JSQueryBound;
-import Rect from "./Rect.js";
-import Dot from "./Dot.js";
 
 /**
  * @class QueryBound
@@ -69,7 +67,7 @@ export default class QueryBound {
     try {
       var idArr = [];
       for (var i = 0; i <= pointArray.length - 1; i++) {
-        var id = values[i]._MGDotId;
+        var id = pointArray[i]._MGDotId;
         idArr.push(id);
       }
       await QB.setPoints(this._MGQueryBoundId, idArr);

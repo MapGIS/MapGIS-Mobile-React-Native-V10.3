@@ -5,8 +5,6 @@
 import { NativeModules } from "react-native";
 
 let F = NativeModules.JSFeature;
-import Rect from "./Rect.js";
-import Dot from "./Dot.js";
 import Graphic from "./Graphic";
 
 /**

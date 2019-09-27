@@ -3,7 +3,6 @@
  * @author fjl 2019-7-31 下午2:52:36
  */
 import {NativeModules} from "react-native";
-import Dot from "./Dot.js";
 import PointF from "./PointF";
 
 let MO = NativeModules.JSMagnifierOption;

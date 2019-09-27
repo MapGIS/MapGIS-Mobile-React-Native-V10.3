@@ -12,6 +12,9 @@ import Map from "./Map.js";
 import GraphicsOverlay from "./GraphicsOverlay.js";
 import GraphicsOverlays from "./GraphicsOverlays.js";
 import MapPosition from "./MapPosition";
+import Graphic from "./Graphic.js"
+import ModelsOverlay from "./ModelsOverlay.js"
+import Model from "./Model.js"
 
 /**
  * @class MapView
@@ -668,7 +671,7 @@ export default class JSMapView {
 	 * @param animated 是否开启动画
      * @returns {Promise<void>}
 	 */
-	async updatePosition(postion, viewCenterPoint, animated)
+	async updatePositionbyViewPoint(postion, viewCenterPoint, animated)
 	{
         try {
             await MV.updatePosition(this._MGMapViewId, postion._MMapPosition, viewCenterPoint._MGPointFId, animated);
@@ -702,7 +705,7 @@ export default class JSMapView {
 	 * @param duration 持续时间(单位毫秒)
      * @returns {Promise<void>}
 	 */
-    async animatePosition(postion, viewCenterPoint, duration)
+    async animatePositionByViewPoint(postion, viewCenterPoint, duration)
 	{
         try {
             await MV.animatePosition(this._MGMapViewId, postion._MMapPosition, viewCenterPoint._MGPointFId, duration);
@@ -846,9 +849,9 @@ export default class JSMapView {
         try {
             var {ModelsOverlayID} = await MV.getModelsOverlay(
                 this._MGMapViewId);
-            //     var modelsOverlay = new ModelsOverlay();
-                
-            // return modelsOverlay;
+                var modelsOverlay = new ModelsOverlay();
+                modelsOverlay._MGModelsOverlayID = ModelsOverlayID;                
+                return modelsOverlay;
         } catch (e) {
             console.error(e);
         }
@@ -863,11 +866,11 @@ export default class JSMapView {
     async modelsOverlayHitTest(viewPoint)
     {
         try {
-            var {ModelID} = await MV.modelsOverlayHitTest(
+            var {ModelId} = await MV.modelsOverlayHitTest(
                 this._MGMapViewId,viewPoint._MGPointFId);
-            //     var model = new ModelID();
-                
-            // return model;
+                var model = new Model();
+                model._MGModelId = ModelId;
+                return model;
         } catch (e) {
             console.error(e);
         }
@@ -884,12 +887,12 @@ export default class JSMapView {
     async modelLayerHitTest(modelLayer, viewPoint)
     {
         try {
-            var {ModelID} = await MV.modelLayerHitTest(
+            var {ModelId} = await MV.modelLayerHitTest(
                 this._MGMapViewId,
                 modelLayer._MGSimpleModelLayerId,viewPoint._MGPointFId);
-            //     var model = new ModelID();
-                
-            // return model;
+                var model = new Model();
+                model._MGModelId = ModelId;
+                return model;
         } catch (e) {
             console.error(e);
         }
@@ -1005,7 +1008,7 @@ export default class JSMapView {
 	 * @param height 指定视图区域的高度
      * @returns {Promise<void>}
 	 */
-	async getScreenSnapshot(left, top, width, height)
+	async getScreenSnapshotByParam(left, top, width, height)
 	{
 		try {
             await MV.getScreenSnapshot(this._MGMapViewId, left, top, width, height);

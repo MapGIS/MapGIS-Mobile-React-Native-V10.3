@@ -7,7 +7,6 @@ import { NativeModules } from "react-native";
 let F = NativeModules.JSFeatureQuery;
 import FeaturePagedResult from "./FeaturePagedResult.js";
 import QueryBound from "./QueryBound.js";
-import Graphic from "./Graphic";
 
 /**
  * @class FeatureQuery
@@ -145,7 +144,7 @@ export default class FeatureQuery {
    */
   async setReturnAttribute(returnAttribute) {
     try {
-      await F.setReturnAttribute(this._MGFeatureQueryId, returnGeometry);
+      await F.setReturnAttribute(this._MGFeatureQueryId, returnAttribute);
     } catch (e) {
       console.error(e);
     }

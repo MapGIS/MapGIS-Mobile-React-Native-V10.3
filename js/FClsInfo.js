@@ -49,7 +49,7 @@ export default class FClsInfo extends XClsInfo{
 	async getID() {
 		try {
             return await FI.getID(this._MGFClsInfoId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -62,7 +62,7 @@ export default class FClsInfo extends XClsInfo{
 	async getType() {
 		try {
             return await FI.getType(this._MGFClsInfoId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -76,7 +76,7 @@ export default class FClsInfo extends XClsInfo{
 	async getURL() {
 		try {
             return await FI.getURL(this._MGFClsInfoId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -89,7 +89,7 @@ export default class FClsInfo extends XClsInfo{
 	async getName() {
 		try {
             return await FI.getName(this._MGFClsInfoId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -117,7 +117,7 @@ export default class FClsInfo extends XClsInfo{
 	{
 		try {
             return await FI.getGeomType(this._MGFClsInfoId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -131,7 +131,7 @@ export default class FClsInfo extends XClsInfo{
 	{
 		try {
             return await FI.getScalex(this._MGFClsInfoId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -145,7 +145,7 @@ export default class FClsInfo extends XClsInfo{
 	{
 		try {
             return await FI.getScaley(this._MGFClsInfoId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}

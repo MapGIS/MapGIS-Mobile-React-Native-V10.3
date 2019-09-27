@@ -36,7 +36,7 @@ export default class AnnotationsOverlay {
 		try {
             await ANLY.addAnnotation(this._MGAnnotationsOverlayId, ann._MGAnnotationId);
             
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -50,7 +50,7 @@ export default class AnnotationsOverlay {
 	{
 		try {
             await ANLY.addAnnotations(this._MGAnnotationsOverlayId, annArray);
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -64,7 +64,7 @@ export default class AnnotationsOverlay {
 	{
 		try {
             await ANLY.removeAnnotation(this._MGAnnotationsOverlayId, index);
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -78,7 +78,7 @@ export default class AnnotationsOverlay {
 	{
 		try {
             await ANLY.removeAnnotation(this._MGAnnotationsOverlayId, ann._MGAnnotationId);
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -92,7 +92,7 @@ export default class AnnotationsOverlay {
 	{
 		try {
             await ANLY.removeAnnotations(this._MGAnnotationsOverlayId, annArray);
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -104,7 +104,7 @@ export default class AnnotationsOverlay {
 	{
 		try {
             await ANLY.removeAllAnnotations(this._MGAnnotationsOverlayId);
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -118,7 +118,7 @@ export default class AnnotationsOverlay {
 	{
 		try {
             return await ANLY.getAnnotationCount(this._MGAnnotationsOverlayId);
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -133,7 +133,7 @@ export default class AnnotationsOverlay {
 	{
 		try {
             return await ANLY.indexOf(this._MGAnnotationsOverlayId, ann._MGAnnotationId);
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -151,7 +151,7 @@ export default class AnnotationsOverlay {
             var annotation = new Annotation();
             annotation._MGAnnotationId = AnnotationId;      
             return annotation;
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -187,7 +187,7 @@ export default class AnnotationsOverlay {
 	{
 		try {
             await ANLY.moveAnnotation(this._MGAnnotationsOverlayId, fromIndex, toIndex);
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}

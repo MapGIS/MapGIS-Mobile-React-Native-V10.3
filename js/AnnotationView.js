@@ -50,7 +50,7 @@ export default class AnnotationView {
 	async getAnnotation()
 	{
 		try {
-            let {AnnotationId} = await AN.getAnnotation(this._MGAnnotationViewId);
+            let {AnnotationId} = await ANV.getAnnotation(this._MGAnnotationViewId);
             var annotation = new Annotation();
             annotation._MGAnnotationId = AnnotationId;
             return annotation;

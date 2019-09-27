@@ -55,7 +55,7 @@ export default class SFeatureCls extends VectorCls{
 	{
 		try {
             return await SFCLS.create(this._MGSFeatureClsId, name, geomType, dsID, srsID, flds._MGFieldsId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -72,7 +72,7 @@ export default class SFeatureCls extends VectorCls{
 		try {
            // alert("SFeatureCls: openById(id):" + openById(id));
             return await SFCLS.openById(this._MGSFeatureClsId, id); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -88,7 +88,7 @@ export default class SFeatureCls extends VectorCls{
 		try {
 			alert("SFeatureCls: openByName(name):" + openByName(name));
             return await SFCLS.open(this._MGSFeatureClsId, name); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -102,7 +102,7 @@ export default class SFeatureCls extends VectorCls{
 	{
 		try {
             return await SFCLS.hasOpen(this._MGSFeatureClsId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -116,7 +116,7 @@ export default class SFeatureCls extends VectorCls{
 	{
 		try {
             return await SFCLS.clear(this._MGSFeatureClsId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -130,7 +130,7 @@ export default class SFeatureCls extends VectorCls{
 	{
 		try {
             return await SFCLS.close(this._MGSFeatureClsId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -147,7 +147,7 @@ export default class SFeatureCls extends VectorCls{
             var db = new DataBase();
             db._MGDataBaseId = DataBaseId;
             return db;
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -161,7 +161,7 @@ export default class SFeatureCls extends VectorCls{
 	{
 		try {
             return await SFCLS.getCount(this._MGSFeatureClsId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -178,7 +178,7 @@ export default class SFeatureCls extends VectorCls{
             var rc = new Rect();
             rc._MGRectId = RectId;
             return rc;
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -192,7 +192,7 @@ export default class SFeatureCls extends VectorCls{
 	{
 		try {
             return await SFCLS.getClsType(this._MGSFeatureClsId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -206,7 +206,7 @@ export default class SFeatureCls extends VectorCls{
 	{
         try {
             return await SFCLS.getGeomType(this._MGSFeatureClsId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
     }
@@ -220,7 +220,7 @@ export default class SFeatureCls extends VectorCls{
 	{
 		try {
             return await SFCLS.getClsID(this._MGSFeatureClsId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -237,7 +237,7 @@ export default class SFeatureCls extends VectorCls{
             var fClsInfo = new FClsInfo();
             fClsInfo._MGSFCLSInfoId = FClsInfoId;
             return fClsInfo;
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -254,7 +254,7 @@ export default class SFeatureCls extends VectorCls{
             var fields = new Fields();
             fields._MGFieldsId = FieldsId;
             return fields;
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -271,7 +271,7 @@ export default class SFeatureCls extends VectorCls{
 	async append(geom, rcd, info) {
 		try {
             return await SFCLS.append(this._MGSFeatureClsId, geom._MGGeometryId, rcd._MGRecordId, info._MGGeomInfoId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -288,7 +288,7 @@ export default class SFeatureCls extends VectorCls{
             var recordSet = new RecordSet();
             recordSet._MGRecordSetId = RecordSetId;
             return recordSet;
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
     }
@@ -306,7 +306,7 @@ export default class SFeatureCls extends VectorCls{
             var recordSet = new RecordSet();
             recordSet._MGRecordSetId = RecordSetId;
             return recordSet;
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -323,7 +323,7 @@ export default class SFeatureCls extends VectorCls{
             var rect = new Rect();
             rect._MGRectId = RectId;
             return rect;
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -340,7 +340,7 @@ export default class SFeatureCls extends VectorCls{
 	async get(objID, geom, rcd, info) {
 		try {
             return await SFCLS.get(this._MGSFeatureClsId, objID, geom._MGGeometryId, rcd._MGRecordId, info._MGGeomInfoId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -358,7 +358,7 @@ export default class SFeatureCls extends VectorCls{
             var record = new Record();
             record._MGRecordId = RecordId;
             return record;
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -375,7 +375,7 @@ export default class SFeatureCls extends VectorCls{
             var geometry = new Geometry();
             geometry._MGGeometryId = GeometryId;
             return geometry;
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -392,7 +392,7 @@ export default class SFeatureCls extends VectorCls{
             var geomInfo = new GeomInfo();
             geomInfo._MGGeomInfoId = GeomInfoId;
             return geomInfo;
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -407,7 +407,7 @@ export default class SFeatureCls extends VectorCls{
 	{
 		try {
             return await SFCLS.getGeometryType(this._MGSFeatureClsId, objID); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -421,7 +421,7 @@ export default class SFeatureCls extends VectorCls{
 	{
 		try {
             return await SFCLS.getClsName(this._MGSFeatureClsId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -435,7 +435,7 @@ export default class SFeatureCls extends VectorCls{
 	{
 		try {
             await SFCLS.setClsName(this._MGSFeatureClsId, newVal); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -449,7 +449,7 @@ export default class SFeatureCls extends VectorCls{
 	{
 		try {
             return await SFCLS.getURL(this._MGSFeatureClsId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -463,7 +463,7 @@ export default class SFeatureCls extends VectorCls{
 	{
 		try {
             return await SFCLS.getAliasName(this._MGSFeatureClsId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -478,7 +478,7 @@ export default class SFeatureCls extends VectorCls{
 	{
 		try {
             return await SFCLS.setAliasName(this._MGSFeatureClsId, newVal); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -492,7 +492,7 @@ export default class SFeatureCls extends VectorCls{
 	{
 		try {
             return await SFCLS.getSrID(this._MGSFeatureClsId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -507,7 +507,7 @@ export default class SFeatureCls extends VectorCls{
 	{
 		try {
             return await SFCLS.setSrID(this._MGSFeatureClsId, newVal); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -521,7 +521,7 @@ export default class SFeatureCls extends VectorCls{
 	{
 		try {
             return await SFCLS.getScaleX(this._MGSFeatureClsId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -535,7 +535,7 @@ export default class SFeatureCls extends VectorCls{
 	{
 		try {
             return await SFCLS.getScaleY(this._MGSFeatureClsId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -549,7 +549,7 @@ export default class SFeatureCls extends VectorCls{
 	async setScaleXY(scaleX, scaleY) {
 		try {
             return await SFCLS.setScaleXY(this._MGSFeatureClsId, scaleX, scaleY); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -564,7 +564,7 @@ export default class SFeatureCls extends VectorCls{
 	{
 		try {
             return await SFCLS.delete(this._MGSFeatureClsId, objID); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -579,7 +579,7 @@ export default class SFeatureCls extends VectorCls{
 	{
 		try {
             return await SFCLS.delete(this._MGSFeatureClsId, objIDArray); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -596,7 +596,7 @@ export default class SFeatureCls extends VectorCls{
 	async update(objID, geom, rcd, info) {
 		try {
             return await SFCLS.update(this._MGSFeatureClsId, objID, geom._MGGeometryId, rcd._MGRecordId, info._MGGeomInfoId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -611,7 +611,7 @@ export default class SFeatureCls extends VectorCls{
 	async updateAtt(objID, rcd) {
 		try {
             return await SFCLS.updateAtt(this._MGSFeatureClsId, objID, rcd._MGRecordId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -626,7 +626,7 @@ export default class SFeatureCls extends VectorCls{
 	async updateGeometry(objID, geom) {
 		try {
             return await SFCLS.updateGeometry(this._MGSFeatureClsId, objID, geom._MGGeometryId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -641,7 +641,7 @@ export default class SFeatureCls extends VectorCls{
 	async updateInfo(objID, info) {
 		try {
             return await SFCLS.updateInfo(this._MGSFeatureClsId, objID, info._MGGeomInfoId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -657,7 +657,7 @@ export default class SFeatureCls extends VectorCls{
 	{
 		try {
             return await SFCLS.remove(this._MGSFeatureClsId, db._MGDataBaseId, clsName); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -673,7 +673,7 @@ export default class SFeatureCls extends VectorCls{
 	{
 		try {
             return await SFCLS.remove(this._MGSFeatureClsId, db._MGDataBaseId, clsID); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -688,7 +688,7 @@ export default class SFeatureCls extends VectorCls{
 	{
 		try {
             return await SFCLS.calTotalArea(this._MGSFeatureClsId, bRealArea); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -703,7 +703,7 @@ export default class SFeatureCls extends VectorCls{
 	{
 		try {
             return await SFCLS.calTotalLength(this._MGSFeatureClsId, bRealLen); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -719,7 +719,7 @@ export default class SFeatureCls extends VectorCls{
 	{
 		try {
             return await SFCLS.areaToField(this._MGSFeatureClsId, bRealArea, fldIndex); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -735,7 +735,7 @@ export default class SFeatureCls extends VectorCls{
 	{
 		try {
             return await SFCLS.lengthToField(this._MGSFeatureClsId, bRealLen, fldIndex); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -750,7 +750,7 @@ export default class SFeatureCls extends VectorCls{
 	{
 		try {
             return await SFCLS.registerSyncEnabled(this._MGSFeatureClsId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -764,7 +764,7 @@ export default class SFeatureCls extends VectorCls{
 	{
 		try {
             return await SFCLS.isSyncEnabled(this._MGSFeatureClsId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -779,7 +779,7 @@ export default class SFeatureCls extends VectorCls{
 		
 		try {
             return await SFCLS.updateFields(this._MGSFeatureClsId, fields._MGFieldsId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}

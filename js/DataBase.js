@@ -41,7 +41,7 @@ export default class DataBase {
 	{
 		try {
             return await DB.getName(this._MGDataBaseId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -55,7 +55,7 @@ export default class DataBase {
 	{
 		try {
             return await DB.getFullName(this._MGDataBaseId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -69,7 +69,7 @@ export default class DataBase {
 	{
 		try {
             return await DB.hasOpened(this._MGDataBaseId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -84,7 +84,7 @@ export default class DataBase {
 	{
 		try {
             return await DB.create(this._MGDataBaseId, strDatabasePath); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -98,7 +98,7 @@ export default class DataBase {
 	{
 		try {
             return await DB.close(this._MGDataBaseId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -115,7 +115,7 @@ export default class DataBase {
 		try {
             let clsIDArray = await DB.getXclseIDs(this._MGDataBaseId, type, dsID); 
             return clsIDArray;
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -145,7 +145,7 @@ export default class DataBase {
 				break;
         	}     
 	    	return xClsInfo;
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -161,7 +161,7 @@ export default class DataBase {
 	{
 		try {
             return await DB.getXclsName(this._MGDataBaseId, type, xclsID); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -176,7 +176,7 @@ export default class DataBase {
 	{
 		try {
             return await DB.getXclsNum(this._MGDataBaseId, type, dsID); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -191,7 +191,7 @@ export default class DataBase {
 	{
 		try {
             return await DB.open(this._MGDataBaseId, strDatabasePath); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -207,7 +207,7 @@ export default class DataBase {
 	{
 		try {
             return await DB.xClsIsExist(this._MGDataBaseId, type, name); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -223,7 +223,7 @@ export default class DataBase {
 	{
 		try {
             await DB.updateAsync(this._MGDataBaseId, strUpdateDatabasePath); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}

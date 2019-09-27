@@ -3,7 +3,6 @@
  * @author fjl 2019-6-24 下午2:52:36
  */
 import { NativeModules } from "react-native";
-import Graphic from "./Graphic";
 import GraphicMultiPoint from "./GraphicMultiPoint";
 let GP = NativeModules.JSGraphicPolylin;
 

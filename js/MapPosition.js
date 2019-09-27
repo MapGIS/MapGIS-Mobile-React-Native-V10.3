@@ -77,7 +77,7 @@ export default class MapPosition {
      * @param centerY
      * @returns {Promise<void>}
      */
-    async setCenter(centerX, centerY)
+    async setCenterByXY(centerX, centerY)
 	{
 		try {
             await MP.setCenter(this._MMapPosition, centerX, centerY);
@@ -150,7 +150,7 @@ export default class MapPosition {
      * @param rotateCenterY
      * @returns {Promise<void>}
      */
-    async setRotateCenter(rotateCenterX, rotateCenterY)
+    async setRotateCenterByXY(rotateCenterX, rotateCenterY)
 	{
         try {
             await MP.setRotateCenter(this._MMapPosition,rotateCenterX,rotateCenterY);

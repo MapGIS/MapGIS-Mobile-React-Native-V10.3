@@ -65,7 +65,7 @@ export default class AnnotationCls extends VectorCls{
 	{
 		try {
             return await ANNCLS.create(this._MGAnnotationClsId, name, annType, dsID, srID, flds._MGFieldsId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -80,7 +80,7 @@ export default class AnnotationCls extends VectorCls{
 	{
 		try {
             return await ANNCLS.open(this._MGAnnotationClsId, id); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -95,7 +95,7 @@ export default class AnnotationCls extends VectorCls{
 	{
 		try {
             return await ANNCLS.open(this._MGAnnotationClsId, name); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -109,7 +109,7 @@ export default class AnnotationCls extends VectorCls{
 	{
 		try {
             return await ANNCLS.hasOpen(this._MGAnnotationClsId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -123,7 +123,7 @@ export default class AnnotationCls extends VectorCls{
 	{
 		try {
             return await ANNCLS.clear(this._MGAnnotationClsId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -137,7 +137,7 @@ export default class AnnotationCls extends VectorCls{
 	{
 		try {
             return await ANNCLS.close(this._MGAnnotationClsId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -154,7 +154,7 @@ export default class AnnotationCls extends VectorCls{
             var db = new DataBase();
             db._MGDataBaseId = DataBaseId;
             return db;
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -168,7 +168,7 @@ export default class AnnotationCls extends VectorCls{
 	{
 		try {
             return await ANNCLS.getCount(this._MGAnnotationClsId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -185,7 +185,7 @@ export default class AnnotationCls extends VectorCls{
             var rc = new Rect();
             rc._MGRectId = RectId;
             return rc;
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -199,7 +199,7 @@ export default class AnnotationCls extends VectorCls{
 	{
 		try {
             return await ANNCLS.getClsType(this._MGAnnotationClsId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -213,7 +213,7 @@ export default class AnnotationCls extends VectorCls{
 	{
 		try {
             return await ANNCLS.getClsID(this._MGAnnotationClsId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -230,7 +230,7 @@ export default class AnnotationCls extends VectorCls{
             var annClsInfo = new AnnClsInfo();
             annClsInfo._MGAnnClsInfoId = XClsInfoId;
             return annClsInfo;
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -247,7 +247,7 @@ export default class AnnotationCls extends VectorCls{
             var fields = new Fields();
             fields._MGFieldsId = FieldsId;
             return fields;
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -264,7 +264,7 @@ export default class AnnotationCls extends VectorCls{
 	async append(geom, rcd, info) {
 		try {
             return await ANNCLS.append(this._MGAnnotationClsId, geom._MGGeometryId, rcd._MGRecordId, info._MGGeomInfoId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -282,7 +282,7 @@ export default class AnnotationCls extends VectorCls{
             var recordSet = new RecordSet();
             recordSet._MGRecordSetId = RecordSetId;
             return recordSet;
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -299,7 +299,7 @@ export default class AnnotationCls extends VectorCls{
             var rect = new Rect();
             rect._MGRectId = RectId;
             return rect;
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -316,7 +316,7 @@ export default class AnnotationCls extends VectorCls{
 	async get(objID, geom, rcd, info) {
 		try {
             return await ANNCLS.get(this._MGAnnotationClsId, objID, geom._MGGeometryId, rcd._MGRecordId, info._MGGeomInfoId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -334,7 +334,7 @@ export default class AnnotationCls extends VectorCls{
             var record = new Record();
             record._MGRecordId = RecordId;
             return record;
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -351,7 +351,7 @@ export default class AnnotationCls extends VectorCls{
             var geometry = new Geometry();
             geometry._MGGeometryId = GeometryId;
             return geometry;
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -368,7 +368,7 @@ export default class AnnotationCls extends VectorCls{
             var geomInfo = new GeomInfo();
             geomInfo._MGGeomInfoId = GeomInfoId;
             return geomInfo;
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -383,7 +383,7 @@ export default class AnnotationCls extends VectorCls{
 	{
 		try {
             return await ANNCLS.getAnnType(this._MGAnnotationClsId, objID); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -397,7 +397,7 @@ export default class AnnotationCls extends VectorCls{
 	{
 		try {
             return await ANNCLS.getClsName(this._MGAnnotationClsId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -412,7 +412,7 @@ export default class AnnotationCls extends VectorCls{
 	{
 		try {
             await ANNCLS.setClsName(this._MGAnnotationClsId, newVal); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -426,7 +426,7 @@ export default class AnnotationCls extends VectorCls{
 	{
 		try {
             return await ANNCLS.getURL(this._MGAnnotationClsId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -440,7 +440,7 @@ export default class AnnotationCls extends VectorCls{
 	{
 		try {
             return await ANNCLS.getAliasName(this._MGAnnotationClsId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -455,7 +455,7 @@ export default class AnnotationCls extends VectorCls{
 	{
 		try {
             return await ANNCLS.setAliasName(this._MGAnnotationClsId, newVal); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -469,7 +469,7 @@ export default class AnnotationCls extends VectorCls{
 	{
 		try {
             return await ANNCLS.getSrID(this._MGAnnotationClsId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -484,7 +484,7 @@ export default class AnnotationCls extends VectorCls{
 	{
 		try {
             return await ANNCLS.setSrID(this._MGAnnotationClsId, newVal); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -498,7 +498,7 @@ export default class AnnotationCls extends VectorCls{
 	{
 		try {
             return await ANNCLS.getScaleX(this._MGAnnotationClsId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -512,7 +512,7 @@ export default class AnnotationCls extends VectorCls{
 	{
 		try {
             return await ANNCLS.getScaleY(this._MGAnnotationClsId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -526,7 +526,7 @@ export default class AnnotationCls extends VectorCls{
 	async setScaleXY(scaleX, scaleY) {
 		try {
             return await ANNCLS.setScaleXY(this._MGAnnotationClsId, scaleX, scaleY); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -541,7 +541,7 @@ export default class AnnotationCls extends VectorCls{
 	{
 		try {
             return await ANNCLS.delete(this._MGAnnotationClsId, objID); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -556,7 +556,7 @@ export default class AnnotationCls extends VectorCls{
 	{
 		try {
             return await ANNCLS.delete(this._MGAnnotationClsId, objIDArray); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -573,7 +573,7 @@ export default class AnnotationCls extends VectorCls{
 	async update(objID, geom, rcd, info) {
 		try {
             return await ANNCLS.update(this._MGAnnotationClsId, objID, geom._MGGeometryId, rcd._MGRecordId, info._MGGeomInfoId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -588,7 +588,7 @@ export default class AnnotationCls extends VectorCls{
 	async updateAtt(objID, rcd) {
 		try {
             return await ANNCLS.updateAtt(this._MGAnnotationClsId, objID, rcd._MGRecordId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -603,7 +603,7 @@ export default class AnnotationCls extends VectorCls{
 	async updateGeometry(objID, geom) {
 		try {
             return await ANNCLS.updateGeometry(this._MGAnnotationClsId, objID, geom._MGGeometryId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -618,7 +618,7 @@ export default class AnnotationCls extends VectorCls{
 	async updateInfo(objID, info) {
 		try {
             return await ANNCLS.updateInfo(this._MGAnnotationClsId, objID, info._MGGeomInfoId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -633,7 +633,7 @@ export default class AnnotationCls extends VectorCls{
 	{
 		try {
             return await ANNCLS.annToField(this._MGAnnotationClsId, fldIndex, whereClause); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -649,7 +649,7 @@ export default class AnnotationCls extends VectorCls{
 	{
 		try {
             return await ANNCLS.remove(this._MGAnnotationClsId, db._MGDataBaseId, clsName); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -665,7 +665,7 @@ export default class AnnotationCls extends VectorCls{
 	{
 		try {
             return await ANNCLS.remove(this._MGAnnotationClsId, db._MGDataBaseId, clsID); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -679,7 +679,7 @@ export default class AnnotationCls extends VectorCls{
 	{
 		try {
             return await ANNCLS.registerSyncEnabled(this._MGAnnotationClsId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -693,7 +693,7 @@ export default class AnnotationCls extends VectorCls{
 	{
 		try {
             return await ANNCLS.isSyncEnabled(this._MGAnnotationClsId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -708,7 +708,7 @@ export default class AnnotationCls extends VectorCls{
 		
 		try {
             return await ANNCLS.updateFields(this._MGAnnotationClsId, fields._MGFieldsId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}

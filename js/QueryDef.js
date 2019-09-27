@@ -38,7 +38,7 @@ export default class QueryDef{
 	{
 		try {
             return await QD.setFilter(this._MGQueryDefId, whereClause); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -53,7 +53,7 @@ export default class QueryDef{
 	{
 		try {
             return await QD.setSubFields(this._MGQueryDefId, flds._MGFieldsId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -69,7 +69,7 @@ export default class QueryDef{
 	{
 		try {
             return await QD.setRect(this._MGQueryDefId, rect._MGRectId, queryMode); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -85,7 +85,7 @@ export default class QueryDef{
 	{
 		try {
             return await QD.setSpatial(this._MGQueryDefId, polygon._MGGeoPolygonId, queryMode); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -102,7 +102,7 @@ export default class QueryDef{
 	{
 		try {
             return await QD.setNear(this._MGQueryDefId, dot._MGDotId, xmax, xmin); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}

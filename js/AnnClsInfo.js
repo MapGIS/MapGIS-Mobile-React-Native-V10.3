@@ -50,7 +50,7 @@ export default class AnnClsInfo extends XClsInfo{
 	async getID() {
 		try {
             return await ANNI.getID(this._MGAnnClsInfoId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -63,7 +63,7 @@ export default class AnnClsInfo extends XClsInfo{
 	async getType() {
 		try {
             return await ANNI.getType(this._MGAnnClsInfoId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -77,7 +77,7 @@ export default class AnnClsInfo extends XClsInfo{
 	async getURL() {
 		try {
             return await ANNI.getURL(this._MGAnnClsInfoId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -90,7 +90,7 @@ export default class AnnClsInfo extends XClsInfo{
 	async getName() {
 		try {
             return await ANNI.getName(this._MGAnnClsInfoId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -118,7 +118,7 @@ export default class AnnClsInfo extends XClsInfo{
 	{
 		try {
             return await ANNI.getAnnType(this._MGAnnClsInfoId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -132,7 +132,7 @@ export default class AnnClsInfo extends XClsInfo{
 	{
 		try {
             return await ANNI.getScalex(this._MGAnnClsInfoId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -146,7 +146,7 @@ export default class AnnClsInfo extends XClsInfo{
 	{
 		try {
             return await ANNI.getScaley(this._MGAnnClsInfoId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}

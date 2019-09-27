@@ -5,7 +5,6 @@
 import { NativeModules } from "react-native";
 
 let X = NativeModules.JSGraphicsOverlays;
-import Graphic from "./Graphic.js";
 import GraphicsOverlay from "./GraphicsOverlay.js";
 
 /**

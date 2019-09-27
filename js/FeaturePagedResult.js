@@ -5,7 +5,6 @@
 import { NativeModules } from "react-native";
 
 let FP = NativeModules.JSFeaturePagedResult;
-import Rect from "./Rect.js";
 import Feature from "./Feature.js";
 
 /**

@@ -8,6 +8,7 @@ let GP = NativeModules.JSGeoPoints;
 
 import GeometryExp from "./GeometryExp.js"
 import Dot3D from "./Dot3D.js"
+import Dots3D from "./Dots3D.js"
 
 /**
  * @class GeoPoints
