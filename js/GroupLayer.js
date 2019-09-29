@@ -93,7 +93,7 @@ export default class GroupLayer extends MapLayer{
     async item(i){
         try {
             let mapLayer;
-            var { MapLayerId , MapLayerType} = await GL.item(this._MGGroupLayerId, i); // 获取到图层id，图层类型
+            var { MapLayerId} = await GL.item(this._MGGroupLayerId, i); // 获取到图层id，图层类型
             mapLayer = await Map.creatMapLayerInstanceByID(MapLayerId);
             return mapLayer;
         } catch (e) {

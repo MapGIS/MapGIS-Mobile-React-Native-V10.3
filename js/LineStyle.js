@@ -24,13 +24,13 @@ export default class LineStyle{
     async createObj(){
         try {
             if(typeof arguments[0] === "number" && typeof arguments[1] === "number"){
-                 var {LineStyleId} = await LS.createObjByCW(arguments[0], arguments[1]);
-                 var lineStyle = new LineStyle();
+                 let {LineStyleId} = await LS.createObjByCW(arguments[0], arguments[1]);
+                 let lineStyle = new LineStyle();
                  lineStyle._MGLineStyleId = LineStyleId;
                  return lineStyle;
             }else{
-                var {LineStyleId} = await LS.createObj();
-                var lineStyle = new LineStyle();
+                let {LineStyleId} = await LS.createObj();
+                let lineStyle = new LineStyle();
                 lineStyle._MGLineStyleId = LineStyleId;
                 return lineStyle;
             }

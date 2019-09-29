@@ -20,13 +20,13 @@ export default class PointF {
         typeof arguments[0] === "number" &&
         typeof arguments[1] === "number"
       ) {
-        var { PointFId } = await X.createObjByXY(arguments[0], arguments[1]);
-        var point2D = new PointF();
+        let { PointFId } = await X.createObjByXY(arguments[0], arguments[1]);
+        let point2D = new PointF();
         point2D._MGPointFId = PointFId;
         return point2D;
       } else {
-        var { PointFId } = await X.createObj();
-        var point2D = new PointF();
+        let { PointFId } = await X.createObj();
+        let point2D = new PointF();
         point2D._MGPointFId = PointFId;
         return point2D;
       }

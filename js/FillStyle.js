@@ -25,13 +25,13 @@ export default class FillStyle{
         try {
             // 通过颜色、轮廓样式构造一个对象
             if(typeof arguments[0] === "number" && typeof arguments[1] === "object"){
-                var {FillStyleId} = await FS.createObjCL(arguments[0], arguments[1]._MGLineStyleId);
-                var fillStyle = new FillStyle();
+                let {FillStyleId} = await FS.createObjCL(arguments[0], arguments[1]._MGLineStyleId);
+                let fillStyle = new FillStyle();
                 fillStyle._MGFillStyleId = FillStyleId;
                 return fillStyle;
             }else{
-                var {FillStyleId} = await FS.createObj();
-                var fillStyle = new FillStyle();
+                let {FillStyleId} = await FS.createObj();
+                let fillStyle = new FillStyle();
                 fillStyle._MGFillStyleId = FillStyleId;
                 return fillStyle;
             }

@@ -413,7 +413,7 @@ export default class Map {
   async getLayer(index) {
         try {
             let mapLayer;
-            var {MapLayerId, MapLayerType} = await M.getLayer(this._MGMapId, index); // 获取到图层id，图层类型
+            var {MapLayerId} = await M.getLayer(this._MGMapId, index); // 获取到图层id，图层类型
             mapLayer = await Map.creatMapLayerInstanceByID(MapLayerId);
             return mapLayer;
         } catch (e) {
@@ -473,9 +473,9 @@ export default class Map {
    * @param {MapLayer} layer 图层
    * @returns {boolean}
    */
-  async remove(layer) {
+  async removeByLayer(layer) {
     try {
-      let result = await M.remove(this._MGMapId, layer._MGMapLayerId);
+      let result = await M.removeByLayer(this._MGMapId, layer._MGMapLayerId);
       return result;
     } catch (e) {
       console.error(e);
@@ -504,9 +504,9 @@ export default class Map {
    * @param {Number} index 图层索引（int范围的Number）
    * @return {boolean} 成功返回true，失败返回false
    */
-  async remove(index) {
+  async removeByIndex(index) {
     try {
-      let result = await M.remove(this._MGMapId, index);
+      let result = await M.removeByIndex(this._MGMapId, index);
       return result;
     } catch (e) {
       console.error(e);
@@ -563,9 +563,9 @@ export default class Map {
    * @param {String} name 图层名称
    * @return 成功返回索引，失败返回-1
    */
-  async indexOf(name) {
+  async indexOfByName(name) {
     try {
-      let result = await M.indexOf(this._MGMapId, name);
+      let result = await M.indexOfByName(this._MGMapId, name);
       return result;
     } catch (e) {
       console.error(e);
@@ -577,9 +577,9 @@ export default class Map {
    * @param {MapLayer} layer 图层
    * @return 成功返回索引，失败返回-1
    */
-  async indexOf(layer) {
+  async indexOfByLayer(layer) {
     try {
-      let result = await M.indexOf(this._MGMapId, layer._MGMapLayerId);
+      let result = await M.indexOfByLayer(this._MGMapId, layer._MGMapLayerId);
       return result;
     } catch (e) {
       console.error(e);

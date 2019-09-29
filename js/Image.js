@@ -17,13 +17,13 @@ export default class Image {
   async createObj() {
     try {
       if (typeof arguments[0] === "string") {
-        var { imageId } = await X.createObjByProperty(arguments[0]);
-        var image = new Image();
+        let { imageId } = await X.createObjByProperty(arguments[0]);
+        let image = new Image();
         image._MGImageId = imageId;
         return image;
       } else {
-        var { imageId } = await X.createObj();
-        var image = new Image();
+        let { imageId } = await X.createObj();
+        let image = new Image();
         image._MGImageId = imageId;
         return image;
       }

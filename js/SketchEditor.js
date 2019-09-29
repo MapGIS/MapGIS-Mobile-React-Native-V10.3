@@ -5,8 +5,7 @@
  * @LastEditTime: 2019-09-20 16:22:43
  * @LastEditors: Please set LastEditors
  */
-import React, { Component } from "react";
-import { NativeModules, DeviceEventEmitter,NativeEventEmitter,} from "react-native";
+import { NativeModules} from "react-native";
 import SketchStyle from "./SketchStyle";
 import SnappingOption from "./SnappingOption";
 import Dot from "./Dot";
