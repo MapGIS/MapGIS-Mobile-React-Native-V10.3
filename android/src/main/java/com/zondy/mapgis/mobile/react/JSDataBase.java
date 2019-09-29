@@ -10,6 +10,7 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.zondy.mapgis.core.geodatabase.AnnClsInfo;
 import com.zondy.mapgis.core.geodatabase.DataBase;
 import com.zondy.mapgis.core.geodatabase.FClsInfo;
@@ -32,9 +33,13 @@ public class JSDataBase extends ReactContextBaseJavaModule {
     public static final String REACT_CLASS = "JSDataBase";
     public static Map<String, DataBase> mDataBaseList = new HashMap<String, DataBase>();
     public static final String PHONE_SDCARD_PATH = Environment.getExternalStorageDirectory().getPath();
+    private ReactApplicationContext mReactContext;
+    private static final String DATABASE_OFFLINE_UPDATEING = "com.mapgis.RN.DataBase.onUpdating";
+    private static final String DATABASE_OFFLINE_UPDATEFINISH = "com.mapgis.RN.DataBase.onUpdateFinish";
 
     public JSDataBase(ReactApplicationContext reactContext) {
         super(reactContext);
+        this.mReactContext = reactContext;
     }
 
     @Override
@@ -142,9 +147,7 @@ public class JSDataBase extends ReactContextBaseJavaModule {
             WritableArray xclseIDsArray = Arguments.createArray();
             for (int i = 0; i < intLst.size(); i++) {
                 xclseIDsArray.pushInt(intLst.get(i));
-                Log.e("DataBase:", "  i:"+ i + " intLst.get(i):" + intLst.get(i));
             }
-            Log.e("DataBase:", "getXclseIDs: size"+ intLst.size());
             promise.resolve(xclseIDsArray);
         } catch (Exception e) {
             promise.reject(e);
@@ -161,13 +164,10 @@ public class JSDataBase extends ReactContextBaseJavaModule {
             String XClsInfoId = JSXClsInfo.registerId(xClsInfo);
             int InfoType = -1; // 不是任何类型
             if(xClsInfo instanceof FClsInfo){                // 简单要素类信息
-                Log.e("getXclsInfo", " xClsInfo instanceof FClsInfo" );
                 InfoType = 1;
             }else if (xClsInfo instanceof AnnClsInfo){         // 注记类信息
-                Log.e("getXclsInfo", " xClsInfo instanceof AnnClsInfo" );
                 InfoType = 2;
             }
-            Log.e("getXclsInfo", " InfoType= " + InfoType  + " XClsInfoId:" + XClsInfoId);
             WritableMap map = Arguments.createMap();
             map.putString("XClsInfoId", XClsInfoId);
             map.putInt("XClsInfoType", InfoType);
@@ -210,7 +210,6 @@ public class JSDataBase extends ReactContextBaseJavaModule {
             String strRootPath = PHONE_SDCARD_PATH + File.separator;
             DataBase dataBase = getObjFromList(dataBaseId);
             int iVal = (int)dataBase.open(strRootPath + strDatabasePath);
-            Log.e("Database:test","open: param :" + strDatabasePath + "open:return" + iVal);
             promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
@@ -230,6 +229,7 @@ public class JSDataBase extends ReactContextBaseJavaModule {
         }
     }
 
+    @ReactMethod
     public void updateAsync(String dataBaseId, final String strUpdateDatabasePath, final Promise promise)
     {
         try {
@@ -244,12 +244,17 @@ public class JSDataBase extends ReactContextBaseJavaModule {
                     map.putInt("TotalClsCount", (int)totalClsCount);
                     map.putInt("CurClsIndex", (int)curClsIndex);
                     map.putDouble("CurClsUpdateProgress", curClsUpdateProgress);
-                    promise.resolve(map);
+                    mReactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                          .emit(DATABASE_OFFLINE_UPDATEING, map);
+                   // promise.resolve(map);
                 }
 
                 @Override
                 public void onUpdateFinish(boolean normalFinish) {
-                    promise.resolve(normalFinish);
+
+                    //promise.resolve(normalFinish);
+                    mReactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                            .emit(DATABASE_OFFLINE_UPDATEFINISH, normalFinish);
                 }
             });
         } catch (Exception e) {

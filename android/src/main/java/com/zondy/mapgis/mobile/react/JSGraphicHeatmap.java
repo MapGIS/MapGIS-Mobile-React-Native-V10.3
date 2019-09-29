@@ -82,10 +82,6 @@ public class JSGraphicHeatmap extends JSGraphic {
         }
     }
 
-    /**
-     * @param GraphicHeatmapId
-     * @param promise
-     */
     @ReactMethod
     public void getHeatmapPoints(String GraphicHeatmapId, Promise promise)
     {
@@ -108,12 +104,6 @@ public class JSGraphicHeatmap extends JSGraphic {
         }
     }
 
-    /**
-     * 设置视觉映射
-     * @param GraphicHeatmapId
-     * @param visualMapId
-     * @param promise
-     */
     @ReactMethod
     public void setVisualMap(String GraphicHeatmapId, String visualMapId, Promise promise)
     {
@@ -129,11 +119,6 @@ public class JSGraphicHeatmap extends JSGraphic {
         }
     }
 
-    /**
-     * 获取视觉映射
-     * @param GraphicHeatmapId
-     * @param promise
-     */
     @ReactMethod
     public void getVisualMap(String GraphicHeatmapId, Promise promise)
     {
@@ -150,12 +135,6 @@ public class JSGraphicHeatmap extends JSGraphic {
         }
     }
 
-    /**
-     * 设置热力点大小
-     * @param GraphicHeatmapId
-     * @param size
-     * @param promise
-     */
     @ReactMethod
     public void setPointSize(String GraphicHeatmapId, int size, Promise promise)
     {
@@ -168,11 +147,6 @@ public class JSGraphicHeatmap extends JSGraphic {
         }
     }
 
-    /**
-     * 获取热力点大小
-     * @param GraphicHeatmapId
-     * @param promise
-     */
     @ReactMethod
     public void getPointSize(String GraphicHeatmapId, Promise promise)
     {
@@ -185,12 +159,6 @@ public class JSGraphicHeatmap extends JSGraphic {
         }
     }
 
-    /**
-     * 设置热力点透明度的最小值,默认为0:不透明
-     * @param GraphicHeatmapId
-     * @param minAlpha
-     * @param promise
-     */
     @ReactMethod
     public void setMinAlpha(String GraphicHeatmapId, double minAlpha, Promise promise)
     {
@@ -203,11 +171,6 @@ public class JSGraphicHeatmap extends JSGraphic {
         }
     }
 
-    /**
-     * 获取热力点最小透明度,默认值为0:不透明
-     * @param GraphicHeatmapId
-     * @param promise
-     */
     @ReactMethod
     public void getMinAlpha(String GraphicHeatmapId, Promise promise)
     {
@@ -220,12 +183,6 @@ public class JSGraphicHeatmap extends JSGraphic {
         }
     }
 
-    /**
-     * 设置热力点透明度的最大值,默认为100:全透明
-     * @param GraphicHeatmapId
-     * @param maxAlpha
-     * @param promise
-     */
     @ReactMethod
     public void setMaxAlpha(String GraphicHeatmapId, double maxAlpha, Promise promise)
     {
@@ -237,12 +194,7 @@ public class JSGraphicHeatmap extends JSGraphic {
             promise.reject(e);
         }
     }
-
-    /**
-     * 获取热力点最大透明度,默认值为100:全透明
-     * @param GraphicHeatmapId
-     * @param promise
-     */
+    
     @ReactMethod
     public void getMaxAlpha(String GraphicHeatmapId, Promise promise)
     {

@@ -1,6 +1,5 @@
 package com.zondy.mapgis.mobile.react;
 
-import android.support.v4.app.INotificationSideChannel;
 import android.util.Log;
 
 import com.facebook.react.bridge.Arguments;
@@ -8,19 +7,14 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.ReadableArray;
-import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.android.graphic.Graphic;
-import com.zondy.mapgis.android.graphic.GraphicMultiPoint;
 import com.zondy.mapgis.android.internal.chart.json.GsonUtil;
 import com.zondy.mapgis.core.featureservice.Feature;
-import com.zondy.mapgis.core.geometry.Dot;
 import com.zondy.mapgis.core.geometry.Geometry;
 import com.zondy.mapgis.core.info.GeomInfo;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -164,6 +158,7 @@ public class JSFeature extends ReactContextBaseJavaModule {
         }
     }
 
+    @ReactMethod
     public void reSet(String FeatureId, Promise promise)
     {
         try {

@@ -30,7 +30,6 @@ public class JSMapServiceLayerInfo extends ReactContextBaseJavaModule {
         return mMapServiceLayerInfoList.get(id);
     }
 
-
     public static String registerId(MapServiceLayerInfo obj) {
         for (Map.Entry entry : mMapServiceLayerInfoList.entrySet()) {
             if (obj.equals(entry.getValue())) {

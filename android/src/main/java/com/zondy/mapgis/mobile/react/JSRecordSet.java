@@ -183,6 +183,7 @@ public class JSRecordSet extends ReactContextBaseJavaModule {
         }
     }
 
+    @ReactMethod
     public void getRect(String recordSetId, String rectId, Promise promise)
     {
         try {

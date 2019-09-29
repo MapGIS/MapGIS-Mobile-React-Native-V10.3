@@ -218,7 +218,6 @@ public class JSSFeatureCls extends JSVectorCls{
         }
     }
 
-
     @ReactMethod
     public void getClsInfo(String sFeatureClsId, Promise promise)
     {
@@ -367,7 +366,6 @@ public class JSSFeatureCls extends JSVectorCls{
             promise.reject(e);
         }
     }
-
 
     @ReactMethod
     public void getInfo(String sFeatureClsId, int objID, Promise promise)

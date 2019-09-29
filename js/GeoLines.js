@@ -201,8 +201,8 @@ export default class GeoLines extends GeometryExp {
 	async calLength()
 	{
 		try{
-            return await GLS.calLength(this._MGGeoLinesId);
-        } catch(e) {
+			return await GLS.calLength(this._MGGeoLinesId);
+		} catch(e) {
             console.error(e)
         }
 	}

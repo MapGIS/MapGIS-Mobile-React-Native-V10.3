@@ -62,7 +62,7 @@ export default class DataBaseSync extends SyncBase{
             var parmeters = new DownloadDataBaseParmeters();
             parmeters._MGDownloadDataBaseParmetersId = DownloadDataBaseParmetersId;
             return parmeters;
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -80,7 +80,7 @@ export default class DataBaseSync extends SyncBase{
             var parmeters = new SyncDataBaseParmeters();
             parmeters._MGSyncDataBaseParmetersId = SyncDataBaseParmetersId;
             return parmeters;
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -100,7 +100,7 @@ export default class DataBaseSync extends SyncBase{
             var mapServiceInfo = new MapServiceInfo();
             mapServiceInfo._MGMapServiceInfoId = MapServiceInfoId;
             return mapServiceInfo;
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }	
 	}
@@ -119,7 +119,7 @@ export default class DataBaseSync extends SyncBase{
 	{
 		try {
             return await DBSC.downloadASync(strIGServerBaseURL, strDocName, mapID, params._MGDownloadDataBaseParmetersId, strPath); 
-       } catch (error) {
+       } catch (e) {
            console.error(e);
        }
 	}
@@ -135,7 +135,7 @@ export default class DataBaseSync extends SyncBase{
 	{
 		try {
             return await DBSC.updateASync(params._MGSyncDataBaseParmetersId, database._MGDataBaseId); 
-       } catch (error) {
+       } catch (e) {
            console.error(e);
        }
 	}
@@ -151,7 +151,7 @@ export default class DataBaseSync extends SyncBase{
 	{
 		try {
              return await DBSC.commitASync(params._MGSyncDataBaseParmetersId, database._MGDataBaseId); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -166,7 +166,7 @@ export default class DataBaseSync extends SyncBase{
 	{
 		try {
             return await DBSC.stopASync(lSyncCode); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}

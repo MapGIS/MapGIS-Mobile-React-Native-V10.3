@@ -5,7 +5,6 @@
 import { NativeModules } from "react-native";
 
 import VectorCls from "./VectorCls.js"
-import BasCls from "./BasCls.js"
 import DataBase from "./DataBase.js"
 import Rect from "./Rect.js"
 import Record from "./Record.js";
@@ -68,9 +67,7 @@ export default class SFeatureCls extends VectorCls{
 	 */
 	async openById(id)
 	{
-		alert("SFeatureCls: openById(id):");
 		try {
-           // alert("SFeatureCls: openById(id):" + openById(id));
             return await SFCLS.openById(this._MGSFeatureClsId, id); 
         } catch (e) {
             console.error(e);
@@ -86,7 +83,6 @@ export default class SFeatureCls extends VectorCls{
 	async openByName(name)
 	{
 		try {
-			alert("SFeatureCls: openByName(name):" + openByName(name));
             return await SFCLS.open(this._MGSFeatureClsId, name); 
         } catch (e) {
             console.error(e);

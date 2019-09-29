@@ -7,11 +7,8 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
-import com.zondy.mapgis.android.mapview.MapView;
-import com.zondy.mapgis.core.featureservice.FeatureSync;
 import com.zondy.mapgis.core.featureservice.MapServiceInfo;
 import com.zondy.mapgis.core.featureservice.MapServiceLayerInfo;
-import com.zondy.mapgis.core.map.MapLayer;
 
 import java.util.Calendar;
 import java.util.HashMap;

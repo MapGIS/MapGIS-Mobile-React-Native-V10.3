@@ -23,7 +23,7 @@ export default class SpaCalculator{
 	 * @param {Dot} xy1 点坐标
 	 * @return {Promise.<double>}直线角度(-PI到+PI)
 	 */
-	static async anglePI(xy0, xy1)
+	static async anglePIOfDot(xy0, xy1)
 	{
 		try {
             return await SPC.anglePI(xy0._MGDotId, xy1._MGDotId);
@@ -41,7 +41,7 @@ export default class SpaCalculator{
 	 * @param {double} y1 y1坐标
 	 * @return {Promise.<double>}直线角度(-PI到+PI)
 	 */
-	static async anglePI(x0, y0, x1, y1)
+	static async anglePIOfXY(x0, y0, x1, y1)
 	{
 		try {
             return await SPC.anglePI(x0, y0, x1, y1);
@@ -57,7 +57,7 @@ export default class SpaCalculator{
 	 * @param {Dot} xy1 点坐标
 	 * @return {Promise.<double>} 直线角度(0到2PI)
 	 */
-	static async angle2PI(xy0, xy1)
+	static async angle2PIOfDot(xy0, xy1)
 	{
 		try {
             return await SPC.angle2PI(xy0._MGDotId, xy1._MGDotId);
@@ -75,7 +75,7 @@ export default class SpaCalculator{
 	 * @param {double} y1 y1坐标
 	 * @return {Promise.<double>} 直线角度(0到2PI)
 	 */
-	static async angle2PI(x0, y0, x1, y1)
+	static async angle2PIOfXY(x0, y0, x1, y1)
 	{
 		try {
             return await SPC.angle2PI(x0, y0, x1, y1);
@@ -91,7 +91,7 @@ export default class SpaCalculator{
 	 * @param {Dot} xy1 点坐标
 	 * @return {Promise.<double>} 两点距离
 	 */
-	static async distance(xy0, xy1)
+	static async distanceOfDot(xy0, xy1)
 	{
 		try {
             return await SPC.distance(xy0._MGDotId, xy1._MGDotId);
@@ -109,7 +109,7 @@ export default class SpaCalculator{
 	 * @param {double} y1 y1坐标
 	 * @return {Promise.<double>}两点距离
 	 */
-	static async distance(x0, y0, x1, y1)
+	static async distanceOfXY(x0, y0, x1, y1)
 	{
 		try {
             return await SPC.distance(x0, y0, x1, y1);
@@ -135,7 +135,7 @@ export default class SpaCalculator{
 	 * @param {int} type 计算距离方法
 	 * @return {Promise.<double>} 距离长度
 	 */
-	static async distance(geom1, geom2, type)
+	static async distanceOfGeometry(geom1, geom2, type)
 	{
 		try {
             return await SPC.distance(geom1._MGGeometryId, geom2._MGGeometryId, type);

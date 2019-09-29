@@ -37,6 +37,7 @@ public class JSRegInfo extends JSGeomInfo{
         }
     }
 
+    @ReactMethod
     public void createObj(double ang, int endClr, int fillClr, int fillMode, int fullPatFlg, int libId, double outPenW, boolean ovprnt, int patCls, int patId,
                    double patHeight, double patWidth, Promise promise)
     {
@@ -51,6 +52,7 @@ public class JSRegInfo extends JSGeomInfo{
             promise.reject(e);
         }
     }
+
     @ReactMethod
     public void getLibID(String regInfoId, Promise promise)
     {

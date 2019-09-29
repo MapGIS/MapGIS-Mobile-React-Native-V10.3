@@ -128,6 +128,7 @@ public class JSDataBaseSync extends JSSyncBase{
         }
     }
 
+    @ReactMethod
     public static void stopASync(int lSyncCode, Promise promise)
     {
         try {

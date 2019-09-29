@@ -9,7 +9,6 @@ import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.featureservice.DownloadDataBaseParmeters;
 import com.zondy.mapgis.core.featureservice.DownloadLayerOption;
-import com.zondy.mapgis.core.geodatabase.RecordSet;
 import com.zondy.mapgis.core.geometry.Rect;
 
 import java.util.Calendar;
@@ -86,11 +85,7 @@ public class JSDownloadDataBaseParmeters extends ReactContextBaseJavaModule {
         }
     }
 
-    /**
-     * 获取下载图层选项
-     *
-     * @return 下载图层选项
-     */
+    @ReactMethod
     public void getLayerOptions(String parmetersId, Promise promise)
     {
         try {

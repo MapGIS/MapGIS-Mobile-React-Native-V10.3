@@ -340,6 +340,7 @@ public class JSField extends ReactContextBaseJavaModule {
         }
     }
 
+    @ReactMethod
     public void  clone(String fieldId, Promise promise)
     {
         try {

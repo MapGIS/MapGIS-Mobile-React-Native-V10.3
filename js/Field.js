@@ -344,7 +344,7 @@ export default class Field {
 		try {
             let {ExtFieldId} =  await FLD.getExtField(this._MGFieldId);
             var extField = new ExtField();
-            extFieldId._MGExtFieldId = ExtFieldId;
+            extField._MGExtFieldId = ExtFieldId;
             return extField;
           } catch (e) {
             console.error(e);

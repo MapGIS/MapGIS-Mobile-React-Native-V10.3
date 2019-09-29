@@ -34,9 +34,8 @@ export default class AnnotationsOverlay {
 	async addAnnotation(ann)
 	{
 		try {
-            await ANLY.addAnnotation(this._MGAnnotationsOverlayId, ann._MGAnnotationId);
-            
-        } catch (e) {
+			await ANLY.addAnnotation(this._MGAnnotationsOverlayId, ann._MGAnnotationId);
+		} catch (e) {
             console.error(e);
         }
 	}

@@ -6,7 +6,6 @@ import { NativeModules } from "react-native";
 
 let DB = NativeModules.JSDataBase;
 
-import XClsInfo from "./XClsInfo.js"
 import FClsInfo from "./FClsInfo.js"
 import AnnClsInfo from "./AnnClsInfo.js"
 
@@ -222,7 +221,7 @@ export default class DataBase {
 	async updateAsync(strUpdateDatabasePath)
 	{
 		try {
-            await DB.updateAsync(this._MGDataBaseId, strUpdateDatabasePath); 
+			await DB.updateAsync(this._MGDataBaseId, strUpdateDatabasePath); 			
         } catch (e) {
             console.error(e);
         }

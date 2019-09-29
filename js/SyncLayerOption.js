@@ -6,8 +6,6 @@ import { NativeModules } from "react-native";
 
 let SLO = NativeModules.JSSyncLayerOption;
 
-import SyncLayerOption from "./SyncLayerOption.js"
-
 /**
  * @class SyncLayerOption
  * @description 同步图层选项

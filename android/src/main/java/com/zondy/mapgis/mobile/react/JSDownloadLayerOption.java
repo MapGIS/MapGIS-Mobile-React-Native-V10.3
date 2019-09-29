@@ -30,7 +30,6 @@ public class JSDownloadLayerOption extends ReactContextBaseJavaModule {
         return mDownloadLayerOptionList.get(id);
     }
 
-
     public static String registerId(DownloadLayerOption obj) {
         for (Map.Entry entry : mDownloadLayerOptionList.entrySet()) {
             if (obj.equals(entry.getValue())) {

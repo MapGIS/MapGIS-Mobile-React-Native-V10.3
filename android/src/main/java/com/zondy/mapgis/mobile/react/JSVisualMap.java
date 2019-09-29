@@ -80,13 +80,6 @@ public class JSVisualMap extends ReactContextBaseJavaModule {
         }
     }
 
-    /**
-     * 设置视觉映射的最小值,默认值为0
-     * 在不设置minValue的情况下,minValue等于0,当热力点的权重值设置小于0的时候,minValue依然为0.
-     * @param visualMapId
-     * @param minValue       视觉映射的最小值
-     * @param promise        回调Promise对象
-     */
     @ReactMethod
     public void setMinValue(String visualMapId, double minValue, Promise promise)
     {
@@ -99,11 +92,6 @@ public class JSVisualMap extends ReactContextBaseJavaModule {
         }
     }
 
-    /**
-     * 获取视觉映射的最小值,默认值为0
-     * @param visualMapId
-     * @param promise        回调Promise对象
-     */
     @ReactMethod
     public void getMinValue(String visualMapId, Promise promise)
     {
@@ -116,13 +104,6 @@ public class JSVisualMap extends ReactContextBaseJavaModule {
         }
     }
 
-    /**
-     * 设置视觉映射的最大值,默认值为1
-     *  在不设置maxValue的情况下,maxValue等于1;当热力点的权重值设置大于1的时候,maxValue依然为1
-     * @param visualMapId
-     * @param maxValue     视觉映射的最大值
-     * @param promise
-     */
     @ReactMethod
     public  void  setMaxValue(String visualMapId, double maxValue, Promise promise)
     {
@@ -135,11 +116,6 @@ public class JSVisualMap extends ReactContextBaseJavaModule {
         }
     }
 
-    /**
-     * 获取视觉映射的最大值,默认值为1
-     * @param visualMapId
-     * @param promise
-     */
     @ReactMethod
     public void getMaxValue(String visualMapId, Promise promise)
     {
@@ -172,11 +148,6 @@ public class JSVisualMap extends ReactContextBaseJavaModule {
         }
     }
 
-    /**
-     * 获取热力点的颜色组
-     * @param visualMapId
-     * @param promise
-     */
     @ReactMethod
     public void getColors(String visualMapId, Promise promise)
     {

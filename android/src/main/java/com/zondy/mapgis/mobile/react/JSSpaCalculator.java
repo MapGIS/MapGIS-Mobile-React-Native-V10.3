@@ -151,9 +151,7 @@ public class JSSpaCalculator extends ReactContextBaseJavaModule {
         }
     }
 
-    /**
-     * 计算两条线的交点
-     */
+    @ReactMethod
     public static void calLinesInters(String line1Id, String line2Id, Promise promise)
     {
         try {

@@ -85,7 +85,7 @@ export default class SpaAnalysis{
 	//1.修改人：ldf 2018-08-30
 	//修改问题：<解决对几何进行缓冲后获取缓冲区几何的坐标异常问题，因为c++底层缓冲区返回的结果统一为多区，此处将GeoPolygon改为GeoPolygons>
 	//============================================================
-	async buffer(geom, leftDis, rightDis, endCapStyle, sRefSrc)
+	async bufferWithEndCapStyle(geom, leftDis, rightDis, endCapStyle, sRefSrc)
 	{
 		try {
             let {GeoPolygonsId} =  await SPA.buffer(this._MGSpaAnalysisId, geom._MGGeometryId, leftDis, rightDis, endCapStyle, sRefSrc._MGSRefDataId);
@@ -138,7 +138,7 @@ export default class SpaAnalysis{
 	 * @see    裁剪设置的容差默认值为0.0001,
 	 *         对于经纬度数据，需要传入合适的容差值，对于经纬度数据建议先调用setTolerance()接口使用0.000000001作为容差值
 	 */
-	async clip(geom, clipPoly, flag)
+	async clipWithType(geom, clipPoly, flag)
 	{
 		try {
             let {GeometryId} =  await SPA.clip(this._MGSpaAnalysisId, geom._MGGeometryId, clipPoly._MGGeoPolygonId, flag);
@@ -260,7 +260,7 @@ export default class SpaAnalysis{
 	 * @see    裁剪设置的容差默认值为0.0001,
 	 *         对于经纬度数据，需要传入合适的容差值，对于经纬度数据建议先调用setTolerance()接口使用0.000000001作为容差值
 	 */
-	async merge(GeoPolygonArry)
+	async mergeGeoPolygons(GeoPolygonArry)
 	{
 		try {
             let {GeometryId} =  await SPA.merge(this._MGSpaAnalysisId, GeoPolygonArry);

@@ -38,11 +38,11 @@ export default class FeatureSync extends SyncBase{
 	 * @param {String} clsName 类名
 	 * @return {Promise.<int>} 下载同步编号
 	 */
-	static async downloadASync(strIGServerBaseURL, strDataURL, extent, whereClause, database, clsType, clsName)
+	static async downloadASyncByData(strIGServerBaseURL, strDataURL, extent, whereClause, database, clsType, clsName)
 	{
 		try {
             return await FSC.downloadASync(strIGServerBaseURL, strDataURL, extent._MGRectId, whereClause, database._MGDataBaseId, clsType, clsName); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -61,11 +61,11 @@ export default class FeatureSync extends SyncBase{
 	 * @param {String} clsName 类名
 	 * @return {Promise.<int>} 下载同步编号
 	 */
-	static async downloadASync(strIGServerBaseURL, strDocName, mapID, layerID, extent, whereClause, database, clsType, clsName)
+	static async downloadASyncByDoc(strIGServerBaseURL, strDocName, mapID, layerID, extent, whereClause, database, clsType, clsName)
 	{
 		try {
             return await FSC.downloadASync(strIGServerBaseURL, strDocName, mapID, layerID, extent._MGRectId, whereClause, database._MGDataBaseId, clsType, clsName); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -80,11 +80,11 @@ export default class FeatureSync extends SyncBase{
 	 * @param {String} clsName 类名
 	 * @return {Promise.<int>} 下载同步编号
 	 */
-	static async downloadAllASync(strIGServerBaseURL, strDataURL, database, clsType, clsName)
+	static async downloadAllASyncByData(strIGServerBaseURL, strDataURL, database, clsType, clsName)
 	{
 		try {
             return await FSC.downloadAllASync(strIGServerBaseURL, strDataURL, database._MGDataBaseId, clsType, clsName); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -101,11 +101,11 @@ export default class FeatureSync extends SyncBase{
 	 * @param {String} clsName 类名
 	 * @return {Promise.<int>} 下载同步编号
 	 */
-	static async downloadAllASync(strIGServerBaseURL, strDocName, mapID, layerID, database, clsType, clsName)
+	static async downloadAllASyncByDoc(strIGServerBaseURL, strDocName, mapID, layerID, database, clsType, clsName)
 	{
 		try {
             return await FSC.downloadAllASync(strIGServerBaseURL, strDocName, mapID, layerID, database._MGDataBaseId, clsType, clsName); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -120,7 +120,7 @@ export default class FeatureSync extends SyncBase{
 	{
 		try {
             return await FSC.updateASync(cls); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -135,7 +135,7 @@ export default class FeatureSync extends SyncBase{
 	{
 		try {
             return await FSC.commitASync(cls); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -150,11 +150,11 @@ export default class FeatureSync extends SyncBase{
 	 * @param {int} layerID 图层 ID
 	 * @return {Promise.<int>} 成功:>0;失败：<=0
 	 */
-	static async bind(cls, strIGServerBaseURL, strDocName, mapID, layerID)
+	static async bindOfDoc(cls, strIGServerBaseURL, strDocName, mapID, layerID)
 	{
 		try {
             return await FSC.bind(cls, strIGServerBaseURL, strDocName, mapID, layerID); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -167,11 +167,11 @@ export default class FeatureSync extends SyncBase{
 	 * @param {String} strDataURL 数据地址
 	 * @return {Promise.<int>} 成功:>0;失败：<=0
 	 */
-	static async bind(cls, strIGServerBaseURL, strDataURL)
+	static async bindOfData(cls, strIGServerBaseURL, strDataURL)
 	{
 		try {
             return await FSC.bind(cls, strIGServerBaseURL, strDataURL); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}
@@ -186,7 +186,7 @@ export default class FeatureSync extends SyncBase{
 	{
 		try {
             return await FSC.stopASync(lSyncCode); 
-        } catch (error) {
+        } catch (e) {
             console.error(e);
         }
 	}

@@ -8,7 +8,6 @@ import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.geometry.GeomType;
 import com.zondy.mapgis.core.info.GeomInfo;
 import com.zondy.mapgis.core.info.PntInfo;
-import com.zondy.mapgis.core.info.TextAnnInfo;
 import com.zondy.mapgis.core.object.Enumeration;
 
 public class JSPntInfo extends JSGeomInfo{

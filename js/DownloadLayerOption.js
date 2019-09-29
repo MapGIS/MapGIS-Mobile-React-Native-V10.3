@@ -6,8 +6,6 @@ import { NativeModules } from "react-native";
 
 let DLO = NativeModules.JSDownloadLayerOption;
 
-import DownloadLayerOption from "./DownloadLayerOption.js"
-
 /**
  * @class DownloadLayerOption
  * @description 图层下载选项

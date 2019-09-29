@@ -106,7 +106,7 @@ export default class FeatureEdit{
 	 * @param {List<Feature>} featureArray 简单要素对象
 	 * @return {Promise.<int>} 成功:>0;失败：<=0
 	 */
-	async append(featureArray)
+	async appendFeatures(featureArray)
 	{
 		try {
             return await FE.append(this._MGFeatureEditId, featureArray);
@@ -136,7 +136,7 @@ export default class FeatureEdit{
 	 * @param {long[]} objIDArray 简单要素ID数组
 	 * @return {Promise.<int>} 成功:>0;失败：<=0
 	 */
-	async delete(objIDArray)
+	async deleteobjIDs(objIDArray)
 	{
 		try {
             return await FE.delete(this._MGFeatureEditId, objIDArray);
@@ -167,7 +167,7 @@ export default class FeatureEdit{
 	 * @param {List<Feature>} features 要素数据集
 	 * @return {Promise.<int>} 成功:>0;失败：<=0
 	 */
-	async update(featureArray)
+	async updateFeatures(featureArray)
 	{
 		try {
             return await FE.update(this._MGFeatureEditId, featureArray);
@@ -187,7 +187,7 @@ export default class FeatureEdit{
 	 * @param {Fields} flds 字段属性
 	 * @return {Promise.<String>} 成功:返回参数返回创建的要素类的GDBP地址;失败：String等于null
 	 */
-	async createCls(clsType, name, geomType, srefName, dsName, flds)
+	async createClsBySRef(clsType, name, geomType, srefName, dsName, flds)
 	{
 		try {
             return await FE.createCls(this._MGFeatureEditId, clsType, name, geomType, srefName, dsName, flds._MGFieldsId);

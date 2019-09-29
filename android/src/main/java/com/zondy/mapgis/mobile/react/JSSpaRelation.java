@@ -72,6 +72,7 @@ public class JSSpaRelation extends ReactContextBaseJavaModule {
         }
     }
 
+    @ReactMethod
     public void setTolerance(String spaRelationId, double tolerance, Promise promise)
     {
         try {

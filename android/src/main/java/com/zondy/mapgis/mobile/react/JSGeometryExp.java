@@ -33,7 +33,6 @@ public class JSGeometryExp extends  JSGeometry{
         return (GeometryExp)mGeometryList.get(id);
     }
 
-
     public static String registerId(GeometryExp obj) {
         for (Map.Entry entry : mGeometryList.entrySet()) {
             if (obj.equals(entry.getValue())) {
@@ -45,6 +44,7 @@ public class JSGeometryExp extends  JSGeometry{
         mGeometryList.put(id, obj);
         return id;
     }
+
     @ReactMethod
     public void transSRS(String geometryExpId, String origSRefId, String destSRefId, Promise promise)
     {

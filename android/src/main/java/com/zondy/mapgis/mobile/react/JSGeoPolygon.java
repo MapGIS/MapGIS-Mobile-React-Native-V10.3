@@ -78,11 +78,7 @@ public class JSGeoPolygon extends JSGeometryExp{
         }
     }
 
-    /**
-     * 取几何维数
-     *
-     * @return 几何维数
-     */
+    @ReactMethod
     public void getDimension(String geoPolygonId, Promise promise)
     {
         try {
@@ -244,9 +240,7 @@ public class JSGeoPolygon extends JSGeometryExp{
         }
     }
 
-    /**
-     * 求label点
-     */
+    @ReactMethod
     public void calLabel(String geoPolygonId, String labelDotId, Promise promise)
     {
         try {
