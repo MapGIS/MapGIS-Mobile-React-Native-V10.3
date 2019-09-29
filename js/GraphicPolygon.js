@@ -2,8 +2,8 @@
  * @content 区对象功能组件
  * @author fjl 2019-6-24 下午2:52:36
  */
-import { NativeModules } from "react-native";
-import GraphicMultiPoint from "./GraphicMultiPoint";
+import { NativeModules } from 'react-native';
+import GraphicMultiPoint from './GraphicMultiPoint';
 let GP = NativeModules.JSGraphicPolygon;
 
 /**
@@ -12,13 +12,13 @@ let GP = NativeModules.JSGraphicPolygon;
 export default class GraphicPolygon extends GraphicMultiPoint {
   constructor() {
     super();
-    Object.defineProperty(this, "_MGGraphicPolygonId", {
+    Object.defineProperty(this, '_MGGraphicPolygonId', {
       get: function() {
         return this._MGGraphicMultiPointId;
       },
       set: function(_MGGraphicPolygonId) {
         this._MGGraphicMultiPointId = _MGGraphicPolygonId;
-      }
+      },
     });
   }
 

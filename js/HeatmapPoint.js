@@ -2,16 +2,16 @@
  * @content 热力点功能组件
  * @author
  */
-import { NativeModules } from "react-native";
+import { NativeModules } from 'react-native';
 
 let HP = NativeModules.JSHeatmapPoint;
 
-import Dot from "./Dot.js"
+import Dot from './Dot.js';
 /**
  * @class HeatmapPoint
  */
 export default class HeatmapPoint {
-    /**
+  /**
    * 构造一个新的 HeatmapPoint 对象。
    * @memberOf HeatmapPoint
    * @returns {Promise.<HeatmapPoint>}
@@ -34,17 +34,17 @@ export default class HeatmapPoint {
    */
   async getPoint() {
     try {
-        let { point2DId } = await HP.getPoint(this._MGHeatmapPointId);
-        var dot = new Dot();
-        dot._MGDotId = point2DId;
-  
-        return dot;
-      } catch (e) {
-        console.error(e);
-      }
+      let { point2DId } = await HP.getPoint(this._MGHeatmapPointId);
+      var dot = new Dot();
+      dot._MGDotId = point2DId;
+
+      return dot;
+    } catch (e) {
+      console.error(e);
+    }
   }
 
-   /**
+  /**
    * 设置热力点坐标
    * @memberOf HeatmapPoint
    * @param {Object} point
@@ -58,7 +58,7 @@ export default class HeatmapPoint {
     }
   }
 
-   /**
+  /**
    *  获取热力点权重
    *  @memberOf HeatmapPoint
    * @returns {Promise<*>}

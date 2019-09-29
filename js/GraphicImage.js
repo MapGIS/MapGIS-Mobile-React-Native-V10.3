@@ -2,11 +2,11 @@
  * @content 图片对象功能组件
  * @author fjl 2019-6-24 下午2:52:36
  */
-import { NativeModules } from "react-native";
-import Graphic from "./Graphic";
-import Image from "./Image";
-import PointF from "./PointF";
-import Dot from "./Dot";
+import { NativeModules } from 'react-native';
+import Graphic from './Graphic';
+import Image from './Image';
+import PointF from './PointF';
+import Dot from './Dot';
 let GI = NativeModules.JSGraphicImage;
 
 /**
@@ -15,13 +15,13 @@ let GI = NativeModules.JSGraphicImage;
 export default class GraphicImage extends Graphic {
   constructor() {
     super();
-    Object.defineProperty(this, "_MGGraphicImageId", {
+    Object.defineProperty(this, '_MGGraphicImageId', {
       get: function() {
         return this._MGGraphicId;
       },
       set: function(_MGGraphicImageId) {
         this._MGGraphicId = _MGGraphicImageId;
-      }
+      },
     });
   }
 
@@ -54,7 +54,6 @@ export default class GraphicImage extends Graphic {
       console.error(e);
     }
   }
-
 
   /**
    * 设置图片

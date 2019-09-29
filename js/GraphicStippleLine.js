@@ -2,9 +2,9 @@
  * @content 虚线线对象功能组件
  * @author fjl 2019-6-24 下午2:52:36
  */
-import { NativeModules } from "react-native";
-import Graphic from "./Graphic";
-import Dot from "./Dot";
+import { NativeModules } from 'react-native';
+import Graphic from './Graphic';
+import Dot from './Dot';
 let GS = NativeModules.JSGraphicStippleLine;
 
 /**
@@ -13,13 +13,13 @@ let GS = NativeModules.JSGraphicStippleLine;
 export default class GraphicStippleLine extends Graphic {
   constructor() {
     super();
-    Object.defineProperty(this, "_MGGraphicStippleLineId", {
+    Object.defineProperty(this, '_MGGraphicStippleLineId', {
       get: function() {
         return this._MGGraphicId;
       },
       set: function(_MGGraphicStippleLineId) {
         this._MGGraphicId = _MGGraphicStippleLineId;
-      }
+      },
     });
   }
 

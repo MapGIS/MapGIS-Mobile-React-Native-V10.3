@@ -2,10 +2,10 @@
  * @content 要素查询结果功能组件
  * @author fjl 2019-6-25下午2:52:36
  */
-import { NativeModules } from "react-native";
+import { NativeModules } from 'react-native';
 
 let FP = NativeModules.JSFeaturePagedResult;
-import Feature from "./Feature.js";
+import Feature from './Feature.js';
 
 /**
  * @class FeaturePagedResult

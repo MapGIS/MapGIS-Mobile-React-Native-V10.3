@@ -2,10 +2,10 @@
  * @content 覆盖物对象功能组件
  * @author fjl 2019-6-21 下午2:52:36
  */
-import { NativeModules } from "react-native";
+import { NativeModules } from 'react-native';
 
 let X = NativeModules.JSGraphicsOverlay;
-import Graphic from "./Graphic.js";
+import Graphic from './Graphic.js';
 
 /**
  * @class GraphicsOverlay
@@ -192,7 +192,10 @@ export default class GraphicsOverlay {
    */
   async indexOf(graphic) {
     try {
-      let index = await X.indexOf(this._MGGraphicsOverlayId, graphic._MGGraphicId);
+      let index = await X.indexOf(
+        this._MGGraphicsOverlayId,
+        graphic._MGGraphicId
+      );
 
       return index;
     } catch (e) {

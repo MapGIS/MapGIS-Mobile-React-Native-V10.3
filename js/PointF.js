@@ -2,7 +2,7 @@
  * @content android视图点对象功能组件
  * @author fjl 2019-6-17 下午2:52:36
  */
-import { NativeModules } from "react-native";
+import { NativeModules } from 'react-native';
 let X = NativeModules.JSPointF;
 
 /**
@@ -17,8 +17,8 @@ export default class PointF {
   async createObj() {
     try {
       if (
-        typeof arguments[0] === "number" &&
-        typeof arguments[1] === "number"
+        typeof arguments[0] === 'number' &&
+        typeof arguments[1] === 'number'
       ) {
         let { PointFId } = await X.createObjByXY(arguments[0], arguments[1]);
         let point2D = new PointF();

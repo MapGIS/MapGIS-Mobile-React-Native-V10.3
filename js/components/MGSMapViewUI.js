@@ -2,17 +2,17 @@
  * @content 地图视图UI组件
  * @author fjl 2019-6-14 下午2:52:36
  */
-import PropTypes from "prop-types";
-import React, { Component } from "react";
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 import {
   View,
   requireNativeComponent,
   NativeModules,
-  StyleSheet
-} from "react-native";
+  StyleSheet,
+} from 'react-native';
 
-import MapView from "../MapView.js";
+import MapView from '../MapView.js';
 class MGSMapView extends Component {
   constructor() {
     super();
@@ -22,11 +22,11 @@ class MGSMapView extends Component {
   static propTypes = {
     ...View.propTypes,
     onGetInstance: PropTypes.func,
-    returnId: PropTypes.bool
+    returnId: PropTypes.bool,
   };
 
   _onChange(event) {
-    console.log("has onGetInstance:" + event.nativeEvent.mapViewId);
+    console.log('has onGetInstance:' + event.nativeEvent.mapViewId);
     this.mapView = new MapView();
     this.mapView._MGMapViewId = event.nativeEvent.mapViewId;
     this.props.onGetInstance(this.mapView);
@@ -42,31 +42,31 @@ class MGSMapView extends Component {
   }
 }
 
-var RnMapView = requireNativeComponent("MapviewGetInstance", MGSMapView, {
+var RnMapView = requireNativeComponent('MapviewGetInstance', MGSMapView, {
   nativeOnly: {
     returnId: true,
-    onChange: true
-  }
+    onChange: true,
+  },
 });
 
 var styles = StyleSheet.create({
   views: {
     flex: 1,
-    alignSelf: "stretch",
-    backgroundColor: "#ffbcbc",
-    alignItems: "center",
-    justifyContent: "center",
-    overflow: "hidden"
+    alignSelf: 'stretch',
+    backgroundColor: '#ffbcbc',
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
   },
   map: {
     flex: 1,
-    alignSelf: "stretch"
+    alignSelf: 'stretch',
   },
   pic: {
-    position: "absolute",
+    position: 'absolute',
     top: -100,
-    left: -100
-  }
+    left: -100,
+  },
 });
 
 export default MGSMapView;

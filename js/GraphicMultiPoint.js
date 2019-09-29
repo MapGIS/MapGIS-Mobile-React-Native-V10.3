@@ -2,9 +2,9 @@
  * @content 点对象功能组件
  * @author fjl 2019-6-24 下午2:52:36
  */
-import { NativeModules } from "react-native";
-import Graphic from "./Graphic";
-import Dot from "./Dot";
+import { NativeModules } from 'react-native';
+import Graphic from './Graphic';
+import Dot from './Dot';
 let GM = NativeModules.JSGraphicMultiPoint;
 
 /**
@@ -13,13 +13,13 @@ let GM = NativeModules.JSGraphicMultiPoint;
 export default class GraphicMultiPoint extends Graphic {
   constructor() {
     super();
-    Object.defineProperty(this, "_MGGraphicMultiPointId", {
+    Object.defineProperty(this, '_MGGraphicMultiPointId', {
       get: function() {
         return this._MGGraphicId;
       },
       set: function(_MGGraphicMultiPointId) {
         this._MGGraphicId = _MGGraphicMultiPointId;
-      }
+      },
     });
   }
 

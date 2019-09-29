@@ -2,10 +2,10 @@
  * @content 虚线线对象功能组件
  * @author fjl 2019-6-24 下午2:52:36
  */
-import { NativeModules } from "react-native";
-import Graphic from "./Graphic";
-import Dot from "./Dot";
-import PointF from "./PointF";
+import { NativeModules } from 'react-native';
+import Graphic from './Graphic';
+import Dot from './Dot';
+import PointF from './PointF';
 
 let GT = NativeModules.JSGraphicText;
 
@@ -15,13 +15,13 @@ let GT = NativeModules.JSGraphicText;
 export default class GraphicText extends Graphic {
   constructor() {
     super();
-    Object.defineProperty(this, "_MGGraphicTextId", {
+    Object.defineProperty(this, '_MGGraphicTextId', {
       get: function() {
         return this._MGGraphicId;
       },
       set: function(_MGGraphicTextId) {
         this._MGGraphicId = _MGGraphicTextId;
-      }
+      },
     });
   }
 

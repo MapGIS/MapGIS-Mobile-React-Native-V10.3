@@ -2,10 +2,10 @@
  * @content 覆盖物对象功能组件
  * @author fjl 2019-6-21 下午2:52:36
  */
-import { NativeModules } from "react-native";
+import { NativeModules } from 'react-native';
 
 let X = NativeModules.JSGraphicsOverlays;
-import GraphicsOverlay from "./GraphicsOverlay.js";
+import GraphicsOverlay from './GraphicsOverlay.js';
 
 /**
  * @class GraphicsOverlays
@@ -77,8 +77,7 @@ export default class GraphicsOverlays {
     }
   }
 
-
-   /**
+  /**
    * 获取图形覆盖物的索引
    * @memberOf GraphicsOverlays
    * @param {String} graphicLayerName

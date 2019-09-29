@@ -2,8 +2,8 @@
  * @content 圆对象功能组件
  * @author fjl 2019-6-24 下午2:52:36
  */
-import { NativeModules } from "react-native";
-import Graphic from "./Graphic";
+import { NativeModules } from 'react-native';
+import Graphic from './Graphic';
 let GC = NativeModules.JSGraphicCircle;
 
 /**
@@ -12,13 +12,13 @@ let GC = NativeModules.JSGraphicCircle;
 export default class GraphicCircle extends Graphic {
   constructor() {
     super();
-    Object.defineProperty(this, "_MGGraphicCircleId", {
+    Object.defineProperty(this, '_MGGraphicCircleId', {
       get: function() {
         return this._MGGraphicId;
       },
       set: function(_MGGraphicCircleId) {
         this._MGGraphicId = _MGGraphicCircleId;
-      }
+      },
     });
   }
 

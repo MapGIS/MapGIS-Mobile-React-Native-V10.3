@@ -2,9 +2,9 @@
  * @content 图形对象功能组件
  * @author fjl 2019-6-17 下午2:52:36
  */
-import { NativeModules } from "react-native";
-import Dot from "./Dot.js";
-import Rect from "./Rect.js";
+import { NativeModules } from 'react-native';
+import Dot from './Dot.js';
+import Rect from './Rect.js';
 
 let G = NativeModules.JSGraphic;
 /**

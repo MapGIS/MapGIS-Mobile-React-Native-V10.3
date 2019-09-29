@@ -2,18 +2,18 @@
  * @content 热力点功能组件
  * @author
  */
-import { NativeModules } from "react-native";
+import { NativeModules } from 'react-native';
 
 let GH = NativeModules.JSGraphicHeatmap;
 
-import HeatmapPoint from "./HeatmapPoint.js"
-import VisualMap from "./VisualMap.js"
+import HeatmapPoint from './HeatmapPoint.js';
+import VisualMap from './VisualMap.js';
 
 /**
  * @class GraphicHeatmap
  */
 export default class GraphicHeatmap {
-    /**
+  /**
    * 构造一个新的 GraphicHeatmap 对象。
    * @memberOf GraphicHeatmap
    * @returns {Promise.<GraphicHeatmap>}
@@ -29,17 +29,17 @@ export default class GraphicHeatmap {
     }
   }
 
-   /**
+  /**
    * 设置热力点。
    * @memberOf {Array} HeatmapPoints
    * @returns {Promise.<GraphicHeatmap>}
    */
   async setHeatmapPoints(pointArray) {
     try {
-        await GH.setHeatmapPoints(this._MGGraphicHeatmapId, pointArray);
-      } catch (e) {
-        console.error(e);
-      }
+      await GH.setHeatmapPoints(this._MGGraphicHeatmapId, pointArray);
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   /**
@@ -48,21 +48,23 @@ export default class GraphicHeatmap {
    * @returns {Promise.<HeatmapPoint>}
    */
   async getHeatmapPoints() {
-      try {
-        var objArr = [];
-        let { heatmapPointArr } = await GH.getHeatmapPoints(this._MGGraphicHeatmapId);
-        for (var i = 0; i < heatmapPointArr.length; i++) {
-          var heatmapPoint = new HeatmapPoint();
-          heatmapPoint._MGHeatmapPointId = heatmapPointArr[i];
-          objArr.push(heatmapPoint);
-        }
-        return objArr;
-      } catch (e) {
-        console.error(e);
+    try {
+      var objArr = [];
+      let { heatmapPointArr } = await GH.getHeatmapPoints(
+        this._MGGraphicHeatmapId
+      );
+      for (var i = 0; i < heatmapPointArr.length; i++) {
+        var heatmapPoint = new HeatmapPoint();
+        heatmapPoint._MGHeatmapPointId = heatmapPointArr[i];
+        objArr.push(heatmapPoint);
       }
+      return objArr;
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-    /**
+  /**
    * 设置视觉映射
    * @memberOf GraphicHeatmap
    * @param {Object} visualMap
@@ -76,7 +78,7 @@ export default class GraphicHeatmap {
     }
   }
 
-    /**
+  /**
    *  获取视觉映射
    * @memberOf GraphicHeatmap
    * @returns {Promise<*>}
@@ -93,7 +95,7 @@ export default class GraphicHeatmap {
     }
   }
 
-   /**
+  /**
    * 设置热力点大小
    * @memberOf GraphicHeatmap
    * @param {Number} size
@@ -107,7 +109,7 @@ export default class GraphicHeatmap {
     }
   }
 
-   /**
+  /**
    *  获取热力点大小
    * @memberOf GraphicHeatmap
    * @returns {Promise<*>}
@@ -121,7 +123,7 @@ export default class GraphicHeatmap {
     }
   }
 
-   /**
+  /**
    * 设置热力点透明度的最小值,默认为0:不透明
    * @memberOf GraphicHeatmap
    * @param {Number} minAlpha
@@ -135,7 +137,7 @@ export default class GraphicHeatmap {
     }
   }
 
- /**
+  /**
    * 获取热力点最小透明度,默认值为0:不透明
    * @memberOf GraphicHeatmap
    * @returns {Promise<*>}
@@ -149,7 +151,7 @@ export default class GraphicHeatmap {
     }
   }
 
-   /**
+  /**
    * 设置热力点透明度的最大值,默认为100:全透明
    * @memberOf GraphicHeatmap
    * @param {Number} maxAlpha
@@ -176,5 +178,4 @@ export default class GraphicHeatmap {
       console.error(e);
     }
   }
-
 }

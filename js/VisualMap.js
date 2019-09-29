@@ -2,14 +2,14 @@
  * @content 视觉映射功能组件
  * @author
  */
-import { NativeModules } from "react-native";
+import { NativeModules } from 'react-native';
 
 let VM = NativeModules.JSVisualMap;
 /**
  * @class VisualMap
  */
 export default class VisualMap {
-    /**
+  /**
    * 构造一个新的 VisualMap 对象。
    * @memberOf VisualMap
    * @returns {Promise.<VisualMap>}
@@ -25,7 +25,7 @@ export default class VisualMap {
     }
   }
 
-   /**
+  /**
    *  获取视觉映射的最小值,默认值为0
    *  @memberOf VisualMap
    * @returns {Promise<double>}
@@ -83,7 +83,7 @@ export default class VisualMap {
     }
   }
 
-   /**
+  /**
    *  获取热力点的颜色组
    *  @memberOf VisualMap
    * @returns {Promise<string>}

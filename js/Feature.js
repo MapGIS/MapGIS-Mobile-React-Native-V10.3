@@ -2,10 +2,10 @@
  * @content 要素类功能组件
  * @author fjl 2019-6-25下午2:52:36
  */
-import { NativeModules } from "react-native";
+import { NativeModules } from 'react-native';
 
 let F = NativeModules.JSFeature;
-import Graphic from "./Graphic";
+import Graphic from './Graphic';
 
 /**
  * @class Feature
@@ -61,16 +61,15 @@ export default class Feature {
    */
   async toGraphics() {
     try {
-
       var { values } = await F.toGraphics(this._MGFeatureId);
       var objArr = [];
       for (var i = 0; i < values.length; i++) {
         var graphic = new Graphic();
         graphic._MGGraphicId = values[i];
-        console.log("values[i]:" + values[i]);
+        console.log('values[i]:' + values[i]);
         objArr.push(graphic);
       }
-      console.log("values[i]:" + objArr.length);
+      console.log('values[i]:' + objArr.length);
       return objArr;
     } catch (e) {
       console.error(e);

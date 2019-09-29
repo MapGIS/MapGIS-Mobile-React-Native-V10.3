@@ -2,7 +2,7 @@
  * @content 要素查询空间范围功能组件
  * @author fjl 2019-6-25下午2:52:36
  */
-import { NativeModules } from "react-native";
+import { NativeModules } from 'react-native';
 
 let QB = NativeModules.JSQueryBound;
 

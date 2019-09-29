@@ -2,11 +2,11 @@
  * @content 要素类功能组件
  * @author fjl 2019-6-25下午2:52:36
  */
-import { NativeModules } from "react-native";
+import { NativeModules } from 'react-native';
 
 let F = NativeModules.JSFeatureQuery;
-import FeaturePagedResult from "./FeaturePagedResult.js";
-import QueryBound from "./QueryBound.js";
+import FeaturePagedResult from './FeaturePagedResult.js';
+import QueryBound from './QueryBound.js';
 
 /**
  * @class FeatureQuery

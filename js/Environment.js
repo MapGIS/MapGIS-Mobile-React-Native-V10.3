@@ -2,7 +2,7 @@
  * @content 环境初始化功能组件
  * @author fjl 2019-6-21 下午2:52:36
  */
-import { NativeModules } from "react-native";
+import { NativeModules } from 'react-native';
 let X = NativeModules.JSEnvironment;
 /**
  * @class Environment

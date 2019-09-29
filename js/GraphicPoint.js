@@ -2,9 +2,9 @@
  * @content 点对象功能组件
  * @author fjl 2019-6-24 下午2:52:36
  */
-import { NativeModules } from "react-native";
-import Graphic from "./Graphic";
-import Dot from "./Dot";
+import { NativeModules } from 'react-native';
+import Graphic from './Graphic';
+import Dot from './Dot';
 let GP = NativeModules.JSGraphicPoint;
 /**
  * @constructor GraphicPoint
@@ -12,13 +12,13 @@ let GP = NativeModules.JSGraphicPoint;
 export default class GraphicPoint extends Graphic {
   constructor() {
     super();
-    Object.defineProperty(this, "_MGGraphicPointId", {
+    Object.defineProperty(this, '_MGGraphicPointId', {
       get: function() {
         return this._MGGraphicId;
       },
       set: function(_MGGraphicPointId) {
         this._MGGraphicId = _MGGraphicPointId;
-      }
+      },
     });
   }
 

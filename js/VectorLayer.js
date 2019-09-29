@@ -9,10 +9,10 @@
  * @content android视图点对象功能组件
  * @author fjl 2019-6-24 下午2:52:36
  */
-import { NativeModules } from "react-native";
-import MapLayer from "./MapLayer";
-import LinInfo from "./LinInfo.js";
-import Fields from "./Fields.js";
+import { NativeModules } from 'react-native';
+import MapLayer from './MapLayer';
+import LinInfo from './LinInfo.js';
+import Fields from './Fields.js';
 let VL = NativeModules.JSVectorLayer;
 
 /**
@@ -21,13 +21,13 @@ let VL = NativeModules.JSVectorLayer;
 export default class VectorLayer extends MapLayer {
   constructor() {
     super();
-    Object.defineProperty(this, "_MGVectorLayerId", {
+    Object.defineProperty(this, '_MGVectorLayerId', {
       get: function() {
         return this._MGMapLayerId;
       },
       set: function(_MGVectorLayerId) {
         this._MGMapLayerId = _MGVectorLayerId;
-      }
+      },
     });
   }
 
@@ -38,12 +38,10 @@ export default class VectorLayer extends MapLayer {
    */
   async createObj() {
     try {
-
       var { VectorLayerId } = await VL.createObj(arguments[0]);
-          var graphic = new VectorLayer();
-          graphic._MGVectorLayerId = VectorLayerId;
-          return graphic;
-
+      var graphic = new VectorLayer();
+      graphic._MGVectorLayerId = VectorLayerId;
+      return graphic;
     } catch (e) {
       console.error(e);
     }
@@ -51,12 +49,12 @@ export default class VectorLayer extends MapLayer {
 
   /**
    * 获取符号比
-   * 
+   *
    * @memberOf VectorLayer
    * @returns {Number} 符号比 -- double类型
-   * 
+   *
    */
-  async getSymbolScale(){
+  async getSymbolScale() {
     try {
       let symbolScale = await VL.getSymbolScale(this._MGVectorLayerId);
       return symbolScale;
@@ -67,7 +65,7 @@ export default class VectorLayer extends MapLayer {
 
   // /**
   //  * 设置符号比
-  //  * 
+  //  *
   //  * @memberOf VectorLayer
   //  * @param {Number} symbolScale 符号比 -- double类型
   //  * @returns {Promise<Void>}
@@ -82,7 +80,7 @@ export default class VectorLayer extends MapLayer {
 
   //  /**
   //   * 获取系统库
-  //   * 
+  //   *
   //   * @memberOf VectorLayer
   //   * @returns {String} 系统库 -- UUID转换后的String
   //  */
@@ -97,7 +95,7 @@ export default class VectorLayer extends MapLayer {
 
   // /**
   //  * 设置系统库
-  //  * 
+  //  *
   //  * @memberOf VectorLayer
   //  * @param {String} lib 系统库 -- UUID转换后的String
   //  * @returns {Promise<Void>}
@@ -138,13 +136,13 @@ export default class VectorLayer extends MapLayer {
     }
   }
 
-   /**
-    * 是否跟随缩放
-    * 
-    * @memberOf VectorLayer
-    * @returns {boolean}
+  /**
+   * 是否跟随缩放
+   *
+   * @memberOf VectorLayer
+   * @returns {boolean}
    */
-  async isFollowZoom(){
+  async isFollowZoom() {
     try {
       let followZoom = await VL.isFollowZoom(this._MGVectorLayerId);
       return followZoom;
@@ -158,9 +156,9 @@ export default class VectorLayer extends MapLayer {
    * @memberOf VectorLayer
    * @param {boolean} followZoom 跟随缩放
    * @returns {Promise<Void>}
-   * 
+   *
    */
-  async setFollowZoom(followZoom){
+  async setFollowZoom(followZoom) {
     try {
       await VL.setFollowZoom(this._MGVectorLayerId, followZoom);
     } catch (e) {
@@ -168,14 +166,16 @@ export default class VectorLayer extends MapLayer {
     }
   }
 
-   /**
-    * 获取最小可见图形大小
-    * @memberOf VectorLayer
-    * @returns {Number} 最小可见图形大小 -- double类型
+  /**
+   * 获取最小可见图形大小
+   * @memberOf VectorLayer
+   * @returns {Number} 最小可见图形大小 -- double类型
    */
-  async getMinVisibleGeomSize(){
+  async getMinVisibleGeomSize() {
     try {
-      let minVisibleGeomSize = await VL.getMinVisibleGeomSize(this._MGVectorLayerId);
+      let minVisibleGeomSize = await VL.getMinVisibleGeomSize(
+        this._MGVectorLayerId
+      );
       return minVisibleGeomSize;
     } catch (e) {
       console.error(e);
@@ -184,13 +184,13 @@ export default class VectorLayer extends MapLayer {
 
   /**
    * 设置最小可见图形大小
-   * 
+   *
    * @memberOf VectorLayer
    * @param {Number} minVisibleGeomSize 最小可见图形大小 -- double类型
    * @returns {}
-   * 
+   *
    */
-  async setMinVisibleGeomSize(minVisibleGeomSize){
+  async setMinVisibleGeomSize(minVisibleGeomSize) {
     try {
       await VL.setMinVisibleGeomSize(this._MGVectorLayerId, minVisibleGeomSize);
     } catch (e) {
@@ -229,19 +229,19 @@ export default class VectorLayer extends MapLayer {
 
   /**
    * 获取字段集合
-   * 
+   *
    * @memberOf VectorLayer
    * @returns {Promise<Fields>} 返回Fields对象
    */
-  async getFields(){
+  async getFields() {
     try {
-       var {FieldsId} = await VL.getFields(this._MGVectorLayerId);
-       var fields = null;
-       if(FieldsId != null){
-         fields = new Fields();
-         fields._MGFieldsId = FieldsId;
-       }
-       return fields;
+      var { FieldsId } = await VL.getFields(this._MGVectorLayerId);
+      var fields = null;
+      if (FieldsId != null) {
+        fields = new Fields();
+        fields._MGFieldsId = FieldsId;
+      }
+      return fields;
     } catch (e) {
       console.error(e);
     }
@@ -249,12 +249,12 @@ export default class VectorLayer extends MapLayer {
 
   /**
    * 设置区域边界线图形信息
-   * 
+   *
    * @memberOf VectorLayer
    * @param {LinInfo} linInfo 线图形信息
    * @returns {Promise<Void>}
    */
-  async setRegBorderLinInfo(linInfo){
+  async setRegBorderLinInfo(linInfo) {
     try {
       await VL.setRegBorderLinInfo(this._MGVectorLayerId, linInfo._MGLinInfoId);
     } catch (e) {
@@ -264,19 +264,19 @@ export default class VectorLayer extends MapLayer {
 
   /**
    * 获取区域边界线图形信息
-   * 
+   *
    * @memberOf VectorLayer
    * @returns {Promise<LinInfo>} 成功返回线图形信息
    */
-  async getRegBorderLinInfo(){
+  async getRegBorderLinInfo() {
     try {
-       var {LinInfoId} = await VL.getRegBorderLinInfo(this._MGVectorLayerId);
-       var linInfo = null;
-       if(LinInfoId != null){
-         linInfo = new LinInfo();
-         linInfo._MGLinInfoId - LinInfoId;
-       }
-       return linInfo;
+      var { LinInfoId } = await VL.getRegBorderLinInfo(this._MGVectorLayerId);
+      var linInfo = null;
+      if (LinInfoId != null) {
+        linInfo = new LinInfo();
+        linInfo._MGLinInfoId - LinInfoId;
+      }
+      return linInfo;
     } catch (e) {
       console.error(e);
     }
@@ -287,7 +287,7 @@ export default class VectorLayer extends MapLayer {
    * @memberOf VectorLayer
    * @returns {String} UUID对应的字符串
    */
-  async generateUUID(){
+  async generateUUID() {
     try {
       let uuid = await VL.generateUUID();
       return uuid;
