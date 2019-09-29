@@ -163,8 +163,7 @@ export default class GroupLayer extends MapLayer {
   async remove(fromIndex, nCount) {
     try {
       return await GL.remove(this._MGGroupLayerId, fromIndex, nCount);
-
-        } catch (e) {
+    } catch (e) {
       console.error(e);
     }
   }
@@ -228,7 +227,7 @@ export default class GroupLayer extends MapLayer {
         this._MGGroupLayerId,
         index,
         mapLayer._MGMapLayerId
-
+      );
     } catch (e) {
       console.error(e);
     }
@@ -342,4 +341,4 @@ export default class GroupLayer extends MapLayer {
       console.error(e);
     }
   }
-
+}

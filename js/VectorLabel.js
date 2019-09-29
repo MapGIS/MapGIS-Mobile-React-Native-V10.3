@@ -145,7 +145,7 @@ export default class VectorLabel extends Label {
    * @param {Object} pointPlaceInfo 点放置样式 (object--PointPlaceInfo)
    * @returns {Promise<Void>}
    */
-  async setPntPlaceInfo() {
+  async setPntPlaceInfo(pointPlaceInfo) {
     try {
       await VL.setPntPlaceInfo(
         this._MGVectorLabelId,
@@ -180,7 +180,7 @@ export default class VectorLabel extends Label {
    * @param {Object} linPlaceInfo 线放置样式 (Object--LinePlaceInfo)
    * @returns {Promise<Void>}
    */
-  async setLinPlaceInfo() {
+  async setLinPlaceInfo(linPlaceInfo) {
     try {
       await VL.setLinPlaceInfo(
         this._MGVectorLabelId,

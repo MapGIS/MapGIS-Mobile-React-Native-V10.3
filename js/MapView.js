@@ -2,7 +2,7 @@
  * @content 地图视图功能组件
  * @author fjl 2019-6-14 下午2:52:36
  */
-import { NativeModules, Platform } from 'react-native';
+import { NativeModules } from 'react-native';
 
 let MV = NativeModules.JSMapView;
 import Dot from './Dot.js';
@@ -14,7 +14,7 @@ import GraphicsOverlays from './GraphicsOverlays.js';
 import MapPosition from './MapPosition';
 import Graphic from './Graphic.js';
 import ModelsOverlay from './ModelsOverlay.js';
-import Model from './Model.js'
+import Model from './Model.js';
 
 /**
  * @class MapView
@@ -853,7 +853,7 @@ export default class JSMapView {
         this._MGMapViewId,
         graphic._MGGraphicId,
         viewPoint._MGPointFId
-
+      );
 
       return bHit;
     } catch (e) {

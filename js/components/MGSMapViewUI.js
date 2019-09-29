@@ -5,12 +5,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import {
-  View,
-  requireNativeComponent,
-  NativeModules,
-  StyleSheet,
-} from 'react-native';
+import { View, requireNativeComponent, StyleSheet } from 'react-native';
 
 import MapView from '../MapView.js';
 class MGSMapView extends Component {
@@ -33,7 +28,6 @@ class MGSMapView extends Component {
   }
 
   render() {
-    var props = { ...this.props };
     return (
       <View style={styles.views}>
         <RnMapView returnId={true} {...this.props} onChange={this._onChange} />

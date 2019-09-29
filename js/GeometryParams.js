@@ -6,7 +6,6 @@
  * @LastEditors: Please set LastEditors
  */
 import { NativeModules } from 'react-native';
-import Geometry from './Geometry.js';
 import SketchEditor from './SketchEditor.js';
 
 let GP = NativeModules.JSGeometryParams;
@@ -48,6 +47,7 @@ export default class GeometryParams {
         GeometryId,
         GeometryType,
         GeometryAnnoType
+      );
 
       return geometry;
     } catch (e) {
@@ -126,7 +126,7 @@ export default class GeometryParams {
       await GP.setPreCurrentTotalVertex(
         this._MGGeometryParamsId,
         preCurrentTotalVertex
-
+      );
     } catch (e) {
       console.error(e);
     }
@@ -158,7 +158,7 @@ export default class GeometryParams {
       await GP.setCurrentVertexIndex(
         this._MGGeometryParamsId,
         currentVertexIndex
-
+      );
     } catch (e) {
       console.error(e);
     }

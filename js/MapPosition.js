@@ -19,9 +19,9 @@ export default class MapPosition {
   async createObj() {
     try {
       if (
-        typeof arguments[0] === 'String' &&
+        typeof arguments[0] === 'string' &&
         typeof arguments[1] === 'number' &&
-        typeof arguments[2] === 'String' &&
+        typeof arguments[2] === 'string' &&
         typeof arguments[3] === 'number' &&
         typeof arguments[4] === 'number'
       ) {

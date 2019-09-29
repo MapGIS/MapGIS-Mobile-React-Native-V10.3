@@ -168,8 +168,7 @@ export default class SketchStyle {
   async setLineStyle(lineStyle) {
     try {
       await SS.setLineStyle(this._MGSketchStyleId, lineStyle._MGLineStyleId);
-
-        } catch (e) {
+    } catch (e) {
       console.error(e);
     }
   }
@@ -203,7 +202,7 @@ export default class SketchStyle {
       await SS.setReferenceLineStyle(
         this._MGSketchStyleId,
         lineStyle._MGLineStyleId
-
+      );
     } catch (e) {
       console.error(e);
     }
@@ -340,8 +339,7 @@ export default class SketchStyle {
   async setTextStyle(textStyle) {
     try {
       await SS.setTextStyle(this._MGSketchStyleId, textStyle._MGTextStyleId);
-
-        } catch (e) {
+    } catch (e) {
       console.error(e);
     }
   }
@@ -371,8 +369,7 @@ export default class SketchStyle {
   async setShowVertexCoord(isShowVertexCoord) {
     try {
       await SS.setShowVertexCoord(this._MGSketchStyleId, isShowVertexCoord);
-
-        } catch (e) {
+    } catch (e) {
       console.error(e);
     }
   }
@@ -405,8 +402,7 @@ export default class SketchStyle {
   async setShowSegmentLength(isShowSegmentLength) {
     try {
       await SS.setShowSegmentLength(this._MGSketchStyleId, isShowSegmentLength);
-
-        } catch (e) {
+    } catch (e) {
       console.error(e);
     }
   }
@@ -437,8 +433,7 @@ export default class SketchStyle {
   async setShowArea(isShowArea) {
     try {
       await SS.setShowArea(this._MGSketchStyleId, isShowArea);
-
-        } catch (e) {
+    } catch (e) {
       console.error(e);
     }
   }
@@ -470,8 +465,7 @@ export default class SketchStyle {
   async setVibrationEnabled(isVibrationEnabled) {
     try {
       await SS.setVibrationEnabled(this._MGSketchStyleId, isVibrationEnabled);
-
-        } catch (e) {
+    } catch (e) {
       console.error(e);
     }
   }
@@ -501,8 +495,7 @@ export default class SketchStyle {
   async setMeasureType(measureType) {
     try {
       await SS.setMeasureType(this._MGSketchStyleId, measureType);
-
-        } catch (e) {
+    } catch (e) {
       console.error(e);
     }
   }

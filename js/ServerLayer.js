@@ -103,18 +103,18 @@ export default class ServerLayer extends GroupLayer {
   static async createMapServerByIdAndType(mapServerId, mapBrowseType, type) {
     let mapServer = null;
     if (mapServerId != null) {
-      if (mapBrowseType == 1) {
+      if (mapBrowseType === 1) {
         // 地图浏览类型 -- 矢量
         mapServer = new VectorMapServer();
         mapServer._MGMapServerId = mapServerId;
-      } else if (mapBrowseType == 2) {
+      } else if (mapBrowseType === 2) {
         // 地图浏览类型 -- 矢量瓦片
         mapServer = new VectorTileMapServer();
         mapServer._MGMapServerId = mapServerId;
       } else {
         // 地图浏览类型 -- 任意
         if (type != null) {
-          if (type == 'OGCWMTS') {
+          if (type === 'OGCWMTS') {
             // 服务类型 -- OGCWMTS地图服务
             mapServer = new OGCWMTSMapServer();
             mapServer._MGMapServerId = mapServerId;
@@ -172,15 +172,15 @@ export default class ServerLayer extends GroupLayer {
         type
       );
       let mapServer = null;
-      if (MapServerId != '' && MapServerBrowseType != -1) {
-        if (MapServerBrowseType == 1) {
+      if (MapServerId !== '' && MapServerBrowseType !== -1) {
+        if (MapServerBrowseType === 1) {
           mapServer = new VectorMapServer();
           mapServer._MGMapServerId = MapServerId;
-        } else if (MapServerBrowseType == 2) {
+        } else if (MapServerBrowseType === 2) {
           mapServer = new VectorTileMapServer();
           mapServer._MGMapServerId = MapServerId;
         } else {
-          if (Type == 'OGCWMTS') {
+          if (Type === 'OGCWMTS') {
             mapServer = new OGCWMTSMapServer();
             mapServer._MGMapServerId = MapServerId;
           } else {

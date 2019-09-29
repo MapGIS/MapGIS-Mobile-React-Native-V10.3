@@ -17,10 +17,10 @@ export default class AnnotationsOverlay {
    */
   async createObj() {
     try {
-      var { AnnotationsOverlayId } = await ANLY.createObj();
-      var AnnotationsOverlay = new AnnotationsOverlay();
-      AnnotationsOverlay._MGAnnotationsOverlayId = AnnotationsOverlayId;
-      return AnnotationsOverlay;
+      let { AnnotationsOverlayId } = await ANLY.createObj();
+      let annotationsOverlay = new AnnotationsOverlay();
+      annotationsOverlay._MGAnnotationsOverlayId = AnnotationsOverlayId;
+      return annotationsOverlay;
     } catch (e) {
       console.error(e);
     }

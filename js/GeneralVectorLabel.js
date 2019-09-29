@@ -27,7 +27,6 @@ export default class GeneralVectorLabel extends VectorLabel {
     });
   }
 
-
   /**
    * 获取标注表达式
    * @memberof GeneralVectorLabel
@@ -124,7 +123,7 @@ export default class GeneralVectorLabel extends VectorLabel {
       await GVL.setBackGeoInfo(
         this._MGGeneralVectorLabelId,
         geomInfo._MGGeomInfoId
-
+      );
     } catch (e) {
       console.error(e);
     }
@@ -225,4 +224,4 @@ export default class GeneralVectorLabel extends VectorLabel {
       console.error(e);
     }
   }
-
+}

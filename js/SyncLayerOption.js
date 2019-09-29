@@ -22,7 +22,7 @@ export default class SyncLayerOption {
       var syncLayerOption = new SyncLayerOption();
       syncLayerOption._MGSyncLayerOptionId = SyncLayerOptionId;
       return syncLayerOption;
-    } catch (e){
+    } catch (e) {
       console.error(e);
     }
   }
@@ -53,4 +53,4 @@ export default class SyncLayerOption {
       console.error(e);
     }
   }
-
+}

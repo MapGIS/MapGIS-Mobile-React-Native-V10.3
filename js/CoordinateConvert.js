@@ -15,8 +15,7 @@ let CC = NativeModules.JSCoordinateConvert;
  * @description 坐标转换类
  */
 export default class CoordinateConvert {
-
-    /**
+  /**
    * 构造一个新的CoordinateConvert对象
    *
    * @memberof CoordinateConvert
@@ -42,8 +41,9 @@ export default class CoordinateConvert {
    */
   async setConvertParams(coordinateConvertParameter) {
     try {
-
-            var {CoordinateConvertId} = await CC.setConvertParams(this._MGCoordinateConvertId, coordinateConvertParameter._MGCoordinateConvertParameterId);
+      var { CoordinateConvertId } = await CC.setConvertParams(
+        this._MGCoordinateConvertId,
+        coordinateConvertParameter._MGCoordinateConvertParameterId
       );
       var coordinateConvert = new CoordinateConvert();
       coordinateConvert._MGCoordinateConvertId = CoordinateConvertId;
@@ -110,9 +110,9 @@ export default class CoordinateConvert {
         dot._MGDotId
       );
       if (isSuccess) {
-        let dot = new Dot();
-        dot._MGDotId = result;
-        return dot;
+        let dotResult = new Dot();
+        dotResult._MGDotId = result;
+        return dotResult;
       } else {
         return result;
       }

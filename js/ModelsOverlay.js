@@ -56,7 +56,7 @@ export default class ModelsOverlay {
   async addModels(models) {
     try {
       // 将存有Model对象的数组转换成包含model对象Id的数组
-      var modelIds = new Array();
+      let modelIds = [];
       if (models != null) {
         for (let i = 0; i < models.length; i++) {
           let modelId = models[i]._MGModelId;
@@ -108,7 +108,7 @@ export default class ModelsOverlay {
    */
   async removeModels(models) {
     try {
-      var modelIds = new Array();
+      let modelIds = [];
       if (models != null) {
         for (let i = 0; i < models.length; i++) {
           modelIds.push(models[i]._MGModelId);
@@ -196,7 +196,7 @@ export default class ModelsOverlay {
   async getAllModels() {
     try {
       var models = await MO.getAllModels(this._MGModelsOverlayId);
-      let modelArray = new Array();
+      let modelArray = [];
       for (let i = 0; i < models.length; i++) {
         let model = new Model();
         model._MGModelId = models[i];

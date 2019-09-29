@@ -9,7 +9,6 @@
 import { NativeModules } from 'react-native';
 let M = NativeModules.JSMap;
 import Rect from './Rect.js';
-import MapLayer from './MapLayer.js';
 import Dot from './Dot.js';
 import SRefData from './SRefData.js';
 import LayerEnum from './LayerEnum.js';

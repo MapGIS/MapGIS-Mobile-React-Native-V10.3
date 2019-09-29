@@ -6,7 +6,6 @@
  * @LastEditors: Please set LastEditors
  */
 import { NativeModules } from 'react-native';
-import MapLayer from './MapLayer.js';
 import Map from './Map.js';
 let LE = NativeModules.JSLayerEnum;
 

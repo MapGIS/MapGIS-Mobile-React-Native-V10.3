@@ -29,7 +29,7 @@ export default class TextStyle {
         let { TextStyleId } = await TS.createObjByCS(
           arguments[0],
           arguments[1]
-
+        );
 
         let textStyle = new TextStyle();
         textStyle._MGTextStyleId = TextStyleId;
@@ -41,8 +41,7 @@ export default class TextStyle {
         textStyle._MGTextStyleId = TextStyleId;
         return textStyle;
       }
-
-        } catch (e) {
+    } catch (e) {
       console.error(e);
     }
   }
@@ -119,8 +118,7 @@ export default class TextStyle {
   async setSize(size) {
     try {
       await TS.setSize(this._MGTextStyleId, size);
-
-        } catch (e) {
+    } catch (e) {
       console.error(e);
     }
   }

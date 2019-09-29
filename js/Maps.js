@@ -14,8 +14,7 @@ import Map from './Map.js';
  * @description 地图列表类
  */
 export default class Maps {
-
-    /**
+  /**
    * 构造一个新的 Maps 对象
    *
    * @memberof Maps
@@ -29,7 +28,6 @@ export default class Maps {
       return maps;
     } catch (e) {
       console.error(e);
-      alert(e);
     }
   }
 
@@ -148,4 +146,4 @@ export default class Maps {
       console.error(e);
     }
   }
-
+}

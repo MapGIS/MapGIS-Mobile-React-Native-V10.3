@@ -23,7 +23,7 @@ export default class MagnifierOption {
         typeof arguments[0] === 'number' &&
         typeof arguments[1] === 'number' &&
         typeof arguments[2] === 'number' &&
-        typeof arguments[3] === 'String'
+        typeof arguments[3] === 'string'
       ) {
         var { MagnifierOptionId } = await MO.createObj(
           arguments[0],

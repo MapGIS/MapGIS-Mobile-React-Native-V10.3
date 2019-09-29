@@ -5,9 +5,8 @@
  * @LastEditTime: 2019-09-09 11:05:48
  * @LastEditors: Please set LastEditors
  */
-import { NativeModules } from 'react-native';
+
 import TileMapServer from './TileMapServer.js';
-let VT = NativeModules.JSVectorTileMapServer;
 
 /**
  * @class VectorTileMapServer

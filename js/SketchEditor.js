@@ -40,8 +40,7 @@ let SE = NativeModules.JSSketchEditor;
  * @description 草图编辑器
  */
 export default class SketchEditor {
-
-    /**
+  /**
    * 构造一个新的SketchEditor对象
    *
    * @memberof SketchEditor
@@ -160,7 +159,7 @@ export default class SketchEditor {
       await SE.setSnappingOption(
         this._MGSketchEditorId,
         snappingOption._MGSnappingOptionId
-
+      );
     } catch (e) {
       console.error(e);
     }
@@ -175,8 +174,7 @@ export default class SketchEditor {
   async startByType(sketchDataType) {
     try {
       await SE.startByType(this._MGSketchEditorId, sketchDataType);
-
-        } catch (e) {
+    } catch (e) {
       console.error(e);
     }
   }
@@ -190,8 +188,7 @@ export default class SketchEditor {
   async start(geometry) {
     try {
       await SE.start(this._MGSketchEditorId, geometry._MGGeometryId);
-
-        } catch (e) {
+    } catch (e) {
       console.error(e);
     }
   }
@@ -219,8 +216,7 @@ export default class SketchEditor {
   async replaceGeometry(geometry) {
     try {
       await SE.replaceGeometry(this._MGSketchEditorId, geometry._MGGeometryId);
-
-        } catch (e) {
+    } catch (e) {
       console.error(e);
     }
   }
@@ -254,8 +250,7 @@ export default class SketchEditor {
   async clearGeometry() {
     try {
       await SE.clearGeometry(this._MGSketchEditorId);
-
-        } catch (e) {
+    } catch (e) {
       console.error(e);
     }
   }
@@ -268,8 +263,7 @@ export default class SketchEditor {
   async stop() {
     try {
       await SE.stop(this._MGSketchEditorId);
-
-        } catch (e) {
+    } catch (e) {
       console.error(e);
     }
   }
@@ -314,8 +308,7 @@ export default class SketchEditor {
   async addVertex(x, y) {
     try {
       await SE.addVertex(this._MGSketchEditorId, x, y);
-
-        } catch (e) {
+    } catch (e) {
       console.error(e);
     }
   }
@@ -372,8 +365,7 @@ export default class SketchEditor {
     }
   }
 
-
-     /**
+  /**
    * 草图几何是否有效（点几何必须有1个顶点、线必须有2个顶点、区必须有3个顶点）
    * @memberof SketchEditor
    * @returns {boolean}
@@ -415,8 +407,7 @@ export default class SketchEditor {
   async setSRS(sRefData) {
     try {
       await SE.setSRS(this._MGSketchEditorId, sRefData._MGSRefDataId);
-
-        } catch (e) {
+    } catch (e) {
       console.error(e);
     }
   }

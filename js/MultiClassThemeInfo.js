@@ -63,7 +63,7 @@ export default class MultiClassThemeInfo {
   async getValues() {
     try {
       var classItemValues = await MTI.getValues(this._MGMultiClassThemeInfoId);
-      var classItemValueArray = new Array();
+      var classItemValueArray = [];
       for (let i = 0; i < classItemValues.length; i++) {
         let classItemValueId = classItemValues[i];
         var classItemValue = new ClassItemValue(); // 通过classItemValueId构造JS端的ClassItemValue

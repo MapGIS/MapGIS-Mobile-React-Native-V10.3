@@ -6,7 +6,7 @@ import { NativeModules } from 'react-native';
 
 let GLS = NativeModules.JSGeoLines;
 
-import GeometryExp from './GeometryExp.js'
+import GeometryExp from './GeometryExp.js';
 import GeoLine from './GeoLine.js';
 
 /**
@@ -199,6 +199,4 @@ export default class GeoLines extends GeometryExp {
       console.error(e);
     }
   }
-}
-
 }

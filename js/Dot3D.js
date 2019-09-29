@@ -135,4 +135,4 @@ export default class Dot3D {
       console.error(e);
     }
   }
-
+}

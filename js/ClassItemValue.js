@@ -113,4 +113,4 @@ export default class ClassItemValue {
       console.error(e);
     }
   }
-
+}
