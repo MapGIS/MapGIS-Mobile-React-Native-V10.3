@@ -3,7 +3,7 @@
  * @Author: xiaoying
  * @Date: 2019-08-22 17:10:01
  * @LastEditTime: 2019-08-31 13:33:20
- * @LastEditors: Please set LastEditors
+ * @LastEditors: mayuanye
  */
 import { NativeModules } from 'react-native';
 let SR = NativeModules.JSSRefData;

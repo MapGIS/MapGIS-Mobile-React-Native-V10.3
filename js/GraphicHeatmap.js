@@ -1,6 +1,6 @@
 /**
  * @content 热力点功能组件
- * @author
+ * @author lidafeng
  */
 import { NativeModules } from 'react-native';
 

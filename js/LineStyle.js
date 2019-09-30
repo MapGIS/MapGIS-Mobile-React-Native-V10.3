@@ -3,7 +3,7 @@
  * @Author: xiaoying
  * @Date: 2019-09-10 16:19:14
  * @LastEditTime: 2019-09-11 09:23:47
- * @LastEditors: Please set LastEditors
+ * @LastEditors: mayuanye
  */
 import { NativeModules } from 'react-native';
 let LS = NativeModules.JSLineStyle;

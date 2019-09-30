@@ -3,7 +3,7 @@
  * @Author: xiaoying
  * @Date: 2019-09-18 10:27:06
  * @LastEditTime: 2019-09-18 15:10:51
- * @LastEditors: Please set LastEditors
+ * @LastEditors: mayuanye
  */
 import { NativeModules } from 'react-native';
 import CoordinateConvertParameter from './CoordinateConvertParameter';

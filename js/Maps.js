@@ -3,7 +3,7 @@
  * @Author: xiaoying
  * @Date: 2019-08-28 14:40:14
  * @LastEditTime: 2019-08-31 16:44:36
- * @LastEditors: Please set LastEditors
+ * @LastEditors: mayuanye
  */
 import { NativeModules } from 'react-native';
 let MS = NativeModules.JSMaps;

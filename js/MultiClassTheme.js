@@ -3,7 +3,7 @@
  * @Author: xiaoying
  * @Date: 2019-09-03 12:00:02
  * @LastEditTime: 2019-09-09 16:05:00
- * @LastEditors: Please set LastEditors
+ * @LastEditors: mayuanye
  */
 import { NativeModules } from 'react-native';
 import ClassItemValue from './ClassItemValue.js';

@@ -3,7 +3,7 @@
  * @Author: xiaoying
  * @Date: 2019-09-03 19:37:23
  * @LastEditTime: 2019-09-09 09:34:15
- * @LastEditors: Please set LastEditors
+ * @LastEditors: mayuanye
  */
 import { NativeModules } from 'react-native';
 import MapLayer from './MapLayer.js';

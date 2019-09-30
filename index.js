@@ -1,9 +1,9 @@
 /*
  * @Description: In User Settings Edit
- * @Author: your name
+ * @author: lidafeng 
  * @Date: 2019-09-05 18:06:47
  * @LastEditTime: 2019-09-10 10:20:03
- * @LastEditors: Please set LastEditors
+ * @LastEditors: mayuanye
  */
 import { NativeModules } from "react-native";
 let ClassItemType = NativeModules.JSClassItemType;

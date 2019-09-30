@@ -3,7 +3,7 @@
  * @Author: xiaoying
  * @Date: 2019-09-10 09:21:36
  * @LastEditTime: 2019-09-16 19:07:01
- * @LastEditors: Please set LastEditors
+ * @LastEditors: mayuanye
  */
 import { NativeModules } from 'react-native';
 let SmlUtils = NativeModules.JSSimpleModelLayerUtil;

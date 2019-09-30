@@ -1,6 +1,6 @@
 /**
  * @content 标记图层功能组件
- * @author
+ * @author lidafeng
  */
 import { NativeModules } from 'react-native';
 import Annotation from './Annotation.js';

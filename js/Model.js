@@ -3,7 +3,7 @@
  * @Author: xiaoying
  * @Date: 2019-09-04 17:03:54
  * @LastEditTime: 2019-09-19 16:03:24
- * @LastEditors: Please set LastEditors
+ * @LastEditors: mayuanye
  */
 import { NativeModules } from 'react-native';
 import Dot3D from './Dot3D.js';

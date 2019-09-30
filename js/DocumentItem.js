@@ -3,7 +3,7 @@
  * @Author: xiaoying
  * @Date: 2019-08-28 10:54:42
  * @LastEditTime: 2019-08-31 13:30:53
- * @LastEditors: Please set LastEditors
+ * @LastEditors: mayuanye
  */
 
 import { NativeModules } from 'react-native';

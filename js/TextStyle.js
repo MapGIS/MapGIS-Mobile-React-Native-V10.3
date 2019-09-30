@@ -3,7 +3,7 @@
  * @Author: xiaoying
  * @Date: 2019-09-10 17:32:54
  * @LastEditTime: 2019-09-17 11:30:23
- * @LastEditors: Please set LastEditors
+ * @LastEditors: mayuanye
  */
 import { NativeModules } from 'react-native';
 let TS = NativeModules.JSTextStyle;

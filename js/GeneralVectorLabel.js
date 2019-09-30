@@ -3,7 +3,7 @@
  * @Author: xiaoying
  * @Date: 2019-08-28 17:11:23
  * @LastEditTime: 2019-09-19 14:23:31
- * @LastEditors: Please set LastEditors
+ * @LastEditors: mayuanye
  */
 import { NativeModules } from 'react-native';
 import VectorLabel from './VectorLabel.js';

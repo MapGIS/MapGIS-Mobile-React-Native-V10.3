@@ -3,7 +3,7 @@
  * @Author: xiaoying
  * @Date: 2019-09-02 16:43:53
  * @LastEditTime: 2019-09-09 17:50:39
- * @LastEditors: Please set LastEditors
+ * @LastEditors: mayuanye
  */
 import { NativeModules } from 'react-native';
 let L = NativeModules.JSLabel;

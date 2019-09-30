@@ -3,7 +3,7 @@
  * @Author: xiaoying
  * @Date: 2019-09-02 16:44:04
  * @LastEditTime: 2019-09-19 14:58:23
- * @LastEditors: Please set LastEditors
+ * @LastEditors: mayuanye
  */
 import { NativeModules } from 'react-native';
 import TextAnnInfo from './TextAnnInfo.js';

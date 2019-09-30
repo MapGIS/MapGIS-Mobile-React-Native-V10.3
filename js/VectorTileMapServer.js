@@ -3,7 +3,7 @@
  * @Author: xiaoying
  * @Date: 2019-09-04 15:07:27
  * @LastEditTime: 2019-09-09 11:05:48
- * @LastEditors: Please set LastEditors
+ * @LastEditors: mayuanye
  */
 
 import TileMapServer from './TileMapServer.js';

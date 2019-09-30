@@ -30,389 +30,577 @@
  * @Description: In User Settings Edit
  * @Author: xiaoying
  * @Date: 2019-09-10 19:43:30
- * @LastEditTime: 2019-09-12 10:33:29
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2019-09-20 16:22:43
+ * @LastEditors: mayuanye
  */
-import { NativeModules } from "react-native";
-import SketchStyle from "./SketchStyle";
-import SnappingOption from "./SnappingOption";
-import Dot from "./Dot";
-import SRefData from "./SRefData";
+import { NativeModules } from 'react-native';
+import SketchStyle from './SketchStyle';
+import SnappingOption from './SnappingOption';
+import Dot from './Dot';
+import SRefData from './SRefData';
+import Geometry from './Geometry.js';
+// import GeoPoint from "./GeoPoint";
+import GeoPoints from './GeoPoints';
+// import GeoCir from "./GeoCir";
+// import GeoCir3 from "./GeoCir3";
+// import GeoEllipse from "./GeoEllipse";
+// import GeoArc from "./GeoArc";
+// import GeoArc3 from "./GeoArc3";
+// import GeoRect from "./GeoRect";
+// import GeoRect1 from "./GeoRect1";
+// import GeoSpline from "./GeoSpline";
+import GeoVarLine from './GeoVarLine';
+import GeoLines from './GeoLines';
+import GeoPolygon from './GeoPolygon';
+import GeoPolygons from './GeoPolygons';
+// import GeoGeometrys from "./GeoGeometrys";
+import GeoAnno from './GeoAnno';
+
+// import ArcAnno from "./ArcAnno";
+// import CircleAnno from "./CircleAnno";
+// import HtmlAnno from "./HtmlAnno";
+// import ImageAnno from "./ImageAnno";
+import TextAnno from './TextAnno';
 let SE = NativeModules.JSSketchEditor;
 
 /**
  * @class SketchEditor
  * @description 草图编辑器
  */
-export default class SketchEditor{
-    /**
-     * 构造一个新的SketchEditor对象
-     * 
-     * @memberof SketchEditor
-     * @param {Object} mapView 地图视图对象 
-     * @returns {Promise&lt;SketchEditor>}
-     */
-    async createObj(mapView){
-        try {
-            var {SketchEditorId} = await SE.createObj(mapView._MGMapViewId);
-            var sketchEditor = new SketchEditor();
-            sketchEditor._MGSketchEditorId = SketchEditorId;
-            return sketchEditor;
-        } catch (e) {
-            console.error(e);
-        }
+export default class SketchEditor {
+  /**
+   * 构造一个新的SketchEditor对象
+   *
+   * @memberof SketchEditor
+   * @param {Object} mapView 地图视图对象
+   * @returns {Promise&lt;SketchEditor>}
+   */
+  async createObj(mapView) {
+    try {
+      var { SketchEditorId } = await SE.createObj(mapView._MGMapViewId);
+      var sketchEditor = null;
+      if (SketchEditorId != null) {
+        sketchEditor = new SketchEditor();
+        sketchEditor._MGSketchEditorId = SketchEditorId;
+      }
+
+      return sketchEditor;
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-    /**
-     * 添加状态改变监听
-     * 
-     * @memberof SketchEditor
-     * @returns {Promise&lt;Void>}
-     */
-    async addStateChangedListener(){
-        try {
-            await SE.addStateChangedListener(this._MGSketchEditorId);
-
-        } catch (e) {
-            console.error(e);
-        }
+  /**
+   * 添加状态改变监听
+   *
+   * @memberof SketchEditor
+   * @returns {Promise&lt;Void>}
+   */
+  async addStateChangedListener() {
+    try {
+      await SE.addStateChangedListener(this._MGSketchEditorId);
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-    /**
-     * 移除状态改变监听
-     * 
-     * @memberof SketchEditor
-     * @returns {Promise&lt;Void>}
-     */
-    async removeStateChangedListener(){
-        try {
-            await SE.removeStateChangedListener(this._MGSketchEditorId);
-
-        } catch (e) {
-            console.error(e);
-        }
+  /**
+   * 移除状态改变监听
+   *
+   * @memberof SketchEditor
+   * @returns {Promise&lt;Void>}
+   */
+  async removeStateChangedListener() {
+    try {
+      await SE.removeStateChangedListener(this._MGSketchEditorId);
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-    /**
-	 * 获取草图样式
-     * @memberof SketchEditor
-     * @returns {Promise&lt;SketchStyle>} 
-	 */
-    async getSketchStyle(){
-        try {
-            var {SketchStyleId} = await SE.getSketchStyle(this._MGSketchEditorId);
-            var sketchStyle = new SketchStyle();
-            sketchStyle._MGSketchStyleId = SketchStyleId;
-            return sketchStyle;
-        } catch (e) {
-            console.error(e);
-        }
+  /**
+   * 获取草图样式
+   * @memberof SketchEditor
+   * @returns {Promise&lt;SketchStyle>}
+   */
+  async getSketchStyle() {
+    try {
+      var { SketchStyleId } = await SE.getSketchStyle(this._MGSketchEditorId);
+      var sketchStyle = null;
+      if (SketchStyleId != null) {
+        sketchStyle = new SketchStyle();
+        sketchStyle._MGSketchStyleId = SketchStyleId;
+      }
+
+      return sketchStyle;
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-    /**
-     * 设置草图样式
-     * @memberof SketchEditor
-     * @param {Object} sketchStyle 草图样式(SketchStyle类型的Object)
-     * @returns {Promise&lt;Void>} 
-     */
-    async setSketchStyle(sketchStyle){
-        try {
-            await SE.setSketchStyle(this._MGSketchEditorId, sketchStyle._MGSketchStyleId);
-
-        } catch (e) {
-            console.error(e);
-        }
+  /**
+   * 设置草图样式
+   * @memberof SketchEditor
+   * @param {Object} sketchStyle 草图样式(SketchStyle类型的Object)
+   * @returns {Promise&lt;Void>}
+   */
+  async setSketchStyle(sketchStyle) {
+    try {
+      await SE.setSketchStyle(
+        this._MGSketchEditorId,
+        sketchStyle._MGSketchStyleId
+      );
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-     /**
-	 * 获取捕捉选项
-     * @memberof SketchEditor
-     * @returns {Promise&lt;SnappingOption>} 
-	 */
-    async getSnappingOption(){
-        try {
-            var {SnappingOptionId} = await SE.getSnappingOption(this._MGSketchEditorId);
-            var snappingOption = new SnappingOption();
-            snappingOption._MGSnappingOptionId = SnappingOptionId;
-            return snappingOption;
-        } catch (e) {
-            console.error(e);
-        }
+  /**
+   * 获取捕捉选项
+   * @memberof SketchEditor
+   * @returns {Promise&lt;SnappingOption>}
+   */
+  async getSnappingOption() {
+    try {
+      var { SnappingOptionId } = await SE.getSnappingOption(
+        this._MGSketchEditorId
+      );
+      var snappingOption = null;
+      if (SnappingOptionId != null) {
+        snappingOption = new SnappingOption();
+        snappingOption._MGSnappingOptionId = SnappingOptionId;
+      }
+      return snappingOption;
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-    /**
-     * 设置捕捉选项
-     * @memberof SketchEditor
-     * @param {Object} snappingOption 捕捉选项(SnappingOption类型的Object)
-     * @returns {Promise&lt;Void>} 
-     */
-    async setSnappingOption(snappingOption){
-        try {
-            await SE.setSnappingOption(this._MGSketchEditorId, snappingOption._MGSnappingOptionId);
-            
-        } catch (e) {
-            console.error(e);
-        }
+  /**
+   * 设置捕捉选项
+   * @memberof SketchEditor
+   * @param {Object} snappingOption 捕捉选项(SnappingOption类型的Object)
+   * @returns {Promise&lt;Void>}
+   */
+  async setSnappingOption(snappingOption) {
+    try {
+      await SE.setSnappingOption(
+        this._MGSketchEditorId,
+        snappingOption._MGSnappingOptionId
+      );
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-     /**
-     * 依据指定的数据类型开始新的几何编辑
-     * @memberof SketchEditor
-     * @param {Number} sketchDataType 几何类型（int类型的Number，例:1--SketchDataType.POINT）
-     * @returns {Promise&lt;Void>} 
-     */
-    async start(sketchDataType){
-        try {
-            await SE.start(this._MGSketchEditorId, sketchDataType);
-            
-        } catch (e) {
-            console.error(e);
-        }
+  /**
+   * 依据指定的数据类型开始新的几何编辑
+   * @memberof SketchEditor
+   * @param {Number} sketchDataType 几何类型（int类型的Number，例:1--SketchDataType.POINT）
+   * @returns {Promise&lt;Void>}
+   */
+  async startByType(sketchDataType) {
+    try {
+      await SE.startByType(this._MGSketchEditorId, sketchDataType);
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-    /**
-     * 开始编辑已有的几何对象
-     * @memberof SketchEditor
-     * @param {Object} geometry 几何对象 
-     * @returns {Promise&lt;Void>} 
-     */
-    async start(geometry){
-        try {
-            // await SE.start(this._MGSketchEditorId, geometry);
-            
-        } catch (e) {
-            console.error(e);
-        }
+  /**
+   * 开始编辑已有的几何对象
+   * @memberof SketchEditor
+   * @param {Object} geometry 几何对象
+   * @returns {Promise&lt;Void>}
+   */
+  async start(geometry) {
+    try {
+      await SE.start(this._MGSketchEditorId, geometry._MGGeometryId);
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-    /**
-     * 获取编辑的数据类型
-     * @memberof SketchEditor
-     * @returns {Number} 几何类型（int类型的Number，例:1--SketchDataType.POINT）
-     */
-    async getSketchDataType(){
-        try {
-            let result = await SE.getSketchDataType(this._MGSketchEditorId);
-            return result;
-        } catch (e) {
-            console.error(e);
-        }
+  /**
+   * 获取编辑的数据类型
+   * @memberof SketchEditor
+   * @returns {Number} 几何类型（int类型的Number，例:1--SketchDataType.POINT，-1表示获取失败）
+   */
+  async getSketchDataType() {
+    try {
+      let result = await SE.getSketchDataType(this._MGSketchEditorId);
+      return result;
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-    /**
-     * 替换当前的编辑几何对象
-     * @memberof SketchEditor
-     * @param {Object} geometry 几何对象 
-     * @returns {Promise&lt;Void>} 
-     */
-    async replaceGeometry(geometry){
-        try {
-            await SE.replaceGeometry(this._MGSketchEditorId, geometry);
-            
-        } catch (e) {
-            console.error(e);
-        }
+  /**
+   * 替换当前的编辑几何对象
+   * @memberof SketchEditor
+   * @param {Object} geometry 几何对象
+   * @returns {Promise&lt;Void>}
+   */
+  async replaceGeometry(geometry) {
+    try {
+      await SE.replaceGeometry(this._MGSketchEditorId, geometry._MGGeometryId);
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-    /**
-     * 获取当前的编辑几何
-     * @memberof SketchEditor
-     * @returns {Promise&lt;Void>} 
-     */
-    async getGeometry(){
-        try {
-            await SE.getGeometry(this._MGSketchEditorId);
-            
-        } catch (e) {
-            console.error(e);
-        }
+  /**
+   * 获取当前的编辑几何
+   * @memberof SketchEditor
+   * @returns {Promise&lt;Geometry>} 成功返回几何对象
+   */
+  async getGeometry() {
+    try {
+      let { GeometryId, GeometryType, GeometryAnnoType } = await SE.getGeometry(
+        this._MGSketchEditorId
+      );
+      let geometry = SketchEditor.getGeometryByType(
+        GeometryId,
+        GeometryType,
+        GeometryAnnoType
+      );
+      return geometry;
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-    /**
-     * 清除当前的编辑几何
-     * @memberof SketchEditor
-     * @returns {Promise&lt;Void>} 
-     */
-    async clearGeometry(){
-        try {
-            await SE.clearGeometry(this._MGSketchEditorId);
-            
-        } catch (e) {
-            console.error(e);
-        }
+  /**
+   * 清除当前的编辑几何
+   * @memberof SketchEditor
+   * @returns {Promise&lt;Void>}
+   */
+  async clearGeometry() {
+    try {
+      await SE.clearGeometry(this._MGSketchEditorId);
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-     /**
-     * 停止编辑
-     * @memberof SketchEditor
-     * @returns {Promise&lt;Void>} 
-     */
-    async stop(){
-        try {
-            await SE.stop(this._MGSketchEditorId);
-            
-        } catch (e) {
-            console.error(e);
-        }
+  /**
+   * 停止编辑
+   * @memberof SketchEditor
+   * @returns {Promise&lt;Void>}
+   */
+  async stop() {
+    try {
+      await SE.stop(this._MGSketchEditorId);
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-     /**
-     * 删除当前被选中的顶点
-     * @memberof SketchEditor
-     * @returns {boolean} 
-     */
-    async deleteSelectedVertex(){
-        try {
-            let result = await SE.deleteSelectedVertex(this._MGSketchEditorId);
-            return result;
-        } catch (e) {
-            console.error(e);
-        }
+  /**
+   * 删除当前被选中的顶点
+   * @memberof SketchEditor
+   * @returns {boolean}
+   */
+  async deleteSelectedVertex() {
+    try {
+      let result = await SE.deleteSelectedVertex(this._MGSketchEditorId);
+      return result;
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-    /**
-     * 移动当前被选中的顶点到指定的位置（地图坐标）
-     * @memberof SketchEditor
-     * @param {Number} x坐标的值
-     * @param {Number} y坐标的值
-     * @returns {boolean} 
-     */
-    async moveSelectedVertexTo(x, y){
-        try {
-            let result = await SE.moveSelectedVertexTo(this._MGSketchEditorId, x, y);
-            return result;
-        } catch (e) {
-            console.error(e);
-        }
+  /**
+   * 移动当前被选中的顶点到指定的位置（地图坐标）
+   * @memberof SketchEditor
+   * @param {Number} x坐标的值
+   * @param {Number} y坐标的值
+   * @returns {boolean}
+   */
+  async moveSelectedVertexTo(x, y) {
+    try {
+      let result = await SE.moveSelectedVertexTo(this._MGSketchEditorId, x, y);
+      return result;
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-    /**
-     * 添加新的顶点（地图坐标）
-     * @memberof SketchEditor
-     * @param {Number} x坐标的值
-     * @param {Number} y坐标的值
-     * @returns {Promise&lt;Void>} 
-     */
-    async addVertex(x, y){
-        try {
-            await SE.addVertex(this._MGSketchEditorId, x, y);
-      
-        } catch (e) {
-            console.error(e);
-        }
+  /**
+   * 添加新的顶点（地图坐标）
+   * @memberof SketchEditor
+   * @param {Number} x坐标的值
+   * @param {Number} y坐标的值
+   * @returns {Promise&lt;Void>}
+   */
+  async addVertex(x, y) {
+    try {
+      await SE.addVertex(this._MGSketchEditorId, x, y);
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-     /**
-     * 试图捕捉指定点（地图坐标，返回被捕捉到的点，返回null表示捕捉失败
-     * @memberof SketchEditor
-     * @param {Number} x坐标的值
-     * @param {Number} y坐标的值
-     * @returns {Promise&lt;Dot>} 
-     */
-    async snapping(x, y){
-        try {
-            var {point2DId} = await SE.snapping(this._MGSketchEditorId, x, y);
-            var dot  = new Dot();
-            dot._MGDotId = point2DId;
-            return dot;
-        } catch (e) {
-            console.error(e);
-        }
-    }
+  /**
+   * 试图捕捉指定点（地图坐标，返回被捕捉到的点，返回null表示捕捉失败
+   * @memberof SketchEditor
+   * @param {Number} x坐标的值
+   * @param {Number} y坐标的值
+   * @returns {Promise&lt;Dot>} 返回null表示捕捉失败
+   */
+  async snapping(x, y) {
+    try {
+      var { point2DId } = await SE.snapping(this._MGSketchEditorId, x, y);
+      var dot = null;
+      if (point2DId != null) {
+        dot = new Dot();
+        dot._MGDotId = point2DId;
+      }
 
-     /**
-     * 撤销
-     * @memberof SketchEditor
-     * @returns {boolean} true-成功；false-失败
-     */
-    async undo(){
-        try {
-            let result = await SE.undo(this._MGSketchEditorId);
-           
-            return result;
-        } catch (e) {
-            console.error(e);
-        }
+      return dot;
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-     /**
-     * 重做
-     * @memberof SketchEditor
-     * @returns {boolean} true-成功；false-失败
-     */
-    async redo(){
-        try {
-            let result = await SE.redo(this._MGSketchEditorId);
-           
-            return result;
-        } catch (e) {
-            console.error(e);
-        }
-    }
+  /**
+   * 撤销
+   * @memberof SketchEditor
+   * @returns {boolean} true-成功；false-失败
+   */
+  async undo() {
+    try {
+      let result = await SE.undo(this._MGSketchEditorId);
 
-     
-     /**
-     * 草图几何是否有效（点几何必须有1个顶点、线必须有2个顶点、区必须有3个顶点）
-     * @memberof SketchEditor
-     * @returns {boolean} 
-     */
-    async isSketchValid(){
-        try {
-            let result = await SE.isSketchValid(this._MGSketchEditorId);
-           
-            return result;
-        } catch (e) {
-            console.error(e);
-        }
+      return result;
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-     /**
-     * 设置地图位置组件
-     * 
-     * @memberof SketchEditor
-     * @param {Object} magnifierOption 地图位置组件
-     * @returns {Promise&lt;Void>} 
-     */
-    async setMagnifierOption(magnifierOption){
-        try {
-            await SE.setMagnifierOption(this._MGSketchEditorId, magnifierOption._MMagnifierOption);
-           
-        } catch (e) {
-            console.error(e);
-        }
-    }
+  /**
+   * 重做
+   * @memberof SketchEditor
+   * @returns {boolean} true-成功；false-失败
+   */
+  async redo() {
+    try {
+      let result = await SE.redo(this._MGSketchEditorId);
 
-     /**
-     * 设置编辑数据的空间参考系，用于计算实地距离和面积
-     * @memberof SketchEditor
-     * @param {sRefData} 空间参考系
-     * @returns {Promise&lt;Void>} 
-     */
-    async setSRS(sRefData){
-        try {
-            await SE.setSRS(this._MGSketchEditorId, sRefData._MGSRefDataId);
-          
-        } catch (e) {
-            console.error(e);
-        }
+      return result;
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-    /**
-     * 获取空间参考系
-     * @memberof SketchEditor
-     * @returns {Promise&lt;SRefData>} 
-     */
-    async getSRS(){
-        try {
-            var {SRefDataId} = await SE.getSRS(this._MGSketchEditorId);
-            var sRefData = new SRefData();
-            sRefData._MGSRefDataId = SRefDataId;
-            return sRefData;
-        } catch (e) {
-            console.error(e);
-        }
+  /**
+   * 草图几何是否有效（点几何必须有1个顶点、线必须有2个顶点、区必须有3个顶点）
+   * @memberof SketchEditor
+   * @returns {boolean}
+   */
+  async isSketchValid() {
+    try {
+      let result = await SE.isSketchValid(this._MGSketchEditorId);
+
+      return result;
+    } catch (e) {
+      console.error(e);
     }
-}</code></pre>
+  }
+
+  /**
+   * 设置地图位置组件
+   *
+   * @memberof SketchEditor
+   * @param {Object} magnifierOption 地图位置组件
+   * @returns {Promise&lt;Void>}
+   */
+  async setMagnifierOption(magnifierOption) {
+    try {
+      await SE.setMagnifierOption(
+        this._MGSketchEditorId,
+        magnifierOption._MGMagnifierOptionId
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 设置编辑数据的空间参考系，用于计算实地距离和面积
+   * @memberof SketchEditor
+   * @param {sRefData} 空间参考系
+   * @returns {Promise&lt;Void>}
+   */
+  async setSRS(sRefData) {
+    try {
+      await SE.setSRS(this._MGSketchEditorId, sRefData._MGSRefDataId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取空间参考系
+   * @memberof SketchEditor
+   * @returns {Promise&lt;SRefData>}
+   */
+  async getSRS() {
+    try {
+      var { SRefDataId } = await SE.getSRS(this._MGSketchEditorId);
+      var sRefData = null;
+      if (SRefDataId != null) {
+        sRefData = new SRefData();
+        sRefData._MGSRefDataId = SRefDataId;
+      }
+
+      return sRefData;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 根据返回的geometryId,geometryType，geometryAnnType构造geometry对象
+   *
+   * @param {String} geometryId 几何对象对应的Id
+   * @param {int} geometryType  几何对象类型
+   * @param {int} geometryAnnType 几何对象为GeoAnno类型时候的AnnType
+   * @returns {Geometry} geometry或子类对象
+   */
+  static async getGeometryByType(GeometryId, geometryType, geometryAnnType) {
+    try {
+      let geometry = null;
+
+      if (GeometryId != null) {
+        switch (geometryType) {
+          case -1: // GeoUnknown_Type : -1
+            geometry = new Geometry();
+            geometry._MGGeometryId = GeometryId;
+            break;
+
+          case 1: // GeoPoint_Type : 1
+            // geometry = new GeoPoint();
+            // geometry._MGGeometryId = GeometryId;
+            break;
+
+          case 2: // GeoPoints_Type : 2
+            geometry = new GeoPoints();
+            geometry._MGGeometryId = GeometryId;
+            break;
+
+          case 3: // GeoCir_Type : 3
+            // geometry = new GeoCir();
+            // geometry._MGGeometryId = GeometryId;
+            break;
+
+          case 4: // GeoCir3_Type : 4
+            // geometry = new GeoCir3();
+            // geometry._MGGeometryId = GeometryId;
+            break;
+
+          case 5: // GeoEllipse_Type : 5
+            // geometry = new GeoEllipse();
+            // geometry._MGGeometryId = GeometryId;
+            break;
+
+          case 6: // GeoArc_Type: 6
+            // geometry = new GeoArc();
+            // geometry._MGGeometryId = GeometryId;
+            break;
+
+          case 7: // GeoArc3_Type : 7
+            // geometry = new GeoArc3();
+            // geometry._MGGeometryId = GeometryId;
+            break;
+
+          case 8: // GeoRect_Type : 8
+            // geometry = new GeoRect();
+            // geometry._MGGeometryId = GeometryId;
+            break;
+
+          case 9: // GeoRect1_Type : 9
+            // geometry = new GeoRect1();
+            // geometry._MGGeometryId = GeometryId;
+            break;
+
+          case 10: // GeoSpline_Type : 10
+            // geometry = new GeoSpline();
+            // geometry._MGGeometryId = GeometryId;
+            break;
+
+          case 11: // GeoBezier_Type : 11
+            // geometry = new GeoBezier();
+            // geometry._MGGeometryId = GeometryId;
+            break;
+
+          case 12: // GeoVarLine_Type : 12
+            geometry = new GeoVarLine();
+            geometry._MGGeometryId = GeometryId;
+            break;
+
+          case 13: // GeoLines_Type : 13
+            geometry = new GeoLines();
+            geometry._MGGeometryId = GeometryId;
+            break;
+
+          case 14: // GeoPolygon_Type : 14
+            geometry = new GeoPolygon();
+            geometry._MGGeometryId = GeometryId;
+            break;
+
+          case 15: // GeoPolygons_Type : 15
+            geometry = new GeoPolygons();
+            geometry._MGGeometryId = GeometryId;
+            break;
+
+          case 16: // GeoGeometrys_Type : 16
+            // geometry = new GeoGeometrys();
+            // geometry._MGGeometryId = GeometryId;
+            break;
+
+          case 17: // GeoAnno_Type : 17
+            switch (geometryAnnType) {
+              case -1: // 未知类型:-1-AnnType.AnnUnknown，直接返回GeoAnno
+                geometry = new GeoAnno();
+                geometry._MGGeometryId = GeometryId;
+                break;
+              case 0: //字符串注记类型标志:0-AnnType.AnnText
+                geometry = new TextAnno();
+                geometry._MGGeometryId = GeometryId;
+                break;
+              case 1: // html版面注记类型标志:1-AnnType.AnnHTML
+                // geometry = new HtmlAnno();
+                // geometry._MGGeometryId = GeometryId;
+                break;
+              case 2: // 2-AnnType.AnnAtt
+                break;
+              case 3: // 2-AnnType.AnnDim
+                break;
+              case 4: // 弧注记类型标志:4-AnnType.AnnDim
+                // geometry = new ArcAnno();
+                // geometry._MGGeometryId = GeometryId;
+                break;
+              case 5: // 圆注记类型标志:5-AnnType.AnnCirCle
+                // geometry = new CircleAnno();
+                // geometry._MGGeometryId = GeometryId;
+                break;
+              case 6: // 图像注记类型标志:6-AnnType.AnnImage
+                // geometry = new ImageAnno();
+                // geometry._MGGeometryId = GeometryId;
+                break;
+            }
+            break;
+        }
+      }
+
+      return geometry;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+}
+</code></pre>
         </article>
     </section>
 
@@ -422,13 +610,13 @@ export default class SketchEditor{
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ClassItemValue.html">ClassItemValue</a></li><li><a href="CoordinateConvertParameter.html">CoordinateConvertParameter</a></li><li><a href="Document.html">Document</a></li><li><a href="DocumentItem.html">DocumentItem</a></li><li><a href="Dot.html">Dot</a></li><li><a href="Environment.html">Environment</a></li><li><a href="Feature.html">Feature</a></li><li><a href="FeaturePagedResult.html">FeaturePagedResult</a></li><li><a href="FeatureQuery.html">FeatureQuery</a></li><li><a href="FillStyle.html">FillStyle</a></li><li><a href="GeneralVectorLabel.html">GeneralVectorLabel</a></li><li><a href="GeometryParams.html">GeometryParams</a></li><li><a href="Graphic.html">Graphic</a></li><li><a href="GraphicCircle.html">GraphicCircle</a></li><li><a href="GraphicImage.html">GraphicImage</a></li><li><a href="GraphicMultiPoint.html">GraphicMultiPoint</a></li><li><a href="GraphicPoint.html">GraphicPoint</a></li><li><a href="GraphicPolygon.html">GraphicPolygon</a></li><li><a href="GraphicPolylin.html">GraphicPolylin</a></li><li><a href="GraphicsOverlay.html">GraphicsOverlay</a></li><li><a href="GraphicsOverlays.html">GraphicsOverlays</a></li><li><a href="GraphicStippleLine.html">GraphicStippleLine</a></li><li><a href="GraphicText.html">GraphicText</a></li><li><a href="GroupLayer.html">GroupLayer</a></li><li><a href="Image.html">Image</a></li><li><a href="IntUser.html">IntUser</a></li><li><a href="Label.html">Label</a></li><li><a href="LabelInfo.html">LabelInfo</a></li><li><a href="LayerEnum.html">LayerEnum</a></li><li><a href="LinePlaceInfo.html">LinePlaceInfo</a></li><li><a href="LineStyle.html">LineStyle</a></li><li><a href="MagnifierOption.html">MagnifierOption</a></li><li><a href="Map.html">Map</a></li><li><a href="MapLayer.html">MapLayer</a></li><li><a href="MapPosition.html">MapPosition</a></li><li><a href="Maps.html">Maps</a></li><li><a href="MapServer.html">MapServer</a></li><li><a href="MapView.html">MapView</a></li><li><a href="Model.html">Model</a></li><li><a href="ModelsOverlay.html">ModelsOverlay</a></li><li><a href="MultiClassTheme.html">MultiClassTheme</a></li><li><a href="MultiClassThemeInfo.html">MultiClassThemeInfo</a></li><li><a href="OGCWMTSMapServer.html">OGCWMTSMapServer</a></li><li><a href="PointF.html">PointF</a></li><li><a href="PointPlaceInfo.html">PointPlaceInfo</a></li><li><a href="PointStyle.html">PointStyle</a></li><li><a href="QueryBound.html">QueryBound</a></li><li><a href="RangeTheme.html">RangeTheme</a></li><li><a href="RangeThemeInfo.html">RangeThemeInfo</a></li><li><a href="Rect.html">Rect</a></li><li><a href="RegionPlaceInfo.html">RegionPlaceInfo</a></li><li><a href="ServerLayer.html">ServerLayer</a></li><li><a href="SimpleLabel.html">SimpleLabel</a></li><li><a href="SimpleModelLayer.html">SimpleModelLayer</a></li><li><a href="SimpleModelLayerUtil.html">SimpleModelLayerUtil</a></li><li><a href="SimpleTheme.html">SimpleTheme</a></li><li><a href="SketchEditor.html">SketchEditor</a></li><li><a href="SketchStyle.html">SketchStyle</a></li><li><a href="SnappingOption.html">SnappingOption</a></li><li><a href="SRefData.html">SRefData</a></li><li><a href="TextStyle.html">TextStyle</a></li><li><a href="Theme.html">Theme</a></li><li><a href="ThemeInfo.html">ThemeInfo</a></li><li><a href="Themes.html">Themes</a></li><li><a href="TileMapServer.html">TileMapServer</a></li><li><a href="UniqueTheme.html">UniqueTheme</a></li><li><a href="UniqueThemeInfo.html">UniqueThemeInfo</a></li><li><a href="VectorLabel.html">VectorLabel</a></li><li><a href="VectorLayer.html">VectorLayer</a></li><li><a href="VectorMapServer.html">VectorMapServer</a></li><li><a href="VectorTheme.html">VectorTheme</a></li><li><a href="VectorTileMapServer.html">VectorTileMapServer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#initialize">initialize</a></li><li><a href="global.html#removeAnimationListener">removeAnimationListener</a></li><li><a href="global.html#removeCenterChangedListener">removeCenterChangedListener</a></li><li><a href="global.html#removeDoubleTapListener">removeDoubleTapListener</a></li><li><a href="global.html#removeLongTapListener">removeLongTapListener</a></li><li><a href="global.html#removeMapLoadListener">removeMapLoadListener</a></li><li><a href="global.html#removeRefreshListener">removeRefreshListener</a></li><li><a href="global.html#removeRotateChangedListener">removeRotateChangedListener</a></li><li><a href="global.html#removeTapListener">removeTapListener</a></li><li><a href="global.html#removeTouchListener">removeTouchListener</a></li><li><a href="global.html#removeZoomChangedListener">removeZoomChangedListener</a></li><li><a href="global.html#requestAuthorization">requestAuthorization</a></li><li><a href="global.html#setResolution">setResolution</a></li><li><a href="global.html#setScale">setScale</a></li><li><a href="global.html#setSize">setSize</a></li><li><a href="global.html#setSystemLibraryPath">setSystemLibraryPath</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AnnClsInfo.html">AnnClsInfo</a></li><li><a href="AnnInfo.html">AnnInfo</a></li><li><a href="Annotation.html">Annotation</a></li><li><a href="AnnotationCls.html">AnnotationCls</a></li><li><a href="AnnotationsOverlay.html">AnnotationsOverlay</a></li><li><a href="AnnotationView.html">AnnotationView</a></li><li><a href="BasCls.html">BasCls</a></li><li><a href="ClassItemValue.html">ClassItemValue</a></li><li><a href="CoordinateConvert.html">CoordinateConvert</a></li><li><a href="CoordinateConvertParameter.html">CoordinateConvertParameter</a></li><li><a href="CrossData.html">CrossData</a></li><li><a href="DataBase.html">DataBase</a></li><li><a href="DataBaseSync.html">DataBaseSync</a></li><li><a href="Document.html">Document</a></li><li><a href="DocumentItem.html">DocumentItem</a></li><li><a href="Dot.html">Dot</a></li><li><a href="Dot3D.html">Dot3D</a></li><li><a href="Dots.html">Dots</a></li><li><a href="Dots3D.html">Dots3D</a></li><li><a href="DownloadDataBaseParmeters.html">DownloadDataBaseParmeters</a></li><li><a href="DownloadLayerOption.html">DownloadLayerOption</a></li><li><a href="ElpParam.html">ElpParam</a></li><li><a href="ElpTransformation.html">ElpTransformation</a></li><li><a href="ElpTransParam.html">ElpTransParam</a></li><li><a href="Environment.html">Environment</a></li><li><a href="ExtField.html">ExtField</a></li><li><a href="FClsInfo.html">FClsInfo</a></li><li><a href="Feature.html">Feature</a></li><li><a href="FeatureEdit.html">FeatureEdit</a></li><li><a href="FeaturePagedResult.html">FeaturePagedResult</a></li><li><a href="FeatureQuery.html">FeatureQuery</a></li><li><a href="FeatureSync.html">FeatureSync</a></li><li><a href="Field.html">Field</a></li><li><a href="Fields.html">Fields</a></li><li><a href="FillStyle.html">FillStyle</a></li><li><a href="GeneralVectorLabel.html">GeneralVectorLabel</a></li><li><a href="GeoAnno.html">GeoAnno</a></li><li><a href="GeoLine.html">GeoLine</a></li><li><a href="GeoLines.html">GeoLines</a></li><li><a href="Geometry.html">Geometry</a></li><li><a href="GeometryExp.html">GeometryExp</a></li><li><a href="GeometryParams.html">GeometryParams</a></li><li><a href="GeomInfo.html">GeomInfo</a></li><li><a href="GeoPoints.html">GeoPoints</a></li><li><a href="GeoPolygon.html">GeoPolygon</a></li><li><a href="GeoPolygons.html">GeoPolygons</a></li><li><a href="GeoVarLine.html">GeoVarLine</a></li><li><a href="Graphic.html">Graphic</a></li><li><a href="GraphicCircle.html">GraphicCircle</a></li><li><a href="GraphicHeatmap.html">GraphicHeatmap</a></li><li><a href="GraphicImage.html">GraphicImage</a></li><li><a href="GraphicMultiPoint.html">GraphicMultiPoint</a></li><li><a href="GraphicPoint.html">GraphicPoint</a></li><li><a href="GraphicPolygon.html">GraphicPolygon</a></li><li><a href="GraphicPolylin.html">GraphicPolylin</a></li><li><a href="GraphicsOverlay.html">GraphicsOverlay</a></li><li><a href="GraphicsOverlays.html">GraphicsOverlays</a></li><li><a href="GraphicStippleLine.html">GraphicStippleLine</a></li><li><a href="GraphicText.html">GraphicText</a></li><li><a href="GroupLayer.html">GroupLayer</a></li><li><a href="HeatmapPoint.html">HeatmapPoint</a></li><li><a href="Image.html">Image</a></li><li><a href="IntUser.html">IntUser</a></li><li><a href="Label.html">Label</a></li><li><a href="LabelInfo.html">LabelInfo</a></li><li><a href="LatLng.html">LatLng</a></li><li><a href="LayerEnum.html">LayerEnum</a></li><li><a href="LinePlaceInfo.html">LinePlaceInfo</a></li><li><a href="LineStyle.html">LineStyle</a></li><li><a href="LinInfo.html">LinInfo</a></li><li><a href="MagnifierOption.html">MagnifierOption</a></li><li><a href="Map.html">Map</a></li><li><a href="MapLayer.html">MapLayer</a></li><li><a href="MapPosition.html">MapPosition</a></li><li><a href="Maps.html">Maps</a></li><li><a href="MapServer.html">MapServer</a></li><li><a href="MapServiceInfo.html">MapServiceInfo</a></li><li><a href="MapServiceLayerInfo.html">MapServiceLayerInfo</a></li><li><a href="MapView.html">MapView</a></li><li><a href="Model.html">Model</a></li><li><a href="ModelsOverlay.html">ModelsOverlay</a></li><li><a href="MultiClassTheme.html">MultiClassTheme</a></li><li><a href="MultiClassThemeInfo.html">MultiClassThemeInfo</a></li><li><a href="OGCWMTSMapServer.html">OGCWMTSMapServer</a></li><li><a href="PntInfo.html">PntInfo</a></li><li><a href="PointF.html">PointF</a></li><li><a href="PointPlaceInfo.html">PointPlaceInfo</a></li><li><a href="PointStyle.html">PointStyle</a></li><li><a href="QueryBound.html">QueryBound</a></li><li><a href="QueryDef.html">QueryDef</a></li><li><a href="RangeTheme.html">RangeTheme</a></li><li><a href="RangeThemeInfo.html">RangeThemeInfo</a></li><li><a href="Record.html">Record</a></li><li><a href="RecordSet.html">RecordSet</a></li><li><a href="Rect.html">Rect</a></li><li><a href="RegInfo.html">RegInfo</a></li><li><a href="RegionPlaceInfo.html">RegionPlaceInfo</a></li><li><a href="ServerLayer.html">ServerLayer</a></li><li><a href="SFeatureCls.html">SFeatureCls</a></li><li><a href="SimpleLabel.html">SimpleLabel</a></li><li><a href="SimpleModelLayer.html">SimpleModelLayer</a></li><li><a href="SimpleModelLayerUtil.html">SimpleModelLayerUtil</a></li><li><a href="SimpleTheme.html">SimpleTheme</a></li><li><a href="SketchEditor.html">SketchEditor</a></li><li><a href="SketchStyle.html">SketchStyle</a></li><li><a href="SnappingOption.html">SnappingOption</a></li><li><a href="SpaAnalysis.html">SpaAnalysis</a></li><li><a href="SpaCalculator.html">SpaCalculator</a></li><li><a href="SpaProjection.html">SpaProjection</a></li><li><a href="SpaRelation.html">SpaRelation</a></li><li><a href="SRefData.html">SRefData</a></li><li><a href="SyncBase.html">SyncBase</a></li><li><a href="SyncDataBaseParmeters.html">SyncDataBaseParmeters</a></li><li><a href="SyncLayerOption.html">SyncLayerOption</a></li><li><a href="TextAnnInfo.html">TextAnnInfo</a></li><li><a href="TextAnno.html">TextAnno</a></li><li><a href="TextStyle.html">TextStyle</a></li><li><a href="Theme.html">Theme</a></li><li><a href="ThemeInfo.html">ThemeInfo</a></li><li><a href="Themes.html">Themes</a></li><li><a href="TileMapServer.html">TileMapServer</a></li><li><a href="UniqueTheme.html">UniqueTheme</a></li><li><a href="UniqueThemeInfo.html">UniqueThemeInfo</a></li><li><a href="VectorCls.html">VectorCls</a></li><li><a href="VectorLabel.html">VectorLabel</a></li><li><a href="VectorLayer.html">VectorLayer</a></li><li><a href="VectorMapServer.html">VectorMapServer</a></li><li><a href="VectorTheme.html">VectorTheme</a></li><li><a href="VectorTileMapServer.html">VectorTileMapServer</a></li><li><a href="VisualMap.html">VisualMap</a></li><li><a href="XClsInfo.html">XClsInfo</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addAnnotation">addAnnotation</a></li><li><a href="global.html#addAnnotations">addAnnotations</a></li><li><a href="global.html#animatePosition">animatePosition</a></li><li><a href="global.html#distanceOfGeometry">distanceOfGeometry</a></li><li><a href="global.html#getAllAnnotations">getAllAnnotations</a></li><li><a href="global.html#getAnnotation">getAnnotation</a></li><li><a href="global.html#getAnnotationCount">getAnnotationCount</a></li><li><a href="global.html#getGeometryByType">getGeometryByType</a></li><li><a href="global.html#indexOf">indexOf</a></li><li><a href="global.html#initialize">initialize</a></li><li><a href="global.html#moveAnnotation">moveAnnotation</a></li><li><a href="global.html#removeAllAnnotations">removeAllAnnotations</a></li><li><a href="global.html#removeAnnotation">removeAnnotation</a></li><li><a href="global.html#removeAnnotationByIndex">removeAnnotationByIndex</a></li><li><a href="global.html#removeAnnotations">removeAnnotations</a></li><li><a href="global.html#requestAuthorization">requestAuthorization</a></li><li><a href="global.html#setBackGroundImage">setBackGroundImage</a></li><li><a href="global.html#setResolution">setResolution</a></li><li><a href="global.html#setScale">setScale</a></li><li><a href="global.html#setSize">setSize</a></li><li><a href="global.html#setSystemLibraryPath">setSystemLibraryPath</a></li><li><a href="global.html#updatePositionbyViewPoint">updatePositionbyViewPoint</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Sep 18 2019 09:06:20 GMT+0800 (GMT+08:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Mon Sep 30 2019 14:41:58 GMT+0800 (GMT+08:00)
 </footer>
 
 <script> prettyPrint(); </script>

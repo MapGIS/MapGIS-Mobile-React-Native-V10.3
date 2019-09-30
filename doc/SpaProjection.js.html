@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: SpaProjection.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: SpaProjection.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @content 空间投影功能组件
+ * @author  2019-09-25
+ */
+import { NativeModules } from 'react-native';
+
+let SPP = NativeModules.JSSpaProjection;
+
+import SRefData from './SRefData.js';
+
+/**
+ * @class SpaProjection
+ * @description 空间投影
+ */
+export default class SpaProjection {
+  /**
+   * 构造一个新的 SpaProjection 对象。
+   * @memberOf SpaProjection
+   * @returns {Promise.&lt;SpaProjection>}
+   */
+  async createObj() {
+    try {
+      var { SpaProjectionId } = await SPP.createObj();
+      var spaProjection = new SpaProjection();
+      spaProjection._MGSpaProjectionId = SpaProjectionId;
+      return spaProjection;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 设置源投影参数
+   * @memberOf SpaProjection
+   * @param {SRefData} sRef 源投影参数
+   * @return {Promise.&lt;int>} >0成功； &lt;=0-失败
+   */
+  async setSourcePara(sRef) {
+    try {
+      return await SPP.setSourcePara(
+        this._MGSpaProjectionId,
+        sRef._MGSRefDataId
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 取源投影参数
+   * @memberOf SpaProjection
+   * @return {Promise.&lt;SRefData>} 源投影参数
+   */
+  async getSourcePara() {
+    try {
+      let { SRefDataId } = await SPP.getSourcePara(this._MGSpaProjectionId);
+      var sRefData = new SRefData();
+      sRefData._MGSRefDataId = SRefDataId;
+      return sRefData;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 设置目标投影参数
+   * @memberOf SpaProjection
+   * @param {SRefData} sRef 目标投影参数
+   * @return {Promise.&lt;int>} >0成功； &lt;=0-失败
+   */
+  async setDestinationPara(sRef) {
+    try {
+      return await SPP.setDestinationPara(
+        this._MGSpaProjectionId,
+        sRef._MGSRefDataId
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 取目标投影参数
+   * @memberOf SpaProjection
+   * @return {Promise.&lt;SRefData>} 目标投影参数
+   */
+  async getDestinationPara() {
+    try {
+      let { SRefDataId } = await SPP.getDestinationPara(
+        this._MGSpaProjectionId
+      );
+      var sRefData = new SRefData();
+      sRefData._MGSRefDataId = SRefDataId;
+      return sRefData;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 设置椭球坐标系变换参数的索引，当投影前后椭球体不一样时，必须设置椭球坐标系变换参数
+   * @memberOf SpaProjection
+   * @param {int} transID 椭球坐标系变换参数的索引,从0开始
+   * @see ElpTransformation
+   * @return {Promise.&lt;int>} >0成功； &lt;=0-失败
+   */
+  async setEllipTransId(transID) {
+    try {
+      return await SPP.setEllipTransId(this._MGSpaProjectionId, transID);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 设置椭球坐标系变换参数，当投影前后椭球体不一样时，必须设置椭球坐标系变换参数
+   * @memberOf SpaProjection
+   * @param {ElpTransParam} param 椭球坐标系变换参数
+   * @return {Promise.&lt;int>} >0成功； &lt;=0-失败
+   */
+  async setEllipTransParam(param) {
+    try {
+      return await SPP.setEllipTransParam(
+        this._MGSpaProjectionId,
+        param._MGElpTransParamId
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获得椭球坐标系变换参数的索引
+   * @memberOf SpaProjection
+   * @return {Promise.&lt;int>} 椭球坐标系变换参数的索引
+   * @see ElpTransformation
+   */
+  async getEllipTransId() {
+    try {
+      return await SPP.getEllipTransId(this._MGSpaProjectionId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 单点投影
+   * @memberOf SpaProjection
+   * @param {Dot} xy 点坐标
+   * @return {Promise.&lt;int>} >0成功； &lt;=0-失败
+   */
+  async projTrans(xy) {
+    try {
+      return await SPP.projTrans(this._MGSpaProjectionId, xy._MGDotId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * WGS84 （度）到 web墨卡托投影（米）
+   * @memberOf SpaProjection
+   * @param {Dot} dot 点坐标
+   * @return {Promise.&lt;void>}
+   */
+  static async lonLat2Mercator(dot) {
+    try {
+      await SPP.lonLat2Mercator(dot._MGDotId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * web墨卡托投影（米）到 WGS84（度）
+   * @memberOf SpaProjection
+   * @param {Dot} dot 点坐标
+   * @return {Promise.&lt;void>}
+   */
+  static async mercator2LonLat(dot) {
+    try {
+      await SPP.mercator2LonLat(dot._MGDotId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AnnClsInfo.html">AnnClsInfo</a></li><li><a href="AnnInfo.html">AnnInfo</a></li><li><a href="Annotation.html">Annotation</a></li><li><a href="AnnotationCls.html">AnnotationCls</a></li><li><a href="AnnotationsOverlay.html">AnnotationsOverlay</a></li><li><a href="AnnotationView.html">AnnotationView</a></li><li><a href="BasCls.html">BasCls</a></li><li><a href="ClassItemValue.html">ClassItemValue</a></li><li><a href="CoordinateConvert.html">CoordinateConvert</a></li><li><a href="CoordinateConvertParameter.html">CoordinateConvertParameter</a></li><li><a href="CrossData.html">CrossData</a></li><li><a href="DataBase.html">DataBase</a></li><li><a href="DataBaseSync.html">DataBaseSync</a></li><li><a href="Document.html">Document</a></li><li><a href="DocumentItem.html">DocumentItem</a></li><li><a href="Dot.html">Dot</a></li><li><a href="Dot3D.html">Dot3D</a></li><li><a href="Dots.html">Dots</a></li><li><a href="Dots3D.html">Dots3D</a></li><li><a href="DownloadDataBaseParmeters.html">DownloadDataBaseParmeters</a></li><li><a href="DownloadLayerOption.html">DownloadLayerOption</a></li><li><a href="ElpParam.html">ElpParam</a></li><li><a href="ElpTransformation.html">ElpTransformation</a></li><li><a href="ElpTransParam.html">ElpTransParam</a></li><li><a href="Environment.html">Environment</a></li><li><a href="ExtField.html">ExtField</a></li><li><a href="FClsInfo.html">FClsInfo</a></li><li><a href="Feature.html">Feature</a></li><li><a href="FeatureEdit.html">FeatureEdit</a></li><li><a href="FeaturePagedResult.html">FeaturePagedResult</a></li><li><a href="FeatureQuery.html">FeatureQuery</a></li><li><a href="FeatureSync.html">FeatureSync</a></li><li><a href="Field.html">Field</a></li><li><a href="Fields.html">Fields</a></li><li><a href="FillStyle.html">FillStyle</a></li><li><a href="GeneralVectorLabel.html">GeneralVectorLabel</a></li><li><a href="GeoAnno.html">GeoAnno</a></li><li><a href="GeoLine.html">GeoLine</a></li><li><a href="GeoLines.html">GeoLines</a></li><li><a href="Geometry.html">Geometry</a></li><li><a href="GeometryExp.html">GeometryExp</a></li><li><a href="GeometryParams.html">GeometryParams</a></li><li><a href="GeomInfo.html">GeomInfo</a></li><li><a href="GeoPoints.html">GeoPoints</a></li><li><a href="GeoPolygon.html">GeoPolygon</a></li><li><a href="GeoPolygons.html">GeoPolygons</a></li><li><a href="GeoVarLine.html">GeoVarLine</a></li><li><a href="Graphic.html">Graphic</a></li><li><a href="GraphicCircle.html">GraphicCircle</a></li><li><a href="GraphicHeatmap.html">GraphicHeatmap</a></li><li><a href="GraphicImage.html">GraphicImage</a></li><li><a href="GraphicMultiPoint.html">GraphicMultiPoint</a></li><li><a href="GraphicPoint.html">GraphicPoint</a></li><li><a href="GraphicPolygon.html">GraphicPolygon</a></li><li><a href="GraphicPolylin.html">GraphicPolylin</a></li><li><a href="GraphicsOverlay.html">GraphicsOverlay</a></li><li><a href="GraphicsOverlays.html">GraphicsOverlays</a></li><li><a href="GraphicStippleLine.html">GraphicStippleLine</a></li><li><a href="GraphicText.html">GraphicText</a></li><li><a href="GroupLayer.html">GroupLayer</a></li><li><a href="HeatmapPoint.html">HeatmapPoint</a></li><li><a href="Image.html">Image</a></li><li><a href="IntUser.html">IntUser</a></li><li><a href="Label.html">Label</a></li><li><a href="LabelInfo.html">LabelInfo</a></li><li><a href="LatLng.html">LatLng</a></li><li><a href="LayerEnum.html">LayerEnum</a></li><li><a href="LinePlaceInfo.html">LinePlaceInfo</a></li><li><a href="LineStyle.html">LineStyle</a></li><li><a href="LinInfo.html">LinInfo</a></li><li><a href="MagnifierOption.html">MagnifierOption</a></li><li><a href="Map.html">Map</a></li><li><a href="MapLayer.html">MapLayer</a></li><li><a href="MapPosition.html">MapPosition</a></li><li><a href="Maps.html">Maps</a></li><li><a href="MapServer.html">MapServer</a></li><li><a href="MapServiceInfo.html">MapServiceInfo</a></li><li><a href="MapServiceLayerInfo.html">MapServiceLayerInfo</a></li><li><a href="MapView.html">MapView</a></li><li><a href="Model.html">Model</a></li><li><a href="ModelsOverlay.html">ModelsOverlay</a></li><li><a href="MultiClassTheme.html">MultiClassTheme</a></li><li><a href="MultiClassThemeInfo.html">MultiClassThemeInfo</a></li><li><a href="OGCWMTSMapServer.html">OGCWMTSMapServer</a></li><li><a href="PntInfo.html">PntInfo</a></li><li><a href="PointF.html">PointF</a></li><li><a href="PointPlaceInfo.html">PointPlaceInfo</a></li><li><a href="PointStyle.html">PointStyle</a></li><li><a href="QueryBound.html">QueryBound</a></li><li><a href="QueryDef.html">QueryDef</a></li><li><a href="RangeTheme.html">RangeTheme</a></li><li><a href="RangeThemeInfo.html">RangeThemeInfo</a></li><li><a href="Record.html">Record</a></li><li><a href="RecordSet.html">RecordSet</a></li><li><a href="Rect.html">Rect</a></li><li><a href="RegInfo.html">RegInfo</a></li><li><a href="RegionPlaceInfo.html">RegionPlaceInfo</a></li><li><a href="ServerLayer.html">ServerLayer</a></li><li><a href="SFeatureCls.html">SFeatureCls</a></li><li><a href="SimpleLabel.html">SimpleLabel</a></li><li><a href="SimpleModelLayer.html">SimpleModelLayer</a></li><li><a href="SimpleModelLayerUtil.html">SimpleModelLayerUtil</a></li><li><a href="SimpleTheme.html">SimpleTheme</a></li><li><a href="SketchEditor.html">SketchEditor</a></li><li><a href="SketchStyle.html">SketchStyle</a></li><li><a href="SnappingOption.html">SnappingOption</a></li><li><a href="SpaAnalysis.html">SpaAnalysis</a></li><li><a href="SpaCalculator.html">SpaCalculator</a></li><li><a href="SpaProjection.html">SpaProjection</a></li><li><a href="SpaRelation.html">SpaRelation</a></li><li><a href="SRefData.html">SRefData</a></li><li><a href="SyncBase.html">SyncBase</a></li><li><a href="SyncDataBaseParmeters.html">SyncDataBaseParmeters</a></li><li><a href="SyncLayerOption.html">SyncLayerOption</a></li><li><a href="TextAnnInfo.html">TextAnnInfo</a></li><li><a href="TextAnno.html">TextAnno</a></li><li><a href="TextStyle.html">TextStyle</a></li><li><a href="Theme.html">Theme</a></li><li><a href="ThemeInfo.html">ThemeInfo</a></li><li><a href="Themes.html">Themes</a></li><li><a href="TileMapServer.html">TileMapServer</a></li><li><a href="UniqueTheme.html">UniqueTheme</a></li><li><a href="UniqueThemeInfo.html">UniqueThemeInfo</a></li><li><a href="VectorCls.html">VectorCls</a></li><li><a href="VectorLabel.html">VectorLabel</a></li><li><a href="VectorLayer.html">VectorLayer</a></li><li><a href="VectorMapServer.html">VectorMapServer</a></li><li><a href="VectorTheme.html">VectorTheme</a></li><li><a href="VectorTileMapServer.html">VectorTileMapServer</a></li><li><a href="VisualMap.html">VisualMap</a></li><li><a href="XClsInfo.html">XClsInfo</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addAnnotation">addAnnotation</a></li><li><a href="global.html#addAnnotations">addAnnotations</a></li><li><a href="global.html#animatePosition">animatePosition</a></li><li><a href="global.html#distanceOfGeometry">distanceOfGeometry</a></li><li><a href="global.html#getAllAnnotations">getAllAnnotations</a></li><li><a href="global.html#getAnnotation">getAnnotation</a></li><li><a href="global.html#getAnnotationCount">getAnnotationCount</a></li><li><a href="global.html#getGeometryByType">getGeometryByType</a></li><li><a href="global.html#indexOf">indexOf</a></li><li><a href="global.html#initialize">initialize</a></li><li><a href="global.html#moveAnnotation">moveAnnotation</a></li><li><a href="global.html#removeAllAnnotations">removeAllAnnotations</a></li><li><a href="global.html#removeAnnotation">removeAnnotation</a></li><li><a href="global.html#removeAnnotationByIndex">removeAnnotationByIndex</a></li><li><a href="global.html#removeAnnotations">removeAnnotations</a></li><li><a href="global.html#requestAuthorization">requestAuthorization</a></li><li><a href="global.html#setBackGroundImage">setBackGroundImage</a></li><li><a href="global.html#setResolution">setResolution</a></li><li><a href="global.html#setScale">setScale</a></li><li><a href="global.html#setSize">setSize</a></li><li><a href="global.html#setSystemLibraryPath">setSystemLibraryPath</a></li><li><a href="global.html#updatePositionbyViewPoint">updatePositionbyViewPoint</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Mon Sep 30 2019 14:41:58 GMT+0800 (GMT+08:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

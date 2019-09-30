@@ -3,7 +3,7 @@
  * @Author: xiaoying
  * @Date: 2019-09-03 14:26:49
  * @LastEditTime: 2019-09-19 14:38:21
- * @LastEditors: Please set LastEditors
+ * @LastEditors: mayuanye
  */
 import { NativeModules } from 'react-native';
 import PntInfo from './PntInfo.js';

@@ -1,6 +1,6 @@
 /**
  * @content 视觉映射功能组件
- * @author
+ * @author lidafeng
  */
 import { NativeModules } from 'react-native';
 

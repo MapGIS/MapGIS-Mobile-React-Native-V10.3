@@ -3,7 +3,7 @@
  * @Author: fjl
  * @Date: 2019-09-06 16:27:38
  * @LastEditTime: 2019-09-19 15:36:08
- * @LastEditors: Please set LastEditors
+ * @LastEditors: mayuanye
  */
 /**
  * @content android视图点对象功能组件

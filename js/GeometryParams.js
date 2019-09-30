@@ -3,7 +3,7 @@
  * @Author: xiaoying
  * @Date: 2019-09-10 16:52:12
  * @LastEditTime: 2019-09-20 17:23:26
- * @LastEditors: Please set LastEditors
+ * @LastEditors: mayuanye
  */
 import { NativeModules } from 'react-native';
 import SketchEditor from './SketchEditor.js';

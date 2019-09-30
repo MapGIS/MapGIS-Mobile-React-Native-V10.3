@@ -1,9 +1,9 @@
 /*
  * @Description: In User Settings Edit
- * @Author: your name
+ * @author: lidafeng
  * @Date: 2019-09-10 17:06:11
  * @LastEditTime: 2019-09-17 14:56:28
- * @LastEditors: Please set LastEditors
+ * @LastEditors: mayuanye
  */
 import { NativeModules } from 'react-native';
 import PointStyle from './PointStyle';

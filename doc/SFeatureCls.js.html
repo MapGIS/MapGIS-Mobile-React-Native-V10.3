@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: SFeatureCls.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: SFeatureCls.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @content 简单要素类对象功能组件
+ * @author  2019-09-18
+ */
+import { NativeModules } from 'react-native';
+
+import VectorCls from './VectorCls.js';
+import DataBase from './DataBase.js';
+import Rect from './Rect.js';
+import Record from './Record.js';
+import FClsInfo from './FClsInfo.js';
+import Fields from './Fields.js';
+import RecordSet from './RecordSet.js';
+import GeomInfo from './GeomInfo.js';
+import Geometry from './Geometry.js';
+
+let SFCLS = NativeModules.JSSFeatureCls;
+
+/**
+ * @class SFeatureCls
+ * @description 简单要素类对象
+ */
+export default class SFeatureCls extends VectorCls {
+  constructor() {
+    super();
+    Object.defineProperty(this, '_MGSFeatureClsId', {
+      get: function() {
+        return this._MGVectorClsId;
+      },
+      set: function(_MGSFeatureClsId) {
+        this._MGVectorClsId = _MGSFeatureClsId;
+      },
+    });
+  }
+
+  /**
+   * 构造一个新的 SFeatureCls 对象。
+   * @memberOf SFeatureCls
+   * @returns {Promise.&lt;SFeatureCls>}简单要素类对象
+   */
+  async createObj(db) {
+    try {
+      var { SFeatureClsId } = await SFCLS.createObj(db._MGDataBaseId);
+      var sFeatureCls = new SFeatureCls();
+      sFeatureCls._MGSFeatureClsId = SFeatureClsId;
+      return sFeatureCls;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async create(name, geomType, dsID, srsID, flds) {
+    try {
+      return await SFCLS.create(
+        this._MGSFeatureClsId,
+        name,
+        geomType,
+        dsID,
+        srsID,
+        flds._MGFieldsId
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 打开简单要素类图层
+   * @memberOf SFeatureCls
+   * @param id 图层ID
+   * @return {Promise} 成功：>0;失败：&lt;=0
+   */
+  async openById(id) {
+    try {
+      return await SFCLS.openById(this._MGSFeatureClsId, id);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 打开简单要素类
+   * @memberOf SFeatureCls
+   * @param name 简单要素名称
+   * @return {Promise} 成功：类对象ID;失败：&lt;=0
+   */
+  async openByName(name) {
+    try {
+      return await SFCLS.open(this._MGSFeatureClsId, name);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 是否已经打开
+   * @memberOf SFeatureCls
+   * @return {Promise}  是否打开
+   */
+  async hasOpen() {
+    try {
+      return await SFCLS.hasOpen(this._MGSFeatureClsId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 清空类
+   * @memberOf SFeatureCls
+   * @return {Promise} 成功：>0;失败：&lt;=0
+   */
+  async clear() {
+    try {
+      return await SFCLS.clear(this._MGSFeatureClsId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 关闭类
+   * @memberOf SFeatureCls
+   * @return {Promise} 成功：>0;失败：&lt;=0
+   */
+  async close() {
+    try {
+      return await SFCLS.close(this._MGSFeatureClsId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取地理数据库
+   * @memberOf SFeatureCls
+   * @return {Promise&lt;DataBase>} 地理数据库对象
+   */
+  async getGDataBase() {
+    try {
+      let { DataBaseId } = await SFCLS.getGDataBase(this._MGSFeatureClsId);
+      var db = new DataBase();
+      db._MGDataBaseId = DataBaseId;
+      return db;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取简单要素类要素数目
+   * @memberOf SFeatureCls
+   * @return {Promise} 要素数目
+   */
+  async getCount() {
+    try {
+      return await SFCLS.getCount(this._MGSFeatureClsId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取简单要素类的矩形范围
+   * @memberOf SFeatureCls
+   * @return {Promise&lt;Rect>} 矩形范围
+   */
+  async getRange() {
+    try {
+      let { RectId } = await SFCLS.getRange(this._MGSFeatureClsId);
+      var rc = new Rect();
+      rc._MGRectId = RectId;
+      return rc;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取简单要素类的要素类类型
+   * @memberOf SFeatureCls
+   * @return {Promise} 要素类类型
+   */
+  async getClsType() {
+    try {
+      return await SFCLS.getClsType(this._MGSFeatureClsId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取对象几何类型
+   * @memberOf SFeatureCls
+   * @return {Promise}成功返回对象几何类型
+   */
+  async getGeomType() {
+    try {
+      return await SFCLS.getGeomType(this._MGSFeatureClsId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 取当前简单要素类对应的要素类ID
+   * @memberOf SFeatureCls
+   * @return {Promise} 要素类ID
+   */
+  async getClsID() {
+    try {
+      return await SFCLS.getClsID(this._MGSFeatureClsId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取当前简单要素类的信息
+   * @memberOf SFeatureCls
+   * @return {Promise&lt;FClsInfo>} 简单要素类的信息
+   */
+  async getClsInfo() {
+    try {
+      let { FClsInfoId } = await SFCLS.getClsInfo(this._MGSFeatureClsId);
+      var fClsInfo = new FClsInfo();
+      fClsInfo._MGSFCLSInfoId = FClsInfoId;
+      return fClsInfo;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取当前简单要素类的属性结构
+   * @memberOf SFeatureCls
+   * @return {Promise&lt;Fields>} 属性结构
+   */
+  async getFields() {
+    try {
+      let { FieldsId } = await SFCLS.getFields(this._MGSFeatureClsId);
+      var fields = new Fields();
+      fields._MGFieldsId = FieldsId;
+      return fields;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 添加对象
+   * @memberOf SFeatureCls
+   * @param geom 对象几何信息
+   * @param rcd 对象属性信息
+   * @param inf 对象的图形信息
+   * @return {Promise} 成功：添加的对象ID；失败:&lt;=0
+   */
+  async append(geom, rcd, info) {
+    try {
+      return await SFCLS.append(
+        this._MGSFeatureClsId,
+        geom._MGGeometryId,
+        rcd._MGRecordId,
+        info._MGGeomInfoId
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取当前要素类所有要素集合
+   * @memberOf SFeatureCls
+   * @return {Promise&lt;RecordSet>}成功返回查询到的要素集合，失败返回空
+   */
+  async selectAllFeature() {
+    try {
+      let { RecordSetId } = await SFCLS.selectAllFeature(this._MGSFeatureClsId);
+      var recordSet = new RecordSet();
+      recordSet._MGRecordSetId = RecordSetId;
+      return recordSet;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 查询
+   * @memberOf SFeatureCls
+   * @param def 查询条件
+   * @return {Promise&lt;RecordSet>}记录集对象
+   */
+  async select(def) {
+    try {
+      let { RecordSetId } = await SFCLS.select(
+        this._MGSFeatureClsId,
+        def._MGQueryDefId
+      );
+      var recordSet = new RecordSet();
+      recordSet._MGRecordSetId = RecordSetId;
+      return recordSet;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 取要素矩形范围
+   * @memberOf SFeatureCls
+   * @param objID 对象记录ID
+   * @return {Promise&lt;Rect>}矩形范围
+   */
+  async getRect(objID) {
+    try {
+      let { RectId } = await SFCLS.getRect(this._MGSFeatureClsId, objID);
+      var rect = new Rect();
+      rect._MGRectId = RectId;
+      return rect;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 取对象信息
+   * @memberOf SFeatureCls
+   * @param objID 对象记录ID
+   * @param ptGeom 对象几何信息
+   * @param ptRcd 对象属性信息
+   * @param ptInf 对象的图形信息
+   * @return {Promise}成功：>0;失败：&lt;=0
+   */
+  async get(objID, geom, rcd, info) {
+    try {
+      return await SFCLS.get(
+        this._MGSFeatureClsId,
+        objID,
+        geom._MGGeometryId,
+        rcd._MGRecordId,
+        info._MGGeomInfoId
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 取对象的属性信息
+   * @memberOf SFeatureCls
+   * @param objID 对象记录ID
+   * @return {Promise&lt;Record>}对象的属性信息
+   */
+  async getAtt(objID) {
+    try {
+      let { RecordId } = await SFCLS.getAtt(this._MGSFeatureClsId, objID);
+      var record = new Record();
+      record._MGRecordId = RecordId;
+      return record;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 取对象几何信息
+   * @memberOf SFeatureCls
+   * @param objID 对象记录ID
+   * @return {Promise&lt;Geometry>}对象几何信息
+   */
+  async getGeometry(objID) {
+    try {
+      let { GeometryId } = await SFCLS.getGeometry(
+        this._MGSFeatureClsId,
+        objID
+      );
+      var geometry = new Geometry();
+      geometry._MGGeometryId = GeometryId;
+      return geometry;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取对象图形信息
+   * @memberOf SFeatureCls
+   * @param objID 对象记录ID
+   * @return {Promise&lt;GeomInfo>}对象图形信息
+   */
+  async getInfo(objID) {
+    try {
+      let { GeomInfoId } = await SFCLS.getInfo(this._MGSFeatureClsId, objID);
+      var geomInfo = new GeomInfo();
+      geomInfo._MGGeomInfoId = GeomInfoId;
+      return geomInfo;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取要素几何类型
+   * @memberOf SFeatureCls
+   * @param objID 要素ID
+   * @return{Promise}几何类型
+   */
+  async getGeometryType(objID) {
+    try {
+      return await SFCLS.getGeometryType(this._MGSFeatureClsId, objID);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取类名称
+   * @memberOf SFeatureCls
+   * @return{Promise}类名称
+   */
+  async getClsName() {
+    try {
+      return await SFCLS.getClsName(this._MGSFeatureClsId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 设置类名称
+   * @memberOf SFeatureCls
+   * @param newVal 类名称
+   */
+  async setClsName(newVal) {
+    try {
+      await SFCLS.setClsName(this._MGSFeatureClsId, newVal);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 取类URL
+   * @memberOf SFeatureCls
+   * @return {Promise} URL串
+   */
+  async getURL() {
+    try {
+      return await SFCLS.getURL(this._MGSFeatureClsId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 取类别名
+   * @memberOf SFeatureCls
+   * @return {Promise}类别名
+   */
+  async getAliasName() {
+    try {
+      return await SFCLS.getAliasName(this._MGSFeatureClsId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 设置类别名
+   * @memberOf SFeatureCls
+   * @param newVal 类别名
+   * @return {Promise}成功：>0;失败：&lt;=0
+   */
+  async setAliasName(newVal) {
+    try {
+      return await SFCLS.setAliasName(this._MGSFeatureClsId, newVal);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 取空间参考系ID
+   * @memberOf SFeatureCls
+   * @return {Promise}空间参考系ID
+   */
+  async getSrID() {
+    try {
+      return await SFCLS.getSrID(this._MGSFeatureClsId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 设置要素数据集ID
+   * @memberOf SFeatureCls
+   * @param newVal 要素数据集ID
+   * @return {Promise}成功：>0;失败：&lt;=0
+   */
+  async setSrID(newVal) {
+    try {
+      return await SFCLS.setSrID(this._MGSFeatureClsId, newVal);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取X方向符号比
+   * @memberOf SFeatureCls
+   * @return {Promise} X方向符号比
+   */
+  async getScaleX() {
+    try {
+      return await SFCLS.getScaleX(this._MGSFeatureClsId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取Y方向符号比
+   * @memberOf SFeatureCls
+   * @return {Promise} Y方向符号比
+   */
+  async getScaleY() {
+    try {
+      return await SFCLS.getScaleY(this._MGSFeatureClsId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 设置X,Y方向符号比
+   * @memberOf SFeatureCls
+   * @param scale 符号比
+   * @return {Promise} 成功：>0;失败：&lt;=0
+   */
+  async setScaleXY(scaleX, scaleY) {
+    try {
+      return await SFCLS.setScaleXY(this._MGSFeatureClsId, scaleX, scaleY);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 删除一个简单要素类
+   * @memberOf SFeatureCls
+   * @param objID 简单要素类ID
+   * @return {Promise} 成功：>0;失败：&lt;=0
+   */
+  async deleteByID(objID) {
+    try {
+      return await SFCLS.delete(this._MGSFeatureClsId, objID);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 删除一组简单要素类
+   * @memberOf SFeatureCls
+   * @param objIDs 一组简单要素类ID
+   * @return {Promise} 成功：>0;失败：&lt;=0
+   */
+  async deleteByIDs(objIDArray) {
+    try {
+      return await SFCLS.delete(this._MGSFeatureClsId, objIDArray);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 更新对象
+   * @memberOf SFeatureCls
+   * @param objID 对象记录ID
+   * @param geom 对象几何信息
+   * @param rcd 对象属性信息
+   * @param inf 对象的图形信息
+   * @return {Promise} 成功：>0;失败：&lt;=0
+   */
+  async update(objID, geom, rcd, info) {
+    try {
+      return await SFCLS.update(
+        this._MGSFeatureClsId,
+        objID,
+        geom._MGGeometryId,
+        rcd._MGRecordId,
+        info._MGGeomInfoId
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 更新对象的属性
+   * @memberOf SFeatureCls
+   * @param objID 对象记录ID
+   * @param rcd 对象属性信息
+   * @return {Promise} 成功：>0;失败：&lt;=0
+   */
+  async updateAtt(objID, rcd) {
+    try {
+      return await SFCLS.updateAtt(
+        this._MGSFeatureClsId,
+        objID,
+        rcd._MGRecordId
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 更新几何图形信息
+   * @memberOf SFeatureCls
+   * @param objID 对象记录ID
+   * @param geom 几何对象
+   * @return {Promise} 成功：>0;失败：&lt;=0
+   */
+  async updateGeometry(objID, geom) {
+    try {
+      return await SFCLS.updateGeometry(
+        this._MGSFeatureClsId,
+        objID,
+        geom._MGGeometryId
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 更新对象图形信息
+   * @memberOf SFeatureCls
+   * @param objID 对象记录ID
+   * @param inf 对象的图形信息
+   * @return {Promise} 成功：>0;失败：&lt;=0
+   */
+  async updateInfo(objID, info) {
+    try {
+      return await SFCLS.updateInfo(
+        this._MGSFeatureClsId,
+        objID,
+        info._MGGeomInfoId
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 根据类名删除类
+   * @memberOf SFeatureCls
+   * @param db 地理数据库对象
+   * @param clsName 类名
+   * @return {Promise} 成功：>0;失败：&lt;=0
+   */
+  async removeByName(db, clsName) {
+    try {
+      return await SFCLS.remove(
+        this._MGSFeatureClsId,
+        db._MGDataBaseId,
+        clsName
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 根据类ID删除类
+   * @memberOf SFeatureCls
+   * @param db 地理数据库对象
+   * @param clsID 类ID
+   * @return {Promise} 成功：>0;失败：&lt;=0
+   */
+  async removeByID(db, clsID) {
+    try {
+      return await SFCLS.remove(this._MGSFeatureClsId, db._MGDataBaseId, clsID);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 计算总平面(实地)面积
+   * @memberOf SFeatureCls
+   * @param bRealArea 是否是实地面积
+   * @return {Promise} 成功返回总面积
+   */
+  async calTotalArea(bRealArea) {
+    try {
+      return await SFCLS.calTotalArea(this._MGSFeatureClsId, bRealArea);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 计算总平面(实地)长度
+   * @memberOf SFeatureCls
+   * @param bRealLen 实地长度的标志
+   * @return {Promise} 成功返回总长度
+   */
+  async calTotalLength(bRealLen) {
+    try {
+      return await SFCLS.calTotalLength(this._MGSFeatureClsId, bRealLen);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 计算平面(实地)面积并保存到字段
+   * @memberOf SFeatureCls
+   * @param bRealArea 是否是实地面积
+   * @param fldIndex 保存的字段索引号，即保存到第fldIndex个字段中
+   * @return {Promise} 成功：>0，失败：&lt;=0
+   */
+  async areaToField(bRealArea, fldIndex) {
+    try {
+      return await SFCLS.areaToField(
+        this._MGSFeatureClsId,
+        bRealArea,
+        fldIndex
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 计算平面(实地)长度并保存到字段
+   * @memberOf SFeatureCls
+   * @param bRealLen 是否计算实际长度
+   * @param fldI 保存数据的属性字段索引号
+   * @return {Promise} 成功：>0，失败：&lt;=0
+   */
+  async lengthToField(bRealLen, fldIndex) {
+    try {
+      return await SFCLS.lengthToField(
+        this._MGSFeatureClsId,
+        bRealLen,
+        fldIndex
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 注册同步能力
+   * @memberOf SFeatureCls
+   * @return {Promise} 成功：>0;失败：&lt;=0
+   */
+  async registerSyncEnabled() {
+    try {
+      return await SFCLS.registerSyncEnabled(this._MGSFeatureClsId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 是否具有同步能力
+   * @memberOf SFeatureCls
+   * @return {Promise} 是否具有同步能力
+   */
+  async isSyncEnabled() {
+    try {
+      return await SFCLS.isSyncEnabled(this._MGSFeatureClsId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 更新要素类
+   * @memberOf SFeatureCls
+   * @param fields 属性信息
+   * @return {Promise} 成功：>0;失败：&lt;=0
+   */
+  async updateFields(fields) {
+    try {
+      return await SFCLS.updateFields(
+        this._MGSFeatureClsId,
+        fields._MGFieldsId
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AnnClsInfo.html">AnnClsInfo</a></li><li><a href="AnnInfo.html">AnnInfo</a></li><li><a href="Annotation.html">Annotation</a></li><li><a href="AnnotationCls.html">AnnotationCls</a></li><li><a href="AnnotationsOverlay.html">AnnotationsOverlay</a></li><li><a href="AnnotationView.html">AnnotationView</a></li><li><a href="BasCls.html">BasCls</a></li><li><a href="ClassItemValue.html">ClassItemValue</a></li><li><a href="CoordinateConvert.html">CoordinateConvert</a></li><li><a href="CoordinateConvertParameter.html">CoordinateConvertParameter</a></li><li><a href="CrossData.html">CrossData</a></li><li><a href="DataBase.html">DataBase</a></li><li><a href="DataBaseSync.html">DataBaseSync</a></li><li><a href="Document.html">Document</a></li><li><a href="DocumentItem.html">DocumentItem</a></li><li><a href="Dot.html">Dot</a></li><li><a href="Dot3D.html">Dot3D</a></li><li><a href="Dots.html">Dots</a></li><li><a href="Dots3D.html">Dots3D</a></li><li><a href="DownloadDataBaseParmeters.html">DownloadDataBaseParmeters</a></li><li><a href="DownloadLayerOption.html">DownloadLayerOption</a></li><li><a href="ElpParam.html">ElpParam</a></li><li><a href="ElpTransformation.html">ElpTransformation</a></li><li><a href="ElpTransParam.html">ElpTransParam</a></li><li><a href="Environment.html">Environment</a></li><li><a href="ExtField.html">ExtField</a></li><li><a href="FClsInfo.html">FClsInfo</a></li><li><a href="Feature.html">Feature</a></li><li><a href="FeatureEdit.html">FeatureEdit</a></li><li><a href="FeaturePagedResult.html">FeaturePagedResult</a></li><li><a href="FeatureQuery.html">FeatureQuery</a></li><li><a href="FeatureSync.html">FeatureSync</a></li><li><a href="Field.html">Field</a></li><li><a href="Fields.html">Fields</a></li><li><a href="FillStyle.html">FillStyle</a></li><li><a href="GeneralVectorLabel.html">GeneralVectorLabel</a></li><li><a href="GeoAnno.html">GeoAnno</a></li><li><a href="GeoLine.html">GeoLine</a></li><li><a href="GeoLines.html">GeoLines</a></li><li><a href="Geometry.html">Geometry</a></li><li><a href="GeometryExp.html">GeometryExp</a></li><li><a href="GeometryParams.html">GeometryParams</a></li><li><a href="GeomInfo.html">GeomInfo</a></li><li><a href="GeoPoints.html">GeoPoints</a></li><li><a href="GeoPolygon.html">GeoPolygon</a></li><li><a href="GeoPolygons.html">GeoPolygons</a></li><li><a href="GeoVarLine.html">GeoVarLine</a></li><li><a href="Graphic.html">Graphic</a></li><li><a href="GraphicCircle.html">GraphicCircle</a></li><li><a href="GraphicHeatmap.html">GraphicHeatmap</a></li><li><a href="GraphicImage.html">GraphicImage</a></li><li><a href="GraphicMultiPoint.html">GraphicMultiPoint</a></li><li><a href="GraphicPoint.html">GraphicPoint</a></li><li><a href="GraphicPolygon.html">GraphicPolygon</a></li><li><a href="GraphicPolylin.html">GraphicPolylin</a></li><li><a href="GraphicsOverlay.html">GraphicsOverlay</a></li><li><a href="GraphicsOverlays.html">GraphicsOverlays</a></li><li><a href="GraphicStippleLine.html">GraphicStippleLine</a></li><li><a href="GraphicText.html">GraphicText</a></li><li><a href="GroupLayer.html">GroupLayer</a></li><li><a href="HeatmapPoint.html">HeatmapPoint</a></li><li><a href="Image.html">Image</a></li><li><a href="IntUser.html">IntUser</a></li><li><a href="Label.html">Label</a></li><li><a href="LabelInfo.html">LabelInfo</a></li><li><a href="LatLng.html">LatLng</a></li><li><a href="LayerEnum.html">LayerEnum</a></li><li><a href="LinePlaceInfo.html">LinePlaceInfo</a></li><li><a href="LineStyle.html">LineStyle</a></li><li><a href="LinInfo.html">LinInfo</a></li><li><a href="MagnifierOption.html">MagnifierOption</a></li><li><a href="Map.html">Map</a></li><li><a href="MapLayer.html">MapLayer</a></li><li><a href="MapPosition.html">MapPosition</a></li><li><a href="Maps.html">Maps</a></li><li><a href="MapServer.html">MapServer</a></li><li><a href="MapServiceInfo.html">MapServiceInfo</a></li><li><a href="MapServiceLayerInfo.html">MapServiceLayerInfo</a></li><li><a href="MapView.html">MapView</a></li><li><a href="Model.html">Model</a></li><li><a href="ModelsOverlay.html">ModelsOverlay</a></li><li><a href="MultiClassTheme.html">MultiClassTheme</a></li><li><a href="MultiClassThemeInfo.html">MultiClassThemeInfo</a></li><li><a href="OGCWMTSMapServer.html">OGCWMTSMapServer</a></li><li><a href="PntInfo.html">PntInfo</a></li><li><a href="PointF.html">PointF</a></li><li><a href="PointPlaceInfo.html">PointPlaceInfo</a></li><li><a href="PointStyle.html">PointStyle</a></li><li><a href="QueryBound.html">QueryBound</a></li><li><a href="QueryDef.html">QueryDef</a></li><li><a href="RangeTheme.html">RangeTheme</a></li><li><a href="RangeThemeInfo.html">RangeThemeInfo</a></li><li><a href="Record.html">Record</a></li><li><a href="RecordSet.html">RecordSet</a></li><li><a href="Rect.html">Rect</a></li><li><a href="RegInfo.html">RegInfo</a></li><li><a href="RegionPlaceInfo.html">RegionPlaceInfo</a></li><li><a href="ServerLayer.html">ServerLayer</a></li><li><a href="SFeatureCls.html">SFeatureCls</a></li><li><a href="SimpleLabel.html">SimpleLabel</a></li><li><a href="SimpleModelLayer.html">SimpleModelLayer</a></li><li><a href="SimpleModelLayerUtil.html">SimpleModelLayerUtil</a></li><li><a href="SimpleTheme.html">SimpleTheme</a></li><li><a href="SketchEditor.html">SketchEditor</a></li><li><a href="SketchStyle.html">SketchStyle</a></li><li><a href="SnappingOption.html">SnappingOption</a></li><li><a href="SpaAnalysis.html">SpaAnalysis</a></li><li><a href="SpaCalculator.html">SpaCalculator</a></li><li><a href="SpaProjection.html">SpaProjection</a></li><li><a href="SpaRelation.html">SpaRelation</a></li><li><a href="SRefData.html">SRefData</a></li><li><a href="SyncBase.html">SyncBase</a></li><li><a href="SyncDataBaseParmeters.html">SyncDataBaseParmeters</a></li><li><a href="SyncLayerOption.html">SyncLayerOption</a></li><li><a href="TextAnnInfo.html">TextAnnInfo</a></li><li><a href="TextAnno.html">TextAnno</a></li><li><a href="TextStyle.html">TextStyle</a></li><li><a href="Theme.html">Theme</a></li><li><a href="ThemeInfo.html">ThemeInfo</a></li><li><a href="Themes.html">Themes</a></li><li><a href="TileMapServer.html">TileMapServer</a></li><li><a href="UniqueTheme.html">UniqueTheme</a></li><li><a href="UniqueThemeInfo.html">UniqueThemeInfo</a></li><li><a href="VectorCls.html">VectorCls</a></li><li><a href="VectorLabel.html">VectorLabel</a></li><li><a href="VectorLayer.html">VectorLayer</a></li><li><a href="VectorMapServer.html">VectorMapServer</a></li><li><a href="VectorTheme.html">VectorTheme</a></li><li><a href="VectorTileMapServer.html">VectorTileMapServer</a></li><li><a href="VisualMap.html">VisualMap</a></li><li><a href="XClsInfo.html">XClsInfo</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addAnnotation">addAnnotation</a></li><li><a href="global.html#addAnnotations">addAnnotations</a></li><li><a href="global.html#animatePosition">animatePosition</a></li><li><a href="global.html#distanceOfGeometry">distanceOfGeometry</a></li><li><a href="global.html#getAllAnnotations">getAllAnnotations</a></li><li><a href="global.html#getAnnotation">getAnnotation</a></li><li><a href="global.html#getAnnotationCount">getAnnotationCount</a></li><li><a href="global.html#getGeometryByType">getGeometryByType</a></li><li><a href="global.html#indexOf">indexOf</a></li><li><a href="global.html#initialize">initialize</a></li><li><a href="global.html#moveAnnotation">moveAnnotation</a></li><li><a href="global.html#removeAllAnnotations">removeAllAnnotations</a></li><li><a href="global.html#removeAnnotation">removeAnnotation</a></li><li><a href="global.html#removeAnnotationByIndex">removeAnnotationByIndex</a></li><li><a href="global.html#removeAnnotations">removeAnnotations</a></li><li><a href="global.html#requestAuthorization">requestAuthorization</a></li><li><a href="global.html#setBackGroundImage">setBackGroundImage</a></li><li><a href="global.html#setResolution">setResolution</a></li><li><a href="global.html#setScale">setScale</a></li><li><a href="global.html#setSize">setSize</a></li><li><a href="global.html#setSystemLibraryPath">setSystemLibraryPath</a></li><li><a href="global.html#updatePositionbyViewPoint">updatePositionbyViewPoint</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Mon Sep 30 2019 14:41:58 GMT+0800 (GMT+08:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

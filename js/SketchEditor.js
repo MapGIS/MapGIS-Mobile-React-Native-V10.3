@@ -3,7 +3,7 @@
  * @Author: xiaoying
  * @Date: 2019-09-10 19:43:30
  * @LastEditTime: 2019-09-20 16:22:43
- * @LastEditors: Please set LastEditors
+ * @LastEditors: mayuanye
  */
 import { NativeModules } from 'react-native';
 import SketchStyle from './SketchStyle';

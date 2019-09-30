@@ -1,9 +1,9 @@
 /*
  * @Description: In User Settings Edit
- * @Author: your name
+ * @author: lidafeng 
  * @Date: 2019-09-20 17:53:05
  * @LastEditTime: 2019-09-24 13:59:11
- * @LastEditors: Please set LastEditors
+ * @LastEditors: mayuanye
  */
 /**
  * @content 实现对三维坐标点序列的相关操作功能组件

@@ -3,7 +3,7 @@
  * @Author: xiaoying
  * @Date: 2019-09-10 16:52:51
  * @LastEditTime: 2019-09-11 09:30:17
- * @LastEditors: Please set LastEditors
+ * @LastEditors: mayuanye
  */
 import { NativeModules } from 'react-native';
 let PS = NativeModules.JSPointStyle;

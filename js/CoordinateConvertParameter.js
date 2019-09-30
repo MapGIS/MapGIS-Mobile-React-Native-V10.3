@@ -3,7 +3,7 @@
  * @Author: xiaoying
  * @Date: 2019-09-11 11:50:35
  * @LastEditTime: 2019-09-11 12:00:38
- * @LastEditors: Please set LastEditors
+ * @LastEditors: mayuanye
  */
 import { NativeModules } from 'react-native';
 let CCP = NativeModules.JSCoordinateConvertParameter;

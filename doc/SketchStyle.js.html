@@ -28,498 +28,507 @@
         <article>
             <pre class="prettyprint source linenums"><code>/*
  * @Description: In User Settings Edit
- * @Author: your name
+ * @author: lidafeng
  * @Date: 2019-09-10 17:06:11
  * @LastEditTime: 2019-09-17 14:56:28
- * @LastEditors: Please set LastEditors
+ * @LastEditors: mayuanye
  */
-import { NativeModules } from "react-native";
-import PointStyle from "./PointStyle";
-import LineStyle from "./LineStyle";
-import FillStyle from "./FillStyle";
-import TextStyle from "./TextStyle";
+import { NativeModules } from 'react-native';
+import PointStyle from './PointStyle';
+import LineStyle from './LineStyle';
+import FillStyle from './FillStyle';
+import TextStyle from './TextStyle';
 let SS = NativeModules.JSSketchStyle;
 
 /**
  * @class SketchStyle
  * @description 草图显示样式（进行编辑的几何或新采集的几何的外观表现）
  */
-export default class SketchStyle{
-
-    /**
-     * 构造一个新的SketchStyle对象
-     * 
-     * @memberof SketchStyle
-     * @returns {Promise&lt;SketchStyle>}
-     */
-    async createObj(){
-       try {
-           var {SketchStyleId} = await SS.createObj();
-           var sketchStyle = new SketchStyle();
-           sketchStyle._MGSketchStyleId = SketchStyleId;
-           return sketchStyle;
-       } catch (e) {
-           console.error(e);
-       }
-    }
-
-    /**
-     * 获取顶点样式
-     * 
-     * @memberof SketchStyle
-     * @returns {Promise&lt;PointStyle>}
-    */
-    async getVertexStyle(){
-        try {
-            let pointStyleId = await SS.getVertexStyle(this._MGSketchStyleId);
-            var pointStyle = new PointStyle();
-            pointStyle._MGPointStyleId = pointStyleId;
-            return pointStyle;
-        } catch (e) {
-            console.error(e);
-        }
-    }
-
-    /**
-     * 设置顶点样式
-     * 
-     * @memberof SketchStyle
-     * @param {Object} vertexPointStyle 顶点样式（PointStyle类型的Object）
-     * @returns {Promise&lt;Void>}
-    */
-    async setVertexStyle(vertexPointStyle){
-        try {
-            await SS.setVertexStyle(this._MGSketchStyleId, vertexPointStyle._MGPointStyleId);
-
-        } catch (e) {
-            console.error(e);
-        }
-    }
-    
-    /**
-     * 获取中点样式
-     * 
-     * @memberof SketchStyle
-     * @returns {Promise&lt;PointStyle>}
-    */
-   async getMidVertexStyle(){
+export default class SketchStyle {
+  /**
+   * 构造一个新的SketchStyle对象
+   *
+   * @memberof SketchStyle
+   * @returns {Promise&lt;SketchStyle>}
+   */
+  async createObj() {
     try {
-        let pointStyleId = await SS.getMidVertexStyle(this._MGSketchStyleId);
-        var pointStyle = new PointStyle();
-        pointStyle._MGPointStyleId = pointStyleId;
-        return pointStyle;
+      var { SketchStyleId } = await SS.createObj();
+      var sketchStyle = new SketchStyle();
+      sketchStyle._MGSketchStyleId = SketchStyleId;
+      return sketchStyle;
     } catch (e) {
-        console.error(e);
+      console.error(e);
     }
-}
+  }
 
-    /**
-     * 设置中点样式
-     * 
-     * @memberof SketchStyle
-     * @param {Object} midVertexPointStyle 中点样式（PointStyle类型的Object）
-     * @returns {Promise&lt;Void>}
-    */
-    async setMidVertexStyle(midVertexPointStyle){
-        try {
-            await SS.setMidVertexStyle(this._MGSketchStyleId, midVertexPointStyle._MGPointStyleId);
-
-        } catch (e) {
-            console.error(e);
-        }
-    }
-
-    /**
-     * 获取参考点样式（放大镜内的点，标识手势点，也可用于捕捉）
-     * 
-     * @memberof SketchStyle
-     * @returns {Promise&lt;PointStyle>}
-    */
-   async getReferenceVertexStyle(){
+  /**
+   * 获取顶点样式
+   *
+   * @memberof SketchStyle
+   * @returns {Promise&lt;PointStyle>}
+   */
+  async getVertexStyle() {
     try {
-        let pointStyleId = await SS.getReferenceVertexStyle(this._MGSketchStyleId);
-        var pointStyle = new PointStyle();
-        pointStyle._MGPointStyleId = pointStyleId;
-        return pointStyle;
+      let pointStyleId = await SS.getVertexStyle(this._MGSketchStyleId);
+      var pointStyle = new PointStyle();
+      pointStyle._MGPointStyleId = pointStyleId;
+      return pointStyle;
     } catch (e) {
-        console.error(e);
+      console.error(e);
     }
+  }
+
+  /**
+   * 设置顶点样式
+   *
+   * @memberof SketchStyle
+   * @param {Object} vertexPointStyle 顶点样式（PointStyle类型的Object）
+   * @returns {Promise&lt;Void>}
+   */
+  async setVertexStyle(vertexPointStyle) {
+    try {
+      await SS.setVertexStyle(
+        this._MGSketchStyleId,
+        vertexPointStyle._MGPointStyleId
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取中点样式
+   *
+   * @memberof SketchStyle
+   * @returns {Promise&lt;PointStyle>}
+   */
+  async getMidVertexStyle() {
+    try {
+      let pointStyleId = await SS.getMidVertexStyle(this._MGSketchStyleId);
+      var pointStyle = new PointStyle();
+      pointStyle._MGPointStyleId = pointStyleId;
+      return pointStyle;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 设置中点样式
+   *
+   * @memberof SketchStyle
+   * @param {Object} midVertexPointStyle 中点样式（PointStyle类型的Object）
+   * @returns {Promise&lt;Void>}
+   */
+  async setMidVertexStyle(midVertexPointStyle) {
+    try {
+      await SS.setMidVertexStyle(
+        this._MGSketchStyleId,
+        midVertexPointStyle._MGPointStyleId
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取参考点样式（放大镜内的点，标识手势点，也可用于捕捉）
+   *
+   * @memberof SketchStyle
+   * @returns {Promise&lt;PointStyle>}
+   */
+  async getReferenceVertexStyle() {
+    try {
+      let pointStyleId = await SS.getReferenceVertexStyle(
+        this._MGSketchStyleId
+      );
+      var pointStyle = new PointStyle();
+      pointStyle._MGPointStyleId = pointStyleId;
+      return pointStyle;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 设置参考点样式（放大镜内的点，标识手势点，也可用于捕捉）
+   *
+   * @memberof SketchStyle
+   * @param {Object} referenceVertexPointStyle 参考点样式（PointStyle类型的Object）
+   * @returns {Promise&lt;Void>}
+   */
+  async setReferenceVertexStyle(referenceVertexPointStyle) {
+    try {
+      await SS.setReferenceVertexStyle(
+        this._MGSketchStyleId,
+        referenceVertexPointStyle._MGPointStyleId
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取线样式
+   *
+   * @memberof SketchStyle
+   * @returns {Promise&lt;LineStyle>}
+   */
+  async getLineStyle() {
+    try {
+      let lineStyleId = await SS.getLineStyle(this._MGSketchStyleId);
+      var lineStyle = new LineStyle();
+      lineStyle._MGLineStyleId = lineStyleId;
+      return lineStyle;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 设置线样式
+   *
+   * @memberof SketchStyle
+   * @param {Object} lineStyle 线样式 （LineStyle类型的Object）
+   * @returns {Promise&lt;Void>}
+   */
+  async setLineStyle(lineStyle) {
+    try {
+      await SS.setLineStyle(this._MGSketchStyleId, lineStyle._MGLineStyleId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取参考线样式（开启放大镜后的牵引线）
+   *
+   * @memberof SketchStyle
+   * @returns {Promise&lt;LineStyle>}
+   */
+  async getReferenceLineStyle() {
+    try {
+      let lineStyleId = await SS.getReferenceLineStyle(this._MGSketchStyleId);
+      var lineStyle = new LineStyle();
+      lineStyle._MGLineStyleId = lineStyleId;
+      return lineStyle;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 设置参考线样式（开启放大镜后的牵引线）
+   *
+   * @memberof SketchStyle
+   * @param {Object} lineStyle （LineStyle类型的Object）
+   * @returns {Promise&lt;Void>}
+   */
+  async setReferenceLineStyle(lineStyle) {
+    try {
+      await SS.setReferenceLineStyle(
+        this._MGSketchStyleId,
+        lineStyle._MGLineStyleId
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取区样式
+   *
+   * @memberof SketchStyle
+   * @returns {Promise&lt;FillStyle>}
+   */
+  async getFillStyle() {
+    try {
+      let fillStyleId = await SS.getFillStyle(this._MGSketchStyleId);
+      var fillStyle = new FillStyle();
+      fillStyle._MGFillStyleId = fillStyleId;
+      return fillStyle;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 设置区样式
+   *
+   * @memberof SketchStyle
+   * @param {Object} fillStyle （FillStyle类型的Object）
+   * @returns {Promise&lt;Void>}
+   */
+  async setFillStyle(fillStyle) {
+    try {
+      await SS.setFillStyle(this._MGSketchStyleId, fillStyle._MGFillStyleId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取被选中的顶点样式
+   *
+   * @memberof SketchStyle
+   * @returns {Promise&lt;PointStyle>}
+   */
+  async getSelectedVertexStyle() {
+    try {
+      let pointStyleId = await SS.getSelectedVertexStyle(this._MGSketchStyleId);
+      var pointStyle = new PointStyle();
+      pointStyle._MGPointStyleId = pointStyleId;
+      return pointStyle;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 设置被选中的顶点样式
+   *
+   * @memberof SketchStyle
+   * @param {Object} selectedVertexPointStyle 被选中的顶点样式（PointStyle类型的Object）
+   * @returns {Promise&lt;Void>}
+   */
+  async setSelectedVertexStyle(selectedVertexPointStyle) {
+    try {
+      await SS.setSelectedVertexStyle(
+        this._MGSketchStyleId,
+        selectedVertexPointStyle._MGPointStyleId
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取被选中的中点样式
+   *
+   * @memberof SketchStyle
+   * @returns {Promise&lt;PointStyle>}
+   */
+  async getSelectedMidVertexStyle() {
+    try {
+      let pointStyleId = await SS.getSelectedMidVertexStyle(
+        this._MGSketchStyleId
+      );
+      var pointStyle = new PointStyle();
+      pointStyle._MGPointStyleId = pointStyleId;
+      return pointStyle;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 设置被选中的中点样式
+   *
+   * @memberof SketchStyle
+   * @param {Object} selectedMidVertexPointStyle 被选中的中点样式（PointStyle类型的Object）
+   * @returns {Promise&lt;Void>}
+   */
+  async setSelectedMidVertexStyle(selectedMidVertexPointStyle) {
+    try {
+      await SS.setSelectedMidVertexStyle(
+        this._MGSketchStyleId,
+        selectedMidVertexPointStyle._MGPointStyleId
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取文本样式（标记线段长度、顶点坐标、区面积）
+   *
+   * @memberof SketchStyle
+   * @returns {Promise&lt;TextStyle>}
+   */
+  async getTextStyle() {
+    try {
+      let textStyleId = await SS.getTextStyle(this._MGSketchStyleId);
+      var textStyle = new TextStyle();
+      textStyle._MGTextStyleId = textStyleId;
+      return textStyle;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 设置文本样式
+   *
+   * @memberof SketchStyle
+   * @param {Object} textStyle 文本样式（TextStyle类型的Object）
+   * @returns {Promise&lt;Void>}
+   */
+  async setTextStyle(textStyle) {
+    try {
+      await SS.setTextStyle(this._MGSketchStyleId, textStyle._MGTextStyleId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 是否显示顶点坐标
+   *
+   * @memberof SketchStyle
+   * @returns {boolean}
+   */
+  async isShowVertexCoord() {
+    try {
+      let isShowVertexCoord = await SS.isShowVertexCoord(this._MGSketchStyleId);
+      return isShowVertexCoord;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 设置是否显示顶点坐标
+   *
+   * @memberof SketchStyle
+   * @param {boolean} isShowVertexCoord 是否显示顶点坐标
+   * @returns {Promise&lt;Void>}
+   */
+  async setShowVertexCoord(isShowVertexCoord) {
+    try {
+      await SS.setShowVertexCoord(this._MGSketchStyleId, isShowVertexCoord);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取是否显示距离
+   *
+   * @memberof SketchStyle
+   * @returns {boolean}
+   */
+  async isShowSegmentLength() {
+    try {
+      let isShowSegmentLength = await SS.isShowSegmentLength(
+        this._MGSketchStyleId
+      );
+      return isShowSegmentLength;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 设置是否显示距离
+   * 可通过设置量算类型来控制显示的距离为图面距离还实地距离，显示实地距离时单位为米
+   * 显示实地距离时，需要为SketchEditor设置空间参考系。
+   * @memberof SketchStyle
+   * @param {boolean} isShowSegmentLength 是否显示距离
+   * @returns {Promise&lt;Void>}
+   */
+  async setShowSegmentLength(isShowSegmentLength) {
+    try {
+      await SS.setShowSegmentLength(this._MGSketchStyleId, isShowSegmentLength);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取是否显示面积
+   *
+   * @memberof SketchStyle
+   * @returns {boolean}
+   */
+  async isShowArea() {
+    try {
+      let isShowArea = await SS.isShowArea(this._MGSketchStyleId);
+      return isShowArea;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 设置是否显示面积
+   * 可通过设置量算类型来控制显示的面积为图面面积还实地面积，显示实地面积时单位为平方米
+   * 显示实地面积时，需要为SketchEditor设置空间参考系。
+   * @memberof SketchStyle
+   * @param {boolean} isShowArea 是否显示面积
+   * @returns {Promise&lt;Void>}
+   */
+  async setShowArea(isShowArea) {
+    try {
+      await SS.setShowArea(this._MGSketchStyleId, isShowArea);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取是否开启震动
+   *
+   * @memberof SketchStyle
+   * @returns {boolean}
+   */
+  async isVibrationEnabled() {
+    try {
+      let isVibrationEnabled = await SS.isVibrationEnabled(
+        this._MGSketchStyleId
+      );
+      return isVibrationEnabled;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 设置是否开启震动
+   *
+   * @memberof SketchStyle
+   * @param {boolean} isVibrationEnabled 是否开启震动,true:开启;false:不开启.默认开启.
+   * @returns {Promise&lt;Void>}
+   */
+  async setVibrationEnabled(isVibrationEnabled) {
+    try {
+      await SS.setVibrationEnabled(this._MGSketchStyleId, isVibrationEnabled);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取量算类型
+   *
+   * @memberof SketchStyle
+   * @returns {Number} 量算类型（int类型的Number，例：1-MeasureType.PLANAR）
+   */
+  async getMeasureType() {
+    try {
+      let measureType = await SS.getMeasureType(this._MGSketchStyleId);
+      return measureType;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 设置量算类型
+   *
+   * @memberof SketchStyle
+   * @param {Number} measureType 量算类型（int类型的Number，例：1-MeasureType.PLANAR）
+   * @returns {Promise&lt;Void>}
+   */
+  async setMeasureType(measureType) {
+    try {
+      await SS.setMeasureType(this._MGSketchStyleId, measureType);
+    } catch (e) {
+      console.error(e);
+    }
+  }
 }
-
-    /**
-     * 设置参考点样式（放大镜内的点，标识手势点，也可用于捕捉）
-     * 
-     * @memberof SketchStyle
-     * @param {Object} referenceVertexPointStyle 参考点样式（PointStyle类型的Object）
-     * @returns {Promise&lt;Void>}
-    */
-    async setReferenceVertexStyle(referenceVertexPointStyle){
-        try {
-            await SS.setReferenceVertexStyle(this._MGSketchStyleId, referenceVertexPointStyle._MGPointStyleId);
-
-        } catch (e) {
-            console.error(e);
-        }
-    }
-
-    /**
-     * 获取线样式
-     * 
-     * @memberof SketchStyle
-     * @returns {Promise&lt;LineStyle>}
-    */
-    async getLineStyle(){
-        try {
-            let lineStyleId = await SS.getLineStyle(this._MGSketchStyleId);
-            var lineStyle = new LineStyle();
-            lineStyle._MGLineStyleId = lineStyleId;
-            return lineStyle;
-        } catch (e) {
-            console.error(e);
-        }
-    }
-
-    /**
-     * 设置线样式
-     * 
-     * @memberof SketchStyle
-     * @param {Object} lineStyle 线样式 （LineStyle类型的Object）
-     * @returns {Promise&lt;Void>}
-    */
-   async setLineStyle(lineStyle){
-        try {
-            await SS.setLineStyle(this._MGSketchStyleId, lineStyle._MGLineStyleId);
-        
-        } catch (e) {
-            console.error(e);
-        }
-    }
-    
-    /**
-     * 获取参考线样式（开启放大镜后的牵引线）
-     * 
-     * @memberof SketchStyle
-     * @returns {Promise&lt;LineStyle>}
-    */
-   async getReferenceLineStyle(){
-        try {
-            let lineStyleId = await SS.getReferenceLineStyle(this._MGSketchStyleId);
-            var lineStyle = new LineStyle();
-            lineStyle._MGLineStyleId = lineStyleId;
-            return lineStyle;
-        } catch (e) {
-            console.error(e);
-        }
-    }
-
-    /**
-     * 设置参考线样式（开启放大镜后的牵引线）
-     * 
-     * @memberof SketchStyle
-     * @param {Object} lineStyle （LineStyle类型的Object）
-     * @returns {Promise&lt;Void>}
-    */
-    async setReferenceLineStyle(lineStyle){
-        try {
-            await SS.setReferenceLineStyle(this._MGSketchStyleId, lineStyle._MGLineStyleId);
-        
-        } catch (e) {
-            console.error(e);
-        }
-    }
-
-    /**
-     * 获取区样式 
-     * 
-     * @memberof SketchStyle
-     * @returns {Promise&lt;FillStyle>} 
-     */
-    async getFillStyle(){
-        try {
-            let fillStyleId = await SS.getFillStyle(this._MGSketchStyleId);
-            var fillStyle =  new FillStyle();
-            fillStyle._MGFillStyleId = fillStyleId;
-            return fillStyle;
-        } catch (e) {
-            console.error(e);
-        }
-    }
-
-    /**
-     * 设置区样式
-     * 
-     * @memberof SketchStyle
-     * @param {Object} fillStyle （FillStyle类型的Object）
-     * @returns {Promise&lt;Void>}
-     */
-    async setFillStyle(fillStyle){
-        try {
-            await SS.setFillStyle(this._MGSketchStyleId, fillStyle._MGFillStyleId);
-
-        } catch (e) {
-            console.error(e);
-        }
-    }
-
-
-    /**
-     * 获取被选中的顶点样式
-     * 
-     * @memberof SketchStyle
-     * @returns {Promise&lt;PointStyle>}
-    */
-   async getSelectedVertexStyle(){
-        try {
-            let pointStyleId = await SS.getSelectedVertexStyle(this._MGSketchStyleId);
-            var pointStyle = new PointStyle();
-            pointStyle._MGPointStyleId = pointStyleId;
-            return pointStyle;
-        } catch (e) {
-            console.error(e);
-        }
-    }
-
-    /**
-     * 设置被选中的顶点样式
-     * 
-     * @memberof SketchStyle
-     * @param {Object} selectedVertexPointStyle 被选中的顶点样式（PointStyle类型的Object）
-     * @returns {Promise&lt;Void>}
-    */
-    async setSelectedVertexStyle(selectedVertexPointStyle){
-        try {
-            await SS.setSelectedVertexStyle(this._MGSketchStyleId, selectedVertexPointStyle._MGPointStyleId);
-
-        } catch (e) {
-            console.error(e);
-        }
-    }
-    
-
-    /**
-     * 获取被选中的中点样式
-     * 
-     * @memberof SketchStyle
-     * @returns {Promise&lt;PointStyle>}
-    */
-   async getSelectedMidVertexStyle(){
-        try {
-            let pointStyleId = await SS.getSelectedMidVertexStyle(this._MGSketchStyleId);
-            var pointStyle = new PointStyle();
-            pointStyle._MGPointStyleId = pointStyleId;
-            return pointStyle;
-        } catch (e) {
-            console.error(e);
-        }
-    }
-
-    /**
-     * 设置被选中的中点样式
-     * 
-     * @memberof SketchStyle
-     * @param {Object} selectedMidVertexPointStyle 被选中的中点样式（PointStyle类型的Object）
-     * @returns {Promise&lt;Void>}
-    */
-    async setSelectedMidVertexStyle(selectedMidVertexPointStyle){
-        try {
-            await SS.setSelectedMidVertexStyle(this._MGSketchStyleId, selectedMidVertexPointStyle._MGPointStyleId);
-
-        } catch (e) {
-            console.error(e);
-        }
-    }
-
-    /**
-     * 获取文本样式（标记线段长度、顶点坐标、区面积）
-     * 
-     * @memberof SketchStyle
-     * @returns {Promise&lt;TextStyle>}
-     */
-    async getTextStyle(){
-        try {
-            let textStyleId = await SS.getTextStyle(this._MGSketchStyleId);
-            var textStyle = new TextStyle();
-            textStyle._MGTextStyleId = textStyleId;
-            return textStyle;
-        } catch (e) {
-            console.error(e);
-        }
-    }
-
-    /**
-     * 设置文本样式
-     * 
-     * @memberof SketchStyle
-     * @param {Object} textStyle 文本样式（TextStyle类型的Object）
-     * @returns {Promise&lt;Void>}
-     */
-    async setTextStyle(textStyle){
-        try {
-            await SS.setTextStyle(this._MGSketchStyleId, textStyle._MGTextStyleId);
-            
-        } catch (e) {
-            console.error(e);
-        }
-    }
-
-    /**
-     * 是否显示顶点坐标
-     * 
-     * @memberof SketchStyle
-     * @returns {boolean}
-     */
-    async isShowVertexCoord(){
-        try {
-            let isShowVertexCoord = await SS.isShowVertexCoord(this._MGSketchStyleId);
-            return isShowVertexCoord;
-        } catch (e) {
-            console.error(e);
-        }
-    }
-
-    /**
-     * 设置是否显示顶点坐标
-     * 
-     * @memberof SketchStyle
-     * @param {boolean} isShowVertexCoord 是否显示顶点坐标
-     * @returns {Promise&lt;Void>}
-     */
-    async setShowVertexCoord(isShowVertexCoord){
-        try {
-            await SS.setShowVertexCoord(this._MGSketchStyleId, isShowVertexCoord);
-            
-        } catch (e) {
-            console.error(e);
-        }
-    }
-
-    /**
-     * 获取是否显示距离
-     * 
-     * @memberof SketchStyle
-     * @returns {boolean}
-     */
-    async isShowSegmentLength(){
-        try {
-            let isShowSegmentLength = await SS.isShowSegmentLength(this._MGSketchStyleId);
-            return isShowSegmentLength;
-        } catch (e) {
-            console.error(e);
-        }
-    }
-
-    /**
-     * 设置是否显示距离
-     * 可通过设置量算类型来控制显示的距离为图面距离还实地距离，显示实地距离时单位为米
-	 * 显示实地距离时，需要为SketchEditor设置空间参考系。
-     * @memberof SketchStyle
-     * @param {boolean} isShowSegmentLength 是否显示距离
-     * @returns {Promise&lt;Void>}
-     */
-    async setShowSegmentLength(isShowSegmentLength){
-        try {
-            await SS.setShowSegmentLength(this._MGSketchStyleId, isShowSegmentLength);
-            
-        } catch (e) {
-            console.error(e);
-        }
-    }
-
-
-    /**
-     * 获取是否显示面积
-     * 
-     * @memberof SketchStyle
-     * @returns {boolean}
-     */
-    async isShowArea(){
-        try {
-            let isShowArea = await SS.isShowArea(this._MGSketchStyleId);
-            return isShowArea;
-        } catch (e) {
-            console.error(e);
-        }
-    }
-
-    /**
-     * 设置是否显示面积
-     * 可通过设置量算类型来控制显示的面积为图面面积还实地面积，显示实地面积时单位为平方米
-	 * 显示实地面积时，需要为SketchEditor设置空间参考系。
-     * @memberof SketchStyle
-     * @param {boolean} isShowArea 是否显示面积
-     * @returns {Promise&lt;Void>}
-     */
-    async setShowArea(isShowArea){
-        try {
-            await SS.setShowArea(this._MGSketchStyleId, isShowArea);
-            
-        } catch (e) {
-            console.error(e);
-        }
-    }
-
-    /**
-     * 获取是否开启震动
-     * 
-     * @memberof SketchStyle
-     * @returns {boolean}
-     */
-    async isVibrationEnabled(){
-        try {
-            let isVibrationEnabled = await SS.isVibrationEnabled(this._MGSketchStyleId);
-            return isVibrationEnabled;
-        } catch (e) {
-            console.error(e);
-        }
-    }
-
-    /**
-     * 设置是否开启震动
-     *
-     * @memberof SketchStyle
-     * @param {boolean} isVibrationEnabled 是否开启震动,true:开启;false:不开启.默认开启.
-     * @returns {Promise&lt;Void>}
-     */
-    async setVibrationEnabled(isVibrationEnabled){
-        try {
-            await SS.setVibrationEnabled(this._MGSketchStyleId, isVibrationEnabled);
-            
-        } catch (e) {
-            console.error(e);
-        }
-    }
-
-    /**
-     * 获取量算类型
-     *
-     * @memberof SketchStyle
-     * @returns {Number} 量算类型（int类型的Number，例：1-MeasureType.PLANAR）
-     */
-    async getMeasureType(){
-        try {
-            let measureType = await SS.getMeasureType(this._MGSketchStyleId);
-            return measureType;
-        } catch (e) {
-            console.error(e);
-        }
-    }
-
-    /**
-     * 设置量算类型
-     *
-     * @memberof SketchStyle
-     * @param {Number} measureType 量算类型（int类型的Number，例：1-MeasureType.PLANAR）
-     * @returns {Promise&lt;Void>} 
-     */
-    async setMeasureType(measureType){
-        try {
-            await SS.setMeasureType(this._MGSketchStyleId, measureType);
-            
-        } catch (e) {
-            console.error(e);
-        }
-    }
-}</code></pre>
+</code></pre>
         </article>
     </section>
 
@@ -529,13 +538,13 @@ export default class SketchStyle{
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ClassItemValue.html">ClassItemValue</a></li><li><a href="CoordinateConvertParameter.html">CoordinateConvertParameter</a></li><li><a href="Document.html">Document</a></li><li><a href="DocumentItem.html">DocumentItem</a></li><li><a href="Dot.html">Dot</a></li><li><a href="Environment.html">Environment</a></li><li><a href="Feature.html">Feature</a></li><li><a href="FeaturePagedResult.html">FeaturePagedResult</a></li><li><a href="FeatureQuery.html">FeatureQuery</a></li><li><a href="FillStyle.html">FillStyle</a></li><li><a href="GeneralVectorLabel.html">GeneralVectorLabel</a></li><li><a href="GeometryParams.html">GeometryParams</a></li><li><a href="Graphic.html">Graphic</a></li><li><a href="GraphicCircle.html">GraphicCircle</a></li><li><a href="GraphicImage.html">GraphicImage</a></li><li><a href="GraphicMultiPoint.html">GraphicMultiPoint</a></li><li><a href="GraphicPoint.html">GraphicPoint</a></li><li><a href="GraphicPolygon.html">GraphicPolygon</a></li><li><a href="GraphicPolylin.html">GraphicPolylin</a></li><li><a href="GraphicsOverlay.html">GraphicsOverlay</a></li><li><a href="GraphicsOverlays.html">GraphicsOverlays</a></li><li><a href="GraphicStippleLine.html">GraphicStippleLine</a></li><li><a href="GraphicText.html">GraphicText</a></li><li><a href="GroupLayer.html">GroupLayer</a></li><li><a href="Image.html">Image</a></li><li><a href="IntUser.html">IntUser</a></li><li><a href="Label.html">Label</a></li><li><a href="LabelInfo.html">LabelInfo</a></li><li><a href="LayerEnum.html">LayerEnum</a></li><li><a href="LinePlaceInfo.html">LinePlaceInfo</a></li><li><a href="LineStyle.html">LineStyle</a></li><li><a href="MagnifierOption.html">MagnifierOption</a></li><li><a href="Map.html">Map</a></li><li><a href="MapLayer.html">MapLayer</a></li><li><a href="MapPosition.html">MapPosition</a></li><li><a href="Maps.html">Maps</a></li><li><a href="MapServer.html">MapServer</a></li><li><a href="MapView.html">MapView</a></li><li><a href="Model.html">Model</a></li><li><a href="ModelsOverlay.html">ModelsOverlay</a></li><li><a href="MultiClassTheme.html">MultiClassTheme</a></li><li><a href="MultiClassThemeInfo.html">MultiClassThemeInfo</a></li><li><a href="OGCWMTSMapServer.html">OGCWMTSMapServer</a></li><li><a href="PointF.html">PointF</a></li><li><a href="PointPlaceInfo.html">PointPlaceInfo</a></li><li><a href="PointStyle.html">PointStyle</a></li><li><a href="QueryBound.html">QueryBound</a></li><li><a href="RangeTheme.html">RangeTheme</a></li><li><a href="RangeThemeInfo.html">RangeThemeInfo</a></li><li><a href="Rect.html">Rect</a></li><li><a href="RegionPlaceInfo.html">RegionPlaceInfo</a></li><li><a href="ServerLayer.html">ServerLayer</a></li><li><a href="SimpleLabel.html">SimpleLabel</a></li><li><a href="SimpleModelLayer.html">SimpleModelLayer</a></li><li><a href="SimpleModelLayerUtil.html">SimpleModelLayerUtil</a></li><li><a href="SimpleTheme.html">SimpleTheme</a></li><li><a href="SketchEditor.html">SketchEditor</a></li><li><a href="SketchStyle.html">SketchStyle</a></li><li><a href="SnappingOption.html">SnappingOption</a></li><li><a href="SRefData.html">SRefData</a></li><li><a href="TextStyle.html">TextStyle</a></li><li><a href="Theme.html">Theme</a></li><li><a href="ThemeInfo.html">ThemeInfo</a></li><li><a href="Themes.html">Themes</a></li><li><a href="TileMapServer.html">TileMapServer</a></li><li><a href="UniqueTheme.html">UniqueTheme</a></li><li><a href="UniqueThemeInfo.html">UniqueThemeInfo</a></li><li><a href="VectorLabel.html">VectorLabel</a></li><li><a href="VectorLayer.html">VectorLayer</a></li><li><a href="VectorMapServer.html">VectorMapServer</a></li><li><a href="VectorTheme.html">VectorTheme</a></li><li><a href="VectorTileMapServer.html">VectorTileMapServer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#initialize">initialize</a></li><li><a href="global.html#removeAnimationListener">removeAnimationListener</a></li><li><a href="global.html#removeCenterChangedListener">removeCenterChangedListener</a></li><li><a href="global.html#removeDoubleTapListener">removeDoubleTapListener</a></li><li><a href="global.html#removeLongTapListener">removeLongTapListener</a></li><li><a href="global.html#removeMapLoadListener">removeMapLoadListener</a></li><li><a href="global.html#removeRefreshListener">removeRefreshListener</a></li><li><a href="global.html#removeRotateChangedListener">removeRotateChangedListener</a></li><li><a href="global.html#removeTapListener">removeTapListener</a></li><li><a href="global.html#removeTouchListener">removeTouchListener</a></li><li><a href="global.html#removeZoomChangedListener">removeZoomChangedListener</a></li><li><a href="global.html#requestAuthorization">requestAuthorization</a></li><li><a href="global.html#setResolution">setResolution</a></li><li><a href="global.html#setScale">setScale</a></li><li><a href="global.html#setSize">setSize</a></li><li><a href="global.html#setSystemLibraryPath">setSystemLibraryPath</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AnnClsInfo.html">AnnClsInfo</a></li><li><a href="AnnInfo.html">AnnInfo</a></li><li><a href="Annotation.html">Annotation</a></li><li><a href="AnnotationCls.html">AnnotationCls</a></li><li><a href="AnnotationsOverlay.html">AnnotationsOverlay</a></li><li><a href="AnnotationView.html">AnnotationView</a></li><li><a href="BasCls.html">BasCls</a></li><li><a href="ClassItemValue.html">ClassItemValue</a></li><li><a href="CoordinateConvert.html">CoordinateConvert</a></li><li><a href="CoordinateConvertParameter.html">CoordinateConvertParameter</a></li><li><a href="CrossData.html">CrossData</a></li><li><a href="DataBase.html">DataBase</a></li><li><a href="DataBaseSync.html">DataBaseSync</a></li><li><a href="Document.html">Document</a></li><li><a href="DocumentItem.html">DocumentItem</a></li><li><a href="Dot.html">Dot</a></li><li><a href="Dot3D.html">Dot3D</a></li><li><a href="Dots.html">Dots</a></li><li><a href="Dots3D.html">Dots3D</a></li><li><a href="DownloadDataBaseParmeters.html">DownloadDataBaseParmeters</a></li><li><a href="DownloadLayerOption.html">DownloadLayerOption</a></li><li><a href="ElpParam.html">ElpParam</a></li><li><a href="ElpTransformation.html">ElpTransformation</a></li><li><a href="ElpTransParam.html">ElpTransParam</a></li><li><a href="Environment.html">Environment</a></li><li><a href="ExtField.html">ExtField</a></li><li><a href="FClsInfo.html">FClsInfo</a></li><li><a href="Feature.html">Feature</a></li><li><a href="FeatureEdit.html">FeatureEdit</a></li><li><a href="FeaturePagedResult.html">FeaturePagedResult</a></li><li><a href="FeatureQuery.html">FeatureQuery</a></li><li><a href="FeatureSync.html">FeatureSync</a></li><li><a href="Field.html">Field</a></li><li><a href="Fields.html">Fields</a></li><li><a href="FillStyle.html">FillStyle</a></li><li><a href="GeneralVectorLabel.html">GeneralVectorLabel</a></li><li><a href="GeoAnno.html">GeoAnno</a></li><li><a href="GeoLine.html">GeoLine</a></li><li><a href="GeoLines.html">GeoLines</a></li><li><a href="Geometry.html">Geometry</a></li><li><a href="GeometryExp.html">GeometryExp</a></li><li><a href="GeometryParams.html">GeometryParams</a></li><li><a href="GeomInfo.html">GeomInfo</a></li><li><a href="GeoPoints.html">GeoPoints</a></li><li><a href="GeoPolygon.html">GeoPolygon</a></li><li><a href="GeoPolygons.html">GeoPolygons</a></li><li><a href="GeoVarLine.html">GeoVarLine</a></li><li><a href="Graphic.html">Graphic</a></li><li><a href="GraphicCircle.html">GraphicCircle</a></li><li><a href="GraphicHeatmap.html">GraphicHeatmap</a></li><li><a href="GraphicImage.html">GraphicImage</a></li><li><a href="GraphicMultiPoint.html">GraphicMultiPoint</a></li><li><a href="GraphicPoint.html">GraphicPoint</a></li><li><a href="GraphicPolygon.html">GraphicPolygon</a></li><li><a href="GraphicPolylin.html">GraphicPolylin</a></li><li><a href="GraphicsOverlay.html">GraphicsOverlay</a></li><li><a href="GraphicsOverlays.html">GraphicsOverlays</a></li><li><a href="GraphicStippleLine.html">GraphicStippleLine</a></li><li><a href="GraphicText.html">GraphicText</a></li><li><a href="GroupLayer.html">GroupLayer</a></li><li><a href="HeatmapPoint.html">HeatmapPoint</a></li><li><a href="Image.html">Image</a></li><li><a href="IntUser.html">IntUser</a></li><li><a href="Label.html">Label</a></li><li><a href="LabelInfo.html">LabelInfo</a></li><li><a href="LatLng.html">LatLng</a></li><li><a href="LayerEnum.html">LayerEnum</a></li><li><a href="LinePlaceInfo.html">LinePlaceInfo</a></li><li><a href="LineStyle.html">LineStyle</a></li><li><a href="LinInfo.html">LinInfo</a></li><li><a href="MagnifierOption.html">MagnifierOption</a></li><li><a href="Map.html">Map</a></li><li><a href="MapLayer.html">MapLayer</a></li><li><a href="MapPosition.html">MapPosition</a></li><li><a href="Maps.html">Maps</a></li><li><a href="MapServer.html">MapServer</a></li><li><a href="MapServiceInfo.html">MapServiceInfo</a></li><li><a href="MapServiceLayerInfo.html">MapServiceLayerInfo</a></li><li><a href="MapView.html">MapView</a></li><li><a href="Model.html">Model</a></li><li><a href="ModelsOverlay.html">ModelsOverlay</a></li><li><a href="MultiClassTheme.html">MultiClassTheme</a></li><li><a href="MultiClassThemeInfo.html">MultiClassThemeInfo</a></li><li><a href="OGCWMTSMapServer.html">OGCWMTSMapServer</a></li><li><a href="PntInfo.html">PntInfo</a></li><li><a href="PointF.html">PointF</a></li><li><a href="PointPlaceInfo.html">PointPlaceInfo</a></li><li><a href="PointStyle.html">PointStyle</a></li><li><a href="QueryBound.html">QueryBound</a></li><li><a href="QueryDef.html">QueryDef</a></li><li><a href="RangeTheme.html">RangeTheme</a></li><li><a href="RangeThemeInfo.html">RangeThemeInfo</a></li><li><a href="Record.html">Record</a></li><li><a href="RecordSet.html">RecordSet</a></li><li><a href="Rect.html">Rect</a></li><li><a href="RegInfo.html">RegInfo</a></li><li><a href="RegionPlaceInfo.html">RegionPlaceInfo</a></li><li><a href="ServerLayer.html">ServerLayer</a></li><li><a href="SFeatureCls.html">SFeatureCls</a></li><li><a href="SimpleLabel.html">SimpleLabel</a></li><li><a href="SimpleModelLayer.html">SimpleModelLayer</a></li><li><a href="SimpleModelLayerUtil.html">SimpleModelLayerUtil</a></li><li><a href="SimpleTheme.html">SimpleTheme</a></li><li><a href="SketchEditor.html">SketchEditor</a></li><li><a href="SketchStyle.html">SketchStyle</a></li><li><a href="SnappingOption.html">SnappingOption</a></li><li><a href="SpaAnalysis.html">SpaAnalysis</a></li><li><a href="SpaCalculator.html">SpaCalculator</a></li><li><a href="SpaProjection.html">SpaProjection</a></li><li><a href="SpaRelation.html">SpaRelation</a></li><li><a href="SRefData.html">SRefData</a></li><li><a href="SyncBase.html">SyncBase</a></li><li><a href="SyncDataBaseParmeters.html">SyncDataBaseParmeters</a></li><li><a href="SyncLayerOption.html">SyncLayerOption</a></li><li><a href="TextAnnInfo.html">TextAnnInfo</a></li><li><a href="TextAnno.html">TextAnno</a></li><li><a href="TextStyle.html">TextStyle</a></li><li><a href="Theme.html">Theme</a></li><li><a href="ThemeInfo.html">ThemeInfo</a></li><li><a href="Themes.html">Themes</a></li><li><a href="TileMapServer.html">TileMapServer</a></li><li><a href="UniqueTheme.html">UniqueTheme</a></li><li><a href="UniqueThemeInfo.html">UniqueThemeInfo</a></li><li><a href="VectorCls.html">VectorCls</a></li><li><a href="VectorLabel.html">VectorLabel</a></li><li><a href="VectorLayer.html">VectorLayer</a></li><li><a href="VectorMapServer.html">VectorMapServer</a></li><li><a href="VectorTheme.html">VectorTheme</a></li><li><a href="VectorTileMapServer.html">VectorTileMapServer</a></li><li><a href="VisualMap.html">VisualMap</a></li><li><a href="XClsInfo.html">XClsInfo</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addAnnotation">addAnnotation</a></li><li><a href="global.html#addAnnotations">addAnnotations</a></li><li><a href="global.html#animatePosition">animatePosition</a></li><li><a href="global.html#distanceOfGeometry">distanceOfGeometry</a></li><li><a href="global.html#getAllAnnotations">getAllAnnotations</a></li><li><a href="global.html#getAnnotation">getAnnotation</a></li><li><a href="global.html#getAnnotationCount">getAnnotationCount</a></li><li><a href="global.html#getGeometryByType">getGeometryByType</a></li><li><a href="global.html#indexOf">indexOf</a></li><li><a href="global.html#initialize">initialize</a></li><li><a href="global.html#moveAnnotation">moveAnnotation</a></li><li><a href="global.html#removeAllAnnotations">removeAllAnnotations</a></li><li><a href="global.html#removeAnnotation">removeAnnotation</a></li><li><a href="global.html#removeAnnotationByIndex">removeAnnotationByIndex</a></li><li><a href="global.html#removeAnnotations">removeAnnotations</a></li><li><a href="global.html#requestAuthorization">requestAuthorization</a></li><li><a href="global.html#setBackGroundImage">setBackGroundImage</a></li><li><a href="global.html#setResolution">setResolution</a></li><li><a href="global.html#setScale">setScale</a></li><li><a href="global.html#setSize">setSize</a></li><li><a href="global.html#setSystemLibraryPath">setSystemLibraryPath</a></li><li><a href="global.html#updatePositionbyViewPoint">updatePositionbyViewPoint</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Sep 18 2019 09:06:20 GMT+0800 (GMT+08:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Mon Sep 30 2019 14:41:58 GMT+0800 (GMT+08:00)
 </footer>
 
 <script> prettyPrint(); </script>

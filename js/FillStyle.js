@@ -3,7 +3,7 @@
  * @Author: xiaoying
  * @Date: 2019-09-10 16:19:14
  * @LastEditTime: 2019-09-17 14:46:40
- * @LastEditors: Please set LastEditors
+ * @LastEditors: mayuanye
  */
 import { NativeModules } from 'react-native';
 import LineStyle from './LineStyle';

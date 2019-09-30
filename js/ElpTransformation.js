@@ -1,6 +1,6 @@
 /**
  * @content 椭球变换对象功能组件
- * @author
+ * @author lidafeng
  */
 import { NativeModules } from 'react-native';
 

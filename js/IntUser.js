@@ -3,7 +3,7 @@
  * @Author: xiaoying
  * @Date: 2019-09-04 10:36:03
  * @LastEditTime: 2019-09-11 09:51:23
- * @LastEditors: Please set LastEditors
+ * @LastEditors: mayuanye
  */
 import { NativeModules } from 'react-native';
 let IU = NativeModules.JSIntUser;

@@ -3,7 +3,7 @@
  * @Author: xiaoying
  * @Date: 2019-09-03 15:41:51
  * @LastEditTime: 2019-09-23 15:35:12
- * @LastEditors: Please set LastEditors
+ * @LastEditors: mayuanye
  */
 import { NativeModules } from 'react-native';
 let PPI = NativeModules.JSPointPlaceInfo;

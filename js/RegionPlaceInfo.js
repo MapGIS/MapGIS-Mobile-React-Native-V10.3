@@ -3,7 +3,7 @@
  * @Author: xiaoying
  * @Date: 2019-09-03 17:45:37
  * @LastEditTime: 2019-09-04 19:43:06
- * @LastEditors: Please set LastEditors
+ * @LastEditors: mayuanye
  */
 import { NativeModules } from 'react-native';
 let RPI = NativeModules.JSRegionPlaceInfo;

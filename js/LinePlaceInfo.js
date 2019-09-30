@@ -3,7 +3,7 @@
  * @Author: xiaoying
  * @Date: 2019-09-02 16:44:15
  * @LastEditTime: 2019-09-04 19:42:49
- * @LastEditors: Please set LastEditors
+ * @LastEditors: mayuanye
  */
 import { NativeModules } from 'react-native';
 let LPI = NativeModules.JSLinePlaceInfo;

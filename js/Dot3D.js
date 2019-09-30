@@ -1,9 +1,9 @@
 /*
  * @Description: In User Settings Edit
- * @Author: your name
+ * @author: lidafeng 
  * @Date: 2019-09-19 15:48:58
  * @LastEditTime: 2019-09-20 10:14:15
- * @LastEditors: Please set LastEditors
+ * @LastEditors: mayuanye
  */
 import { NativeModules } from 'react-native';
 let D3D = NativeModules.JSDot3D;

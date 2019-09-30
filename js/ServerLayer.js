@@ -3,7 +3,7 @@
  * @Author: xiaoying
  * @Date: 2019-09-10 10:46:01
  * @LastEditTime: 2019-09-21 13:53:36
- * @LastEditors: Please set LastEditors
+ * @LastEditors: mayuanye
  */
 import { NativeModules } from 'react-native';
 import GroupLayer from './GroupLayer';

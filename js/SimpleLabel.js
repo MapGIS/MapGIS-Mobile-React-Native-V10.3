@@ -3,7 +3,7 @@
  * @Author: xiaoying
  * @Date: 2019-09-03 19:17:49
  * @LastEditTime: 2019-09-09 14:13:16
- * @LastEditors: Please set LastEditors
+ * @LastEditors: mayuanye
  */
 import { NativeModules } from 'react-native';
 import LabelInfo from './LabelInfo.js';

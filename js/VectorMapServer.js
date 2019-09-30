@@ -3,7 +3,7 @@
  * @Author: xiaoying
  * @Date: 2019-09-04 14:29:07
  * @LastEditTime: 2019-09-11 19:56:38
- * @LastEditors: Please set LastEditors
+ * @LastEditors: mayuanye
  */
 import { NativeModules } from 'react-native';
 import MapServer from './MapServer.js';

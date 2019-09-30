@@ -3,7 +3,7 @@
  * @Author: xiaoying
  * @Date: 2019-09-02 19:28:54
  * @LastEditTime: 2019-09-23 15:31:23
- * @LastEditors: Please set LastEditors
+ * @LastEditors: mayuanye
  */
 import { NativeModules } from 'react-native';
 import SRefData from './SRefData.js';
