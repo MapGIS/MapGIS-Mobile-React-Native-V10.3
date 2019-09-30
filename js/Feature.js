@@ -55,6 +55,41 @@ export default class Feature {
   }
 
   /**
+	 * 获取几何数据
+	 * @memberOf Feature
+	 * @return {Promise<Geometry>}几何数据
+	 */
+	async getGeometry()
+	{
+		try {
+      let { GeometryId } = await F.getGeometry(this._MGFeatureId);
+      var geometry = new Geometry();
+      geometry._MGGeometryId = GeometryId;
+      return geometry;
+    } catch (e) {
+      console.error(e);
+    }
+	}
+
+	/**
+	 * 获取几何信息
+	 * @memberOf Feature
+	 * @return {Promise<GeomInfo>}几何信息
+	 */
+	async getInfo()
+	{
+		try {
+      let { GeomInfoId } = await F.getInfo(this._MGFeatureId);
+      var geomInfo = new GeomInfo();
+      geomInfo._MGGeometryId = GeomInfoId;
+      return geomInfo;
+    } catch (e) {
+      console.error(e);
+    }
+	}
+
+
+  /**
    * 要素转Graphic
    *  @memberOf Feature
    * @returns {Promise<Array>}
@@ -75,4 +110,19 @@ export default class Feature {
       console.error(e);
     }
   }
+
+  	/**
+	 * 清空
+	 * @memberOf Feature
+	 * @return {Promise<long>}大于0成功，否则失败
+	 */
+  async reSet()
+	{
+		try {
+      return await F.reSet(this._MGFeatureId);
+    } catch (e) {
+      console.error(e);
+    }
+	}
+
 }

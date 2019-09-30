@@ -16,11 +16,6 @@ import com.zondy.mapgis.core.geodatabase.DataBase;
 import com.zondy.mapgis.core.geodatabase.FClsInfo;
 import com.zondy.mapgis.core.geodatabase.IXClsInfo;
 import com.zondy.mapgis.core.geodatabase.XClsType;
-import com.zondy.mapgis.core.map.GroupLayer;
-import com.zondy.mapgis.core.map.MapLayer;
-import com.zondy.mapgis.core.map.ServerLayer;
-import com.zondy.mapgis.core.map.SimpleModelLayer;
-import com.zondy.mapgis.core.map.VectorLayer;
 import com.zondy.mapgis.core.object.Enumeration;
 import com.zondy.mapgis.core.object.IntList;
 
@@ -65,7 +60,7 @@ public class JSDataBase extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void createObj(Promise promise) {
-        try { ;
+        try {
             DataBase dataBase = new DataBase();
             String dataBaseId = registerId(dataBase);
             WritableMap map = Arguments.createMap();

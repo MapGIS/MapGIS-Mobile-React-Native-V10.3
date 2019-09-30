@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 public class JSSpaAnalysis extends ReactContextBaseJavaModule {
 
     public static final String REACT_CLASS = "JSSpaAnalysis";
@@ -111,7 +112,11 @@ public class JSSpaAnalysis extends ReactContextBaseJavaModule {
         try {
             SpaAnalysis spaAnalysis = getObjFromList(spaAnalysisId);
             Geometry geom = JSGeometry.getObjFromList(geomId);
-            SRefData sRefSrc = JSSRefData.getObjFromList(sRefSrcId);
+            SRefData sRefSrc = null;
+            if(sRefSrcId != null)
+            {
+                sRefSrc = JSSRefData.getObjFromList(sRefSrcId);
+            }
             GeoPolygons geoPolygons = spaAnalysis.buffer(geom, leftDis, rightDis, sRefSrc);
             String geoPolygonsId = JSGeoPolygons.registerId(geoPolygons);
             WritableMap map = Arguments.createMap();

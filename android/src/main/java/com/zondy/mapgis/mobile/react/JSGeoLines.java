@@ -181,7 +181,7 @@ public class JSGeoLines extends JSGeometryExp{
     }
 
     @ReactMethod
-    public void calLength(String geoLinesId, String sRefId, Promise promise)
+    public void calLengthOfSRef(String geoLinesId, String sRefId, Promise promise)
     {
         try {
             GeoLines geoLines = getObjFromList(geoLinesId);

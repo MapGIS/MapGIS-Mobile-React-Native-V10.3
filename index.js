@@ -165,6 +165,27 @@ import DataBase from "./js/DataBase"
 import QueryDef from "./js/QueryDef"
 import RecordSet from "./js/RecordSet"
 
+import CrossData from "./js/CrossData"
+import SpaAnalysis from "./js/SpaAnalysis"
+import SpaCalculator from "./js/SpaCalculator"
+import SpaProjection from "./js/SpaProjection"
+import SpaRelation from "./js/SpaRelation"
+
+import DataBaseSync from "./js/DataBaseSync"
+import DownloadDataBaseParmeters from "./js/DownloadDataBaseParmeters"
+import DownloadLayerOption from "./js/DownloadLayerOption"
+import FeatureEdit from "./js/FeatureEdit"
+import FeatureSync from "./js/FeatureSync"
+import MapServiceInfo from "./js/MapServiceInfo"
+import MapServiceLayerInfo from "./js/MapServiceLayerInfo"
+import SyncBase from "./js/SyncBase"
+import SyncDataBaseParmeters from "./js/SyncDataBaseParmeters"
+import SyncLayerOption from "./js/SyncLayerOption"
+
+import Annotation from "./js/Annotation"
+import AnnotationsOverlay from "./js/AnnotationsOverlay"
+import AnnotationView from "./js/AnnotationView"
+
 export {
   MGMapView,
   Environment,
@@ -319,4 +340,25 @@ export {
   RecordSet,
   SpaQueryMode,
   XClsType,
+
+  CrossData,
+  SpaAnalysis,
+  SpaCalculator,
+  SpaProjection,
+  SpaRelation,
+
+  DataBaseSync,
+  DownloadDataBaseParmeters,
+  DownloadLayerOption,
+  FeatureEdit,
+  FeatureSync,
+  MapServiceInfo,
+  MapServiceLayerInfo,
+  SyncBase,
+  SyncDataBaseParmeters,
+  SyncLayerOption,
+
+  Annotation,
+  AnnotationsOverlay,
+  AnnotationView,
 };

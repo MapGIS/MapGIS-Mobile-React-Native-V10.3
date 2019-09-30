@@ -103,6 +103,7 @@ public class ReactNativeViewPackage implements ReactPackage {
         modules.add(new JSMagnifierOption(reactContext));
         modules.add(new JSAnnotation(reactContext));
         modules.add(new JSAnnotationsOverlay(reactContext));
+        modules.add(new JSAnnotationView(reactContext));
         modules.add(new JSElpTransParam(reactContext));
         modules.add(new JSElpTransformation(reactContext));
         modules.add(new JSElpParam(reactContext));
@@ -174,6 +175,23 @@ public class ReactNativeViewPackage implements ReactPackage {
         modules.add(new JSQueryDef(reactContext));
         modules.add(new JSRecordSet(reactContext));
         modules.add(new JSSFeatureCls(reactContext));
+
+        modules.add(new JSSpaAnalysis(reactContext));
+        modules.add(new JSCrossData(reactContext));
+        modules.add(new JSSpaCalculator(reactContext));
+        modules.add(new JSSpaProjection(reactContext));
+        modules.add(new JSSpaRelation(reactContext));
+
+        modules.add(new JSDataBaseSync(reactContext));
+        modules.add(new JSDownloadDataBaseParmeters(reactContext));
+        modules.add(new JSDownloadLayerOption(reactContext));
+        modules.add(new JSFeatureEdit(reactContext));
+        modules.add(new JSFeatureSync(reactContext));
+        modules.add(new JSMapServiceInfo(reactContext));
+        modules.add(new JSMapServiceLayerInfo(reactContext));
+        modules.add(new JSSyncBase(reactContext));
+        modules.add(new JSSyncDataBaseParmeters(reactContext));
+        modules.add(new JSSyncLayerOption(reactContext));
 
 		return modules;
     }

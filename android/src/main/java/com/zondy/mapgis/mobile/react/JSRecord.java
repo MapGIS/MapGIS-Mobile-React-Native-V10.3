@@ -133,7 +133,7 @@ public class JSRecord extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setFldFromStr(String recordId, int fldIndex, String newVal, Promise promise)
+    public void setFldFromStrOfIndex(String recordId, int fldIndex, String newVal, Promise promise)
     {
         try {
             Record record = getObjFromList(recordId);
@@ -145,7 +145,7 @@ public class JSRecord extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setFldFromStr(String recordId, String fldName, String newVal, Promise promise)
+    public void setFldFromStrOfName(String recordId, String fldName, String newVal, Promise promise)
     {
         try {
             Record record = getObjFromList(recordId);
