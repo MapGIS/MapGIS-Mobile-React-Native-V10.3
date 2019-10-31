@@ -109,6 +109,9 @@ public class JSFeaturePagedResult extends ReactContextBaseJavaModule {
             WritableArray arr = Arguments.createArray();
             for (int i = 0; i < featureList.size(); i++) {
                 Feature feature = featureList.get(i);
+                HashMap<String, String> attr = feature.getAttributes();
+                String strVal = attr.get("Name");
+                Log.e("FeaturePagedResult", "getAttributes: " + strVal);
                 featureID = JSFeature.registerId(feature);
                 arr.pushString(featureID);
             }
@@ -126,17 +129,21 @@ public class JSFeaturePagedResult extends ReactContextBaseJavaModule {
         try {
             FeaturePagedResult FeaturePagedResult = getObjFromList(FeaturePagedResultId);
             Fields fields = FeaturePagedResult.getFields();
-            Field filed = fields.getField((short) 1);
-            if (filed != null) {
-                Log.e("f:", "filed:" + filed);
-                Log.e("f:", "Fields:" + filed.getFieldName());
-            }
+//            Field filed = fields.getField((short) 1);
+//            if (filed != null) {
+//                Log.e("f:", "filed:" + filed);
+//                Log.e("f:", "Fields:" + filed.getFieldName());
+//            }
+//
+//            String FieldsJson = GsonUtil.format(fields);
+//            WritableMap map = Arguments.createMap();
+//            map.putString("FieldsJson", FieldsJson);
+//            promise.resolve(map);
+            String fieldsId = JSFields.registerId(fields);
 
-            String FieldsJson = GsonUtil.format(fields);
             WritableMap map = Arguments.createMap();
-            map.putString("FieldsJson", FieldsJson);
+            map.putString("FieldsId", fieldsId);
             promise.resolve(map);
-
         } catch (Exception e) {
             promise.reject(e);
         }

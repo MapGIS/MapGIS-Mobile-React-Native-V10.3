@@ -865,10 +865,10 @@ public class JSMapView extends ReactContextBaseJavaModule {
             MapView mapView = mapViewList.get(mapViewId);
             GraphicsOverlay graphicsOverlay = mapView.getGraphicsOverlay();
 
-            String GraphicsOverlayID = JSGraphicsOverlay.registerId(graphicsOverlay);
+            String GraphicsOverlayId = JSGraphicsOverlay.registerId(graphicsOverlay);
             WritableMap map = Arguments.createMap();
-            map.putString("GraphicsOverlayID", GraphicsOverlayID);
-            Log.d("GraphicsOverlayID:", GraphicsOverlayID);
+            map.putString("GraphicsOverlayId", GraphicsOverlayId);
+            Log.d("GraphicsOverlayId:", GraphicsOverlayId);
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
@@ -881,9 +881,9 @@ public class JSMapView extends ReactContextBaseJavaModule {
             MapView mapView = mapViewList.get(mapViewId);
             GraphicsOverlays graphicsOverlays = mapView.getGraphicsOverlays();
 
-            String GraphicsOverlaysID = JSGraphicsOverlays.registerId(graphicsOverlays);
+            String GraphicsOverlaysId = JSGraphicsOverlays.registerId(graphicsOverlays);
             WritableMap map = Arguments.createMap();
-            map.putString("GraphicsOverlaysID", GraphicsOverlaysID);
+            map.putString("GraphicsOverlaysId", GraphicsOverlaysId);
 
             promise.resolve(map);
         } catch (Exception e) {
@@ -1071,10 +1071,6 @@ public class JSMapView extends ReactContextBaseJavaModule {
                 public void onScreenSnapshot(int left, int top, int width, int height, Bitmap bitmap) {
                     String   strBitmapID = JSImage.registerId(bitmap);
                     WritableMap map = Arguments.createMap();
-                    map.putInt("ShotLeft", left);
-                    map.putInt("ShotTop", top);
-                    map.putInt("BitmapWidth", width);
-                    map.putInt("BitmapHeight", height);
                     map.putString("_MGBitmapId", strBitmapID);
                     promise.resolve(map);
                 }
@@ -1861,7 +1857,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
             m_mapView.setTapListener(null);
             promise.resolve(true);
 
-            Log.d("setTapListener:", "" + true);
+            Log.d("setTapListener:null", "" + true);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -1888,7 +1884,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
             m_mapView.setLongTapListener(null);
             promise.resolve(true);
 
-            Log.d("setTapListener:", "" + true);
+            Log.d("setLongTapListener:null", "" + true);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -1915,7 +1911,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
             m_mapView.setDoubleTapListener(null);
             promise.resolve(true);
 
-            Log.d("setTapListener:", "" + true);
+            Log.d("setDoubleTapListener:null", "" + true);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -1942,7 +1938,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
             m_mapView.setTouchListener(null);
             promise.resolve(true);
 
-            Log.d("setTapListener:", "" + true);
+            Log.d("setTouchListener:null", "" + true);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -1969,7 +1965,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
             m_mapView.setZoomChangedListener(null);
             promise.resolve(true);
 
-            Log.d("setTapListener:", "" + true);
+            Log.d("setZoomChangedLis:null", "" + true);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -1995,7 +1991,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
             m_mapView.setCenterChangedListener(null);
             promise.resolve(true);
 
-            Log.d("setTapListener:", "" + true);
+            Log.d("CenterChangedLis:null", "" + true);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -2021,7 +2017,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
             m_mapView.setRotateChangedListener(null);
             promise.resolve(true);
 
-            Log.d("setTapListener:", "" + true);
+            Log.d("RotateChangedLis:null", "" + true);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -2049,7 +2045,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
             m_mapView.setPositionChangedListener(null);
             promise.resolve(true);
 
-            Log.d("setTapListener:", "" + true);
+            Log.d("PositionChangedLis:null", "" + true);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -2075,7 +2071,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
             m_mapView.setAnimationListener(null);
             promise.resolve(true);
 
-            Log.d("setTapListener:", "" + true);
+            Log.d("AnimationListener:null", "" + true);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -2101,7 +2097,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
             m_mapView.setRefreshListener(null);
             promise.resolve(true);
 
-            Log.d("setTapListener:", "" + true);
+            Log.d("RefreshListener:null", "" + true);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -2110,11 +2106,12 @@ public class JSMapView extends ReactContextBaseJavaModule {
     @ReactMethod
     public void registerMapLoadListener(String mapViewId, Promise promise) {
         try {
+            Log.d("MapLoadListener:begin", "" + true);
             m_mapView = mapViewList.get(mapViewId);
             MapListener mapListener = new MapListener(m_mapView, mReactContext);
             m_mapView.setMapLoadListener(mapListener);
             promise.resolve(true);
-
+            Log.d("MapLoadListener:", "" + true);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -2127,7 +2124,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
             m_mapView.setMapLoadListener(null);
             promise.resolve(true);
 
-            Log.d("setTapListener:", "" + true);
+            Log.d("MapLoadListener:null", "" + true);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -2155,7 +2152,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
             m_mapView.setAnnotationListener(null);
             promise.resolve(true);
 
-            Log.d("setTapListener:", "" + true);
+            Log.d("AnnotationListener:null", "" + true);
         } catch (Exception e) {
             promise.reject(e);
         }

@@ -1,5 +1,7 @@
 package com.zondy.mapgis.mobile.react;
 
+import android.util.Log;
+
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -61,13 +63,29 @@ public class JSRecord extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void getFldVal(String recordId, int fldIndex, Promise promise)
+    public void getFldValByIndex(String recordId, int fldIndex, Promise promise)
     {
         try {
             Record record = getObjFromList(recordId);
             Object fldVal = record.getFldVal((short)fldIndex);
+            FieldType type = record.getFieldType((short)fldIndex);
             WritableMap map = Arguments.createMap();
-            map.putString("value", fldVal.toString());
+            if (type.equals(FieldType.fldStr))
+            {
+                map.putString("value", (String) fldVal);
+            }
+            else  if(type.equals(FieldType.fldShort) || type.equals(FieldType.fldLong) || type.equals(FieldType.fldInt64))
+            {
+                map.putInt("value", (Integer) fldVal);
+            }
+            else  if(type.equals(FieldType.fldDouble) || type.equals(FieldType.fldFloat))
+            {
+                map.putDouble("value", (Double) fldVal);
+            }
+            else  if(type.equals(FieldType.fldBlob))
+            {
+                map.putBoolean("value", (Boolean) fldVal);
+            }
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
@@ -75,13 +93,29 @@ public class JSRecord extends ReactContextBaseJavaModule {
     }
 
    @ReactMethod
-    public void getFldVal(String recordId, String fldName, Promise promise)
+    public void getFldValByName(String recordId, String fldName, Promise promise)
     {
         try {
             Record record = getObjFromList(recordId);
-            Object val = record.getFldVal(fldName);
+            Object fldVal = record.getFldVal(fldName);
+            FieldType type = record.getFieldType(fldName);
             WritableMap map = Arguments.createMap();
-            map.putString("value",val.toString());
+            if (type.equals(FieldType.fldStr))
+            {
+                map.putString("value", (String) fldVal);
+            }
+            else  if(type.equals(FieldType.fldShort) || type.equals(FieldType.fldLong) || type.equals(FieldType.fldInt64))
+            {
+                map.putInt("value", (Integer) fldVal);
+            }
+            else  if(type.equals(FieldType.fldDouble) || type.equals(FieldType.fldFloat))
+            {
+                 map.putDouble("value", (Double) fldVal);
+            }
+            else  if(type.equals(FieldType.fldBlob))
+            {
+                map.putBoolean("value", (Boolean) fldVal);
+            }
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);

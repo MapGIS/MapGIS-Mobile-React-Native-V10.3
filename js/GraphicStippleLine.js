@@ -26,14 +26,16 @@ export default class GraphicStippleLine extends Graphic {
   /**
    * 构造一个新的 GraphicStippleLine 对象。
    * @memberOf GraphicStippleLine
+   * @param {Dot} startPoint 起点
+   * @param {Dot} endPoint 终点
    * @returns {Promise.<GraphicStippleLine>}
    */
-  async createObj() {
+  async createObj(startPoint, endPoint) {
     try {
-      var { GraphicStippleLineId } = await GS.createObj();
-      var graphicCircle = new GraphicStippleLine();
-      graphicCircle._MGGraphicStippleLineId = GraphicStippleLineId;
-      return graphicCircle;
+      var { GraphicStippleLineId } = await GS.createObj(startPoint._MGDotId, endPoint._MGDotId);
+      var graphicStippleLine = new GraphicStippleLine();
+      graphicStippleLine._MGGraphicStippleLineId = GraphicStippleLineId;
+      return graphicStippleLine;
     } catch (e) {
       console.error(e);
     }
@@ -42,26 +44,26 @@ export default class GraphicStippleLine extends Graphic {
   /**
    * 设置起点
    * @memberOf GraphicStippleLine
-   * @param point
+   * @param {Dot} point 起点
    * @returns {Promise<void>}
    */
   async setStartPoint(point) {
     try {
-      await GS.setStartPoint(this._MGGraphicMultiPointId, point._MGDotId);
+      await GS.setStartPoint(this._MGGraphicStippleLineId, point._MGDotId);
     } catch (e) {
       console.error(e);
     }
   }
 
   /**
-   * 设置起点
+   * 设置终点
    * @memberOf GraphicStippleLine
-   * @param point
+   * @param {Dot} point 终点
    * @returns {Promise<void>}
    */
   async setEndPoint(point) {
     try {
-      await GS.setEndPoint(this._MGGraphicMultiPointId, point._MGDotId);
+      await GS.setEndPoint(this._MGGraphicStippleLineId, point._MGDotId);
     } catch (e) {
       console.error(e);
     }
@@ -70,7 +72,7 @@ export default class GraphicStippleLine extends Graphic {
   /**
    * 设置线宽
    * @memberOf GraphicStippleLine
-   * @param width
+   * @param {number} width 线宽 (Double类型的number)
    * @returns {Promise<void>}
    */
   async setLineWidth(width) {
@@ -84,7 +86,7 @@ export default class GraphicStippleLine extends Graphic {
   /**
    * 设置虚线段长度
    * @memberOf GraphicStippleLine
-   * @param width
+   * @param {Number} len 虚线段长度 (int类型的Number)
    * @returns {Promise<void>}
    */
   async setSegLength(len) {
@@ -98,7 +100,7 @@ export default class GraphicStippleLine extends Graphic {
   /**
    * 设置虚线间隔长度
    * @memberOf GraphicStippleLine
-   * @param len
+   * @param {Number} len 虚线间隔长度 (int类型的Number)
    * @returns {Promise<void>}
    */
   async setIntervalLength(len) {
@@ -111,13 +113,13 @@ export default class GraphicStippleLine extends Graphic {
   /**
    *获取起点的坐标点
    * @memberOf GraphicStippleLine
-   * @returns {Promise<Dot>}
+   * @returns {Promise<Dot>} 起点的坐标点
    */
   async getStartPoint() {
     try {
-      let { dotID } = await GS.getStartPoint(this._MGGraphicStippleLineId);
+      let { DotId } = await GS.getStartPoint(this._MGGraphicStippleLineId);
       var dot = new Dot();
-      dot._MGDotId = dotID;
+      dot._MGDotId = DotId;
       return dot;
     } catch (e) {
       console.error(e);
@@ -125,15 +127,15 @@ export default class GraphicStippleLine extends Graphic {
   }
 
   /**
-   *获取起点的坐标点
+   *获取终点的坐标点
    * @memberOf GraphicStippleLine
-   * @returns {Promise<Dot>}
+   * @returns {Promise<Dot>} 终点的坐标点
    */
-  async GetEndPoint() {
+  async getEndPoint() {
     try {
-      let { dotID } = await GS.GetEndPoint(this._MGGraphicStippleLineId);
+      let { DotId } = await GS.getEndPoint(this._MGGraphicStippleLineId);
       var dot = new Dot();
-      dot._MGDotId = dotID;
+      dot._MGDotId = DotId;
       return dot;
     } catch (e) {
       console.error(e);
@@ -143,7 +145,7 @@ export default class GraphicStippleLine extends Graphic {
   /**
    * 获取线的宽度
    * @memberOf GraphicStippleLine
-   * @returns {Promise<*>}
+   * @returns {Number} 线的宽度 (Double类型的number)
    */
   async getLineWidth() {
     try {
@@ -157,7 +159,7 @@ export default class GraphicStippleLine extends Graphic {
   /**
    * 获取虚线长度
    * @memberOf GraphicStippleLine
-   * @returns {Promise<*>}
+   * @returns {Number} 虚线长度 (int类型的number)
    */
   async getSegLength() {
     try {
@@ -171,7 +173,7 @@ export default class GraphicStippleLine extends Graphic {
   /**
    * 获取虚线间隔长度
    * @memberOf GraphicStippleLine
-   * @returns {Promise<*>}
+   * @returns {Number} 虚线间隔长度 (int类型的number)
    */
   async getIntervalLength() {
     try {
@@ -187,7 +189,7 @@ export default class GraphicStippleLine extends Graphic {
   /**
    * 获取线长度
    * @memberOf GraphicStippleLine
-   * @returns {Promise<*|*>}
+   * @returns {Number} 线长度 (Double类型的number)
    */
   async getLength() {
     try {

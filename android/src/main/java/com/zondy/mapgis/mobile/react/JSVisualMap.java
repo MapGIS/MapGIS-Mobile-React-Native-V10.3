@@ -5,6 +5,7 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.android.graphic.VisualMap;
@@ -59,17 +60,17 @@ public class JSVisualMap extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void createObj(double minValue, double maxValue, String[] colors, int colorCount, Promise promise) {
+    public void createObjByParam(double minValue, double maxValue, ReadableArray colorArry, Promise promise) {
         try {
             int[] colorLst = null;
-            if(colors.length > 0)
+            if(colorArry.size() > 0)
             {
-                colorLst = new int[colors.length];
-                for(int i = 0;i <colors.length;i++) {
-                    colorLst[i] = ConvertUtil.ColorRGBAToInt(colors[i]);
+                colorLst = new int[colorArry.size()];
+                for(int i = 0;i <colorArry.size();i++) {
+                    colorLst[i] = ConvertUtil.ColorRGBAToInt(colorArry.getString(i));
                 }
             }
-            VisualMap visualMap = new VisualMap(minValue, maxValue, colorLst, colorCount);
+            VisualMap visualMap = new VisualMap(minValue, maxValue, colorLst, colorLst.length);
             String strVisualMapId = registerId(visualMap);
 
             WritableMap map = Arguments.createMap();
@@ -129,18 +130,18 @@ public class JSVisualMap extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setColors(String visualMapId, String[] colors,Promise promise)
+    public void setColors(String visualMapId, ReadableArray colorArry, Promise promise)
     {
         try {
             VisualMap visualMap = getObjFromList(visualMapId);
-            if(colors.length > 0)
+            if(colorArry.size() > 0)
             {
-                int[] colorLst = new int[colors.length];
-                for(int i = 0;i <colors.length;i++)
+                int[] colorLst = new int[colorArry.size()];
+                for(int i = 0;i <colorArry.size();i++)
                 {
-                    colorLst[i] = ConvertUtil.ColorRGBAToInt(colors[i]);
+                    colorLst[i] = ConvertUtil.ColorRGBAToInt(colorArry.getString(i));
                 }
-                visualMap.setColors(colorLst,colors.length);
+                visualMap.setColors(colorLst,colorArry.size());
             }
             promise.resolve(true);
         } catch (Exception e) {
@@ -162,9 +163,7 @@ public class JSVisualMap extends ReactContextBaseJavaModule {
                 strColor = ConvertUtil.ColorIntToRGBA(colors[i]);
                 arr.pushString(strColor);
             }
-            WritableMap map = Arguments.createMap();
-            map.putArray("ColorArr", arr);
-            promise.resolve(map);
+            promise.resolve(arr);
         } catch (Exception e) {
             promise.reject(e);
         }

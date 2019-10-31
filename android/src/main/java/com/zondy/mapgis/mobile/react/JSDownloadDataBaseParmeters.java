@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class JSDownloadDataBaseParmeters extends ReactContextBaseJavaModule {
 
-    public static final String REACT_CLASS = "JSRecordSet";
+    public static final String REACT_CLASS = "JSDownloadDataBaseParmeters";
     public static Map<String, DownloadDataBaseParmeters> mDownloadDataBaseParmetersList = new HashMap<String, DownloadDataBaseParmeters>();
 
     public JSDownloadDataBaseParmeters(ReactApplicationContext reactContext) {

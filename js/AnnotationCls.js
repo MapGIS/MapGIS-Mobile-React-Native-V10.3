@@ -356,7 +356,7 @@ export default class AnnotationCls extends VectorCls {
         this._MGAnnotationClsId,
         objID
       );
-      var geometry = new Geometry();
+      var geometry = new GeoAnno();
       geometry._MGGeometryId = GeometryId;
       return geometry;
     } catch (e) {
@@ -373,7 +373,7 @@ export default class AnnotationCls extends VectorCls {
   async getInfo(objID) {
     try {
       let { GeomInfoId } = await ANNCLS.getInfo(this._MGAnnotationClsId, objID);
-      var geomInfo = new GeomInfo();
+      var geomInfo = new TextAnnInfo();
       geomInfo._MGGeomInfoId = GeomInfoId;
       return geomInfo;
     } catch (e) {

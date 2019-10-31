@@ -34,7 +34,6 @@ public class JSGraphicStippleLine extends JSGraphic {
         return mGraphicStippleLineList.get(id);
     }
 
-
     public static String registerId(GraphicStippleLine obj) {
         for (Map.Entry entry : mGraphicStippleLineList.entrySet()) {
             if (obj.equals(entry.getValue())) {
@@ -48,10 +47,12 @@ public class JSGraphicStippleLine extends JSGraphic {
     }
 
     @ReactMethod
-    public void createObj(Promise promise) {
+    public void createObj(String startPointID, String endPointID, Promise promise) {
         try {
-            GraphicStippleLine GraphicStippleLine = new GraphicStippleLine(0);
-            String GraphicStippleLineId = registerId(GraphicStippleLine);
+            Dot startPoint = JSDot.getObjFromList(startPointID);
+            Dot endPoint = JSDot.getObjFromList(endPointID);
+            GraphicStippleLine graphicStippleLine = new GraphicStippleLine(startPoint, endPoint);
+            String GraphicStippleLineId = registerId(graphicStippleLine);
 
             WritableMap map = Arguments.createMap();
             map.putString("GraphicStippleLineId", GraphicStippleLineId);
@@ -67,7 +68,7 @@ public class JSGraphicStippleLine extends JSGraphic {
             GraphicStippleLine graphicStippleLine = getObjFromList(GraphicStippleLineId);
             Dot dot = JSDot.getObjFromList(dotID);
             graphicStippleLine.setStartPoint(dot);
-
+            promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -79,7 +80,7 @@ public class JSGraphicStippleLine extends JSGraphic {
             GraphicStippleLine graphicStippleLine = getObjFromList(GraphicStippleLineId);
             Dot dot = JSDot.getObjFromList(dotID);
             graphicStippleLine.setEndPoint(dot);
-
+            promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -90,29 +91,29 @@ public class JSGraphicStippleLine extends JSGraphic {
         try {
             GraphicStippleLine graphicStippleLine = getObjFromList(GraphicStippleLineId);
             graphicStippleLine.setLineWidth(width);
-
+            promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void setSegLength(String GraphicStippleLineId, long len, Promise promise) {
+    public void setSegLength(String GraphicStippleLineId, int len, Promise promise) {
         try {
             GraphicStippleLine graphicStippleLine = getObjFromList(GraphicStippleLineId);
             graphicStippleLine.setSegLength(len);
-
+            promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void setIntervalLength(String GraphicStippleLineId, long len, Promise promise) {
+    public void setIntervalLength(String GraphicStippleLineId, int len, Promise promise) {
         try {
             GraphicStippleLine graphicStippleLine = getObjFromList(GraphicStippleLineId);
             graphicStippleLine.setIntervalLength(len);
-
+            promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -126,7 +127,7 @@ public class JSGraphicStippleLine extends JSGraphic {
 
             String dotID = JSDot.registerId(dot);
             WritableMap map = Arguments.createMap();
-            map.putString("dotID", dotID);
+            map.putString("DotId", dotID);
 
             promise.resolve(map);
         } catch (Exception e) {
@@ -135,14 +136,14 @@ public class JSGraphicStippleLine extends JSGraphic {
     }
 
     @ReactMethod
-    public void GetEndPoint(String GraphicStippleLineId, Promise promise) {
+    public void getEndPoint(String GraphicStippleLineId, Promise promise) {
         try {
             GraphicStippleLine graphicStippleLine = getObjFromList(GraphicStippleLineId);
-            Dot dot = graphicStippleLine.GetEndPoint();
+            Dot dot = graphicStippleLine.getEndPoint();
 
             String dotID = JSDot.registerId(dot);
             WritableMap map = Arguments.createMap();
-            map.putString("dotID", dotID);
+            map.putString("DotId", dotID);
 
             promise.resolve(map);
         } catch (Exception e) {
@@ -153,8 +154,8 @@ public class JSGraphicStippleLine extends JSGraphic {
     @ReactMethod
     public void getLineWidth(String GraphicStippleLineId, Promise promise) {
         try {
-            GraphicStippleLine GraphicStippleLine = getObjFromList(GraphicStippleLineId);
-            double lineWidth = GraphicStippleLine.getLineWidth();
+            GraphicStippleLine graphicStippleLine = getObjFromList(GraphicStippleLineId);
+            double lineWidth = graphicStippleLine.getLineWidth();
 
             promise.resolve(lineWidth);
         } catch (Exception e) {
@@ -165,8 +166,8 @@ public class JSGraphicStippleLine extends JSGraphic {
     @ReactMethod
     public void getSegLength(String GraphicStippleLineId, Promise promise) {
         try {
-            GraphicStippleLine GraphicStippleLine = getObjFromList(GraphicStippleLineId);
-            double SegLength = GraphicStippleLine.getSegLength();
+            GraphicStippleLine graphicStippleLine = getObjFromList(GraphicStippleLineId);
+            int SegLength = (int)graphicStippleLine.getSegLength();
 
             promise.resolve(SegLength);
         } catch (Exception e) {
@@ -177,8 +178,8 @@ public class JSGraphicStippleLine extends JSGraphic {
     @ReactMethod
     public void getIntervalLength(String GraphicStippleLineId, Promise promise) {
         try {
-            GraphicStippleLine GraphicStippleLine = getObjFromList(GraphicStippleLineId);
-            double intervalLength = GraphicStippleLine.getIntervalLength();
+            GraphicStippleLine graphicStippleLine = getObjFromList(GraphicStippleLineId);
+            int intervalLength = (int)graphicStippleLine.getIntervalLength();
 
             promise.resolve(intervalLength);
         } catch (Exception e) {
@@ -189,8 +190,8 @@ public class JSGraphicStippleLine extends JSGraphic {
     @ReactMethod
     public void getLength(String GraphicStippleLineId, Promise promise) {
         try {
-            GraphicStippleLine GraphicStippleLine = getObjFromList(GraphicStippleLineId);
-            double length = GraphicStippleLine.getLength();
+            GraphicStippleLine graphicStippleLine = getObjFromList(GraphicStippleLineId);
+            double length = graphicStippleLine.getLength();
 
             promise.resolve(length);
         } catch (Exception e) {

@@ -9,6 +9,7 @@ import com.zondy.mapgis.core.geometry.GeomType;
 import com.zondy.mapgis.core.info.GeomInfo;
 import com.zondy.mapgis.core.info.LinInfo;
 import com.zondy.mapgis.core.object.Enumeration;
+import com.zondy.mapgis.mobile.react.utils.ConvertUtil;
 
 public class JSLinInfo extends JSGeomInfo{
 
@@ -38,11 +39,11 @@ public class JSLinInfo extends JSGeomInfo{
     }
 
     @ReactMethod
-    public void createObj(int adjustFlg, int headType, int joinType, int libId, int linStyId, int makeMethod, int outClr1, int outClr2, int outClr3,
+    public void createObjByParam(int adjustFlg, int headType, int joinType, int libId, int linStyId, int makeMethod, String outClr1, String outClr2, String outClr3,
                    double outPenW1, double outPenW2, double outPenW3, boolean ovprnt, double xScale, double yScale, Promise promise)
     {
         try{
-            LinInfo linInfo = new LinInfo((short)adjustFlg, (short)headType, (short)joinType, (short)libId, linStyId, (short)makeMethod, outClr1, outClr2, outClr3, outPenW1, outPenW2, outPenW3, ovprnt, xScale, yScale);
+            LinInfo linInfo = new LinInfo((short)adjustFlg, (short)headType, (short)joinType, (short)libId, linStyId, (short)makeMethod, -ConvertUtil.ColorRGBAToInt(outClr1), -ConvertUtil.ColorRGBAToInt(outClr2), -ConvertUtil.ColorRGBAToInt(outClr3), outPenW1, outPenW2, outPenW3, ovprnt, xScale, yScale);
             String linInfoId = registerId(linInfo);
 
             WritableMap map = Arguments.createMap();
@@ -191,18 +192,22 @@ public class JSLinInfo extends JSGeomInfo{
         try {
             LinInfo linInfo = (LinInfo)getObjFromList(linInfoId);
             int outClr1 = linInfo.getOutClr1();
-            promise.resolve(outClr1);
+            String strColor = ConvertUtil.ColorIntToRGBA(outClr1);
+
+            WritableMap map = Arguments.createMap();
+            map.putString("color", strColor);
+            promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void setOutClr1(String linInfoId, int newVal, Promise promise)
+    public void setOutClr1(String linInfoId, String color, Promise promise)
     {
         try {
             LinInfo linInfo = (LinInfo)getObjFromList(linInfoId);
-            linInfo.setOutClr1(newVal);
+            linInfo.setOutClr1(-ConvertUtil.ColorRGBAToInt(color));
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -215,18 +220,22 @@ public class JSLinInfo extends JSGeomInfo{
         try {
             LinInfo linInfo = (LinInfo)getObjFromList(linInfoId);
             int outClr2 = linInfo.getOutClr2();
-            promise.resolve(outClr2);
+            String strColor = ConvertUtil.ColorIntToRGBA(outClr2);
+
+            WritableMap map = Arguments.createMap();
+            map.putString("color", strColor);
+            promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void setOutClr2(String linInfoId, int newVal, Promise promise)
+    public void setOutClr2(String linInfoId, String color, Promise promise)
     {
         try {
             LinInfo linInfo = (LinInfo)getObjFromList(linInfoId);
-            linInfo.setOutClr2(newVal);
+            linInfo.setOutClr2(-ConvertUtil.ColorRGBAToInt(color));
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -239,18 +248,22 @@ public class JSLinInfo extends JSGeomInfo{
         try {
             LinInfo linInfo = (LinInfo)getObjFromList(linInfoId);
             int outClr3 = linInfo.getOutClr3();
-            promise.resolve(outClr3);
+            String strColor = ConvertUtil.ColorIntToRGBA(outClr3);
+
+            WritableMap map = Arguments.createMap();
+            map.putString("color", strColor);
+            promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void setOutClr3(String linInfoId, int newVal, Promise promise)
+    public void setOutClr3(String linInfoId, String color, Promise promise)
     {
         try {
             LinInfo linInfo = (LinInfo)getObjFromList(linInfoId);
-            linInfo.setOutClr3(newVal);
+            linInfo.setOutClr3(-ConvertUtil.ColorRGBAToInt(color));
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);

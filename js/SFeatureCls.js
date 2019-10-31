@@ -13,6 +13,15 @@ import Fields from './Fields.js';
 import RecordSet from './RecordSet.js';
 import GeomInfo from './GeomInfo.js';
 import Geometry from './Geometry.js';
+import GeoPoints from './GeoPoints.js'
+import GeoVarLine from './GeoVarLine.js'
+import GeoPolygon from './GeoPolygon.js'
+import GeoPolygons from './GeoPolygons.js'
+import GeoAnno from './GeoAnno.js'
+import PntInfo from './PntInfo.js'
+import LinInfo from './LinInfo.js'
+import RegInfo from './RegInfo.js'
+import TextAnnInfo from './TextAnnInfo.js'
 
 let SFCLS = NativeModules.JSSFeatureCls;
 
@@ -106,7 +115,7 @@ export default class SFeatureCls extends VectorCls {
   }
 
   /**
-   * 清空类
+   * 清空数据
    * @memberOf SFeatureCls
    * @return {Promise} 成功：>0;失败：<=0
    */
@@ -224,7 +233,7 @@ export default class SFeatureCls extends VectorCls {
     try {
       let { FClsInfoId } = await SFCLS.getClsInfo(this._MGSFeatureClsId);
       var fClsInfo = new FClsInfo();
-      fClsInfo._MGSFCLSInfoId = FClsInfoId;
+      fClsInfo._MGFClsInfoId = FClsInfoId;
       return fClsInfo;
     } catch (e) {
       console.error(e);
@@ -369,12 +378,36 @@ export default class SFeatureCls extends VectorCls {
    */
   async getGeometry(objID) {
     try {
-      let { GeometryId } = await SFCLS.getGeometry(
+      let { GeometryId,GeometryType } = await SFCLS.getGeometry(
         this._MGSFeatureClsId,
         objID
       );
-      var geometry = new Geometry();
-      geometry._MGGeometryId = GeometryId;
+      let geometry = null;
+      switch(GeometryType)
+      {
+        case 2:
+            geometry = new GeoPoints();
+            geometry._MGGeometryId = GeometryId;
+          break;
+          case 12:
+            geometry = new GeoVarLine();
+            geometry._MGGeometryId = GeometryId;
+          break;
+          case 14:
+            geometry = new GeoPolygon();
+            geometry._MGGeometryId = GeometryId;
+          break;
+          case 15:
+            geometry = new GeoPolygons();
+            geometry._MGGeometryId = GeometryId;
+          break;
+          case 17:
+            geometry = new GeoAnno();
+            geometry._MGGeometryId = GeometryId;
+            break;
+          default:
+            break;
+      }
       return geometry;
     } catch (e) {
       console.error(e);
@@ -389,9 +422,33 @@ export default class SFeatureCls extends VectorCls {
    */
   async getInfo(objID) {
     try {
-      let { GeomInfoId } = await SFCLS.getInfo(this._MGSFeatureClsId, objID);
-      var geomInfo = new GeomInfo();
-      geomInfo._MGGeomInfoId = GeomInfoId;
+      let { GeomInfoId,GeometryType} = await SFCLS.getInfo(this._MGSFeatureClsId, objID);
+      let geomInfo = null;
+      switch(GeometryType)
+      {
+        case 2:
+            geomInfo = new PntInfo();
+            geomInfo._MGGeomInfoId = GeomInfoId;
+          break;
+          case 12:
+            geomInfo = new LinInfo();
+            geomInfo._MGGeomInfoId = GeomInfoId;
+          break;
+          case 14:
+            geomInfo = new RegInfo();
+            geomInfo._MGGeomInfoId = GeomInfoId;
+          break;
+          case 15:
+            geomInfo = new RegInfo();
+            geomInfo._MGGeomInfoId = GeomInfoId;
+          break;
+          case 17:
+            geomInfo = new TextAnnInfo();
+            geomInfo._MGGeomInfoId = GeomInfoId;
+            break;
+          default:
+            break;
+      }
       return geomInfo;
     } catch (e) {
       console.error(e);
@@ -553,7 +610,7 @@ export default class SFeatureCls extends VectorCls {
    */
   async deleteByID(objID) {
     try {
-      return await SFCLS.delete(this._MGSFeatureClsId, objID);
+      return await SFCLS.deleteByID(this._MGSFeatureClsId, objID);
     } catch (e) {
       console.error(e);
     }
@@ -567,7 +624,7 @@ export default class SFeatureCls extends VectorCls {
    */
   async deleteByIDs(objIDArray) {
     try {
-      return await SFCLS.delete(this._MGSFeatureClsId, objIDArray);
+      return await SFCLS.deleteByIDs(this._MGSFeatureClsId, objIDArray);
     } catch (e) {
       console.error(e);
     }
@@ -662,7 +719,7 @@ export default class SFeatureCls extends VectorCls {
    */
   async removeByName(db, clsName) {
     try {
-      return await SFCLS.remove(
+      return await SFCLS.removeByName(
         this._MGSFeatureClsId,
         db._MGDataBaseId,
         clsName
@@ -681,14 +738,14 @@ export default class SFeatureCls extends VectorCls {
    */
   async removeByID(db, clsID) {
     try {
-      return await SFCLS.remove(this._MGSFeatureClsId, db._MGDataBaseId, clsID);
+      return await SFCLS.removeByID(this._MGSFeatureClsId, db._MGDataBaseId, clsID);
     } catch (e) {
       console.error(e);
     }
   }
 
   /**
-   * 计算总平面(实地)面积
+   * 计算总平面(实地)面积(仅支持区要素)
    * @memberOf SFeatureCls
    * @param bRealArea 是否是实地面积
    * @return {Promise} 成功返回总面积
@@ -702,7 +759,7 @@ export default class SFeatureCls extends VectorCls {
   }
 
   /**
-   * 计算总平面(实地)长度
+   * 计算总平面(实地)长度(支持线、区要素)
    * @memberOf SFeatureCls
    * @param bRealLen 实地长度的标志
    * @return {Promise} 成功返回总长度
@@ -716,7 +773,7 @@ export default class SFeatureCls extends VectorCls {
   }
 
   /**
-   * 计算平面(实地)面积并保存到字段
+   * 计算平面(实地)面积并保存到字段(仅支持区要素)
    * @memberOf SFeatureCls
    * @param bRealArea 是否是实地面积
    * @param fldIndex 保存的字段索引号，即保存到第fldIndex个字段中
@@ -735,7 +792,7 @@ export default class SFeatureCls extends VectorCls {
   }
 
   /**
-   * 计算平面(实地)长度并保存到字段
+   * 计算平面(实地)长度并保存到字段(支持线、区要素)
    * @memberOf SFeatureCls
    * @param bRealLen 是否计算实际长度
    * @param fldI 保存数据的属性字段索引号

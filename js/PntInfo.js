@@ -41,6 +41,39 @@ export default class PntInfo extends GeomInfo {
   }
 
   /**
+   * 构造一个新的 PntInfo 对象
+   * @memberOf PntInfo
+   * @param ang 角度
+	 * @param backClr 覆盖的背景颜色
+	 * @param backExp 范围扩展
+	 * @param fillFlg 自动压背景颜色标志
+	 * @param height 高度
+	 * @param libId 库编号
+	 * @param outClr1 可变颜色1
+	 * @param outClr2 可变颜色2
+	 * @param outClr3 可变颜色3
+	 * @param outPenW1 外部笔宽1
+	 * @param outPenW2 外部笔宽2
+	 * @param outPenW3 外部笔宽3
+	 * @param ovprnt 覆盖方式
+	 * @param symId 符号编号
+	 * @param width 宽度
+   * @return {Promise<PntInfo>}
+   */
+  async createObjByParam(ang, backClr, backExp, fillFlg, height, libId, outClr1, outClr2, outClr3, outPenW1,
+    outPenW2, outPenW3, ovprnt, symId, width){
+    try {
+      var { PntInfoId } = await PI.createObjByParam(ang, backClr, backExp, fillFlg, height, libId, outClr1, outClr2, outClr3, outPenW1,
+        outPenW2, outPenW3, ovprnt, symId, width);
+      var pntInfo = new PntInfo();
+      pntInfo._MGPntInfoId = PntInfoId;
+      return pntInfo;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
    * 获取库编号
    * @memberOf PntInfo
    * @return {Promise}库编号
@@ -276,7 +309,8 @@ export default class PntInfo extends GeomInfo {
    */
   async getOutClr1() {
     try {
-      return await PI.getOutClr1(this._MGPntInfoId);
+      let color = await PI.getOutClr1(this._MGPntInfoId);
+      return color;
     } catch (e) {
       console.error(e);
     }
@@ -285,12 +319,12 @@ export default class PntInfo extends GeomInfo {
   /**
    * 设置可变颜色1
    * @memberOf PntInfo
-   * @param newVal 可变颜色1
+   * @param {string} eg:'rgba(128, 128, 128, 0.5)' color 可变颜色1
    * @return {Promise<void>}
    */
-  async setOutClr1(newVal) {
+  async setOutClr1(color) {
     try {
-      await PI.setOutClr1(this._MGPntInfoId, newVal);
+      await PI.setOutClr1(this._MGPntInfoId, color);
     } catch (e) {
       console.error(e);
     }
@@ -303,7 +337,8 @@ export default class PntInfo extends GeomInfo {
    */
   async getOutClr2() {
     try {
-      return await PI.getOutClr2(this._MGPntInfoId);
+      let color = await PI.getOutClr2(this._MGPntInfoId);
+      return color;
     } catch (e) {
       console.error(e);
     }
@@ -312,12 +347,12 @@ export default class PntInfo extends GeomInfo {
   /**
    * 设置可变颜色2
    * @memberOf PntInfo
-   * @param newVal 可变颜色2
+   * @param new{string} eg:'rgba(128, 128, 128, 0.5)' color 可变颜色2
    * @return {Promise<void>}
    */
-  async setOutClr2(newVal) {
+  async setOutClr2(color) {
     try {
-      await PI.setOutClr2(this._MGPntInfoId, newVal);
+      await PI.setOutClr2(this._MGPntInfoId, color);
     } catch (e) {
       console.error(e);
     }
@@ -330,7 +365,8 @@ export default class PntInfo extends GeomInfo {
    */
   async getOutClr3() {
     try {
-      return await PI.getOutClr3(this._MGPntInfoId);
+      let color = await PI.getOutClr3(this._MGPntInfoId);
+      return color;
     } catch (e) {
       console.error(e);
     }
@@ -339,12 +375,12 @@ export default class PntInfo extends GeomInfo {
   /**
    * 设置可变颜色3
    * @memberOf PntInfo
-   * @param newVal 可变颜色3
+   * @param {string} eg:'rgba(128, 128, 128, 0.5)' color 可变颜色3
    * @return {Promise<void>}
    */
-  async setOutClr3(newVal) {
+  async setOutClr3(color) {
     try {
-      await PI.setOutClr3(this._MGPntInfoId, newVal);
+      await PI.setOutClr3(this._MGPntInfoId, color);
     } catch (e) {
       console.error(e);
     }
@@ -411,7 +447,8 @@ export default class PntInfo extends GeomInfo {
    */
   async getBackClr() {
     try {
-      return await PI.getBackClr(this._MGPntInfoId);
+      let color = await PI.getBackClr(this._MGPntInfoId);
+      return color;
     } catch (e) {
       console.error(e);
     }
@@ -420,12 +457,12 @@ export default class PntInfo extends GeomInfo {
   /**
    * 设置覆盖的背景颜色
    * @memberOf PntInfo
-   * @param newVal 覆盖的背景颜色
+   * @param {string} eg:'rgba(128, 128, 128, 0.5)' color 覆盖的背景颜色
    * @return {Promise<void>}
    */
-  async setBackClr(newVal) {
+  async setBackClr(color) {
     try {
-      await PI.setBackClr(this._MGPntInfoId, newVal);
+      await PI.setBackClr(this._MGPntInfoId, color);
     } catch (e) {
       console.error(e);
     }

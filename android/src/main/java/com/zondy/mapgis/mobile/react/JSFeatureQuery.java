@@ -55,7 +55,7 @@ public class JSFeatureQuery extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void createObjByProperty(String layerID, Promise promise) {
+    public void createObjByVectorLayer(String layerID, Promise promise) {
         try {
 //            VectorLayer mapLayer = JSVectorLayer.mVectorLayerList.get(layerID);
             MapLayer mapLayer = JSMapLayer.mMapLayerList.get(layerID);

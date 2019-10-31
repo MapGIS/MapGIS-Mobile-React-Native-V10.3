@@ -9,6 +9,7 @@ import com.zondy.mapgis.core.geometry.GeomType;
 import com.zondy.mapgis.core.info.GeomInfo;
 import com.zondy.mapgis.core.info.RegInfo;
 import com.zondy.mapgis.core.object.Enumeration;
+import com.zondy.mapgis.mobile.react.utils.ConvertUtil;
 
 public class JSRegInfo extends JSGeomInfo{
 
@@ -38,11 +39,11 @@ public class JSRegInfo extends JSGeomInfo{
     }
 
     @ReactMethod
-    public void createObj(double ang, int endClr, int fillClr, int fillMode, int fullPatFlg, int libId, double outPenW, boolean ovprnt, int patCls, int patId,
+    public void createObj(double ang, String endClr, String fillClr, int fillMode, int fullPatFlg, int libId, double outPenW, boolean ovprnt, String patCls, int patId,
                    double patHeight, double patWidth, Promise promise)
     {
         try{
-            RegInfo regInfo = new RegInfo(ang, endClr, fillClr, (short)fillMode, (short)fullPatFlg, (short)libId, outPenW, ovprnt, patCls, patId, patHeight, patWidth);
+            RegInfo regInfo = new RegInfo(ang, -ConvertUtil.ColorRGBAToInt(endClr), -ConvertUtil.ColorRGBAToInt(fillClr), (short)fillMode, (short)fullPatFlg, (short)libId, outPenW, ovprnt, -ConvertUtil.ColorRGBAToInt(patCls), patId, patHeight, patWidth);
             String regInfoId = registerId(regInfo);
 
             WritableMap map = Arguments.createMap();
@@ -143,18 +144,22 @@ public class JSRegInfo extends JSGeomInfo{
         try {
             RegInfo regInfo = (RegInfo)getObjFromList(regInfoId);
             int fillClr = regInfo.getFillClr();
-            promise.resolve(fillClr);
+            String strColor = ConvertUtil.ColorIntToRGBA(fillClr);
+
+            WritableMap map = Arguments.createMap();
+            map.putString("color", strColor);
+            promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void setFillClr(String regInfoId, int newVal, Promise promise)
+    public void setFillClr(String regInfoId, String color, Promise promise)
     {
         try {
             RegInfo regInfo = (RegInfo)getObjFromList(regInfoId);
-            regInfo.setFillClr(newVal);
+            regInfo.setFillClr(-ConvertUtil.ColorRGBAToInt(color));
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -167,18 +172,22 @@ public class JSRegInfo extends JSGeomInfo{
         try {
             RegInfo regInfo = (RegInfo)getObjFromList(regInfoId);
             int endClr = regInfo.getEndClr();
-            promise.resolve(endClr);
+            String strColor = ConvertUtil.ColorIntToRGBA(endClr);
+
+            WritableMap map = Arguments.createMap();
+            map.putString("color", strColor);
+            promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void setEndClr(String regInfoId, int newVal, Promise promise)
+    public void setEndClr(String regInfoId, String color, Promise promise)
     {
         try {
             RegInfo regInfo = (RegInfo)getObjFromList(regInfoId);
-            regInfo.setEndClr(newVal);
+            regInfo.setEndClr(-ConvertUtil.ColorRGBAToInt(color));
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -263,18 +272,22 @@ public class JSRegInfo extends JSGeomInfo{
         try {
             RegInfo regInfo = (RegInfo)getObjFromList(regInfoId);
             int patClr = regInfo.getPatClr();
-            promise.resolve(patClr);
+            String strColor = ConvertUtil.ColorIntToRGBA(patClr);
+
+            WritableMap map = Arguments.createMap();
+            map.putString("color", strColor);
+            promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
    @ReactMethod
-    public void setPatClr(String regInfoId, int newVal, Promise promise)
+    public void setPatClr(String regInfoId, String color, Promise promise)
     {
         try {
             RegInfo regInfo = (RegInfo)getObjFromList(regInfoId);
-            regInfo.setPatClr(newVal);
+            regInfo.setPatClr(-ConvertUtil.ColorRGBAToInt(color));
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);

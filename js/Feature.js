@@ -6,6 +6,25 @@ import { NativeModules } from 'react-native';
 
 let F = NativeModules.JSFeature;
 import Graphic from './Graphic';
+import GeoPoints from './GeoPoints.js'
+import GeoVarLine from './GeoVarLine.js'
+import GeoPolygon from './GeoPolygon.js'
+import GeoPolygons from './GeoPolygons.js'
+import GeoAnno from './GeoAnno.js'
+import PntInfo from './PntInfo.js'
+import LinInfo from './LinInfo.js'
+import RegInfo from './RegInfo.js'
+import TextAnnInfo from './TextAnnInfo.js'
+import GraphicPoint from './GraphicPoint.js'
+import GraphicCircle from './GraphicCircle.js'
+import GraphicMultiPoint from './GraphicMultiPoint.js'
+import GraphicPolylin from './GraphicPolylin.js'
+import GraphicStippleLine from './GraphicStippleLine.js'
+import GraphicText from './GraphicText.js'
+import GraphicHeatmap from './GraphicHeatmap.js'
+import GraphicPolygon from './GraphicPolygon.js'
+import GraphicImage from './GraphicImage.js'
+
 
 /**
  * @class Feature
@@ -61,10 +80,34 @@ export default class Feature {
 	 */
 	async getGeometry()
 	{
-		try {
-      let { GeometryId } = await F.getGeometry(this._MGFeatureId);
-      var geometry = new Geometry();
-      geometry._MGGeometryId = GeometryId;
+    try {
+      let { GeometryId,GeometryType } = await F.getGeometry(this._MGFeatureId);
+      let geometry = null;
+      switch(GeometryType)
+      {
+        case 2:
+            geometry = new GeoPoints();
+            geometry._MGGeometryId = GeometryId;
+          break;
+          case 12:
+            geometry = new GeoVarLine();
+            geometry._MGGeometryId = GeometryId;
+          break;
+          case 14:
+            geometry = new GeoPolygon();
+            geometry._MGGeometryId = GeometryId;
+          break;
+          case 15:
+            geometry = new GeoPolygons();
+            geometry._MGGeometryId = GeometryId;
+          break;
+          case 17:
+            geometry = new GeoAnno();
+            geometry._MGGeometryId = GeometryId;
+            break;
+          default:
+            break;
+      }
       return geometry;
     } catch (e) {
       console.error(e);
@@ -78,10 +121,34 @@ export default class Feature {
 	 */
 	async getInfo()
 	{
-		try {
-      let { GeomInfoId } = await F.getInfo(this._MGFeatureId);
-      var geomInfo = new GeomInfo();
-      geomInfo._MGGeometryId = GeomInfoId;
+    try {
+      let { GeomInfoId,GeometryType} = await F.getInfo(this._MGFeatureId);
+      let geomInfo = null;
+      switch(GeometryType)
+      {
+        case 2:
+            geomInfo = new PntInfo();
+            geomInfo._MGGeomInfoId = GeomInfoId;
+          break;
+          case 12:
+            geomInfo = new LinInfo();
+            geomInfo._MGGeomInfoId = GeomInfoId;
+          break;
+          case 14:
+            geomInfo = new RegInfo();
+            geomInfo._MGGeomInfoId = GeomInfoId;
+          break;
+          case 15:
+            geomInfo = new RegInfo();
+            geomInfo._MGGeomInfoId = GeomInfoId;
+          break;
+          case 17:
+            geomInfo = new TextAnnInfo();
+            geomInfo._MGGeomInfoId = GeomInfoId;
+            break;
+          default:
+            break;
+      }
       return geomInfo;
     } catch (e) {
       console.error(e);
@@ -96,13 +163,56 @@ export default class Feature {
    */
   async toGraphics() {
     try {
-      var { values } = await F.toGraphics(this._MGFeatureId);
-      var objArr = [];
+      let { values } = await F.toGraphics(this._MGFeatureId);
+      let objArr = [];
       for (var i = 0; i < values.length; i++) {
-        var graphic = new Graphic();
+        let graphic = new Graphic();
         graphic._MGGraphicId = values[i];
         console.log('values[i]:' + values[i]);
-        objArr.push(graphic);
+        let type = await graphic.getGraphicType();
+        let graphicBase = null;
+        switch(type)
+        {
+          case 1:
+            graphicBase = new GraphicPoint();
+            graphicBase._MGGraphicId = values[i];
+            break;
+            case 2:
+              graphicBase = new GraphicCircle();
+              graphicBase._MGGraphicId = values[i];
+            break;
+            case 3:
+              graphicBase = new GraphicPolylin();
+              graphicBase._MGGraphicId = values[i];
+            break;
+            case 4:
+              graphicBase = new GraphicPolygon();
+              graphicBase._MGGraphicId = values[i];
+            break;
+            case 5:
+              graphicBase = new GraphicImage();
+              graphicBase._MGGraphicId = values[i];
+              break;
+            case 6:
+              graphicBase = new GraphicText();
+              graphicBase._MGGraphicId = values[i];
+              break;
+            case 7:
+              graphicBase = new GraphicMultiPoint();
+              graphicBase._MGGraphicId = values[i];
+              break;
+            case 8:
+              graphicBase = new GraphicStippleLine();
+              graphicBase._MGGraphicId = values[i];
+              break;
+            case 19:
+              graphicBase = new GraphicHeatmap();
+              graphicBase._MGGraphicId = values[i];
+              break;
+            default:
+              break;
+        }
+        objArr.push(graphicBase);
       }
       console.log('values[i]:' + objArr.length);
       return objArr;

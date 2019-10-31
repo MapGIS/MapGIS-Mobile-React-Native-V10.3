@@ -102,12 +102,12 @@ export default class GraphicsOverlays {
    */
   async getGraphicsOverlay(index) {
     try {
-      let { GraphicsOverlayID } = await X.getGraphicsOverlay(
+      let { GraphicsOverlayId } = await X.getGraphicsOverlay(
         this._MGGraphicsOverlaysId,
         index
       );
       var graphicsOverlay = new GraphicsOverlay();
-      graphicsOverlay._MGGraphicsOverlayId = GraphicsOverlayID;
+      graphicsOverlay._MGGraphicsOverlayId = GraphicsOverlayId;
 
       return graphicsOverlay;
     } catch (e) {
@@ -126,7 +126,7 @@ export default class GraphicsOverlays {
         this._MGGraphicsOverlaysId
       );
 
-      for (var i = 0; i < graphicArray.length - 1; i++) {
+      for (let i = 0; i < graphicArray.length; i++) {
         var graphicsOverlay = new GraphicsOverlay();
         graphicsOverlay._MGGraphicsOverlayId = graphicArray[i];
         objArr.push(graphicsOverlay);

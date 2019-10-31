@@ -1,6 +1,7 @@
 package com.zondy.mapgis.mobile.react;
 
 import android.graphics.PointF;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import com.facebook.react.bridge.Arguments;
@@ -33,9 +34,16 @@ public class MapListener implements MapView.MapViewDoubleTapListener, MapView.Ma
     private static final String CENTERCHANGED_EVENT = "com.mapgis.RN.Mapview.centerchanged_event";
     private static final String ANIMATION_LISTENER = "com.mapgis.RN.Mapview.AnimationListener";
     private static final String REFRESH_LISTENER = "com.mapgis.RN.Mapview.RefreshListener";
-    private static final String LOADINGMAP_LISTENER = "com.mapgis.RN.Mapview.LoadMapListener";
+    private static final String LOADINGMAP_LISTENER_START = "com.mapgis.RN.Mapview.LoadMapListener_Start";
+    private static final String LOADINGMAP_LISTENER_FINISH = "com.mapgis.RN.Mapview.LoadMapListener_Finish";
+    private static final String LOADINGMAP_LISTENER_FAIL = "com.mapgis.RN.Mapview.LoadMapListener_Fail";
     private static final String POSITIONCHANGED_LISTENER = "com.mapgis.RN.Mapview.PositionChangedListener";
-    private static final String ANNOTATION_LISTENER = "com.mapgis.RN.Mapview.AnnotationListener";
+    private static final String ANNOTATION_LISTENER_CLICK_ANN = "com.mapgis.RN.Mapview.AnnotationListenerA_ClickAnn";
+    private static final String ANNOTATION_LISTENER_SHOW_ANNVIEW = "com.mapgis.RN.Mapview.AnnotationListenerA_ShowAnnView";
+    private static final String ANNOTATION_LISTENER_HIDE_ANNVIEW = "com.mapgis.RN.Mapview.AnnotationListenerA_HideAnnView";
+    private static final String ANNOTATION_LISTENER_VIEW_BYANN = "com.mapgis.RN.Mapview.AnnotationListenerA_ViewByAnn";
+    private static final String ANNOTATION_LISTENER_CLICK_ANNVIEW = "com.mapgis.RN.Mapview.AnnotationListenerA_ClickAnnView";
+
 
 
     public MapListener(MapView mapView, ReactContext reactContext) {
@@ -113,7 +121,8 @@ public class MapListener implements MapView.MapViewDoubleTapListener, MapView.Ma
     public void mapViewWillStartLoadingMap(MapView mapView, String strDocPath) {
         WritableMap writableMap = Arguments.createMap();
         writableMap.putBoolean("StartLoadingMap", true);
-        sendEvent(mMapView, LOADINGMAP_LISTENER, writableMap);
+        Log.e("-----ldf-------", "mapViewWillStartLoadingMap: ");
+        sendEvent(mMapView, LOADINGMAP_LISTENER_START, writableMap);
     }
 
     @Override
@@ -121,7 +130,8 @@ public class MapListener implements MapView.MapViewDoubleTapListener, MapView.Ma
         WritableMap writableMap = Arguments.createMap();
         writableMap.putBoolean("DidFinishLoadingMap", true);
         writableMap.putString("strDocPath", strDocPath);
-        sendEvent(mMapView, LOADINGMAP_LISTENER, writableMap);
+        Log.e("-----ldf-------", "mapViewDidFinishLoadingMap: ");
+        sendEvent(mMapView, LOADINGMAP_LISTENER_FINISH, writableMap);
     }
 
     @Override
@@ -129,7 +139,8 @@ public class MapListener implements MapView.MapViewDoubleTapListener, MapView.Ma
 
         WritableMap writableMap = Arguments.createMap();
         writableMap.putBoolean("DidFailLoadingMap", true);
-        sendEvent(mMapView, LOADINGMAP_LISTENER, writableMap);
+        Log.e("-----ldf-------", "mapViewDidFailLoadingMap: ");
+        sendEvent(mMapView, LOADINGMAP_LISTENER_FAIL, writableMap);
     }
 
     @Override
@@ -188,7 +199,7 @@ public class MapListener implements MapView.MapViewDoubleTapListener, MapView.Ma
         String annotationId = JSAnnotation.registerId(annotation);
         WritableMap map = Arguments.createMap();
         map.putString("AnnotationId", annotationId);
-        sendEvent(mMapView, ANNOTATION_LISTENER, writableMap);
+        sendEvent(mMapView, ANNOTATION_LISTENER_CLICK_ANN, writableMap);
     }
 
     @Override
@@ -197,7 +208,7 @@ public class MapListener implements MapView.MapViewDoubleTapListener, MapView.Ma
         String annotationViewId = JSAnnotationView.registerId(annotationView);
         WritableMap map = Arguments.createMap();
         map.putString("AnnotationViewId", annotationViewId);
-        sendEvent(mMapView, ANNOTATION_LISTENER, writableMap);
+        sendEvent(mMapView, ANNOTATION_LISTENER_SHOW_ANNVIEW, writableMap);
         return false;
     }
 
@@ -207,7 +218,7 @@ public class MapListener implements MapView.MapViewDoubleTapListener, MapView.Ma
         String annotationViewId = JSAnnotationView.registerId(annotationView);
         WritableMap map = Arguments.createMap();
         map.putString("AnnotationViewId", annotationViewId);
-        sendEvent(mMapView, ANNOTATION_LISTENER, writableMap);
+        sendEvent(mMapView, ANNOTATION_LISTENER_HIDE_ANNVIEW, writableMap);
         return false;
     }
 
@@ -217,7 +228,7 @@ public class MapListener implements MapView.MapViewDoubleTapListener, MapView.Ma
         String annotationId = JSAnnotation.registerId(annotation);
         WritableMap map = Arguments.createMap();
          map.putString("AnnotationId", annotationId);
-        sendEvent(mMapView, ANNOTATION_LISTENER, writableMap);
+        sendEvent(mMapView, ANNOTATION_LISTENER_VIEW_BYANN, writableMap);
         return null;
     }
 
@@ -227,6 +238,6 @@ public class MapListener implements MapView.MapViewDoubleTapListener, MapView.Ma
         String annotationViewId = JSAnnotationView.registerId(annotationView);
         WritableMap map = Arguments.createMap();
         map.putString("AnnotationViewId", annotationViewId);
-        sendEvent(mMapView, ANNOTATION_LISTENER, writableMap);
+        sendEvent(mMapView, ANNOTATION_LISTENER_CLICK_ANNVIEW, writableMap);
     }
 }

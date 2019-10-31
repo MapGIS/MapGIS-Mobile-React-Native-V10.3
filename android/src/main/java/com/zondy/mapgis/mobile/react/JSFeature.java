@@ -12,8 +12,11 @@ import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.android.graphic.Graphic;
 import com.zondy.mapgis.android.internal.chart.json.GsonUtil;
 import com.zondy.mapgis.core.featureservice.Feature;
+import com.zondy.mapgis.core.geodatabase.SFeatureCls;
 import com.zondy.mapgis.core.geometry.Geometry;
+import com.zondy.mapgis.core.geometry.GeometryType;
 import com.zondy.mapgis.core.info.GeomInfo;
+import com.zondy.mapgis.core.object.Enumeration;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -70,7 +73,6 @@ public class JSFeature extends ReactContextBaseJavaModule {
         }
     }
 
-
     @ReactMethod
     public void getID(String FeatureId, Promise promise) {
         try {
@@ -110,8 +112,11 @@ public class JSFeature extends ReactContextBaseJavaModule {
             Feature feature = getObjFromList(FeatureId);
             Geometry geometry = feature.getGeometry();
             String geometryId = JSGeometry.registerId(geometry);
+            GeometryType geometryType = geometry.getType();
+            int type = Enumeration.getValueByName(GeometryType.class, geometryType.name());
             WritableMap map = Arguments.createMap();
             map.putString("GeometryId", geometryId);
+            map.putInt("GeometryType", type);
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
@@ -125,9 +130,14 @@ public class JSFeature extends ReactContextBaseJavaModule {
             Feature feature = getObjFromList(FeatureId);
             GeomInfo info = feature.getInfo();
             String infoId = JSGeomInfo.registerId(info);
+            GeometryType geometryType = feature.getGeometry().getType();
+            int type = Enumeration.getValueByName(GeometryType.class, geometryType.name());
+
             WritableMap map = Arguments.createMap();
             map.putString("GeomInfoId", infoId);
+            map.putInt("GeometryType", type);
             promise.resolve(map);
+
         } catch (Exception e) {
             promise.reject(e);
         }

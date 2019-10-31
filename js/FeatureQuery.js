@@ -30,6 +30,86 @@ export default class FeatureQuery {
   }
 
   /**
+   * 构造一个新的 FeatureQuery 对象
+   * @memberOf FeatureQuery
+   * @param {VectorLayer} vectorLayer 矢量图层
+   * @returns {Promise.<FeatureEdit>} eatureEdit 对象。
+   */
+  async createObjByVectorLayer(vectorLayer) {
+    try {
+      var { FeatureQueryId } = await F.createObjByVectorLayer(vectorLayer._MGVectorLayerId);
+      var featureQuery = new FeatureQuery();
+      featureQuery._MGFeatureQueryId = FeatureQueryId;
+      return featureQuery;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 构造一个新的 FeatureQuery 对象
+   * @memberOf FeatureQuery
+   * @param {IVectorCls} cls 矢量类对象基类
+   * @returns {Promise.<FeatureEdit>} eatureEdit 对象。
+   */
+  async createObjByCls(cls) {
+    try {
+      var { FeatureQueryId } = await F.createObjByCls(cls._MGVectorClsId);
+      var featureQuery = new FeatureQuery();
+      featureQuery._MGFeatureQueryId = FeatureQueryId;
+      return featureQuery;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 构造一个新的 FeatureQuery 对象
+   * @memberOf FeatureQuery
+   * @param {String} strIGServerBaseURL 基地址
+   * @param {String} strDocName 地图文档名
+   * @param {int} mapID 地图ID
+   * @param {int} layerID 图层 ID
+   * @returns {Promise.<FeatureEdit>} eatureEdit 对象。
+   */
+  async createObjByIGSDoc(strIGServerBaseURL, strDocName, mapID, layerID) {
+    try {
+      var { FeatureQueryId } = await F.createObjByIGSDoc(
+        strIGServerBaseURL,
+        strDocName,
+        mapID,
+        layerID
+      );
+      var featureQuery = new FeatureQuery();
+      featureQuery._MGFeatureQueryId = FeatureQueryId;
+      return featureQuery;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 构造一个新的 FeatureQuery 对象
+   * @memberOf FeatureQuery
+   * @param {String} strIGServerBaseURL 服务基地址
+   * @param {String} strDataURL 数据地址
+   * @returns {Promise.<FeatureEdit>} eatureEdit 对象。
+   */
+  async createObjByIGSData(strIGServerBaseURL, strDataURL) {
+    try {
+      var { FeatureQueryId } = await F.createObjByIGSData(
+        strIGServerBaseURL,
+        strDataURL
+      );
+      var featureQuery = new FeatureQuery();
+      featureQuery._MGFeatureQueryId = FeatureQueryId;
+      return featureQuery;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
    * 设置属性查询条件
    * @memberOf FeatureQuery
    * @param whereClause 属性查询条件

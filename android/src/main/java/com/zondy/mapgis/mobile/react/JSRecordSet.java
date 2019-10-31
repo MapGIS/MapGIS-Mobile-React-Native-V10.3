@@ -1,5 +1,7 @@
 package com.zondy.mapgis.mobile.react;
 
+import android.util.Log;
+
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -136,8 +138,11 @@ public class JSRecordSet extends ReactContextBaseJavaModule {
             RecordSet recordSet = getObjFromList(recordSetId);
             Geometry geometry = recordSet.getGeometry();
             String geometryId = JSGeometry.registerId(geometry);
+            GeometryType geometryType = recordSet.getGeometryType();
+            int type = Enumeration.getValueByName(GeometryType.class, geometryType.name());
             WritableMap map = Arguments.createMap();
             map.putString("GeometryId", geometryId);
+            map.putInt("GeometryType", type);
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
@@ -151,8 +156,11 @@ public class JSRecordSet extends ReactContextBaseJavaModule {
             RecordSet recordSet = getObjFromList(recordSetId);
             GeomInfo info = recordSet.getInfo();
             String infoId = JSGeomInfo.registerId(info);
+            GeometryType geometryType = recordSet.getGeometryType();
+            int type = Enumeration.getValueByName(GeometryType.class, geometryType.name());
             WritableMap map = Arguments.createMap();
             map.putString("GeomInfoId", infoId);
+            map.putInt("GeometryType", type);
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);

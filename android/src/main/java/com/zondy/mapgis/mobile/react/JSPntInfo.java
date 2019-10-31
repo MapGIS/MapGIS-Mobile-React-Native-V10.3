@@ -9,6 +9,7 @@ import com.zondy.mapgis.core.geometry.GeomType;
 import com.zondy.mapgis.core.info.GeomInfo;
 import com.zondy.mapgis.core.info.PntInfo;
 import com.zondy.mapgis.core.object.Enumeration;
+import com.zondy.mapgis.mobile.react.utils.ConvertUtil;
 
 public class JSPntInfo extends JSGeomInfo{
 
@@ -37,11 +38,11 @@ public class JSPntInfo extends JSGeomInfo{
     }
 
     @ReactMethod
-    public void createObj(double ang, int backClr, double backExp, int fillFlg, double height, int libId, int outClr1, int outClr2, int outClr3, double outPenW1,
+    public void createObjByParam(double ang, String backClr, double backExp, int fillFlg, double height, int libId, String outClr1, String outClr2, String outClr3, double outPenW1,
                    double outPenW2, double outPenW3, boolean ovprnt, int symId, double width, Promise promise)
     {
         try{
-            PntInfo pntInfo = new PntInfo(ang,backClr,backExp,(short)fillFlg,height,(short)libId,outClr1,outClr2,outClr3,outPenW1,outPenW2,outPenW3,ovprnt,symId,width);
+            PntInfo pntInfo = new PntInfo(ang,-ConvertUtil.ColorRGBAToInt(backClr),backExp,(short)fillFlg,height,(short)libId,-ConvertUtil.ColorRGBAToInt(outClr1),-ConvertUtil.ColorRGBAToInt(outClr2),-ConvertUtil.ColorRGBAToInt(outClr3),outPenW1,outPenW2,outPenW3,ovprnt,symId,width);
             String pntInfoId = registerId(pntInfo);
 
             WritableMap map = Arguments.createMap();
@@ -262,18 +263,22 @@ public class JSPntInfo extends JSGeomInfo{
         try {
             PntInfo pntInfo = (PntInfo)getObjFromList(pntInfoId);
             int outClr1 = pntInfo.getOutClr1();
-            promise.resolve(outClr1);
+            String strColor = ConvertUtil.ColorIntToRGBA(outClr1);
+
+            WritableMap map = Arguments.createMap();
+            map.putString("color", strColor);
+            promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
    @ReactMethod
-    public void setOutClr1(String pntInfoId, int newVal, Promise promise)
+    public void setOutClr1(String pntInfoId, String color, Promise promise)
     {
         try {
             PntInfo pntInfo = (PntInfo)getObjFromList(pntInfoId);
-            pntInfo.setOutClr1(newVal);
+            pntInfo.setOutClr1(-ConvertUtil.ColorRGBAToInt(color));
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -286,18 +291,22 @@ public class JSPntInfo extends JSGeomInfo{
         try {
             PntInfo pntInfo = (PntInfo)getObjFromList(pntInfoId);
             int outClr2 = pntInfo.getOutClr2();
-            promise.resolve(outClr2);
+            String strColor = ConvertUtil.ColorIntToRGBA(outClr2);
+
+            WritableMap map = Arguments.createMap();
+            map.putString("color", strColor);
+            promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
    @ReactMethod
-    public void setOutClr2(String pntInfoId, int newVal, Promise promise)
+    public void setOutClr2(String pntInfoId, String color, Promise promise)
     {
         try {
             PntInfo pntInfo = (PntInfo)getObjFromList(pntInfoId);
-            pntInfo.setOutClr2(newVal);
+            pntInfo.setOutClr2(-ConvertUtil.ColorRGBAToInt(color));
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -310,18 +319,22 @@ public class JSPntInfo extends JSGeomInfo{
         try {
             PntInfo pntInfo = (PntInfo)getObjFromList(pntInfoId);
             int outClr3 = pntInfo.getOutClr3();
-            promise.resolve(outClr3);
+            String strColor = ConvertUtil.ColorIntToRGBA(outClr3);
+
+            WritableMap map = Arguments.createMap();
+            map.putString("color", strColor);
+            promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void setOutClr3(String pntInfoId, int newVal, Promise promise)
+    public void setOutClr3(String pntInfoId, String color, Promise promise)
     {
         try {
             PntInfo pntInfo = (PntInfo)getObjFromList(pntInfoId);
-            pntInfo.setOutClr3(newVal);
+            pntInfo.setOutClr3(-ConvertUtil.ColorRGBAToInt(color));
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -382,18 +395,22 @@ public class JSPntInfo extends JSGeomInfo{
         try {
             PntInfo pntInfo = (PntInfo)getObjFromList(pntInfoId);
             int backClr = pntInfo.getBackClr();
-            promise.resolve(backClr);
+            String strColor = ConvertUtil.ColorIntToRGBA(backClr);
+
+            WritableMap map = Arguments.createMap();
+            map.putString("color", strColor);
+            promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void setBackClr(String pntInfoId, int newVal, Promise promise)
+    public void setBackClr(String pntInfoId, String color, Promise promise)
     {
         try {
             PntInfo pntInfo = (PntInfo)getObjFromList(pntInfoId);
-            pntInfo.setBackClr(newVal);
+            pntInfo.setBackClr(-ConvertUtil.ColorRGBAToInt(color));
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);

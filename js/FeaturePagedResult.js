@@ -6,6 +6,7 @@ import { NativeModules } from 'react-native';
 
 let FP = NativeModules.JSFeaturePagedResult;
 import Feature from './Feature.js';
+import Fields from './Fields.js'
 
 /**
  * @class FeaturePagedResult
@@ -58,19 +59,19 @@ export default class FeaturePagedResult {
   }
 
   /**
-   * 返回页码对应的结果，页码从一开始计数
+   * 返回页码对应的结果，页码从“1”开始计数
    * @memberOf FeaturePagedResult
    * @param pageNumber 页码
    * @return 返回页码pageNumber对应的结果
    */
   async getPage(pageNumber) {
     try {
-      var objArr = [];
-      var { values } = await FP.getPage(
+      let objArr = [];
+      let { values } = await FP.getPage(
         this._MGFeaturePagedResultId,
         pageNumber
       );
-      for (var i = 0; i < values.length - 1; i++) {
+      for (var i = 0; i < values.length; i++) {
         var feature = new Feature();
         feature._MGFeatureId = values[i];
         objArr.push(feature);
@@ -88,8 +89,10 @@ export default class FeaturePagedResult {
    */
   async getFields() {
     try {
-      let { FieldsJson } = await FP.getFields(this._MGFeaturePagedResultId);
-      return FieldsJson;
+      let { FieldsId } = await FP.getFields(this._MGFeaturePagedResultId);
+      let fields = new Fields();
+      fields._MGFieldsId = FieldsId;
+      return fields;
     } catch (e) {
       console.error(e);
     }

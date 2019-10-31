@@ -346,8 +346,11 @@ public class JSSFeatureCls extends JSVectorCls{
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
             Geometry geom = sFeatureCls.getGeometry(objID);
             String geomId = JSGeometry.registerId(geom);
+            GeometryType geometryType = geom.getType();
+            int type = Enumeration.getValueByName(GeometryType.class, geometryType.name());
             WritableMap map = Arguments.createMap();
             map.putString("GeometryId", geomId);
+            map.putInt("GeometryType", type);
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
@@ -374,9 +377,14 @@ public class JSSFeatureCls extends JSVectorCls{
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
             GeomInfo info = sFeatureCls.getInfo(objID);
             String infoId = JSGeomInfo.registerId(info);
+            GeometryType geometryType = sFeatureCls.getGeometryType(objID);
+            int type = Enumeration.getValueByName(GeometryType.class, geometryType.name());
+
             WritableMap map = Arguments.createMap();
             map.putString("GeomInfoId", infoId);
+            map.putInt("GeometryType", type);
             promise.resolve(map);
+
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -503,7 +511,7 @@ public class JSSFeatureCls extends JSVectorCls{
     }
 
     @ReactMethod
-    public void delete(String sFeatureClsId, int objID, Promise promise)
+    public void deleteByID(String sFeatureClsId, int objID, Promise promise)
     {
         try {
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
@@ -515,7 +523,7 @@ public class JSSFeatureCls extends JSVectorCls{
     }
 
     @ReactMethod
-    public void delete(String sFeatureClsId, ReadableArray objIDArray, Promise promise)
+    public void deleteByIDs(String sFeatureClsId, ReadableArray objIDArray, Promise promise)
     {
         try {
             long[]      objIDs = null;
@@ -595,7 +603,7 @@ public class JSSFeatureCls extends JSVectorCls{
     }
 
     @ReactMethod
-    public void remove(String sFeatureClsId, String dbId, String clsName, Promise promise)
+    public void removeByName(String sFeatureClsId, String dbId, String clsName, Promise promise)
     {
         try {
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
@@ -608,7 +616,7 @@ public class JSSFeatureCls extends JSVectorCls{
     }
 
     @ReactMethod
-    public void remove(String sFeatureClsId, String dbId, int clsID, Promise promise)
+    public void removeByID(String sFeatureClsId, String dbId, int clsID, Promise promise)
     {
         try {
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
@@ -637,8 +645,8 @@ public class JSSFeatureCls extends JSVectorCls{
     {
         try {
             SFeatureCls sFeatureCls = (SFeatureCls)getObjFromList(sFeatureClsId);
-            sFeatureCls.calTotalLength(bRealLen);
-            promise.resolve(true);
+            double dVal = sFeatureCls.calTotalLength(bRealLen);
+            promise.resolve(dVal);
         } catch (Exception e) {
             promise.reject(e);
         }

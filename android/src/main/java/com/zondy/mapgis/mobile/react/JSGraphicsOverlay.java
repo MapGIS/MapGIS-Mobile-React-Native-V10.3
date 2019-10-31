@@ -232,6 +232,18 @@ public class JSGraphicsOverlay extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void removeAllGraphics(String GraphicsOverlayId, Promise promise)
+    {
+        try {
+            GraphicsOverlay graphicsOverlay = getObjFromList(GraphicsOverlayId);
+            graphicsOverlay.removeAllGraphics();
+            promise.resolve(true);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
     public void getAllGraphics(String GraphicsOverlayId, Promise promise)
     {
         try {

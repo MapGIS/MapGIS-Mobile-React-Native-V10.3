@@ -133,7 +133,7 @@ export default class GraphicsOverlay {
    */
   async removeGraphics(graphicArray) {
     try {
-      await X.removeGraphic(this._MGGraphicsOverlayId, graphicArray);
+      await X.removeGraphics(this._MGGraphicsOverlayId, graphicArray);
     } catch (e) {
       console.error(e);
     }

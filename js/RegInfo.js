@@ -41,6 +41,36 @@ export default class RegInfo extends GeomInfo {
   }
 
   /**
+   * 构造一个新的 RegInfo 对象
+   * @memberOf RegInfo
+   * @param ang 图案角度
+	 * @param endClr 结束填充色
+	 * @param fillClr 区域填充色
+	 * @param fillMode 填充模式
+	 * @param fullPatFlg 是否需要完整图案填充
+	 * @param libId 库编号
+	 * @param outPenW 图案笔宽
+	 * @param ovprnt 覆盖方式
+	 * @param patCls 图案颜色
+	 * @param patId 符号编号
+	 * @param patHeight 图案高
+	 * @param patWidth 图案宽
+   * @return {Promise<RegInfo>}
+   */
+  async createObjByParam(ang, endClr, fillClr, fillMode, fullPatFlg, libId, outPenW, ovprnt, patCls, patId,
+    patHeight, patWidth) {
+    try {
+      var { RegInfoId } = await RI.createObjByParam(ang, endClr, fillClr, fillMode, fullPatFlg, libId, outPenW, ovprnt, patCls, patId,
+        patHeight, patWidth);
+      var regInfo = new RegInfo();
+      regInfo._MGRegInfoId = RegInfoId;
+      return regInfo;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
    * 获取库编号
    * @memberOf RegInfo
    * @return {Promise}库编号
@@ -141,7 +171,8 @@ export default class RegInfo extends GeomInfo {
    */
   async getFillClr() {
     try {
-      return await RI.getFillClr(this._MGRegInfoId);
+      let color = await RI.getFillClr(this._MGRegInfoId);
+      return color;
     } catch (e) {
       console.error(e);
     }
@@ -150,12 +181,12 @@ export default class RegInfo extends GeomInfo {
   /**
    * 设置区域填充色
    * @memberOf RegInfo
-   * @param newVal 区域填充色
+   * @param color 区域填充色
    * @return {Promise<void>}
    */
-  async setFillClr(newVal) {
+  async setFillClr(color) {
     try {
-      await RI.setFillClr(this._MGRegInfoId, newVal);
+      await RI.setFillClr(this._MGRegInfoId, color);
     } catch (e) {
       console.error(e);
     }
@@ -168,7 +199,8 @@ export default class RegInfo extends GeomInfo {
    */
   async getEndClr() {
     try {
-      return await RI.getEndClr(this._MGRegInfoId);
+      let color = await RI.getEndClr(this._MGRegInfoId);
+      return color;
     } catch (e) {
       console.error(e);
     }
@@ -177,12 +209,12 @@ export default class RegInfo extends GeomInfo {
   /**
    * 设置结束填充色
    * @memberOf RegInfo
-   * @param newVal 结束填充色
+   * @param color 结束填充色
    * @return {Promise<void>}
    */
-  async setEndClr(newVal) {
+  async setEndClr(color) {
     try {
-      await RI.setEndClr(this._MGRegInfoId, newVal);
+      await RI.setEndClr(this._MGRegInfoId, color);
     } catch (e) {
       console.error(e);
     }
@@ -276,7 +308,8 @@ export default class RegInfo extends GeomInfo {
    */
   async getPatClr() {
     try {
-      return await RI.getPatClr(this._MGRegInfoId);
+      let color = await RI.getPatClr(this._MGRegInfoId);
+      return color;
     } catch (e) {
       console.error(e);
     }
@@ -285,12 +318,12 @@ export default class RegInfo extends GeomInfo {
   /**
    * 设置图案颜色
    * @memberOf RegInfo
-   * @param newVal 图案颜色
+   * @param color 图案颜色
    * @return {Promise<void>}
    */
-  async setPatClr(newVal) {
+  async setPatClr(color) {
     try {
-      await RI.setPatClr(this._MGRegInfoId, newVal);
+      await RI.setPatClr(this._MGRegInfoId, color);
     } catch (e) {
       console.error(e);
     }

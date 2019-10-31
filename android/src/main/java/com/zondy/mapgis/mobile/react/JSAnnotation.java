@@ -62,7 +62,7 @@ public class JSAnnotation extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void createObj(String uid, String title, String description, String pointId, String imageId, Promise promise) {
+    public void createObjByUID(String uid, String title, String description, String pointId, String imageId, Promise promise) {
         try {
             Dot point = JSDot.getObjFromList(pointId);
             Bitmap image = JSImage.getObjFromList(imageId);

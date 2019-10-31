@@ -120,9 +120,9 @@ public class JSGraphicsOverlays extends ReactContextBaseJavaModule {
             GraphicsOverlays graphicsOverlays = getObjFromList(GraphicsOverlaysId);
             GraphicsOverlay graphicsOverlay = graphicsOverlays.getGraphicsOverlay(index);
 
-            String GraphicsOverlayID = JSGraphicsOverlay.registerId(graphicsOverlay);
+            String GraphicsOverlayId = JSGraphicsOverlay.registerId(graphicsOverlay);
             WritableMap map = Arguments.createMap();
-            map.putString("GraphicsOverlayID", GraphicsOverlayID);
+            map.putString("GraphicsOverlayId", GraphicsOverlayd);
             promise.resolve(map);
 
         } catch (Exception e) {
@@ -136,10 +136,10 @@ public class JSGraphicsOverlays extends ReactContextBaseJavaModule {
             GraphicsOverlays graphicsOverlays = getObjFromList(GraphicsOverlaysId);
             List<GraphicsOverlay> graphicsOverlayLst = graphicsOverlays.getAllGraphicsOverlays();
 
-            String GraphicsOverlayID = "";
+            String GraphicsOverlayId = "";
 
             WritableMap map = Arguments.createMap();
-            map.putString("GraphicsOverlayID", GraphicsOverlayID);
+            map.putString("GraphicsOverlayId", GraphicsOverlayId);
             promise.resolve(map);
 
 //            String featureID = "";

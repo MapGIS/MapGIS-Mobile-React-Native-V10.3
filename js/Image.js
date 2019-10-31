@@ -32,6 +32,22 @@ export default class Image {
     }
   }
 
+   /**
+   * 构造一个新的 Image 对象。
+   * @memberOf Image
+   * @returns {Promise.<Image>}
+   */
+  async createObjByLocalPath(path) {
+    try {
+        let { imageId } = await X.createObjByLocalPath(path);
+        let image = new Image();
+        image._MGImageId = imageId;
+        return image;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   /**
    * 设置图片Base64Url
    * @memberOf Image

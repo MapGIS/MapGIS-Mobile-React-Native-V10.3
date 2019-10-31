@@ -9,6 +9,7 @@ import com.zondy.mapgis.core.geometry.AnnType;
 import com.zondy.mapgis.core.geometry.GeomType;
 import com.zondy.mapgis.core.info.TextAnnInfo;
 import com.zondy.mapgis.core.object.Enumeration;
+import com.zondy.mapgis.mobile.react.utils.ConvertUtil;
 
 public class JSTextAnnInfo extends JSAnnInfo{
 
@@ -259,18 +260,21 @@ public class JSTextAnnInfo extends JSAnnInfo{
         try {
             TextAnnInfo textAnnInfo = (TextAnnInfo)getObjFromList(textAnnInfoId);
             int color = (int)textAnnInfo.getColor();
-            promise.resolve(color);
+            String strColor = ConvertUtil.ColorIntToRGBA(color);
+            WritableMap map = Arguments.createMap();
+            map.putString("color", strColor);
+            promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void setColor(String textAnnInfoId, int newVal, Promise promise)
+    public void setColor(String textAnnInfoId, String color, Promise promise)
     {
         try {
             TextAnnInfo textAnnInfo = (TextAnnInfo)getObjFromList(textAnnInfoId);
-            textAnnInfo.setColor(newVal);
+            textAnnInfo.setColor(-ConvertUtil.ColorRGBAToInt(color));
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -355,18 +359,21 @@ public class JSTextAnnInfo extends JSAnnInfo{
         try {
             TextAnnInfo textAnnInfo = (TextAnnInfo)getObjFromList(textAnnInfoId);
             int backClr = (int)textAnnInfo.getBackClr();
-            promise.resolve(backClr);
+            String strColor = ConvertUtil.ColorIntToRGBA(backClr);
+            WritableMap map = Arguments.createMap();
+            map.putString("color", strColor);
+            promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void setBackClr(String textAnnInfoId, int newVal, Promise promise)
+    public void setBackClr(String textAnnInfoId, String color, Promise promise)
     {
         try {
             TextAnnInfo textAnnInfo = (TextAnnInfo)getObjFromList(textAnnInfoId);
-            textAnnInfo.setBackClr(newVal);
+            textAnnInfo.setBackClr(-ConvertUtil.ColorRGBAToInt(color));
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);

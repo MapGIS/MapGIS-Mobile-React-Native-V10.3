@@ -291,7 +291,8 @@ export default class TextAnnInfo extends AnnInfo {
    */
   async getColor() {
     try {
-      return await TAI.getColor(this._MGTextAnnInfoId);
+      let color = await TAI.getColor(this._MGTextAnnInfoId);
+      return color;
     } catch (e) {
       console.error(e);
     }
@@ -300,12 +301,12 @@ export default class TextAnnInfo extends AnnInfo {
   /**
    * 设置文本显示颜色
    * @memberOf TextAnnInfo
-   * @param newVal 颜色号
+   * @param {string} eg:'rgba(128, 128, 128, 0.5)' color 颜色号
    * @return {Promise<void>}
    */
-  async setColor(newVal) {
+  async setColor(color) {
     try {
-      await TAI.setColor(this._MGTextAnnInfoId, newVal);
+      await TAI.setColor(this._MGTextAnnInfoId, color);
     } catch (e) {
       console.error(e);
     }
@@ -395,11 +396,12 @@ export default class TextAnnInfo extends AnnInfo {
   /**
    * 获取文本覆盖的背景颜色
    * @memberOf TextAnnInfo
-   * @return {Promise}颜色号
+   * @return {string}颜色号
    */
   async getBackClr() {
     try {
-      return await TAI.getBackClr(this._MGTextAnnInfoId);
+      let color = await TAI.getBackClr(this._MGTextAnnInfoId);
+      return color;
     } catch (e) {
       console.error(e);
     }
@@ -408,12 +410,12 @@ export default class TextAnnInfo extends AnnInfo {
   /**
    * 设置文本覆盖的背景颜色
    * @memberOf TextAnnInfo
-   * @param newVal 颜色号
+   * @param {string} eg:'rgba(128, 128, 128, 0.5)' color 颜色号
    * @return {Promise<void>}
    */
-  async setBackClr(newVal) {
+  async setBackClr(color) {
     try {
-      await TAI.setBackClr(this._MGTextAnnInfoId, newVal);
+      await TAI.setBackClr(this._MGTextAnnInfoId, color);
     } catch (e) {
       console.error(e);
     }

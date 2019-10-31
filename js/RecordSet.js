@@ -10,6 +10,15 @@ import Record from './Record.js';
 import Fields from './Fields.js';
 import Geometry from './Geometry.js';
 import GeomInfo from './GeomInfo.js';
+import GeoPoints from './GeoPoints.js'
+import GeoVarLine from './GeoVarLine.js'
+import GeoPolygon from './GeoPolygon.js'
+import GeoPolygons from './GeoPolygons.js'
+import GeoAnno from './GeoAnno.js'
+import PntInfo from './PntInfo.js'
+import LinInfo from './LinInfo.js'
+import RegInfo from './RegInfo.js'
+import TextAnnInfo from './TextAnnInfo.js'
 
 /**
  * @class RecordSet
@@ -110,9 +119,33 @@ export default class RecordSet {
    */
   async getGeometry() {
     try {
-      let { GeometryId } = await RS.getGeometry(this._MGRecordSetId);
-      var geometry = new Geometry();
-      geometry._MGGeometryId = GeometryId;
+      let { GeometryId,GeometryType } = await RS.getGeometry(this._MGRecordSetId);
+      let geometry = null;
+      switch(GeometryType)
+      {
+        case 2:
+            geometry = new GeoPoints();
+            geometry._MGGeometryId = GeometryId;
+          break;
+          case 12:
+            geometry = new GeoVarLine();
+            geometry._MGGeometryId = GeometryId;
+          break;
+          case 14:
+            geometry = new GeoPolygon();
+            geometry._MGGeometryId = GeometryId;
+          break;
+          case 15:
+            geometry = new GeoPolygons();
+            geometry._MGGeometryId = GeometryId;
+          break;
+          case 17:
+            geometry = new GeoAnno();
+            geometry._MGGeometryId = GeometryId;
+            break;
+          default:
+            break;
+      }
       return geometry;
     } catch (e) {
       console.error(e);
@@ -126,9 +159,33 @@ export default class RecordSet {
    */
   async getInfo() {
     try {
-      let { GeomInfoId } = await RS.getInfo(this._MGRecordSetId);
-      var geomInfo = new GeomInfo();
-      geomInfo._MGGeomInfoId = GeomInfoId;
+      let { GeomInfoId,GeometryType } = await RS.getInfo(this._MGRecordSetId);
+      let geomInfo = null;
+      switch(GeometryType)
+      {
+        case 2:
+            geomInfo = new PntInfo();
+            geomInfo._MGGeomInfoId = GeomInfoId;
+          break;
+          case 12:
+            geomInfo = new LinInfo();
+            geomInfo._MGGeomInfoId = GeomInfoId;
+          break;
+          case 14:
+            geomInfo = new RegInfo();
+            geomInfo._MGGeomInfoId = GeomInfoId;
+          break;
+          case 15:
+            geomInfo = new RegInfo();
+            geomInfo._MGGeomInfoId = GeomInfoId;
+          break;
+          case 17:
+            geomInfo = new TextAnnInfo();
+            geomInfo._MGGeomInfoId = GeomInfoId;
+            break;
+          default:
+            break;
+      }
       return geomInfo;
     } catch (e) {
       console.error(e);
