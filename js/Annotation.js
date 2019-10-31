@@ -12,13 +12,38 @@ let AN = NativeModules.JSAnnotation;
  */
 export default class Annotation {
   /**
-   * 构造一个新的 Annotation 对象。
-   * @memberOf Annotation
+	 * 构造一个新的 Annotation标记对象
+	 * @memberOf Annotation
+	 * @param title 标题
+	 * @param description 描述
+	 * @param point 地图坐标点
+	 * @param image 图标 可以为null
    * @returns {Promise.<Annotation>}
-   */
-  async createObj() {
+	 */
+  async createObj(title, description, point, image) {
     try {
-      var { AnnotationId } = await AN.createObj();
+      var { AnnotationId } = await AN.createObj(title, description, point._MGDotId, image._MGImageId);
+      var annotation = new Annotation();
+      annotation._MGAnnotationId = AnnotationId;
+      return annotation;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+	 * 构造一个新的 Annotation标记对象
+	 * @memberOf Annotation
+	 * @param uid 唯一标识
+	 * @param title 标题
+	 * @param description 描述
+	 * @param point 地图坐标点
+	 * @param image 图标 可以为null
+   * @returns {Promise.<Annotation>}
+	 */
+  async createObjByUID(uid, title, description, point, image) {
+    try {
+      var { AnnotationId } = await AN.createObjByUID(uid, title, description, point._MGDotId, image._MGImageId);
       var annotation = new Annotation();
       annotation._MGAnnotationId = AnnotationId;
       return annotation;
@@ -183,13 +208,13 @@ export default class Annotation {
    * @memberOf Annotation
    * @returns {Promise.<Bitmap>} 标记图标
    */
-  async getImage() {
-    try {
-      let { bitmapId } = await AN.getImage(this._MGAnnotationId);
-    } catch (e) {
-      console.error(e);
-    }
-  }
+  // async getImage() {
+  //   try {
+  //     let { bitmapId } = await AN.getImage(this._MGAnnotationId);
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+  // }
 
   /**
    * 设置标记点与图标底边中心的偏移 offset.x 取正值 图标相对于底边中心向右偏移 取负值 图标相对于底边中心向左偏移 offset.y 取正值
