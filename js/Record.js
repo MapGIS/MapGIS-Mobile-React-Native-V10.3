@@ -37,7 +37,7 @@ export default class Record {
    */
   async getFldValByIndex(fldIndex) {
     try {
-      let { value } = await RD.getFldValByIndex(this._MGRecordId, fldIndex);
+      var { value } = await RD.getFldVal(this._MGRecordId, fldIndex);
       return value;
     } catch (e) {
       console.error(e);
@@ -52,7 +52,7 @@ export default class Record {
    */
   async getFldValByName(fldName) {
     try {
-      var { value } = await RD.getFldValByName(this._MGRecordId, fldName);
+      var { value } = await RD.getFldVal(this._MGRecordId, fldName);
       return value;
     } catch (e) {
       console.error(e);
@@ -95,14 +95,13 @@ export default class Record {
 	 * @param newVal 字符串值
 	 * @return {Promise<Number>}大于0成功，否则失败
 	 */
-	async setFldFromStrOfIndex(fldIndex, newVal)
-	{
-		try {
+   async setFldFromStrOfIndex(fldIndex, newVal){
+	 try {
             return await RD.setFldFromStrOfIndex(this._MGRecordId, fldIndex, newVal);
-          } catch (e) {
-            console.error(e);
-        }
-	}
+         } catch (e) {
+           console.error(e);
+     }
+   }
 
 	/**
 	 * 将字符串设置为字段值

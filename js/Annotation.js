@@ -1,6 +1,6 @@
 /**
  * @content 标记功能组件
- * @author lidafeng
+ * @author
  */
 import { NativeModules } from 'react-native';
 import Dot from './Dot.js';

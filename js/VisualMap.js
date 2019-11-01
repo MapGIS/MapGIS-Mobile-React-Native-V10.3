@@ -1,6 +1,6 @@
 /**
  * @content 视觉映射功能组件
- * @author lidafeng
+ * @author
  */
 import { NativeModules } from 'react-native';
 
@@ -9,6 +9,26 @@ let VM = NativeModules.JSVisualMap;
  * @class VisualMap
  */
 export default class VisualMap {
+
+  /**
+   * 构造一个新的 VisualMap 对象。
+   * @memberOf VisualMap
+   * @param minValue 视觉映射最小值,默认值为0
+	 * @param maxValue 视觉映射最大值,默认值为1
+	 * @param {Array} colors颜色数组 string类型的Array
+   * @returns {Promise.<VisualMap>}
+   */
+  async createObjByParam(minValue,maxValue,colors) {
+    try {
+      var { VisualMapId } = await VM.createObjByParam(minValue,maxValue,colors);
+      var visualMap = new VisualMap();
+      visualMap._MGVisualMapId = VisualMapId;
+      return visualMap;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   /**
    * 构造一个新的 VisualMap 对象。
    * @memberOf VisualMap
@@ -86,12 +106,12 @@ export default class VisualMap {
   /**
    *  获取热力点的颜色组
    *  @memberOf VisualMap
-   * @returns {Promise<string>}
+   * @returns {Promise<Array>} string类型的Array
    */
   async getColors() {
     try {
-      let value = await VM.getColors(this._MGVisualMapId);
-      return value;
+      let { ColorArr } = await VM.getColors(this._MGVisualMapId);
+      return ColorArr;
     } catch (e) {
       console.error(e);
     }
@@ -100,7 +120,7 @@ export default class VisualMap {
   /**
    * 设置热力点的颜色组
    * @memberOf VisualMap
-   * @param colors
+   * @param {Array} colors string类型的Array
    * @returns {Promise<void>}
    */
   async setColors(colors) {
