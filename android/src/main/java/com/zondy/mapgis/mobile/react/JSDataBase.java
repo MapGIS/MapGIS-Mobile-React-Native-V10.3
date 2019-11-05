@@ -1,7 +1,6 @@
 package com.zondy.mapgis.mobile.react;
 
 import android.os.Environment;
-import android.util.Log;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;

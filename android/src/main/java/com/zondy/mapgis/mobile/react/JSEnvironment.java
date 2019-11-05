@@ -1,9 +1,6 @@
 package com.zondy.mapgis.mobile.react;
 
-
 import android.app.Activity;
-import android.util.Log;
-
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -72,10 +69,8 @@ public class JSEnvironment extends ReactContextBaseJavaModule {
     @ReactMethod
     public void initialize(String environmentID, String strRootPath, Promise promise) {
         try {
-            Log.e("initialize:", strRootPath);
             String path = JSMapView.PHONE_SDCARD_PATH + File.separator + strRootPath;
             Environment.initialize(path, mContext);
-            Log.d("initialize:", path);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);

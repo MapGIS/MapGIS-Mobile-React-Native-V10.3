@@ -1,7 +1,5 @@
 package com.zondy.mapgis.mobile.react;
 
-import android.util.Log;
-
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -57,11 +55,9 @@ public class JSFeatureQuery extends ReactContextBaseJavaModule {
     @ReactMethod
     public void createObjByVectorLayer(String layerID, Promise promise) {
         try {
-//            VectorLayer mapLayer = JSVectorLayer.mVectorLayerList.get(layerID);
             MapLayer mapLayer = JSMapLayer.mMapLayerList.get(layerID);
             FeatureQuery FeatureQuery = new FeatureQuery((VectorLayer) mapLayer);
             String FeatureQueryId = registerId(FeatureQuery);
-            Log.e("FeatureQueryId:", FeatureQueryId);
             WritableMap map = Arguments.createMap();
             map.putString("FeatureQueryId", FeatureQueryId);
             promise.resolve(map);
@@ -89,7 +85,6 @@ public class JSFeatureQuery extends ReactContextBaseJavaModule {
         try {
             FeatureQuery FeatureQuery = new FeatureQuery(strIGServerBaseURL, strDocName, mapID, layerID);
             String FeatureQueryId = registerId(FeatureQuery);
-            Log.e("FeatureQueryId:", FeatureQueryId);
             WritableMap map = Arguments.createMap();
             map.putString("FeatureQueryId", FeatureQueryId);
             promise.resolve(map);

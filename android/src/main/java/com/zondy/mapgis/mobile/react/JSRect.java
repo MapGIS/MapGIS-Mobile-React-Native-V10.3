@@ -1,8 +1,5 @@
 package com.zondy.mapgis.mobile.react;
 
-
-import android.util.Log;
-
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -73,8 +70,6 @@ public class JSRect extends ReactContextBaseJavaModule {
             WritableMap map = Arguments.createMap();
             map.putString("RectId", RectId);
             promise.resolve(map);
-            Log.d("createObjByXY", "createObjByXY() run!!!");
-
         } catch (Exception e) {
             promise.reject(e);
         }

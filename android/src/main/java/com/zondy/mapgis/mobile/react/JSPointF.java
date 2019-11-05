@@ -1,7 +1,6 @@
 package com.zondy.mapgis.mobile.react;
 
 import android.graphics.PointF;
-import android.util.Log;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
@@ -72,9 +71,6 @@ public class JSPointF extends ReactContextBaseJavaModule {
             WritableMap map = Arguments.createMap();
             map.putString("PointFId", pointFId);
             promise.resolve(map);
-            Log.d("createObjByXY", "createObjByXY() run!!!");
-            Log.d("getX:", "" + x);
-            Log.d("pointFId:", pointFId);
 
         } catch (Exception e) {
             promise.reject(e);
@@ -86,8 +82,6 @@ public class JSPointF extends ReactContextBaseJavaModule {
         try {
             PointF point2D = getObjFromList(pointFId);
             float x = point2D.x;
-            Log.d("", "getX() run!!!");
-            Log.d("getX():", "" + x);
             promise.resolve(x);
         } catch (Exception e) {
             promise.reject(e);
@@ -99,8 +93,6 @@ public class JSPointF extends ReactContextBaseJavaModule {
         try {
             PointF point2D = getObjFromList(pointFId);
             float y = point2D.y;
-            Log.d("getY:", "getY() run!!!");
-            Log.d("getY():", "" + y);
             promise.resolve(y);
             return y;
         } catch (Exception e) {

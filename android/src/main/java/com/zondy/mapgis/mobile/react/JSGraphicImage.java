@@ -2,8 +2,6 @@ package com.zondy.mapgis.mobile.react;
 
 import android.graphics.Bitmap;
 import android.graphics.PointF;
-import android.util.Log;
-
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -85,7 +83,6 @@ public class JSGraphicImage extends JSGraphic {
         try {
             GraphicImage GraphicImage = getObjFromList(GraphicImageId);
             Bitmap bitmap = JSImage.getObjFromList(imageID);
-            Log.d("bitmap:", imageID + bitmap);
             GraphicImage.setImage(bitmap);
             promise.resolve(true);
         } catch (Exception e) {

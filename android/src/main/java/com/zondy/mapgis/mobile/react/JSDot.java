@@ -1,7 +1,5 @@
 package com.zondy.mapgis.mobile.react;
 
-import android.util.Log;
-
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -72,10 +70,6 @@ public class JSDot extends ReactContextBaseJavaModule {
             WritableMap map = Arguments.createMap();
             map.putString("point2DId", point2DId);
             promise.resolve(map);
-            Log.d("createObjByXY", "createObjByXY() run!!!");
-            Log.d("getX:", "" + x);
-            Log.d("point2DId:", point2DId);
-
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -86,8 +80,6 @@ public class JSDot extends ReactContextBaseJavaModule {
         try {
             Dot point2D = getObjFromList(point2DId);
             double x = point2D.getX();
-            Log.d("", "getX() run!!!");
-            Log.d("getX():", "" + x);
             promise.resolve(x);
         } catch (Exception e) {
             promise.reject(e);
@@ -99,8 +91,6 @@ public class JSDot extends ReactContextBaseJavaModule {
         try {
             Dot point2D = getObjFromList(point2DId);
             double y = point2D.getY();
-            Log.d("getY:", "getY() run!!!");
-            Log.d("getY():", "" + y);
             promise.resolve(y);
             return y;
         } catch (Exception e) {

@@ -1,7 +1,5 @@
 package com.zondy.mapgis.mobile.react;
 
-import android.util.Log;
-
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -130,8 +128,6 @@ public class JSGraphicsOverlay extends ReactContextBaseJavaModule {
         try {
             GraphicsOverlay graphicsOverlay = getObjFromList(GraphicsOverlayId);
             Graphic graphic = JSGraphic.mGraphicList.get(graphicID);
-            Log.d("graphic:", "" + graphic);
-            Log.e("getGraphicByID:", "" + getGraphicByID(graphicID));
             if (graphic != null) {
                 graphicsOverlay.addGraphic(graphic);
             }
@@ -163,7 +159,6 @@ public class JSGraphicsOverlay extends ReactContextBaseJavaModule {
             if (GraphicStippleLine != null) {
                 graphicsOverlay.addGraphic(GraphicStippleLine);
             }
-            Log.e("graphicID:", "" + graphicID);
             GraphicText graphicText = JSGraphicText.mGraphicTextList.get(graphicID);
             if (graphicText != null) {
                 graphicsOverlay.addGraphic(graphicText);
@@ -389,7 +384,6 @@ public class JSGraphicsOverlay extends ReactContextBaseJavaModule {
 
     public Graphic getGraphicByID(String graphicID) {
         Graphic graphic = JSGraphic.mGraphicList.get(graphicID);
-        Log.d("graphic:", "" + graphic);
         if (graphic != null) {
             return graphic;
 

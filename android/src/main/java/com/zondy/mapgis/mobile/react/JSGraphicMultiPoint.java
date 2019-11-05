@@ -1,7 +1,5 @@
 package com.zondy.mapgis.mobile.react;
 
-import android.util.Log;
-
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -83,9 +81,6 @@ public class JSGraphicMultiPoint extends JSGraphic {
                 }
 
             }
-            Log.d("GraphicMultiPointId:", "" + GraphicMultiPointId);
-            Log.d("GraphicMultiPoint:", "" + GraphicMultiPoint);
-            Log.d("dotLst:", "" + dotLst);
             GraphicMultiPoint.setPoints(dotLst);
             promise.resolve(true);
         } catch (Exception e) {
@@ -247,7 +242,6 @@ public class JSGraphicMultiPoint extends JSGraphic {
 
     public GraphicMultiPoint getGraphicByID(String graphicID) {
         GraphicMultiPoint graphic = getObjFromList(graphicID);
-        Log.e("graphicID:", "" + graphicID);
         if (graphic != null) {
             return graphic;
 

@@ -1,7 +1,5 @@
 package com.zondy.mapgis.mobile.react;
 
-import android.util.Log;
-
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -101,17 +99,10 @@ public class JSFeaturePagedResult extends ReactContextBaseJavaModule {
         try {
             FeaturePagedResult FeaturePagedResult = getObjFromList(FeaturePagedResultId);
             List<Feature> featureList = FeaturePagedResult.getPage(pageNum);
-
-            Log.d("FeaturePagedResult:", "" + FeaturePagedResult);
-            Log.d("FeaturePagedResult:", "" + featureList.size());
-
             String featureID = "";
             WritableArray arr = Arguments.createArray();
             for (int i = 0; i < featureList.size(); i++) {
                 Feature feature = featureList.get(i);
-                HashMap<String, String> attr = feature.getAttributes();
-                String strVal = attr.get("Name");
-                Log.e("FeaturePagedResult", "getAttributes: " + strVal);
                 featureID = JSFeature.registerId(feature);
                 arr.pushString(featureID);
             }
@@ -129,18 +120,7 @@ public class JSFeaturePagedResult extends ReactContextBaseJavaModule {
         try {
             FeaturePagedResult FeaturePagedResult = getObjFromList(FeaturePagedResultId);
             Fields fields = FeaturePagedResult.getFields();
-//            Field filed = fields.getField((short) 1);
-//            if (filed != null) {
-//                Log.e("f:", "filed:" + filed);
-//                Log.e("f:", "Fields:" + filed.getFieldName());
-//            }
-//
-//            String FieldsJson = GsonUtil.format(fields);
-//            WritableMap map = Arguments.createMap();
-//            map.putString("FieldsJson", FieldsJson);
-//            promise.resolve(map);
             String fieldsId = JSFields.registerId(fields);
-
             WritableMap map = Arguments.createMap();
             map.putString("FieldsId", fieldsId);
             promise.resolve(map);

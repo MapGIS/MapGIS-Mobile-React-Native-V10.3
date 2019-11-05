@@ -1,7 +1,5 @@
 package com.zondy.mapgis.mobile.react;
 
-import android.util.Log;
-
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -76,8 +74,6 @@ public class JSMapPosition extends ReactContextBaseJavaModule {
 
             WritableMap map = Arguments.createMap();
             map.putString("point2DId", dotID);
-
-            Log.d("point2DId", "" + dotID);
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
@@ -117,8 +113,6 @@ public class JSMapPosition extends ReactContextBaseJavaModule {
 
             WritableMap map = Arguments.createMap();
             map.putDouble("resolution", resolution);
-
-            Log.d("resolution", "" + resolution);
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
@@ -146,8 +140,6 @@ public class JSMapPosition extends ReactContextBaseJavaModule {
 
             WritableMap map = Arguments.createMap();
             map.putString("point2DId", dotID);
-
-            Log.d("point2DId", "" + dotID);
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
@@ -186,8 +178,6 @@ public class JSMapPosition extends ReactContextBaseJavaModule {
 
             WritableMap map = Arguments.createMap();
             map.putDouble("rotateAngle", rotateAngle);
-
-            Log.d("rotateAngle", "" + rotateAngle);
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
@@ -213,8 +203,6 @@ public class JSMapPosition extends ReactContextBaseJavaModule {
 
             WritableMap map = Arguments.createMap();
             map.putDouble("slopeAngle", slopeAngle);
-
-            Log.d("slopeAngle", "" + slopeAngle);
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);

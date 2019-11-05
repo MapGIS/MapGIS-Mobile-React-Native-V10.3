@@ -122,7 +122,7 @@ public class JSGraphicsOverlays extends ReactContextBaseJavaModule {
 
             String GraphicsOverlayId = JSGraphicsOverlay.registerId(graphicsOverlay);
             WritableMap map = Arguments.createMap();
-            map.putString("GraphicsOverlayId", GraphicsOverlayd);
+            map.putString("GraphicsOverlayId", GraphicsOverlayId);
             promise.resolve(map);
 
         } catch (Exception e) {
