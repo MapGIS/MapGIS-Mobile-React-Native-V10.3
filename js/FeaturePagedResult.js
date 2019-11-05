@@ -71,8 +71,8 @@ export default class FeaturePagedResult {
         this._MGFeaturePagedResultId,
         pageNumber
       );
-      for (var i = 0; i < values.length; i++) {
-        var feature = new Feature();
+      for (let i = 0; i < values.length; i++) {
+        let feature = new Feature();
         feature._MGFeatureId = values[i];
         objArr.push(feature);
       }

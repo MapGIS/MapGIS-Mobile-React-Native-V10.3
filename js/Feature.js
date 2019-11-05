@@ -38,9 +38,9 @@ export default class Feature {
   async createObj() {
     try {
       var { FeatureId } = await F.createObj();
-      var featurePagedResult = new Feature();
-      featurePagedResult._MGFeatureId = FeatureId;
-      return featurePagedResult;
+      var feature = new Feature();
+      feature._MGFeatureId = FeatureId;
+      return feature;
     } catch (e) {
       console.error(e);
     }
@@ -165,10 +165,9 @@ export default class Feature {
     try {
       let { values } = await F.toGraphics(this._MGFeatureId);
       let objArr = [];
-      for (var i = 0; i < values.length; i++) {
+      for (let i = 0; i < values.length; i++) {
         let graphic = new Graphic();
         graphic._MGGraphicId = values[i];
-        console.log('values[i]:' + values[i]);
         let type = await graphic.getGraphicType();
         let graphicBase = null;
         switch(type)
@@ -214,7 +213,6 @@ export default class Feature {
         }
         objArr.push(graphicBase);
       }
-      console.log('values[i]:' + objArr.length);
       return objArr;
     } catch (e) {
       console.error(e);

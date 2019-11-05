@@ -12,22 +12,6 @@ import QueryBound from './QueryBound.js';
  * @class FeatureQuery
  */
 export default class FeatureQuery {
-  /**
-   * 构造一个新的 FeatureQuery 对象。
-   * @memberOf FeatureQuery
-   * @param layer
-   * @returns {Promise<FeatureQuery>}
-   */
-  async createObjByProperty(layer) {
-    try {
-      var { FeatureQueryId } = await F.createObjByProperty(layer._MGMapLayerId);
-      var featureQuery = new FeatureQuery();
-      featureQuery._MGFeatureQueryId = FeatureQueryId;
-      return featureQuery;
-    } catch (e) {
-      console.error(e);
-    }
-  }
 
   /**
    * 构造一个新的 FeatureQuery 对象
