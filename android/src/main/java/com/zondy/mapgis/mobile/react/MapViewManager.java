@@ -1,7 +1,4 @@
 package com.zondy.mapgis.mobile.react;
-
-import android.util.Log;
-
 import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
@@ -43,7 +40,6 @@ public class MapViewManager extends SimpleViewManager<MapView> {
 
     @ReactProp(name = "returnId")
     public void returnId(MapView view, boolean b) {
-        Log.e("returnId:", "" + b);
         //向JS返回MapView的ID
         mContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 view.getId(),
@@ -60,7 +56,6 @@ public class MapViewManager extends SimpleViewManager<MapView> {
         Environment.requestAuthorization(mContext, new Environment.AuthorizeCallback() {
             @Override
             public void onComplete() {
-                Log.d(RN_MAPVIEW_CLASS, "请求授权成功");
                 mapView.loadFromFile(strRootPath + strMapPath);
             }
         });

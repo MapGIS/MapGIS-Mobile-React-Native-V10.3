@@ -42,7 +42,7 @@ public class JSPntInfo extends JSGeomInfo{
                    double outPenW2, double outPenW3, boolean ovprnt, int symId, double width, Promise promise)
     {
         try{
-            PntInfo pntInfo = new PntInfo(ang,-ConvertUtil.ColorRGBAToInt(backClr),backExp,(short)fillFlg,height,(short)libId,-ConvertUtil.ColorRGBAToInt(outClr1),-ConvertUtil.ColorRGBAToInt(outClr2),-ConvertUtil.ColorRGBAToInt(outClr3),outPenW1,outPenW2,outPenW3,ovprnt,symId,width);
+            PntInfo pntInfo = new PntInfo(ang,ConvertUtil.ColorRGBAToInt(backClr),backExp,(short)fillFlg,height,(short)libId,ConvertUtil.ColorRGBAToInt(outClr1),ConvertUtil.ColorRGBAToInt(outClr2),ConvertUtil.ColorRGBAToInt(outClr3),outPenW1,outPenW2,outPenW3,ovprnt,symId,width);
             String pntInfoId = registerId(pntInfo);
 
             WritableMap map = Arguments.createMap();
@@ -278,7 +278,7 @@ public class JSPntInfo extends JSGeomInfo{
     {
         try {
             PntInfo pntInfo = (PntInfo)getObjFromList(pntInfoId);
-            pntInfo.setOutClr1(-ConvertUtil.ColorRGBAToInt(color));
+            pntInfo.setOutClr1(ConvertUtil.ColorRGBAToInt(color));
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -306,7 +306,7 @@ public class JSPntInfo extends JSGeomInfo{
     {
         try {
             PntInfo pntInfo = (PntInfo)getObjFromList(pntInfoId);
-            pntInfo.setOutClr2(-ConvertUtil.ColorRGBAToInt(color));
+            pntInfo.setOutClr2(ConvertUtil.ColorRGBAToInt(color));
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -334,7 +334,7 @@ public class JSPntInfo extends JSGeomInfo{
     {
         try {
             PntInfo pntInfo = (PntInfo)getObjFromList(pntInfoId);
-            pntInfo.setOutClr3(-ConvertUtil.ColorRGBAToInt(color));
+            pntInfo.setOutClr3(ConvertUtil.ColorRGBAToInt(color));
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -410,7 +410,7 @@ public class JSPntInfo extends JSGeomInfo{
     {
         try {
             PntInfo pntInfo = (PntInfo)getObjFromList(pntInfoId);
-            pntInfo.setBackClr(-ConvertUtil.ColorRGBAToInt(color));
+            pntInfo.setBackClr(ConvertUtil.ColorRGBAToInt(color));
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);

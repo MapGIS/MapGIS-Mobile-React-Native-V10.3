@@ -43,7 +43,7 @@ public class JSRegInfo extends JSGeomInfo{
                    double patHeight, double patWidth, Promise promise)
     {
         try{
-            RegInfo regInfo = new RegInfo(ang, -ConvertUtil.ColorRGBAToInt(endClr), -ConvertUtil.ColorRGBAToInt(fillClr), (short)fillMode, (short)fullPatFlg, (short)libId, outPenW, ovprnt, -ConvertUtil.ColorRGBAToInt(patCls), patId, patHeight, patWidth);
+            RegInfo regInfo = new RegInfo(ang, ConvertUtil.ColorRGBAToInt(endClr), ConvertUtil.ColorRGBAToInt(fillClr), (short)fillMode, (short)fullPatFlg, (short)libId, outPenW, ovprnt, ConvertUtil.ColorRGBAToInt(patCls), patId, patHeight, patWidth);
             String regInfoId = registerId(regInfo);
 
             WritableMap map = Arguments.createMap();
@@ -159,7 +159,7 @@ public class JSRegInfo extends JSGeomInfo{
     {
         try {
             RegInfo regInfo = (RegInfo)getObjFromList(regInfoId);
-            regInfo.setFillClr(-ConvertUtil.ColorRGBAToInt(color));
+            regInfo.setFillClr(ConvertUtil.ColorRGBAToInt(color));
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -187,7 +187,7 @@ public class JSRegInfo extends JSGeomInfo{
     {
         try {
             RegInfo regInfo = (RegInfo)getObjFromList(regInfoId);
-            regInfo.setEndClr(-ConvertUtil.ColorRGBAToInt(color));
+            regInfo.setEndClr(ConvertUtil.ColorRGBAToInt(color));
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -287,7 +287,7 @@ public class JSRegInfo extends JSGeomInfo{
     {
         try {
             RegInfo regInfo = (RegInfo)getObjFromList(regInfoId);
-            regInfo.setPatClr(-ConvertUtil.ColorRGBAToInt(color));
+            regInfo.setPatClr(ConvertUtil.ColorRGBAToInt(color));
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);

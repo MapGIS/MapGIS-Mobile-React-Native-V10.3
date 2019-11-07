@@ -309,7 +309,7 @@ export default class PntInfo extends GeomInfo {
    */
   async getOutClr1() {
     try {
-      let color = await PI.getOutClr1(this._MGPntInfoId);
+      let { color } = await PI.getOutClr1(this._MGPntInfoId);
       return color;
     } catch (e) {
       console.error(e);
@@ -337,7 +337,7 @@ export default class PntInfo extends GeomInfo {
    */
   async getOutClr2() {
     try {
-      let color = await PI.getOutClr2(this._MGPntInfoId);
+      let { color }= await PI.getOutClr2(this._MGPntInfoId);
       return color;
     } catch (e) {
       console.error(e);
@@ -365,7 +365,7 @@ export default class PntInfo extends GeomInfo {
    */
   async getOutClr3() {
     try {
-      let color = await PI.getOutClr3(this._MGPntInfoId);
+      let { color } = await PI.getOutClr3(this._MGPntInfoId);
       return color;
     } catch (e) {
       console.error(e);
@@ -447,7 +447,7 @@ export default class PntInfo extends GeomInfo {
    */
   async getBackClr() {
     try {
-      let color = await PI.getBackClr(this._MGPntInfoId);
+      let { color } = await PI.getBackClr(this._MGPntInfoId);
       return color;
     } catch (e) {
       console.error(e);

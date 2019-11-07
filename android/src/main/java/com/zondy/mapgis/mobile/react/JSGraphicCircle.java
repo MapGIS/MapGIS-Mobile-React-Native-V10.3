@@ -137,7 +137,7 @@ public class JSGraphicCircle extends JSGraphic {
     public void setBorderlineColor(String GraphicCircleId, String color, Promise promise) {
         try {
             GraphicCircle GraphicCircle = getObjFromList(GraphicCircleId);
-            GraphicCircle.setBorderlineColor(-ConvertUtil.ColorRGBAToInt(color));
+            GraphicCircle.setBorderlineColor(ConvertUtil.ColorRGBAToInt(color));
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);

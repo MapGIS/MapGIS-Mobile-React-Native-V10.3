@@ -11,8 +11,6 @@ import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.android.graphic.GraphicHeatmap;
 import com.zondy.mapgis.android.graphic.HeatmapPoint;
 import com.zondy.mapgis.android.graphic.VisualMap;
-import com.zondy.mapgis.mobile.react.utils.ConvertUtil;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;

@@ -171,7 +171,7 @@ export default class RegInfo extends GeomInfo {
    */
   async getFillClr() {
     try {
-      let color = await RI.getFillClr(this._MGRegInfoId);
+      let {color} = await RI.getFillClr(this._MGRegInfoId);
       return color;
     } catch (e) {
       console.error(e);
@@ -199,7 +199,7 @@ export default class RegInfo extends GeomInfo {
    */
   async getEndClr() {
     try {
-      let color = await RI.getEndClr(this._MGRegInfoId);
+      let {color} = await RI.getEndClr(this._MGRegInfoId);
       return color;
     } catch (e) {
       console.error(e);
@@ -308,7 +308,7 @@ export default class RegInfo extends GeomInfo {
    */
   async getPatClr() {
     try {
-      let color = await RI.getPatClr(this._MGRegInfoId);
+      let {color} = await RI.getPatClr(this._MGRegInfoId);
       return color;
     } catch (e) {
       console.error(e);

@@ -228,7 +228,7 @@ export default class LinInfo extends GeomInfo {
    */
   async getOutClr1() {
     try {
-      let color = await LI.getOutClr1(this._MGLinInfoId);
+      let {color} = await LI.getOutClr1(this._MGLinInfoId);
       return color;
     } catch (e) {
       console.error(e);
@@ -256,7 +256,7 @@ export default class LinInfo extends GeomInfo {
    */
   async getOutClr2() {
     try {
-      let color = await LI.getOutClr2(this._MGLinInfoId);
+      let {color} = await LI.getOutClr2(this._MGLinInfoId);
       return color;
     } catch (e) {
       console.error(e);
@@ -284,7 +284,7 @@ export default class LinInfo extends GeomInfo {
    */
   async getOutClr3() {
     try {
-      let color = await LI.getOutClr3(this._MGLinInfoId);
+      let {color} = await LI.getOutClr3(this._MGLinInfoId);
       return color;
     } catch (e) {
       console.error(e);

@@ -21,7 +21,6 @@ class MGSMapView extends Component {
   };
 
   _onChange(event) {
-    console.log('has onGetInstance:' + event.nativeEvent.mapViewId);
     this.mapView = new MapView();
     this.mapView._MGMapViewId = event.nativeEvent.mapViewId;
     this.props.onGetInstance(this.mapView);

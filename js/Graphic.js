@@ -76,8 +76,7 @@ export default class Graphic {
    */
   async getColor() {
     try {
-      let color = await G.getColor(this._MGGraphicId);
-
+      let { color } = await G.getColor(this._MGGraphicId);
       return color;
     } catch (e) {
       console.error(e);

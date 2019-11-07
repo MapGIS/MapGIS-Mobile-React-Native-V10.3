@@ -1,7 +1,6 @@
 package com.zondy.mapgis.mobile.react;
 
 import android.graphics.PointF;
-import android.util.Log;
 import android.view.MotionEvent;
 
 import com.facebook.react.bridge.Arguments;
@@ -121,7 +120,6 @@ public class MapListener implements MapView.MapViewDoubleTapListener, MapView.Ma
     public void mapViewWillStartLoadingMap(MapView mapView, String strDocPath) {
         WritableMap writableMap = Arguments.createMap();
         writableMap.putBoolean("StartLoadingMap", true);
-        Log.e("-----ldf-------", "mapViewWillStartLoadingMap: ");
         sendEvent(mMapView, LOADINGMAP_LISTENER_START, writableMap);
     }
 
@@ -130,7 +128,6 @@ public class MapListener implements MapView.MapViewDoubleTapListener, MapView.Ma
         WritableMap writableMap = Arguments.createMap();
         writableMap.putBoolean("DidFinishLoadingMap", true);
         writableMap.putString("strDocPath", strDocPath);
-        Log.e("-----ldf-------", "mapViewDidFinishLoadingMap: ");
         sendEvent(mMapView, LOADINGMAP_LISTENER_FINISH, writableMap);
     }
 
@@ -139,7 +136,6 @@ public class MapListener implements MapView.MapViewDoubleTapListener, MapView.Ma
 
         WritableMap writableMap = Arguments.createMap();
         writableMap.putBoolean("DidFailLoadingMap", true);
-        Log.e("-----ldf-------", "mapViewDidFailLoadingMap: ");
         sendEvent(mMapView, LOADINGMAP_LISTENER_FAIL, writableMap);
     }
 

@@ -12,7 +12,6 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.facebook.common.util.UriUtil;
 import com.facebook.react.bridge.Arguments;
@@ -92,14 +91,9 @@ public class JSImage extends ReactContextBaseJavaModule {
         try {
             Bitmap bitmap = getBitmapFromByte(base64UrlToImage(base64Url));
             String imageId = registerId(bitmap);
-
             WritableMap map = Arguments.createMap();
             map.putString("imageId", imageId);
-            Log.d("createObjByProperty", "createObjByProperty() run!!!");
-            Log.d("imageId", imageId);
-
             promise.resolve(map);
-
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -120,7 +114,6 @@ public class JSImage extends ReactContextBaseJavaModule {
                     imageId = registerId(bitmap);
                 }
             }
-            Log.e("-createObjByLocalPath-", "createObjByLocalPath: " + strImgPath + path);
            // Bitmap bitmap = loadImage(strImgPath + path, true);
             WritableMap map = Arguments.createMap();
             map.putString("imageId", imageId);

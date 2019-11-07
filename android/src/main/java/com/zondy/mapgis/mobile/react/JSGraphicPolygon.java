@@ -1,7 +1,5 @@
 package com.zondy.mapgis.mobile.react;
 
-import android.util.Log;
-
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -91,7 +89,6 @@ public class JSGraphicPolygon extends JSGraphicMultiPoint {
                     ReadableMap readable = pointArray.getMap(i);
                     String keyStr = readable.getString("_MGDotId");
                     dotLst.append(JSDot.getObjFromList(keyStr));
-                    Log.e("dotLst:", "" + JSDot.getObjFromList(keyStr).x);
                 }
                 if (circlesArray != null) {
                     for (int j = 0; j < circlesArray.size(); j++) {
@@ -101,11 +98,6 @@ public class JSGraphicPolygon extends JSGraphicMultiPoint {
                     intList.append(dotLst.size());
                 }
             }
-
-            Log.e("graphicPolygon:", "" + graphicPolygon);
-            Log.e("GraphicPolygonId:", "" + GraphicPolygonId);
-            Log.e("circlesArray:", "" + circlesArray);
-
             graphicPolygon.setPoints(dotLst, intList);
             promise.resolve(true);
         } catch (Exception e) {
@@ -149,7 +141,6 @@ public class JSGraphicPolygon extends JSGraphicMultiPoint {
         try {
             GraphicPolygon graphicPolygon = getObjFromList(GraphicPolygonId);
             graphicPolygon.setBorderlineWidth((float)width);
-            Log.d("setBorderlineWidth:", "" + width);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -159,7 +150,7 @@ public class JSGraphicPolygon extends JSGraphicMultiPoint {
     public void setBorderlineColor(String GraphicPolygonId, String color, Promise promise) {
         try {
             GraphicPolygon graphicPolygon = getObjFromList(GraphicPolygonId);
-            graphicPolygon.setBorderlineColor(-ConvertUtil.ColorRGBAToInt(color));
+            graphicPolygon.setBorderlineColor(ConvertUtil.ColorRGBAToInt(color));
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);

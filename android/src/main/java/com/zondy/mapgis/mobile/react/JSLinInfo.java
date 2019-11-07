@@ -43,7 +43,7 @@ public class JSLinInfo extends JSGeomInfo{
                    double outPenW1, double outPenW2, double outPenW3, boolean ovprnt, double xScale, double yScale, Promise promise)
     {
         try{
-            LinInfo linInfo = new LinInfo((short)adjustFlg, (short)headType, (short)joinType, (short)libId, linStyId, (short)makeMethod, -ConvertUtil.ColorRGBAToInt(outClr1), -ConvertUtil.ColorRGBAToInt(outClr2), -ConvertUtil.ColorRGBAToInt(outClr3), outPenW1, outPenW2, outPenW3, ovprnt, xScale, yScale);
+            LinInfo linInfo = new LinInfo((short)adjustFlg, (short)headType, (short)joinType, (short)libId, linStyId, (short)makeMethod, ConvertUtil.ColorRGBAToInt(outClr1), ConvertUtil.ColorRGBAToInt(outClr2), ConvertUtil.ColorRGBAToInt(outClr3), outPenW1, outPenW2, outPenW3, ovprnt, xScale, yScale);
             String linInfoId = registerId(linInfo);
 
             WritableMap map = Arguments.createMap();
@@ -207,7 +207,7 @@ public class JSLinInfo extends JSGeomInfo{
     {
         try {
             LinInfo linInfo = (LinInfo)getObjFromList(linInfoId);
-            linInfo.setOutClr1(-ConvertUtil.ColorRGBAToInt(color));
+            linInfo.setOutClr1(ConvertUtil.ColorRGBAToInt(color));
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -235,7 +235,7 @@ public class JSLinInfo extends JSGeomInfo{
     {
         try {
             LinInfo linInfo = (LinInfo)getObjFromList(linInfoId);
-            linInfo.setOutClr2(-ConvertUtil.ColorRGBAToInt(color));
+            linInfo.setOutClr2(ConvertUtil.ColorRGBAToInt(color));
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -263,7 +263,7 @@ public class JSLinInfo extends JSGeomInfo{
     {
         try {
             LinInfo linInfo = (LinInfo)getObjFromList(linInfoId);
-            linInfo.setOutClr3(-ConvertUtil.ColorRGBAToInt(color));
+            linInfo.setOutClr3(ConvertUtil.ColorRGBAToInt(color));
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);

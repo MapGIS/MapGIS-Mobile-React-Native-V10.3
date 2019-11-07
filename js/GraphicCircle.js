@@ -149,10 +149,10 @@ export default class GraphicCircle extends Graphic {
    */
   async getBorderlineColor() {
     try {
-      let borderlineColor = await GC.getBorderlineColor(
+      let { color } = await GC.getBorderlineColor(
         this._MGGraphicCircleId
       );
-      return borderlineColor;
+      return color;
     } catch (e) {
       console.error(e);
     }

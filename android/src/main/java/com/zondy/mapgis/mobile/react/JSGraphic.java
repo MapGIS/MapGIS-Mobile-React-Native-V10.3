@@ -1,7 +1,5 @@
 package com.zondy.mapgis.mobile.react;
 
-import android.util.Log;
-
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -9,7 +7,6 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
-import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.android.graphic.GraphicText;
 import com.zondy.mapgis.mobile.react.utils.ConvertUtil;
@@ -109,9 +106,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
         try {
 //            Graphic Graphic = getObjFromList(GraphicId);
             Graphic graphic = getGraphicByID(GraphicId);
-            Log.d("color:", "--" + color);
-            graphic.setColor(-ConvertUtil.ColorRGBAToInt(color));
-
+            graphic.setColor(ConvertUtil.ColorRGBAToInt(color));
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -124,7 +119,6 @@ public class JSGraphic extends ReactContextBaseJavaModule {
             Graphic graphic = getGraphicByID(GraphicId);
             int color = graphic.getColor();
             String strColor = ConvertUtil.ColorIntToRGBA(color);
-
             WritableMap map = Arguments.createMap();
             map.putString("color", strColor);
             promise.resolve(map);
@@ -346,8 +340,6 @@ public class JSGraphic extends ReactContextBaseJavaModule {
 
     public Graphic getGraphicByID(String graphicID) {
         Graphic graphic = JSGraphic.mGraphicList.get(graphicID);
-        Log.e("graphic:", "" + graphic);
-        Log.e("graphicID:", "" + graphicID);
         if (graphic != null) {
             return graphic;
 

@@ -291,7 +291,7 @@ export default class TextAnnInfo extends AnnInfo {
    */
   async getColor() {
     try {
-      let color = await TAI.getColor(this._MGTextAnnInfoId);
+      let { color } = await TAI.getColor(this._MGTextAnnInfoId);
       return color;
     } catch (e) {
       console.error(e);
@@ -400,7 +400,7 @@ export default class TextAnnInfo extends AnnInfo {
    */
   async getBackClr() {
     try {
-      let color = await TAI.getBackClr(this._MGTextAnnInfoId);
+      let { color } = await TAI.getBackClr(this._MGTextAnnInfoId);
       return color;
     } catch (e) {
       console.error(e);

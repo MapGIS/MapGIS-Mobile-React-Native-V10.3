@@ -274,7 +274,7 @@ public class JSTextAnnInfo extends JSAnnInfo{
     {
         try {
             TextAnnInfo textAnnInfo = (TextAnnInfo)getObjFromList(textAnnInfoId);
-            textAnnInfo.setColor(-ConvertUtil.ColorRGBAToInt(color));
+            textAnnInfo.setColor(ConvertUtil.ColorRGBAToInt(color));
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -373,7 +373,7 @@ public class JSTextAnnInfo extends JSAnnInfo{
     {
         try {
             TextAnnInfo textAnnInfo = (TextAnnInfo)getObjFromList(textAnnInfoId);
-            textAnnInfo.setBackClr(-ConvertUtil.ColorRGBAToInt(color));
+            textAnnInfo.setBackClr(ConvertUtil.ColorRGBAToInt(color));
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
