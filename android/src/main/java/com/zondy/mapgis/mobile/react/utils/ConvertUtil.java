@@ -18,7 +18,7 @@ public class ConvertUtil {
         int red = (color & 0x00ff0000) >> 16;
         int green = (color & 0x0000ff00) >> 8;
         int blue = (color & 0x000000ff);
-        // 'rgba(128, 128, 128, 0.5)'
+        // 'rgba(128, 128, 128, 128)'
         String rgbaStr = "rgba(" + red + "," + green + "," + blue + "," + alpha + ")";
         return rgbaStr;
     }
@@ -26,7 +26,7 @@ public class ConvertUtil {
     /**
      * js rgba颜色值转Android中int颜色值
      *
-     * @param color js rgba , eg:'rgba(128, 128, 128, 0.5)'
+     * @param color js rgba , eg:'rgba(128, 128, 128, 128)'
      * @return
      */
     public static int ColorRGBAToInt(String color) {

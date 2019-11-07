@@ -104,7 +104,6 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     @ReactMethod
     public void setColor(String GraphicId, String color, Promise promise) {
         try {
-//            Graphic Graphic = getObjFromList(GraphicId);
             Graphic graphic = getGraphicByID(GraphicId);
             graphic.setColor(ConvertUtil.ColorRGBAToInt(color));
             promise.resolve(true);

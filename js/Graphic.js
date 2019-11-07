@@ -58,7 +58,7 @@ export default class Graphic {
   /**
    * 设置图形颜色
    * @memberOf Graphic
-   * @param color eg:'rgba(128, 128, 128, 0.5)'
+   * @param color eg:'rgba(128, 128, 128, 255)'
    */
   async setColor(color) {
     try {
