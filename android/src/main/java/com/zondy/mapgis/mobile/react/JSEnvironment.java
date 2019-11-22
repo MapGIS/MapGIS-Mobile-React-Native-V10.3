@@ -69,8 +69,7 @@ public class JSEnvironment extends ReactContextBaseJavaModule {
     @ReactMethod
     public void initialize(String environmentID, String strRootPath, Promise promise) {
         try {
-            String path = JSMapView.PHONE_SDCARD_PATH + File.separator + strRootPath;
-            Environment.initialize(path, mContext);
+            Environment.initialize(strRootPath, mContext);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -101,8 +100,7 @@ public class JSEnvironment extends ReactContextBaseJavaModule {
     @ReactMethod
     public void setSystemLibraryPath(String environmentID, String strPath, Promise promise) {
         try {
-            String path = JSMapView.PHONE_SDCARD_PATH + File.separator + strPath;
-            Environment.setSystemLibraryPath(path);
+            Environment.setSystemLibraryPath(strPath);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);

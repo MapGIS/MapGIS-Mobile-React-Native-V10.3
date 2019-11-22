@@ -318,8 +318,12 @@ export default class Map {
   async getSRSInfo() {
     try {
       var { SRefDataId } = await M.getSRSInfo(this._MGMapId);
-      var sRefData = new SRefData();
-      sRefData._MGSRefDataId = SRefDataId;
+      let sRefData = null;
+      if(SRefDataId !== null){
+        sRefData = new SRefData();
+        sRefData._MGSRefDataId = SRefDataId;
+      }
+    
       return sRefData;
     } catch (e) {
       console.error(e);
@@ -348,8 +352,11 @@ export default class Map {
   async getLayerEnum() {
     try {
       var { LayerEnumId } = await M.getLayerEnum(this._MGMapId);
-      var layerEnum = new LayerEnum();
-      layerEnum._MGLayerEnumId = LayerEnumId;
+      let layerEnum = null;
+      if(LayerEnumId !== null){
+        layerEnum = new LayerEnum();
+        layerEnum._MGLayerEnumId = LayerEnumId;
+      }
       return layerEnum;
     } catch (e) {
       console.error(e);
@@ -378,8 +385,12 @@ export default class Map {
   async getRange() {
     try {
       var { RectId } = await M.getRange(this._MGMapId);
-      var rect = new Rect();
-      rect._MGRectId = RectId;
+      let rect = null;
+      if(RectId !== null){
+        rect = new Rect();
+        rect._MGRectId = RectId;
+      }
+     
       return rect;
     } catch (e) {
       console.error(e);
@@ -408,9 +419,11 @@ export default class Map {
    */
   async getLayer(index) {
     try {
-      let mapLayer;
+      let mapLayer = null;
       var { MapLayerId } = await M.getLayer(this._MGMapId, index); // 获取到图层id，图层类型
-      mapLayer = await Map.creatMapLayerInstanceByID(MapLayerId);
+      if(MapLayerId !== null){
+        mapLayer = await Map.creatMapLayerInstanceByID(MapLayerId);
+      }
       return mapLayer;
     } catch (e) {
       console.error(e);

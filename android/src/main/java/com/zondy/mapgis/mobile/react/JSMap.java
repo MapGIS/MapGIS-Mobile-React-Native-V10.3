@@ -217,8 +217,11 @@ public class JSMap extends ReactContextBaseJavaModule {
         try {
             Map Map = getObjFromList(MapId);
             Rect rect = Map.getEntireRange();
+            String rectId = null;
+            if(rect != null){
+                rectId = JSRect.registerId(rect);
+            }
 
-            String rectId = JSRect.registerId(rect);
             WritableMap map = Arguments.createMap();
             map.putString("rectId", rectId);
             promise.resolve(map);
@@ -289,8 +292,11 @@ public class JSMap extends ReactContextBaseJavaModule {
         try {
             Map map = getObjFromList(MapId);
             SRefData sRefData = map.getSRSInfo();
+            String SRefDataId = null;
+            if(sRefData != null){
+                SRefDataId = JSSRefData.registerId(sRefData);
+            }
 
-            String SRefDataId = JSSRefData.registerId(sRefData);
             WritableMap writableMap = Arguments.createMap();
             writableMap.putString("SRefDataId",SRefDataId);
             promise.resolve(writableMap);
@@ -316,10 +322,13 @@ public class JSMap extends ReactContextBaseJavaModule {
         try {
             Map map = getObjFromList(MapId);
             LayerEnum layerEnum = map.getLayerEnum();
+            String layerEnumId = null;
+            if(layerEnum != null){
+                layerEnumId = JSLayerEnum.registerId(layerEnum);
+            }
 
-            String LayerEnumId = JSLayerEnum.registerId(layerEnum);
             WritableMap writableMap = Arguments.createMap();
-            writableMap.putString("LayerEnumId",LayerEnumId);
+            writableMap.putString("LayerEnumId",layerEnumId);
             promise.resolve(writableMap);
         }catch (Exception e){
             promise.reject(e);
@@ -342,8 +351,11 @@ public class JSMap extends ReactContextBaseJavaModule {
         try {
             Map map = getObjFromList(MapId);
             Rect rect = map.getRange();
+            String RectId = null;
+            if(rect != null){
+                RectId = JSRect.registerId(rect);
+            }
 
-            String RectId = JSRect.registerId(rect);
             WritableMap writableMap = Arguments.createMap();
             writableMap.putString("RectId",RectId);
             promise.resolve(writableMap);
@@ -368,8 +380,10 @@ public class JSMap extends ReactContextBaseJavaModule {
         try {
             Map Map = getObjFromList(MapId);
             MapLayer mapLayer = Map.getLayer(index);
-
-            String MapLayerId = JSMapLayer.registerId(mapLayer);
+            String MapLayerId = null;
+            if(mapLayer != null){
+                MapLayerId = JSMapLayer.registerId(mapLayer);
+            }
 
             WritableMap map = Arguments.createMap();
             map.putString("MapLayerId", MapLayerId);
@@ -396,8 +410,8 @@ public class JSMap extends ReactContextBaseJavaModule {
         try {
             Map map = getObjFromList(MapId);
             MapLayer mapLayer = JSMapLayer.mMapLayerList.get(layerID);
-            map.append(mapLayer);
-            promise.resolve(true);
+            int result = map.append(mapLayer);
+            promise.resolve(result);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -408,8 +422,8 @@ public class JSMap extends ReactContextBaseJavaModule {
         try {
             Map map = getObjFromList(MapId);
             MapLayer mapLayer = JSMapLayer.mMapLayerList.get(layerID);
-            map.insert(index, mapLayer);
-            promise.resolve(true);
+            int result = map.insert(index, mapLayer);
+            promise.resolve(result);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -420,8 +434,8 @@ public class JSMap extends ReactContextBaseJavaModule {
         try {
             Map map = getObjFromList(MapId);
             MapLayer mapLayer = JSMapLayer.mMapLayerList.get(layerID);
-            map.remove(mapLayer);
-            promise.resolve(true);
+            boolean result = map.remove(mapLayer);
+            promise.resolve(result);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -431,8 +445,8 @@ public class JSMap extends ReactContextBaseJavaModule {
     public void remove(String MapId, int fromIndex, int count, Promise promise) {
         try {
             Map map = getObjFromList(MapId);
-            map.remove(fromIndex, count);
-            promise.resolve(true);
+            boolean removeResult = map.remove(fromIndex, count);
+            promise.resolve(removeResult);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -442,8 +456,8 @@ public class JSMap extends ReactContextBaseJavaModule {
     public void removeByIndex(String MapId, int index, Promise promise) {
         try {
             Map map = getObjFromList(MapId);
-            map.remove(index);
-            promise.resolve(true);
+            boolean result = map.remove(index);
+            promise.resolve(result);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -453,8 +467,8 @@ public class JSMap extends ReactContextBaseJavaModule {
     public void removeAll(String MapId, Promise promise) {
         try {
             Map map = getObjFromList(MapId);
-            map.removeAll();
-            promise.resolve(true);
+            boolean result = map.removeAll();
+            promise.resolve(result);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -465,8 +479,8 @@ public class JSMap extends ReactContextBaseJavaModule {
         try {
             Map map = getObjFromList(MapId);
             MapLayer mapLayer = JSMapLayer.mMapLayerList.get(layerID);
-            map.dragOut(mapLayer);
-            promise.resolve(true);
+            int result = map.dragOut(mapLayer);
+            promise.resolve(result);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -477,8 +491,8 @@ public class JSMap extends ReactContextBaseJavaModule {
         try {
             Map map = getObjFromList(MapId);
             MapLayer mapLayer = JSMapLayer.mMapLayerList.get(layerID);
-            map.dragIn(index, mapLayer);
-            promise.resolve(true);
+            int result = map.dragIn(index, mapLayer);
+            promise.resolve(result);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -513,8 +527,8 @@ public class JSMap extends ReactContextBaseJavaModule {
         try {
             Map map = getObjFromList(MapId);
 
-            map.moveToBottom(index);
-            promise.resolve(true);
+            boolean result = map.moveToBottom(index);
+            promise.resolve(result);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -527,7 +541,6 @@ public class JSMap extends ReactContextBaseJavaModule {
             boolean result = map.moveToTop(index);
 
             promise.resolve(result);
-            promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -612,9 +625,9 @@ public class JSMap extends ReactContextBaseJavaModule {
         try {
             Map map = getObjFromList(MapId);
             Dot point2D = JSDot.m_Point2DList.get(centerID);
-            map.SetRotateCenter(point2D);
+            long result = map.SetRotateCenter(point2D);
 
-            promise.resolve(true);
+            promise.resolve(result);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -642,8 +655,8 @@ public class JSMap extends ReactContextBaseJavaModule {
     public void SetRotateAngle(String MapLayerId, double angle, Promise promise) {
         try {
             Map map = getObjFromList(MapLayerId);
-            map.SetRotateAngle(angle);
-            promise.resolve(true);
+            long result = map.SetRotateAngle(angle);
+            promise.resolve(result);
         } catch (Exception e) {
             promise.reject(e);
         }

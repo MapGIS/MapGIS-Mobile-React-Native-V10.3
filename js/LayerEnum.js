@@ -80,9 +80,12 @@ export default class LayerEnum {
    */
   async next() {
     try {
-      let mapLayer;
+      let mapLayer = null;
       var { MapLayerId } = await LE.next(this._MGLayerEnumId);
-      mapLayer = await Map.creatMapLayerInstanceByID(MapLayerId);
+      if(MapLayerId !== null){
+        mapLayer = await Map.creatMapLayerInstanceByID(MapLayerId);
+      }
+    
       return mapLayer;
     } catch (e) {
       console.error(e);
@@ -96,9 +99,13 @@ export default class LayerEnum {
    */
   async prev() {
     try {
-      let mapLayer;
+      let mapLayer = null;
       var { MapLayerId } = await LE.prev(this._MGLayerEnumId);
-      mapLayer = await Map.creatMapLayerInstanceByID(MapLayerId);
+
+      if(MapLayerId !== null){
+        mapLayer = await Map.creatMapLayerInstanceByID(MapLayerId);
+      }
+     
       return mapLayer;
     } catch (e) {
       console.error(e);

@@ -57,7 +57,6 @@ public class JSMapView extends ReactContextBaseJavaModule {
     /**
      * 手机sdcard路径
      **/
-    public static final String PHONE_SDCARD_PATH = Environment.getExternalStorageDirectory().getPath();
     private static final String TEMP_FILE_PREFIX = "iTabletImage";
 
     @Override
@@ -243,8 +242,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
 //                public void onComplete() {
 //                }
 //            });
-            String strRootPath = PHONE_SDCARD_PATH + File.separator;
-            m_mapView.loadFromFile(strRootPath + strMapPath);
+            m_mapView.loadFromFile(strMapPath);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -256,8 +254,8 @@ public class JSMapView extends ReactContextBaseJavaModule {
     {
         try {
             m_mapView = mapViewList.get(mapViewId);
-            String strRootPath = PHONE_SDCARD_PATH + File.separator;
-            m_mapView.loadFromFileAsync(strRootPath + strMapPath);
+
+            m_mapView.loadFromFileAsync(strMapPath);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);

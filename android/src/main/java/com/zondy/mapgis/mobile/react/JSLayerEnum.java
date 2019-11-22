@@ -107,7 +107,11 @@ public class JSLayerEnum extends ReactContextBaseJavaModule {
             LayerEnum layerEnum = getObjFromList(layerEnumId);
             MapLayer mapLayer = layerEnum.next();
 
-            String mapLayerId = JSMapLayer.registerId(mapLayer);
+            String mapLayerId = null;
+            if(mapLayer != null){
+                mapLayerId = JSMapLayer.registerId(mapLayer);
+            }
+
             WritableMap map = Arguments.createMap();
             map.putString("MapLayerId",mapLayerId);
             promise.resolve(map);
@@ -122,7 +126,11 @@ public class JSLayerEnum extends ReactContextBaseJavaModule {
             LayerEnum layerEnum = getObjFromList(layerEnumId);
             MapLayer mapLayer = layerEnum.prev();
 
-            String mapLayerId = JSMapLayer.registerId(mapLayer);
+            String mapLayerId = null;
+            if(mapLayer != null){
+                mapLayerId = JSMapLayer.registerId(mapLayer);
+            }
+
             WritableMap map = Arguments.createMap();
             map.putString("MapLayerId",mapLayerId);
             promise.resolve(map);
