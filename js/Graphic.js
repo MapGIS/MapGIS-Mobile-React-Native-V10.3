@@ -108,9 +108,9 @@ export default class Graphic {
    */
   async getBoundingRect() {
     try {
-      var { rectId } = await G.getBoundingRect(this._MGGraphicId);
+      var { RectId } = await G.getBoundingRect(this._MGGraphicId);
       var rect = new Rect();
-      rect._MGRectId = rectId;
+      rect._MGRectId = RectId;
       return rect;
     } catch (e) {
       console.error(e);
