@@ -26,7 +26,6 @@ import java.util.Map;
 public class JSDataBase extends ReactContextBaseJavaModule {
     public static final String REACT_CLASS = "JSDataBase";
     public static Map<String, DataBase> mDataBaseList = new HashMap<String, DataBase>();
-    public static final String PHONE_SDCARD_PATH = Environment.getExternalStorageDirectory().getPath();
     private ReactApplicationContext mReactContext;
     private static final String DATABASE_OFFLINE_UPDATEING = "com.mapgis.RN.DataBase.onUpdating";
     private static final String DATABASE_OFFLINE_UPDATEFINISH = "com.mapgis.RN.DataBase.onUpdateFinish";
@@ -110,9 +109,8 @@ public class JSDataBase extends ReactContextBaseJavaModule {
     public void create(String dataBaseId, String strDatabasePath, Promise promise)
     {
         try {
-            String strRootPath = PHONE_SDCARD_PATH + File.separator;
             DataBase dataBase = getObjFromList(dataBaseId);
-            int iVal = (int)dataBase.create(strRootPath + strDatabasePath);
+            int iVal = (int)dataBase.create(strDatabasePath);
             promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
@@ -201,9 +199,8 @@ public class JSDataBase extends ReactContextBaseJavaModule {
     public void open(String dataBaseId, String strDatabasePath, Promise promise)
     {
         try {
-            String strRootPath = PHONE_SDCARD_PATH + File.separator;
             DataBase dataBase = getObjFromList(dataBaseId);
-            int iVal = (int)dataBase.open(strRootPath + strDatabasePath);
+            int iVal = (int)dataBase.open(strDatabasePath);
             promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);
@@ -227,9 +224,8 @@ public class JSDataBase extends ReactContextBaseJavaModule {
     public void updateAsync(String dataBaseId, final String strUpdateDatabasePath, final Promise promise)
     {
         try {
-            String strRootPath = PHONE_SDCARD_PATH + File.separator;
             DataBase dataBase = getObjFromList(dataBaseId);
-            dataBase.updateAsync(strRootPath + strUpdateDatabasePath, new DataBase.DataBaseUpdateCallback()
+            dataBase.updateAsync(strUpdateDatabasePath, new DataBase.DataBaseUpdateCallback()
             {
                 @Override
                 public void onUpdating(long totalClsCount, long curClsIndex, double curClsUpdateProgress) {

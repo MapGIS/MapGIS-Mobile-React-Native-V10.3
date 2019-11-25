@@ -20,7 +20,6 @@ public class JSDataBaseSync extends JSSyncBase{
 
     private static final String REACT_CLASS = "JSDataBaseSync";
     private ReactApplicationContext mReactContext;
-    public static final String PHONE_SDCARD_PATH = Environment.getExternalStorageDirectory().getPath();
 
     public JSDataBaseSync(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -94,8 +93,7 @@ public class JSDataBaseSync extends JSSyncBase{
     {
         try {
             DownloadDataBaseParmeters params = JSDownloadDataBaseParmeters.getObjFromList(paramsId);
-            String strRootPath = PHONE_SDCARD_PATH + File.separator;
-            int iVal = (int)DataBaseSync.downloadASync(strIGServerBaseURL, strDocName, mapID, params, strRootPath + strPath);
+            int iVal = (int)DataBaseSync.downloadASync(strIGServerBaseURL, strDocName, mapID, params, strPath);
             promise.resolve(iVal);
         } catch (Exception e) {
             promise.reject(e);

@@ -51,12 +51,11 @@ public class MapViewManager extends SimpleViewManager<MapView> {
     @ReactProp(name = "strMapPath")
     public void loadMap(final MapView mapView, final String strMapPath) {
 
-        final String strRootPath = android.os.Environment.getExternalStorageDirectory().getPath() + File.separator + "MapGIS Mobile 2D Sample" + File.separator;
         Environment.initialize(strRootPath, mContext);
         Environment.requestAuthorization(mContext, new Environment.AuthorizeCallback() {
             @Override
             public void onComplete() {
-                mapView.loadFromFile(strRootPath + strMapPath);
+                mapView.loadFromFile(strMapPath);
             }
         });
     }

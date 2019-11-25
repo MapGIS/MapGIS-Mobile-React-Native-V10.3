@@ -43,7 +43,6 @@ public class JSImage extends ReactContextBaseJavaModule {
     private static final String FILE_SCHEME = "file";
     Context m_Context = null;
     private Map<String, Integer> mResourceDrawableIdMap;
-    public static final String PHONE_SDCARD_PATH = Environment.getExternalStorageDirectory().getPath();
 
     public JSImage(ReactApplicationContext context) {
         super(context);
@@ -102,19 +101,17 @@ public class JSImage extends ReactContextBaseJavaModule {
     @ReactMethod
     public void createObjByLocalPath(String path, Promise promise) {
         try {
-           // mResourceDrawableIdMap = new HashMap<>();
-            String strImgPath = PHONE_SDCARD_PATH + File.separator;
-            File f = new File(strImgPath + path);
+            File f = new File(path);
             Bitmap bitmap = null;
             String imageId = null;
             if (f.exists()) {
-                bitmap = BitmapFactory.decodeFile(strImgPath + path);
+                bitmap = BitmapFactory.decodeFile(path);
                 if(bitmap != null)
                 {
                     imageId = registerId(bitmap);
                 }
             }
-           // Bitmap bitmap = loadImage(strImgPath + path, true);
+
             WritableMap map = Arguments.createMap();
             map.putString("imageId", imageId);
             promise.resolve(map);
