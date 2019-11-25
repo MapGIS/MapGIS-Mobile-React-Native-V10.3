@@ -85,7 +85,7 @@ export default class JSMapView {
    */
   async loadFromFile(strMapPath) {
     try {
-      let { result } = await MV.loadFromFile(this._MGMapViewId, strMapPath);
+      let result = await MV.loadFromFile(this._MGMapViewId, strMapPath);
       return result;
     } catch (e) {
       console.error(e);
@@ -168,7 +168,7 @@ export default class JSMapView {
    */
   async setMapAsync(map) {
     try {
-      let {isFinish} = await MV.setMapAsync(this._MGMapViewId, map._MGMapId);
+      let isFinish = await MV.setMapAsync(this._MGMapViewId, map._MGMapId);
       return isFinish;
     } catch (e) {
       console.error(e);
@@ -725,7 +725,7 @@ export default class JSMapView {
    */
   async animatePositionByViewPoint(postion, viewCenterPoint, duration) {
     try {
-      await MV.animatePosition(
+      await MV.animatePositionByViewPoint(
         this._MGMapViewId,
         postion._MMapPosition,
         viewCenterPoint._MGPointFId,

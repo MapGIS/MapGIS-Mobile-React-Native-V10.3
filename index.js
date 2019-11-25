@@ -47,6 +47,7 @@ let SpaQueryMode = NativeModules.JSSpaQueryMode;
 let XClsType = NativeModules.JSXClsType;
 
 import MGMapView from "./js/components/MGSMapViewUI";
+import MapPosition from "./js/MapPosition";
 import Environment from "./js/Environment";
 import Dot from "./js/Dot";
 import Dot3D from "./js/Dot3D";
@@ -188,6 +189,7 @@ import AnnotationView from "./js/AnnotationView"
 
 export {
   MGMapView,
+  MapPosition,
   Environment,
   Dot,
   Dot3D,

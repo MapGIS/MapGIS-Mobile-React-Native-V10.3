@@ -242,8 +242,8 @@ public class JSMapView extends ReactContextBaseJavaModule {
 //                public void onComplete() {
 //                }
 //            });
-            m_mapView.loadFromFile(strMapPath);
-            promise.resolve(true);
+            int result = (int) m_mapView.loadFromFile(strMapPath);
+            promise.resolve(result);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -785,7 +785,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void animatePosition(String mapViewId, String postionID, String viewCenterPointID, int duration, final Promise promise)
+    public void animatePositionByViewPoint(String mapViewId, String postionID, String viewCenterPointID, int duration, final Promise promise)
     {
         try {
             m_mapView = mapViewList.get(mapViewId);
