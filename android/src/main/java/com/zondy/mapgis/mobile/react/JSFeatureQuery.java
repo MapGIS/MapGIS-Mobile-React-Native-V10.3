@@ -325,7 +325,7 @@ public class JSFeatureQuery extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public static void query(String vectorLayerID, String strWhereClause, String queryBoundID,int spatialRel,boolean returnGeometry,boolean returnAttribute,boolean returnGeoInfo,String strOutFields,int pageSize,Promise promise)
+    public static void queryWithParams(String vectorLayerID, String strWhereClause, String queryBoundID,int spatialRel,boolean returnGeometry,boolean returnAttribute,boolean returnGeoInfo,String strOutFields,int pageSize,Promise promise)
     {
         try {
             MapLayer mapLayer = JSMapLayer.getObjFromList(vectorLayerID);
