@@ -47,18 +47,4 @@ public class MapViewManager extends SimpleViewManager<MapView> {
                 n_r_eventSender.createSender()
         );
     }
-
-    @ReactProp(name = "strMapPath")
-    public void loadMap(final MapView mapView, final String strMapPath) {
-
-        Environment.initialize(strRootPath, mContext);
-        Environment.requestAuthorization(mContext, new Environment.AuthorizeCallback() {
-            @Override
-            public void onComplete() {
-                mapView.loadFromFile(strMapPath);
-            }
-        });
-    }
-
-
 }
