@@ -138,11 +138,15 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setBackGroundImage(String mapViewId, int width, int height, int quality, String type, Promise promise)
-    {
+    public void setBackGroundImage(String mapViewId, String imageId, Promise promise) {
         try {
-            getCurrentActivity().runOnUiThread(new BackGroundImageThread(mapViewId, width, height, quality, type, promise));
-
+            m_mapView = mapViewList.get(mapViewId);
+            Bitmap imageBitmap = null;
+            if (imageId != null) {
+                imageBitmap = JSImage.getObjFromList(imageId);
+            }
+            m_mapView.setBackGroundImage(imageBitmap);
+            promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
         }

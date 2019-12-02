@@ -53,25 +53,16 @@ export default class JSMapView {
 
   /**
    * 设置背景图像,传null将取消背景图片显示
-   * @params params      Object
-   * width      int
-   * height     int
-   * quality    int      0 - 100
-   * type       string   png, jpg/jpeg, webp
-   * @returns {Promise.<{result: Promise.result, uri: Promise.uri}>}
-   */
-  async setBackGroundImage(params = {}) {
+   * @params  image  Object 背景图片
+   * @returns {Promise<Void>}
+  */
+  async setBackGroundImage(image) {
     try {
-      let paramss = { width: 2000, height: 2000, quality: 60, type: 'png' };
-      Object.assign(paramss, params);
-      let { result, uri } = await MV.setBackGroundImage(
-        this._MGMapViewId,
-        paramss.width,
-        paramss.height,
-        paramss.quality,
-        paramss.type
-      );
-      return { result, uri };
+      if(image !== null){
+        await MV.setBackGroundImage(this._MGMapViewId, image._MGImageId);
+      }else{
+        await MV.setBackGroundImage(this._MGMapViewId, null);
+      }
     } catch (e) {
       console.error(e);
     }
@@ -1075,7 +1066,7 @@ export default class JSMapView {
       Object.assign(paramss, params);
       let { result, uri } = await MV.getBitmap(
         this._MGMapViewId,
-        paramss.dispRange,
+        paramss.dispRange._MGImageId,
         paramss.width,
         paramss.height,
         paramss.quality,
