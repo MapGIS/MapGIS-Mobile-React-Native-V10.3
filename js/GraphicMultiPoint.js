@@ -62,7 +62,7 @@ export default class GraphicMultiPoint extends Graphic {
   async getPoints() {
     try {
       var objArr = [];
-      let { dotsArr } = await GM.getPoints(this._MGGraphicMultiPointId);
+      let dotsArr = await GM.getPoints(this._MGGraphicMultiPointId);
       for (var i = 0; i < dotsArr.length; i++) {
         var dot = new Dot();
         dot._MGDotId = dotsArr[i];

@@ -123,7 +123,7 @@ export default class QueryBound {
 		{
 			try {
         var objArr = [];
-        let { dotsArr } = await QB.getBoundPoints(this._MGQueryBoundId);
+        let dotsArr = await QB.getBoundPoints(this._MGQueryBoundId);
         for (var i = 0; i < dotsArr.length; i++) {
           var dot = new Dot();
           dot._MGDotId = dotsArr[i];

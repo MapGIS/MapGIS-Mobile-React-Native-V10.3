@@ -118,17 +118,18 @@ export default class GraphicsOverlays {
   /**
    * 返回所有图形
    * @memberOf GraphicsOverlays
+   * @returns {Promise<*>}
    */
   async getAllGraphicsOverlays() {
     try {
       var objArr = [];
-      var { graphicArray } = await X.getAllGraphicsOverlays(
+      var  graphicOverlayArray = await X.getAllGraphicsOverlays(
         this._MGGraphicsOverlaysId
       );
 
-      for (let i = 0; i < graphicArray.length; i++) {
+      for (let i = 0; i < graphicOverlayArray.length; i++) {
         var graphicsOverlay = new GraphicsOverlay();
-        graphicsOverlay._MGGraphicsOverlayId = graphicArray[i];
+        graphicsOverlay._MGGraphicsOverlayId = graphicOverlayArray[i];
         objArr.push(graphicsOverlay);
       }
       return objArr;

@@ -166,12 +166,12 @@ export default class AnnotationsOverlay {
   async getAllAnnotations() {
     try {
       var objArr = [];
-      let { annotationArr } = ANLY.getAllAnnotations(
+      let { AnnotationArr } = ANLY.getAllAnnotations(
         this._MGAnnotationsOverlayId
       );
-      for (var i = 0; i < annotationArr.length; i++) {
+      for (var i = 0; i < AnnotationArr.length; i++) {
         var annotation = new Annotation();
-        annotation._MGAnnotationId = annotationArr[i];
+        annotation._MGAnnotationId = AnnotationArr[i];
         objArr.push(annotation);
       }
       return objArr;

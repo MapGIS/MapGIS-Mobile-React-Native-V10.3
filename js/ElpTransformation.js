@@ -233,10 +233,10 @@ export default class ElpTransformation {
   static async loadElpTransParam0(strFile) {
     try {
       var objArr = [];
-      let { elpTransParamArr } = await ET.loadElpTransParam0(strFile);
-      for (var i = 0; i < elpTransParamArr.length; i++) {
+      let { ElpTransParamArr } = await ET.loadElpTransParam0(strFile);
+      for (var i = 0; i < ElpTransParamArr.length; i++) {
         var elpTransParam = new ElpTransParam();
-        elpTransParam._MGElpTransParamId = elpTransParamArr[i];
+        elpTransParam._MGElpTransParamId = ElpTransParamArr[i];
         objArr.push(elpTransParam);
       }
       return objArr;

@@ -74,7 +74,7 @@ export default class GraphicPolygon extends GraphicMultiPoint {
    */
   async getCirclesToList() {
     try {
-      let { circlesArray } = await GP.getCirclesToList(
+      let circlesArray = await GP.getCirclesToList(
         this._MGGraphicPolygonId
       );
       return circlesArray;

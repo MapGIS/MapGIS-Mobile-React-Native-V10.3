@@ -110,7 +110,7 @@ export default class VisualMap {
    */
   async getColors() {
     try {
-      let { ColorArr } = await VM.getColors(this._MGVisualMapId);
+      let ColorArr = await VM.getColors(this._MGVisualMapId);
       return ColorArr;
     } catch (e) {
       console.error(e);

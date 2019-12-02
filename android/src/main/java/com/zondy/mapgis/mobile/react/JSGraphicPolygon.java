@@ -114,11 +114,7 @@ public class JSGraphicPolygon extends JSGraphicMultiPoint {
             for (int i = 0; i < intLst.size(); i++) {
                 circlesArray.pushInt(intLst.get(i));
             }
-
-            WritableMap map = Arguments.createMap();
-            map.putArray("circlesArray", circlesArray);
-
-            promise.resolve(map);
+            promise.resolve(circlesArray);
         } catch (Exception e) {
             promise.reject(e);
         }

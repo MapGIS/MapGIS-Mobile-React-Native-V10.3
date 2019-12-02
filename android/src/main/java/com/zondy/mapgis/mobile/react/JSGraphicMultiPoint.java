@@ -94,16 +94,14 @@ public class JSGraphicMultiPoint extends JSGraphic {
             GraphicMultiPoint GraphicMultiPoint = getGraphicByID(GraphicMultiPointId);
             Dot[] dotLst = GraphicMultiPoint.getPoints();
             String dotID = "";
-            WritableArray arr = Arguments.createArray();
+            WritableArray dotsArr = Arguments.createArray();
             if (dotLst.length > 0) {
                 for (int i = 0; i < dotLst.length; i++) {
                     dotID = JSDot.registerId(dotLst[i]);
-                    arr.pushString(dotID);
+                    dotsArr.pushString(dotID);
                 }
             }
-            WritableMap map = Arguments.createMap();
-            map.putArray("dotsArr", arr);
-            promise.resolve(map);
+            promise.resolve(dotsArr);
         } catch (Exception e) {
             promise.reject(e);
         }

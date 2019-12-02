@@ -154,14 +154,15 @@ export default class GraphicsOverlay {
   /**
    * 返回所有图形
    * @memberOf GraphicsOverlay
+   * @returns {Promise.<Array<Graphic>>}
    */
   async getAllGraphics() {
     try {
       var objArr = [];
-      let graphicArray = await X.getAllGraphics(this._MGGraphicsOverlayId);
-      for (var i = 0; i < graphicArray.length; i++) {
+      let graphicArrs = await X.getAllGraphics(this._MGGraphicsOverlayId);
+      for (var i = 0; i < graphicArrs.length; i++) {
         var graphic = new Graphic();
-        graphic._MGGraphicId = graphicArray[i];
+        graphic._MGGraphicId = graphicArrs[i];
         objArr.push(graphic);
       }
       return objArr;
@@ -173,6 +174,7 @@ export default class GraphicsOverlay {
   /**
    * 返回所有图形的数目
    * @memberOf GraphicsOverlay
+   * @returns {Promise<void>}
    */
   async getGraphicCount() {
     try {
@@ -207,6 +209,7 @@ export default class GraphicsOverlay {
    * 获取指定索引的图形
    * @memberOf GraphicsOverlay
    * @param index
+   * @returns {Promise<void>}
    */
   async getGraphic(index) {
     try {
@@ -224,7 +227,7 @@ export default class GraphicsOverlay {
    * @memberOf GraphicsOverlay
    * @param index
    * @param {Object} graphic
-   * @returns {Promise<*>} returnID > 0 插入成功，returnID < 0 插入失败
+   * @returns {Promise<Number>} returnID > 0 插入成功，returnID < 0 插入失败
    */
   async insertGraphic(index, graphic) {
     try {
@@ -242,12 +245,12 @@ export default class GraphicsOverlay {
 
   /**
    * 删除指定索引的图形
-   *@memberOf GraphicsOverlay
+   * @memberOf GraphicsOverlay
    * @param index
    */
   async removeGraphicByIndex(index) {
     try {
-      await X.removeGraphic(this._MGGraphicsOverlayId, index);
+      await X.removeGraphicByIndex(this._MGGraphicsOverlayId, index);
     } catch (e) {
       console.error(e);
     }
@@ -255,7 +258,7 @@ export default class GraphicsOverlay {
 
   /**
    * 移动图形的叠放次序
-   *@memberOf GraphicsOverlay
+   * @memberOf GraphicsOverlay
    * @param fromIndex
    * @param toIndex
    */
@@ -283,9 +286,10 @@ export default class GraphicsOverlay {
 
   /**
    * 获取指定属性的图形
-   *@memberOf GraphicsOverlay
+   * @memberOf GraphicsOverlay
    * @param 属性名
    * @param 属性值
+   * @returns {Promise.<Array<Graphic>>}
    */
   async getGraphicsByAttribute(name, value) {
     try {

@@ -194,7 +194,8 @@ public class JSGraphicsOverlay extends ReactContextBaseJavaModule {
     public void removeGraphic(String GraphicsOverlayId, String graphicID, Promise promise) {
         try {
             GraphicsOverlay graphicsOverlay = getObjFromList(GraphicsOverlayId);
-            Graphic graphic = JSGraphic.getObjFromList(graphicID);
+           // Graphic graphic = JSGraphic.getObjFromList(graphicID);
+            Graphic graphic = getGraphicByID(graphicID);
             graphicsOverlay.removeGraphic(graphic);
             promise.resolve(true);
         } catch (Exception e) {
@@ -252,9 +253,9 @@ public class JSGraphicsOverlay extends ReactContextBaseJavaModule {
                     arr.pushString(strGraphicID);
                 }
             }
-            WritableMap map = Arguments.createMap();
-            map.putArray("AllGraphicArr", arr);
-            promise.resolve(map);
+            //WritableMap map = Arguments.createMap();
+           // map.putArray("AllGraphicArr", arr);
+            promise.resolve(arr);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -319,13 +320,8 @@ public class JSGraphicsOverlay extends ReactContextBaseJavaModule {
         }
     }
 
-    /**
-     * 删除指定索引的图形
-     *
-     * @param index
-     */
     @ReactMethod
-    public void removeGraphic(String GraphicsOverlayId, int index, Promise promise)
+    public void removeGraphicByIndex(String GraphicsOverlayId, int index, Promise promise)
     {
         try {
             GraphicsOverlay graphicsOverlay = getObjFromList(GraphicsOverlayId);
@@ -367,16 +363,14 @@ public class JSGraphicsOverlay extends ReactContextBaseJavaModule {
             GraphicsOverlay graphicsOverlay = getObjFromList(GraphicsOverlayId);
             List<Graphic> graphicList = graphicsOverlay.getGraphicsByAttribute(name, value);
             String strGraphicID = "";
-            WritableArray arr = Arguments.createArray();
+            WritableArray graphicArr = Arguments.createArray();
             if (graphicsOverlay != null) {
                 for (int i = 0; i < graphicList.size(); i++) {
                     strGraphicID = JSGraphic.registerId(graphicList.get(i));
-                    arr.pushString(strGraphicID);
+                    graphicArr.pushString(strGraphicID);
                 }
             }
-            WritableMap map = Arguments.createMap();
-            map.putArray("AllGraphicArr", arr);
-            promise.resolve(map);
+            promise.resolve(graphicArr);
         } catch (Exception e) {
             promise.reject(e);
         }

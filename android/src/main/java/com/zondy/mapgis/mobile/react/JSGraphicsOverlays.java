@@ -5,6 +5,7 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.android.graphic.GraphicsOverlay;
 import com.zondy.mapgis.android.graphic.GraphicsOverlays;
@@ -135,24 +136,15 @@ public class JSGraphicsOverlays extends ReactContextBaseJavaModule {
         try {
             GraphicsOverlays graphicsOverlays = getObjFromList(GraphicsOverlaysId);
             List<GraphicsOverlay> graphicsOverlayLst = graphicsOverlays.getAllGraphicsOverlays();
-
-            String GraphicsOverlayId = "";
-
-            WritableMap map = Arguments.createMap();
-            map.putString("GraphicsOverlayId", GraphicsOverlayId);
-            promise.resolve(map);
-
-//            String featureID = "";
-//            WritableArray arr = Arguments.createArray();
-//            for (int i = 0; i < featureList.size();i++)
-//            {
-//                Feature feature = featureList.get(i);
-//                featureID= JSFeature.registerId(feature);
-//                arr.pushString(featureID);
-//            }
-//            WritableMap map = Arguments.createMap();
-//            map.putArray("values",arr);
-//            promise.resolve(map);
+            String graphicsOverlayID = "";
+            WritableArray arr = Arguments.createArray();
+            for (int i = 0; i < graphicsOverlayLst.size();i++)
+            {
+                GraphicsOverlay graphicsOverlay = graphicsOverlayLst.get(i);
+                graphicsOverlayID = JSGraphicsOverlay.registerId(graphicsOverlay);
+                arr.pushString(graphicsOverlayID);
+            }
+            promise.resolve(arr);
         } catch (Exception e) {
             promise.reject(e);
         }

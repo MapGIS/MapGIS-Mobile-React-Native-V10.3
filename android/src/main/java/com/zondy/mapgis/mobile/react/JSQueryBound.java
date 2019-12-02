@@ -163,9 +163,7 @@ public class JSQueryBound extends ReactContextBaseJavaModule {
                     arr.pushString(strPointId);
                 }
             }
-            WritableMap map = Arguments.createMap();
-            map.putArray("BoundPointArr", arr);
-            promise.resolve(map);
+            promise.resolve(arr);
         } catch (Exception e) {
             promise.reject(e);
         }

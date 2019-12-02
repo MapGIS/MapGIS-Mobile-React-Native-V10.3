@@ -50,12 +50,12 @@ export default class GraphicHeatmap {
   async getHeatmapPoints() {
     try {
       var objArr = [];
-      let { heatmapPointArr } = await GH.getHeatmapPoints(
+      let { HeatmapPointArr } = await GH.getHeatmapPoints(
         this._MGGraphicHeatmapId
       );
-      for (var i = 0; i < heatmapPointArr.length; i++) {
+      for (var i = 0; i < HeatmapPointArr.length; i++) {
         var heatmapPoint = new HeatmapPoint();
-        heatmapPoint._MGHeatmapPointId = heatmapPointArr[i];
+        heatmapPoint._MGHeatmapPointId = HeatmapPointArr[i];
         objArr.push(heatmapPoint);
       }
       return objArr;
