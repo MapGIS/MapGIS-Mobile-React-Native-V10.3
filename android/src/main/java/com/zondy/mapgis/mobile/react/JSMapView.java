@@ -1149,6 +1149,9 @@ public class JSMapView extends ReactContextBaseJavaModule {
             if(bitmap != null){
                 String fileSuffix = "." + type;
                 File dirFile = new File(path);
+                if(!dirFile.exists()){
+                    dirFile.mkdirs();
+                }
                 File bitmapFile = File.createTempFile(TEMP_FILE_PREFIX, fileSuffix.trim(), dirFile);
                 FileOutputStream fos = new FileOutputStream(bitmapFile);
                 BufferedOutputStream bos = new BufferedOutputStream(fos);
