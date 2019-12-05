@@ -305,11 +305,11 @@ export default class PntInfo extends GeomInfo {
   /**
    * 获取可变颜色1
    * @memberOf PntInfo
-   * @return {Promise}可变颜色1
+   * @return {Promise<Number}可变颜色1
    */
   async getOutClr1() {
     try {
-      let { color } = await PI.getOutClr1(this._MGPntInfoId);
+      let color = await PI.getOutClr1(this._MGPntInfoId);
       return color;
     } catch (e) {
       console.error(e);
@@ -319,7 +319,7 @@ export default class PntInfo extends GeomInfo {
   /**
    * 设置可变颜色1
    * @memberOf PntInfo
-   * @param {string} eg:'rgba(128, 128, 128, 0.5)' color 可变颜色1
+   * @param {Number}  color 可变颜色1
    * @return {Promise<void>}
    */
   async setOutClr1(color) {
@@ -333,11 +333,11 @@ export default class PntInfo extends GeomInfo {
   /**
    * 获取可变颜色2
    * @memberOf PntInfo
-   * @return {Promise}可变颜色2
+   * @return {Promise<Number>}可变颜色2
    */
   async getOutClr2() {
     try {
-      let { color }= await PI.getOutClr2(this._MGPntInfoId);
+      let color = await PI.getOutClr2(this._MGPntInfoId);
       return color;
     } catch (e) {
       console.error(e);
@@ -347,7 +347,7 @@ export default class PntInfo extends GeomInfo {
   /**
    * 设置可变颜色2
    * @memberOf PntInfo
-   * @param new{string} eg:'rgba(128, 128, 128, 0.5)' color 可变颜色2
+   * @param {Number} color 可变颜色2
    * @return {Promise<void>}
    */
   async setOutClr2(color) {
@@ -361,11 +361,11 @@ export default class PntInfo extends GeomInfo {
   /**
    * 获取可变颜色3
    * @memberOf PntInfo
-   * @return {Promise}可变颜色3
+   * @return {Promise<Number>}可变颜色3
    */
   async getOutClr3() {
     try {
-      let { color } = await PI.getOutClr3(this._MGPntInfoId);
+      let color = await PI.getOutClr3(this._MGPntInfoId);
       return color;
     } catch (e) {
       console.error(e);
@@ -375,7 +375,7 @@ export default class PntInfo extends GeomInfo {
   /**
    * 设置可变颜色3
    * @memberOf PntInfo
-   * @param {string} eg:'rgba(128, 128, 128, 0.5)' color 可变颜色3
+   * @param {Number} color 可变颜色3
    * @return {Promise<void>}
    */
   async setOutClr3(color) {
@@ -443,11 +443,11 @@ export default class PntInfo extends GeomInfo {
   /**
    * 获取覆盖的背景颜色
    * @memberOf PntInfo
-   * @return {Promise}覆盖的背景颜色
+   * @return {Promise<Number>}覆盖的背景颜色
    */
   async getBackClr() {
     try {
-      let { color } = await PI.getBackClr(this._MGPntInfoId);
+      let color = await PI.getBackClr(this._MGPntInfoId);
       return color;
     } catch (e) {
       console.error(e);
@@ -457,7 +457,7 @@ export default class PntInfo extends GeomInfo {
   /**
    * 设置覆盖的背景颜色
    * @memberOf PntInfo
-   * @param {string} eg:'rgba(128, 128, 128, 0.5)' color 覆盖的背景颜色
+   * @param {Number} color 覆盖的背景颜色
    * @return {Promise<void>}
    */
   async setBackClr(color) {

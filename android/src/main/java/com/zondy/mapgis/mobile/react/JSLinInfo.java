@@ -192,22 +192,19 @@ public class JSLinInfo extends JSGeomInfo{
         try {
             LinInfo linInfo = (LinInfo)getObjFromList(linInfoId);
             int outClr1 = linInfo.getOutClr1();
-            String strColor = ConvertUtil.ColorIntToRGBA(outClr1);
 
-            WritableMap map = Arguments.createMap();
-            map.putString("color", strColor);
-            promise.resolve(map);
+            promise.resolve(outClr1);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void setOutClr1(String linInfoId, String color, Promise promise)
+    public void setOutClr1(String linInfoId, int color, Promise promise)
     {
         try {
             LinInfo linInfo = (LinInfo)getObjFromList(linInfoId);
-            linInfo.setOutClr1(ConvertUtil.ColorRGBAToInt(color));
+            linInfo.setOutClr1(color);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -220,22 +217,19 @@ public class JSLinInfo extends JSGeomInfo{
         try {
             LinInfo linInfo = (LinInfo)getObjFromList(linInfoId);
             int outClr2 = linInfo.getOutClr2();
-            String strColor = ConvertUtil.ColorIntToRGBA(outClr2);
 
-            WritableMap map = Arguments.createMap();
-            map.putString("color", strColor);
-            promise.resolve(map);
+            promise.resolve(outClr2);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void setOutClr2(String linInfoId, String color, Promise promise)
+    public void setOutClr2(String linInfoId, int color, Promise promise)
     {
         try {
             LinInfo linInfo = (LinInfo)getObjFromList(linInfoId);
-            linInfo.setOutClr2(ConvertUtil.ColorRGBAToInt(color));
+            linInfo.setOutClr2(color);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -248,22 +242,19 @@ public class JSLinInfo extends JSGeomInfo{
         try {
             LinInfo linInfo = (LinInfo)getObjFromList(linInfoId);
             int outClr3 = linInfo.getOutClr3();
-            String strColor = ConvertUtil.ColorIntToRGBA(outClr3);
 
-            WritableMap map = Arguments.createMap();
-            map.putString("color", strColor);
-            promise.resolve(map);
+            promise.resolve(outClr3);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void setOutClr3(String linInfoId, String color, Promise promise)
+    public void setOutClr3(String linInfoId, int color, Promise promise)
     {
         try {
             LinInfo linInfo = (LinInfo)getObjFromList(linInfoId);
-            linInfo.setOutClr3(ConvertUtil.ColorRGBAToInt(color));
+            linInfo.setOutClr3(color);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);

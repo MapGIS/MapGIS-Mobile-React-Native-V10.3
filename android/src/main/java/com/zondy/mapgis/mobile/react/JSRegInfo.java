@@ -144,22 +144,19 @@ public class JSRegInfo extends JSGeomInfo{
         try {
             RegInfo regInfo = (RegInfo)getObjFromList(regInfoId);
             int fillClr = regInfo.getFillClr();
-            String strColor = ConvertUtil.ColorIntToRGBA(fillClr);
 
-            WritableMap map = Arguments.createMap();
-            map.putString("color", strColor);
-            promise.resolve(map);
+            promise.resolve(fillClr);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void setFillClr(String regInfoId, String color, Promise promise)
+    public void setFillClr(String regInfoId, int color, Promise promise)
     {
         try {
             RegInfo regInfo = (RegInfo)getObjFromList(regInfoId);
-            regInfo.setFillClr(ConvertUtil.ColorRGBAToInt(color));
+            regInfo.setFillClr(color);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -172,22 +169,19 @@ public class JSRegInfo extends JSGeomInfo{
         try {
             RegInfo regInfo = (RegInfo)getObjFromList(regInfoId);
             int endClr = regInfo.getEndClr();
-            String strColor = ConvertUtil.ColorIntToRGBA(endClr);
 
-            WritableMap map = Arguments.createMap();
-            map.putString("color", strColor);
-            promise.resolve(map);
+            promise.resolve(endClr);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void setEndClr(String regInfoId, String color, Promise promise)
+    public void setEndClr(String regInfoId, int color, Promise promise)
     {
         try {
             RegInfo regInfo = (RegInfo)getObjFromList(regInfoId);
-            regInfo.setEndClr(ConvertUtil.ColorRGBAToInt(color));
+            regInfo.setEndClr(color);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -272,22 +266,19 @@ public class JSRegInfo extends JSGeomInfo{
         try {
             RegInfo regInfo = (RegInfo)getObjFromList(regInfoId);
             int patClr = regInfo.getPatClr();
-            String strColor = ConvertUtil.ColorIntToRGBA(patClr);
 
-            WritableMap map = Arguments.createMap();
-            map.putString("color", strColor);
-            promise.resolve(map);
+            promise.resolve(patClr);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
    @ReactMethod
-    public void setPatClr(String regInfoId, String color, Promise promise)
+    public void setPatClr(String regInfoId, int color, Promise promise)
     {
         try {
             RegInfo regInfo = (RegInfo)getObjFromList(regInfoId);
-            regInfo.setPatClr(ConvertUtil.ColorRGBAToInt(color));
+            regInfo.setPatClr(color);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);

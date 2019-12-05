@@ -260,21 +260,19 @@ public class JSTextAnnInfo extends JSAnnInfo{
         try {
             TextAnnInfo textAnnInfo = (TextAnnInfo)getObjFromList(textAnnInfoId);
             int color = (int)textAnnInfo.getColor();
-            String strColor = ConvertUtil.ColorIntToRGBA(color);
-            WritableMap map = Arguments.createMap();
-            map.putString("color", strColor);
-            promise.resolve(map);
+
+            promise.resolve(color);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void setColor(String textAnnInfoId, String color, Promise promise)
+    public void setColor(String textAnnInfoId, int color, Promise promise)
     {
         try {
             TextAnnInfo textAnnInfo = (TextAnnInfo)getObjFromList(textAnnInfoId);
-            textAnnInfo.setColor(ConvertUtil.ColorRGBAToInt(color));
+            textAnnInfo.setColor(color);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -359,21 +357,19 @@ public class JSTextAnnInfo extends JSAnnInfo{
         try {
             TextAnnInfo textAnnInfo = (TextAnnInfo)getObjFromList(textAnnInfoId);
             int backClr = (int)textAnnInfo.getBackClr();
-            String strColor = ConvertUtil.ColorIntToRGBA(backClr);
-            WritableMap map = Arguments.createMap();
-            map.putString("color", strColor);
-            promise.resolve(map);
+
+            promise.resolve(backClr);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void setBackClr(String textAnnInfoId, String color, Promise promise)
+    public void setBackClr(String textAnnInfoId, int color, Promise promise)
     {
         try {
             TextAnnInfo textAnnInfo = (TextAnnInfo)getObjFromList(textAnnInfoId);
-            textAnnInfo.setBackClr(ConvertUtil.ColorRGBAToInt(color));
+            textAnnInfo.setBackClr(color);
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);

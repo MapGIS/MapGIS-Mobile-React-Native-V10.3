@@ -224,11 +224,11 @@ export default class LinInfo extends GeomInfo {
   /**
    * 获取可变颜色1
    * @memberOf LinInfo
-   * @return {string}可变颜色1
+   * @return {Number}可变颜色1
    */
   async getOutClr1() {
     try {
-      let {color} = await LI.getOutClr1(this._MGLinInfoId);
+      let color = await LI.getOutClr1(this._MGLinInfoId);
       return color;
     } catch (e) {
       console.error(e);
@@ -238,7 +238,7 @@ export default class LinInfo extends GeomInfo {
   /**
    * 设置可变颜色1
    * @memberOf LinInfo
-   * @param {string} color eg:'rgba(128, 128, 128, 0.5)' 可变颜色1
+   * @param {Number} color 可变颜色1
    * @return {Promise<void>}
    */
   async setOutClr1(color) {
@@ -252,11 +252,11 @@ export default class LinInfo extends GeomInfo {
   /**
    * 获取可变颜色2
    * @memberOf LinInfo
-   * @return {string}可变颜色2
+   * @return {Number}可变颜色2
    */
   async getOutClr2() {
     try {
-      let {color} = await LI.getOutClr2(this._MGLinInfoId);
+      let color = await LI.getOutClr2(this._MGLinInfoId);
       return color;
     } catch (e) {
       console.error(e);
@@ -266,7 +266,7 @@ export default class LinInfo extends GeomInfo {
   /**
    * 设置可变颜色2
    * @memberOf LinInfo
-   * @param {string} color eg:'rgba(128, 128, 128, 0.5)' 可变颜色2
+   * @param {Number} color  可变颜色2
    * @return {Promise<void>}
    */
   async setOutClr2(color) {
@@ -280,11 +280,11 @@ export default class LinInfo extends GeomInfo {
   /**
    * 获取可变颜色3
    * @memberOf LinInfo
-   * @return {string}可变颜色3
+   * @return {Number}可变颜色3
    */
   async getOutClr3() {
     try {
-      let {color} = await LI.getOutClr3(this._MGLinInfoId);
+      let color= await LI.getOutClr3(this._MGLinInfoId);
       return color;
     } catch (e) {
       console.error(e);
@@ -294,7 +294,7 @@ export default class LinInfo extends GeomInfo {
   /**
    * 设置可变颜色3
    * @memberOf LinInfo
-   * @param {string} color eg:'rgba(128, 128, 128, 0.5)' 可变颜色3
+   * @param {Number} color  可变颜色3
    * @return {Promise<void>}
    */
   async setOutClr3(color) {
