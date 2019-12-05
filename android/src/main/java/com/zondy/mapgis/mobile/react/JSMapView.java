@@ -37,6 +37,8 @@ import com.zondy.mapgis.core.map.SimpleModelLayer;
 import com.zondy.mapgis.core.map.VectorLayer;
 import com.zondy.mapgis.mobile.react.utils.ConvertUtil;
 
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -57,7 +59,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     /**
      * 手机sdcard路径
      **/
-    private static final String TEMP_FILE_PREFIX = "iTabletImage";
+    private static final String TEMP_FILE_PREFIX = "MapViewImage";
 
     @Override
     public String getName() {
@@ -1038,27 +1040,46 @@ public class JSMapView extends ReactContextBaseJavaModule {
             promise.reject(e);
         }
     }
+
+    // 获取测量宽度
+    @ReactMethod
+    public void getMeasuredWidth(String mapViewId, Promise promise){
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            int measuredWidth = m_mapView.getMeasuredWidth();
+            promise.resolve(measuredWidth);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    // 获取测量高度
+    @ReactMethod
+    public void getMeasuredHeight(String mapViewId, Promise promise){
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            int height = m_mapView.getMeasuredHeight();
+            promise.resolve(height);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
     ////////////////////////////////
     @ReactMethod
-    public void getScreenSnapshot(String mapViewId, final Promise promise)
+    public void getScreenSnapshot(String mapViewId, final String path, final Promise promise)
     {
         try {
             m_mapView = mapViewList.get(mapViewId);
             m_mapView.getScreenSnapshot(new MapView.MapViewScreenSnapshotCallback() {
                 @Override
                 public void onScreenSnapshot(Bitmap bitmap) {
-                    String   strBitmapID = JSImage.registerId(bitmap);
-                    WritableMap map = Arguments.createMap();
-                    map.putString("_MGBitmapId", strBitmapID);
-                    promise.resolve(map);
+                   String bitmapPath = outputBitmapToLocal(path, "png", bitmap);
+
+                    promise.resolve(bitmapPath);
                 }
 
                 @Override
                 public void onScreenSnapshot(int left, int top, int width, int height, Bitmap bitmap) {
-                    String   strBitmapID = JSImage.registerId(bitmap);
-                    WritableMap map = Arguments.createMap();
-                    map.putString("_MGBitmapId", strBitmapID);
-                    promise.resolve(map);
                 }
             });
         } catch (Exception e) {
@@ -1067,7 +1088,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void getScreenSnapshot(String mapViewId, int left, int top, int width, int height, final Promise promise)
+    public void getScreenSnapshotByParam(String mapViewId, final String path, int left, int top, int width, int height, final Promise promise)
     {
         try {
             m_mapView = mapViewList.get(mapViewId);
@@ -1075,21 +1096,18 @@ public class JSMapView extends ReactContextBaseJavaModule {
                 @Override
                 public void onScreenSnapshot(Bitmap bitmap)
                 {
-                    String   strBitmapID = JSImage.registerId(bitmap);
-                    WritableMap map = Arguments.createMap();
-                    map.putString("_MGBitmapId", strBitmapID);
-                    promise.resolve(map);
                 }
 
                 @Override
                 public void onScreenSnapshot(int left, int top, int width, int height, Bitmap bitmap) {
-                    String   strBitmapID = JSImage.registerId(bitmap);
+                    String bitmapPath = outputBitmapToLocal(path, "png", bitmap);
+
                     WritableMap map = Arguments.createMap();
-                    map.putInt("ShotLeft", left);
-                    map.putInt("ShotTop", top);
-                    map.putInt("BitmapWidth", width);
-                    map.putInt("BitmapHeight", height);
-                    map.putString("_MGBitmapId", strBitmapID);
+                    map.putInt("left", left);
+                    map.putInt("top", top);
+                    map.putInt("width", width);
+                    map.putInt("height", height);
+                    map.putString("bitmapPath", bitmapPath);
                     promise.resolve(map);
                 }
             });
@@ -1099,94 +1117,53 @@ public class JSMapView extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void getBitmap(String mapViewId, String dispRangeId, int width, int height, int quality, String type, Promise promise)
+    public void getBitmap(String mapViewId, String dispRangeId, String path, int width, int height, String type, Promise promise)
     {
         try {
-            getCurrentActivity().runOnUiThread(new BitmapThread(mapViewId, dispRangeId, width, height, quality, type, promise));
+            Rect   dispRange = JSRect.getObjFromList(dispRangeId);
+
+            Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+            int  result = (int)m_mapView.getBitmap(dispRange, bitmap);
+
+            String bitmapPath = "";
+            if(result > 0){
+                bitmapPath = outputBitmapToLocal(path, type, bitmap);
+            }
+
+            promise.resolve(bitmapPath);
         } catch (Exception e) {
             promise.reject(e);
         }
     }
 
-    class BitmapThread implements Runnable {
-
-        private String mapViewId;
-        private String dispRangeId;
-        private int width;
-        private int height;
-        private int quality;
-        private String type;
-        private Promise promise;
-
-        public BitmapThread(String mapViewId, String dispRangeId, int width, int height, int quality, String type, Promise promise) {
-            this.mapViewId = mapViewId;
-            this.dispRangeId = dispRangeId;
-            this.width = width;
-            this.height = height;
-            this.quality = quality;
-            this.type = type;
-            this.promise = promise;
-        }
-
-        @Override
-        public void run() {
-            try {
-                int imgHeight = height;
-                int imgWidth = width;
-
-                if (!mapViewId.equals("")) {
-                    m_mapView = mapViewList.get(mapViewId);
-                    imgHeight = m_mapView.getHeight();
-                    imgWidth = m_mapView.getWidth();
-                }
-                Rect   dispRange = JSRect.getObjFromList(dispRangeId);
-                Bitmap bitmap = Bitmap.createBitmap(imgWidth, imgHeight, Bitmap.Config.ARGB_8888);
-                int  result = (int)m_mapView.getBitmap(dispRange, bitmap);
-                File externalCacheDir = getReactApplicationContext().getExternalCacheDir();
-                File internalCacheDir = getReactApplicationContext().getCacheDir();
-                File cacheDir;
-                if (externalCacheDir == null && internalCacheDir == null) {
-                    throw new IOException("No cache directory available");
-                }
-                if (externalCacheDir == null) {
-                    cacheDir = internalCacheDir;
-                } else if (internalCacheDir == null) {
-                    cacheDir = externalCacheDir;
-                } else {
-                    cacheDir = externalCacheDir.getFreeSpace() > internalCacheDir.getFreeSpace() ?
-                            externalCacheDir : internalCacheDir;
-                }
-                String suffix = ".png";
-                File bitmapFile = File.createTempFile(TEMP_FILE_PREFIX, suffix, cacheDir);
-
-                Bitmap.CompressFormat compressFormat;
-                switch (type) {
-                    case "jpeg":
-                    case "jpg":
-                        compressFormat = Bitmap.CompressFormat.JPEG;
-                        break;
-                    case "webp":
-                        compressFormat = Bitmap.CompressFormat.WEBP;
-                        break;
-                    case "png":
-                    default:
-                        compressFormat = Bitmap.CompressFormat.PNG;
-                        break;
-                }
+    /**
+     *  将Bitmap输出为File
+     * @param path Bitmap存储的文件夹路径
+     * @param type 图片类型
+     * @param bitmap 输出的Bitmap
+     * @return Bitmap保存的完整路径
+     */
+    private String outputBitmapToLocal(String path, String type, Bitmap bitmap){
+        String bitmapPath = "";
+        try {
+            if(bitmap != null){
+                String fileSuffix = "." + type;
+                File dirFile = new File(path);
+                File bitmapFile = File.createTempFile(TEMP_FILE_PREFIX, fileSuffix.trim(), dirFile);
                 FileOutputStream fos = new FileOutputStream(bitmapFile);
-                bitmap.compress(compressFormat, quality, fos);
-                fos.flush();
+                BufferedOutputStream bos = new BufferedOutputStream(fos);
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos); // 不压缩
+                bos.flush();
                 fos.close();
-                String uri = Uri.fromFile(bitmapFile).toString();
+                bos.close();
 
-                WritableMap map = Arguments.createMap();
-
-                map.putInt("result", result);
-                map.putString("uri", uri);
-                promise.resolve(map);
-            } catch (Exception e) {
-                promise.reject(e);
+                bitmapPath = Uri.fromFile(bitmapFile).toString();
             }
+
+            return bitmapPath;
+        }catch (Exception e) {
+            e.printStackTrace();
+            return bitmapPath;
         }
     }
 

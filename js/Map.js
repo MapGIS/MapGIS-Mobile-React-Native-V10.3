@@ -230,9 +230,13 @@ export default class Map {
    */
   async getEntireRange() {
     try {
-      var { rectId } = await M.getEntireRange(this._MGMapId);
-      var rect = new Rect();
-      rect._MGRectId = rectId;
+      let { rectId } = await M.getEntireRange(this._MGMapId);
+      let rect = null;
+      if(rectId !== null){
+        rect = new Rect();
+        rect._MGRectId = rectId;
+      }
+       
       return rect;
     } catch (e) {
       console.error(e);

@@ -30,395 +30,353 @@
  * @content 空间分析功能组件
  * @author  2019-09-25
  */
-import { NativeModules } from 'react-native';
+import { NativeModules } from "react-native";
 
-let SPA = NativeModules.JSSpaAnalysis;
+let SPA = NativeModules.JSSpaAnalysis;                  
 
-import GeoPolygons from './GeoPolygons.js';
-import Geometry from './Geometry.js';
-import GeoPolygon from './GeoPolygon.js';
+import GeoPolygons from "./GeoPolygons.js"
+import Geometry from "./Geometry.js"
+import GeoPolygon from "./GeoPolygon.js"
 
 /**
  * @class SpaAnalysis
  * @description 空间分析
  */
-export default class SpaAnalysis {
-  /**
+export default class SpaAnalysis{
+
+ /**
    * 构造一个新的 SpaAnalysis 对象。
    * @memberOf SpaAnalysis
    * @returns {Promise.&lt;SpaAnalysis>}
    */
   async createObj() {
-    try {
-      var { SpaAnalysisId } = await SPA.createObj();
-      var spaAnalysis = new SpaAnalysis();
-      spaAnalysis._MGSpaAnalysisId = SpaAnalysisId;
-      return spaAnalysis;
-    } catch (e) {
-      console.error(e);
+    try{
+        var {SpaAnalysisId} = await SPA.createObj();
+        var spaAnalysis = new SpaAnalysis();
+        spaAnalysis._MGSpaAnalysisId = SpaAnalysisId;
+        return spaAnalysis;
+    }catch(e){
+        console.error(e);
     }
   }
 
   /**
-   * 获取容差
-   * @memberOf SpaAnalysis
-   * @return {Promise.&lt;double>}容差
-   */
-  async getTolerance() {
-    try {
-      return await SPA.getTolerance(this._MGSpaAnalysisId);
-    } catch (e) {
-      console.error(e);
-    }
-  }
+	 * 获取容差
+	 * @memberOf SpaAnalysis
+	 * @return {Promise.&lt;double>}容差
+	 */
+    async getTolerance()
+	{
+		try {
+            return await SPA.getTolerance(this._MGSpaAnalysisId);
+          } catch (e) {
+            console.error(e);
+        }
+	}
 
-  /**
-   * 设置容差
-   * @memberOf SpaAnalysis
-   * @param {double} tolerance 容差
-   * @return {Promise.&lt;void>}计算得出的缓冲区
-   */
-  async setTolerance(tolerance) {
-    try {
-      await SPA.setTolerance(this._MGSpaAnalysisId, tolerance);
-    } catch (e) {
-      console.error(e);
-    }
-  }
+    /**
+	 * 设置容差
+	 * @memberOf SpaAnalysis
+	 * @param {double} tolerance 容差
+	 * @return {Promise.&lt;void>}计算得出的缓冲区
+	 */
+	async setTolerance(tolerance)
+	{
+		try {
+            await SPA.setTolerance(this._MGSpaAnalysisId, tolerance);
+          } catch (e) {
+            console.error(e);
+        }
+	}
 
-  /**
-   * 计算左右缓冲区
-   * &lt;p>
-   * 详细说明:&lt;br>
-   * 特别说明:&lt;br>
-   * 参数geom几何与左右缓冲半径的单位不一致的情况(sRefSrc必须赋值)，如：缓冲半径是米，geom几何单位不是米，源投影坐标系sRefSrc是geom几何数据的空间参考系;
-   * 缓冲分析返回的结果坐标单位与参数geom几何单位一致&lt;br>
-   * 参数geom几何与左右缓冲半径的单位一致的情况(sRefSrc赋值null)&lt;br>
-   * 示例代码:&lt;br>
-   * 无&lt;br>
-   * &lt;/p>
-   * @memberOf SpaAnalysis
-   * @param {Geometry} geom
-   * @param {double} leftDis   左半径
-   * @param {double} rightDis  右半径
-   * @param {int} endCapStyle 缓冲区边界类型 0/1/2-圆角/垂直/平角
-   * @param {SRefData} sRefSrc   数据的源投影坐标系
-   * @return {Promise.&lt;GeoPolygons>}计算得出的缓冲区
-   */
-  //==========buffer===========================================
-  //修改历史：
-  //1.修改人：ldf 2018-08-30
-  //修改问题：&lt;解决对几何进行缓冲后获取缓冲区几何的坐标异常问题，因为c++底层缓冲区返回的结果统一为多区，此处将GeoPolygon改为GeoPolygons>
-  //============================================================
-  async bufferWithEndCapStyle(geom, leftDis, rightDis, endCapStyle, sRefSrc) {
-    try {
-      let { GeoPolygonsId } = await SPA.buffer(
-        this._MGSpaAnalysisId,
-        geom._MGGeometryId,
-        leftDis,
-        rightDis,
-        endCapStyle,
-        sRefSrc._MGSRefDataId
-      );
-      var geoPolygons = new GeoPolygons();
-      geoPolygons._MGGeoPolygonsId = GeoPolygonsId;
-      return geoPolygons;
-    } catch (e) {
-      console.error(e);
-    }
-  }
+	/**
+	 * 计算左右缓冲区
+	 * &lt;p>
+	 * 详细说明:&lt;br>
+	 * 特别说明:&lt;br>
+	 * 参数geom几何与左右缓冲半径的单位不一致的情况(sRefSrc必须赋值)，如：缓冲半径是米，geom几何单位不是米，源投影坐标系sRefSrc是geom几何数据的空间参考系;
+	 * 缓冲分析返回的结果坐标单位与参数geom几何单位一致&lt;br>
+	 * 参数geom几何与左右缓冲半径的单位一致的情况(sRefSrc赋值null)&lt;br>
+	 * 示例代码:&lt;br>
+	 * 无&lt;br>
+	 * &lt;/p>
+	 * @memberOf SpaAnalysis
+	 * @param {Geometry} geom
+	 * @param {double} leftDis   左半径
+	 * @param {double} rightDis  右半径
+	 * @param {int} endCapStyle 缓冲区边界类型 0/1/2-圆角/垂直/平角
+	 * @param {SRefData} sRefSrc   数据的源投影坐标系
+	 * @return {Promise.&lt;GeoPolygons>}计算得出的缓冲区
+	 */
+	async bufferWithEndCapStyle(geom, leftDis, rightDis, endCapStyle, sRefSrc)
+	{
+		try {
+			var geoPolygons = null
+			if(geom != null){
+				let {GeoPolygonsId} =  await SPA.buffer(this._MGSpaAnalysisId, geom._MGGeometryId, leftDis, rightDis, endCapStyle, sRefSrc != null?sRefSrc._MGSRefDataId:null);
+				var geoPolygons = new GeoPolygons();
+				geoPolygons._MGGeoPolygonsId = GeoPolygonsId;
+			}           
+            return geoPolygons;
+          } catch (e) {
+            console.error(e);
+        }
+	}
 
-  /**
-   * * &lt;p>
-   * 详细说明:&lt;br>
-   * 特别说明:&lt;br>
-   * 参数geom几何与左右缓冲半径的单位不一致的情况(sRefSrc必须赋值)，如：缓冲半径是米，geom几何单位不是米，源投影坐标系sRefSrc是geom几何数据的投影坐标系;
-   * 缓冲分析返回的结果坐标单位与参数geom几何单位一致&lt;br>
-   * 参数geom几何与左右缓冲半径的单位一致的情况(sRefSrc赋值null)&lt;br>
-   * 示例代码:&lt;br>
-   * 无&lt;br>
-   * &lt;/p>
-   *
-   * 计算左右缓冲区(圆角边界)
-   * @memberOf SpaAnalysis
-   * @param {Geometry} geom
-   * @param {double} leftDis   左半径
-   * @param {double} rightDis  右半径
-   * @param {SRefData} sRefSrc   数据的源投影坐标系
-   * @return {Promise.&lt;GeoPolygons>}计算得出的缓冲区
-   */
+	/**
+	 * * &lt;p>
+	 * 详细说明:&lt;br>
+	 * 特别说明:&lt;br>
+	 * 参数geom几何与左右缓冲半径的单位不一致的情况(sRefSrc必须赋值)，如：缓冲半径是米，geom几何单位不是米，源投影坐标系sRefSrc是geom几何数据的投影坐标系;
+	 * 缓冲分析返回的结果坐标单位与参数geom几何单位一致&lt;br>
+	 * 参数geom几何与左右缓冲半径的单位一致的情况(sRefSrc赋值null)&lt;br>
+	 * 示例代码:&lt;br>
+	 * 无&lt;br>
+	 * &lt;/p>
+	 *  
+	 * 计算左右缓冲区(圆角边界)
+     * @memberOf SpaAnalysis
+	 * @param {Geometry} geom
+	 * @param {double} leftDis   左半径
+	 * @param {double} rightDis  右半径
+	 * @param {SRefData} sRefSrc   数据的源投影坐标系
+	 * @return {Promise.&lt;GeoPolygons>}计算得出的缓冲区
+	 */ 
+	async buffer(geom, leftDis, rightDis, sRefSrc)
+	{
+		try {
+            let {GeoPolygonsId} =  await SPA.buffer(this._MGSpaAnalysisId, geom._MGGeometryId, leftDis, rightDis, sRefSrc != null?sRefSrc._MGSRefDataId:null);
+            var geoPolygons = new GeoPolygons();
+            geoPolygons._MGGeoPolygonsId = GeoPolygonsId;
+            return geoPolygons;
+          } catch (e) {
+            console.error(e);
+        }
+	}
 
-  async buffer(geom, leftDis, rightDis, sRefSrc) {
-    try {
-      let { GeoPolygonsId } = await SPA.buffer(
-        this._MGSpaAnalysisId,
-        geom._MGGeometryId,
-        leftDis,
-        rightDis,
-        sRefSrc._MGSRefDataId
-      );
-      var geoPolygons = new GeoPolygons();
-      geoPolygons._MGGeoPolygonsId = GeoPolygonsId;
-      return geoPolygons;
-    } catch (e) {
-      console.error(e);
-    }
-  }
+	/**
+	 * 裁剪
+	 * @memberOf SpaAnalysis
+	 * @param {Geometry} geom 被裁剪几何
+	 * @param {GeoPolygon} clipPoly 裁剪区
+	 * @param {int} flag 裁剪类型 0/1-内裁/外裁
+	 * @return {Promise.&lt;Geometry>}计算得出的缓冲区
+	 * @see    裁剪设置的容差默认值为0.0001,
+	 *         对于经纬度数据，需要传入合适的容差值，对于经纬度数据建议先调用setTolerance()接口使用0.000000001作为容差值
+	 */
+	async clipWithType(geom, clipPoly, flag)
+	{
+		try {
+            let {GeometryId} =  await SPA.clip(this._MGSpaAnalysisId, geom._MGGeometryId, clipPoly._MGGeoPolygonId, flag);
+            var geometry = new Geometry();
+            geometry._MGGeometryId = GeometryId;
+            return geometry;
+          } catch (e) {
+            console.error(e);
+        }
+	}
 
-  /**
-   * 裁剪
-   * @memberOf SpaAnalysis
-   * @param {Geometry} geom 被裁剪几何
-   * @param {GeoPolygon} clipPoly 裁剪区
-   * @param {int} flag 裁剪类型 0/1-内裁/外裁
-   * @return {Promise.&lt;Geometry>}计算得出的缓冲区
-   * @see    裁剪设置的容差默认值为0.0001,
-   *         对于经纬度数据，需要传入合适的容差值，对于经纬度数据建议先调用setTolerance()接口使用0.000000001作为容差值
-   */
-  async clipWithType(geom, clipPoly, flag) {
-    try {
-      let { GeometryId } = await SPA.clip(
-        this._MGSpaAnalysisId,
-        geom._MGGeometryId,
-        clipPoly._MGGeoPolygonId,
-        flag
-      );
-      var geometry = new Geometry();
-      geometry._MGGeometryId = GeometryId;
-      return geometry;
-    } catch (e) {
-      console.error(e);
-    }
-  }
+	/**
+	 * 裁剪(内裁)
+	 * @memberOf SpaAnalysis
+	 * @param {Geometry} geom 被裁剪几何
+	 * @param {GeoPolygon} clipPoly 裁剪区                
+	 * @return {Promise.&lt;Geometry>}计算得出的缓冲区
+	 * @see    裁剪设置的容差默认值为0.0001,
+	 *         对于经纬度数据，需要传入合适的容差值，对于经纬度数据建议先调用setTolerance()接口使用0.000000001作为容差值
+	 */
+	async clip(geom, clipPoly)
+	{
+		try {
+            let {GeometryId} =  await SPA.clip(this._MGSpaAnalysisId, geom._MGGeometryId, clipPoly._MGGeoPolygonId);
+            var geometry = new Geometry();
+            geometry._MGGeometryId = GeometryId;
+            return geometry;
+          } catch (e) {
+            console.error(e);
+        }
+	}
 
-  /**
-   * 裁剪(内裁)
-   * @memberOf SpaAnalysis
-   * @param {Geometry} geom 被裁剪几何
-   * @param {GeoPolygon} clipPoly 裁剪区
-   * @return {Promise.&lt;Geometry>}计算得出的缓冲区
-   * @see    裁剪设置的容差默认值为0.0001,
-   *         对于经纬度数据，需要传入合适的容差值，对于经纬度数据建议先调用setTolerance()接口使用0.000000001作为容差值
-   */
-  async clip(geom, clipPoly) {
-    try {
-      let { GeometryId } = await SPA.clip(
-        this._MGSpaAnalysisId,
-        geom._MGGeometryId,
-        clipPoly._MGGeoPolygonId
-      );
-      var geometry = new Geometry();
-      geometry._MGGeometryId = GeometryId;
-      return geometry;
-    } catch (e) {
-      console.error(e);
-    }
-  }
+	/**
+	 * 计算几何对象的凸闭包
+	 * @memberOf SpaAnalysis
+	 * @param {Geometry} geom  几何对象
+	 * @return {Promise.&lt;GeoPolygon>}计算得出的凸闭包区
+	 */
+	async convexHull(geom)
+	{
+		try {
+            let {GeoPolygonId} =  await SPA.convexHull(this._MGSpaAnalysisId, geom._MGGeometryId);
+            var geoPolygon = new GeoPolygon();
+            geoPolygon._MGGeoPolygonId = GeoPolygonId;
+            return geoPolygon;
+          } catch (e) {
+            console.error(e);
+        }
+	}
 
-  /**
-   * 计算几何对象的凸闭包
-   * @memberOf SpaAnalysis
-   * @param {Geometry} geom  几何对象
-   * @return {Promise.&lt;GeoPolygon>}计算得出的凸闭包区
-   */
-  async convexHull(geom) {
-    try {
-      let { GeoPolygonId } = await SPA.convexHull(
-        this._MGSpaAnalysisId,
-        geom._MGGeometryId
-      );
-      var geoPolygon = new GeoPolygon();
-      geoPolygon._MGGeoPolygonId = GeoPolygonId;
-      return geoPolygon;
-    } catch (e) {
-      console.error(e);
-    }
-  }
+	/**
+	 * 计算两个几何对象的差集
+	 * @memberOf SpaAnalysis
+	 * @param {Geometry} inputGeom 输入几何对象
+	 * @param {Geometry} differenceGeom 求差几何对象
+	 * @return {Promise.&lt;Geometry>}得出的两个几何对象的差集
+	 * @see    裁剪设置的容差默认值为0.0001,
+	 *         对于经纬度数据，需要传入合适的容差值，对于经纬度数据建议先调用setTolerance()接口使用0.000000001作为容差值
+	 */
+	async difference(inputGeom, differenceGeom)
+	{
+		try {
+            let {GeometryId} =  await SPA.difference(this._MGSpaAnalysisId, inputGeom._MGGeometryId, differenceGeom._MGGeometryId);
+            var geometry = new Geometry();
+            geometry._MGGeometryId = GeometryId;
+            return geometry;
+          } catch (e) {
+            console.error(e);
+        }
+	}
 
-  /**
-   * 计算两个几何对象的差集
-   * @memberOf SpaAnalysis
-   * @param {Geometry} inputGeom 输入几何对象
-   * @param {Geometry} differenceGeom 求差几何对象
-   * @return {Promise.&lt;Geometry>}得出的两个几何对象的差集
-   * @see    裁剪设置的容差默认值为0.0001,
-   *         对于经纬度数据，需要传入合适的容差值，对于经纬度数据建议先调用setTolerance()接口使用0.000000001作为容差值
-   */
-  async difference(inputGeom, differenceGeom) {
-    try {
-      let { GeometryId } = await SPA.difference(
-        this._MGSpaAnalysisId,
-        inputGeom._MGGeometryId,
-        differenceGeom._MGGeometryId
-      );
-      var geometry = new Geometry();
-      geometry._MGGeometryId = GeometryId;
-      return geometry;
-    } catch (e) {
-      console.error(e);
-    }
-  }
+	/**
+	 * 计算两个几何对象的交集
+	 * @memberOf SpaAnalysis
+	 * @param {Geometry} inputGeom 输入几何对象
+	 * @param {Geometry} intersectGeom 求交几何对象
+	 * @return {Promise.&lt;Geometry>}得出的两个几何对象的交集
+	 * @see    裁剪设置的容差默认值为0.0001,
+	 *         对于经纬度数据，需要传入合适的容差值，对于经纬度数据建议先调用setTolerance()接口使用0.000000001作为容差值
+	 */
+	async intersection(inputGeom, intersectGeom)
+	{
+		try {
+            let {GeometryId} =  await SPA.intersection(this._MGSpaAnalysisId, inputGeom._MGGeometryId, intersectGeom._MGGeometryId);
+            var geometry = new Geometry();
+            geometry._MGGeometryId = GeometryId;
+            return geometry;
+          } catch (e) {
+            console.error(e);
+        }
+	}
 
-  /**
-   * 计算两个几何对象的交集
-   * @memberOf SpaAnalysis
-   * @param {Geometry} inputGeom 输入几何对象
-   * @param {Geometry} intersectGeom 求交几何对象
-   * @return {Promise.&lt;Geometry>}得出的两个几何对象的交集
-   * @see    裁剪设置的容差默认值为0.0001,
-   *         对于经纬度数据，需要传入合适的容差值，对于经纬度数据建议先调用setTolerance()接口使用0.000000001作为容差值
-   */
-  async intersection(inputGeom, intersectGeom) {
-    try {
-      let { GeometryId } = await SPA.intersection(
-        this._MGSpaAnalysisId,
-        inputGeom._MGGeometryId,
-        intersectGeom._MGGeometryId
-      );
-      var geometry = new Geometry();
-      geometry._MGGeometryId = GeometryId;
-      return geometry;
-    } catch (e) {
-      console.error(e);
-    }
-  }
+	/**
+	 * 计算两个几何对象的对称差
+	 * @memberOf SpaAnalysis
+	 * @param {Geometry} inputGeom 输入几何对象
+	 * @param {Geometry} intersectGeom 求对称差几何对象
+	 * @return {Promise.&lt;Geometry>}得出的两个几何对象的对称差
+	 * @see    裁剪设置的容差默认值为0.0001,
+	 *         对于经纬度数据，需要传入合适的容差值，对于经纬度数据建议先调用setTolerance()接口使用0.000000001作为容差值
+	 */
+	async symmetricDifference(inputGeom, intersectGeom)
+	{
+		try {
+            let {GeometryId} =  await SPA.symmetricDifference(this._MGSpaAnalysisId, inputGeom._MGGeometryId, intersectGeom._MGGeometryId);
+            var geometry = new Geometry();
+            geometry._MGGeometryId = GeometryId;
+            return geometry;
+          } catch (e) {
+            console.error(e);
+        }
+	}
 
-  /**
-   * 计算两个几何对象的对称差
-   * @memberOf SpaAnalysis
-   * @param {Geometry} inputGeom 输入几何对象
-   * @param {Geometry} intersectGeom 求对称差几何对象
-   * @return {Promise.&lt;Geometry>}得出的两个几何对象的对称差
-   * @see    裁剪设置的容差默认值为0.0001,
-   *         对于经纬度数据，需要传入合适的容差值，对于经纬度数据建议先调用setTolerance()接口使用0.000000001作为容差值
-   */
-  async symmetricDifference(inputGeom, intersectGeom) {
-    try {
-      let { GeometryId } = await SPA.symmetricDifference(
-        this._MGSpaAnalysisId,
-        inputGeom._MGGeometryId,
-        intersectGeom._MGGeometryId
-      );
-      var geometry = new Geometry();
-      geometry._MGGeometryId = GeometryId;
-      return geometry;
-    } catch (e) {
-      console.error(e);
-    }
-  }
+	/**
+	 * 合并两个几何对象
+	 * @memberOf SpaAnalysis
+	 * @param  {Array&lt;GeoPolygon>} GeoPolygonArry 需要合并的几何对象
+	 * @return {Promise.&lt;Geometry>}返回合并后的几何对象
+	 * @see    裁剪设置的容差默认值为0.0001,
+	 *         对于经纬度数据，需要传入合适的容差值，对于经纬度数据建议先调用setTolerance()接口使用0.000000001作为容差值
+	 */
+	async mergeGeoPolygons(GeoPolygonArry)
+	{
+		try {
+            let {GeometryId} =  await SPA.merge(this._MGSpaAnalysisId, GeoPolygonArry);
+            var geometry = new Geometry();
+            geometry._MGGeometryId = GeometryId;
+            return geometry;
+          } catch (e) {
+            console.error(e);
+        }
+	}
+	/**
+	 * 合并两个几何对象
+	 * @memberOf SpaAnalysis
+	 * @param {Geometry} inputGeom 输入几何对象
+	 * @param {Geometry} mergeGeom 合并的几何对象
+	 * @return {Promise.&lt;Geometry>}返回合并后的几何对象
+	 * @see    裁剪设置的容差默认值为0.0001,
+	 *         对于经纬度数据，需要传入合适的容差值，对于经纬度数据建议先调用setTolerance()接口使用0.000000001作为容差值
+	 */
+	async merge(inputGeom, mergeGeom)
+	{
+		try {
+            let {GeometryId} =  await SPA.merge(this._MGSpaAnalysisId, inputGeom._MGGeometryId, mergeGeom._MGGeometryId);
+            var geometry = new Geometry();
+            geometry._MGGeometryId = GeometryId;
+            return geometry;
+          } catch (e) {
+            console.error(e);
+        }
+	}
 
-  /**
-   * 合并两个几何对象
-   * @memberOf SpaAnalysis
-   * @param  {Array&lt;GeoPolygon>} GeoPolygonArry 需要合并的几何对象
-   * @return {Promise.&lt;Geometry>}返回合并后的几何对象
-   * @see    裁剪设置的容差默认值为0.0001,
-   *         对于经纬度数据，需要传入合适的容差值，对于经纬度数据建议先调用setTolerance()接口使用0.000000001作为容差值
-   */
-  async mergeGeoPolygons(GeoPolygonArry) {
-    try {
-      let { GeometryId } = await SPA.merge(
-        this._MGSpaAnalysisId,
-        GeoPolygonArry
-      );
-      var geometry = new Geometry();
-      geometry._MGGeometryId = GeometryId;
-      return geometry;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-  /**
-   * 合并两个几何对象
-   * @memberOf SpaAnalysis
-   * @param {Geometry} inputGeom 输入几何对象
-   * @param {Geometry} mergeGeom 合并的几何对象
-   * @return {Promise.&lt;Geometry>}返回合并后的几何对象
-   * @see    裁剪设置的容差默认值为0.0001,
-   *         对于经纬度数据，需要传入合适的容差值，对于经纬度数据建议先调用setTolerance()接口使用0.000000001作为容差值
-   */
-  async merge(inputGeom, mergeGeom) {
-    try {
-      let { GeometryId } = await SPA.merge(
-        this._MGSpaAnalysisId,
-        inputGeom._MGGeometryId,
-        mergeGeom._MGGeometryId
-      );
-      var geometry = new Geometry();
-      geometry._MGGeometryId = GeometryId;
-      return geometry;
-    } catch (e) {
-      console.error(e);
-    }
-  }
+	/**
+	 * 计算两个几何对象的并集
+	 * @memberOf SpaAnalysis
+	 * @param {Geometry} inputGeom 输入几何对象
+	 * @param {Geometry} unionGeom 求并几何对象
+	 * @return {Promise.&lt;Geometry>}得出的两个几何对象的并集
+	 * @see    裁剪设置的容差默认值为0.0001,
+	 *         对于经纬度数据，需要传入合适的容差值，对于经纬度数据建议先调用setTolerance()接口使用0.000000001作为容差值
+	 */
+	async union(inputGeom, unionGeom)
+	{
+		try {
+            let {GeometryId} =  await SPA.union(this._MGSpaAnalysisId, inputGeom._MGGeometryId, unionGeom._MGGeometryId);
+            var geometry = new Geometry();
+            geometry._MGGeometryId = GeometryId;
+            return geometry;
+          } catch (e) {
+            console.error(e);
+        }
+	}
 
-  /**
-   * 计算两个几何对象的并集
-   * @memberOf SpaAnalysis
-   * @param {Geometry} inputGeom 输入几何对象
-   * @param {Geometry} unionGeom 求并几何对象
-   * @return {Promise.&lt;Geometry>}得出的两个几何对象的并集
-   * @see    裁剪设置的容差默认值为0.0001,
-   *         对于经纬度数据，需要传入合适的容差值，对于经纬度数据建议先调用setTolerance()接口使用0.000000001作为容差值
-   */
-  async union(inputGeom, unionGeom) {
-    try {
-      let { GeometryId } = await SPA.union(
-        this._MGSpaAnalysisId,
-        inputGeom._MGGeometryId,
-        unionGeom._MGGeometryId
-      );
-      var geometry = new Geometry();
-      geometry._MGGeometryId = GeometryId;
-      return geometry;
-    } catch (e) {
-      console.error(e);
-    }
-  }
+	/**
+	 * 指定线分割折线或多边形
+	 * @memberOf SpaAnalysis
+	 * @param {Geometry} geom 输入几何对象
+	 * @param {GeoLine} line 分割线
+	 * @return {Promise.&lt;Geometry>} 返回分割后的结果。分割失败返回null，分割成功返回多线或多区。
+	 * @see    裁剪设置的容差默认值为0.0001,
+	 *         对于经纬度数据，需要传入合适的容差值，对于经纬度数据建议先调用setTolerance()接口使用0.000000001作为容差值
+	 */
+	async split(geom, line)
+	{
+        try {
+            let {GeometryId} =  await SPA.split(this._MGSpaAnalysisId, geom._MGGeometryId, line._MGGeoLineId);
+            var geometry = new Geometry();
+            geometry._MGGeometryId = GeometryId;
+            return geometry;
+          } catch (e) {
+            console.error(e);
+        }
+	}
 
-  /**
-   * 指定线分割折线或多边形
-   * @memberOf SpaAnalysis
-   * @param {Geometry} geom 输入几何对象
-   * @param {GeoLine} line 分割线
-   * @return {Promise.&lt;Geometry>} 返回分割后的结果。分割失败返回null，分割成功返回多线或多区。
-   * @see    裁剪设置的容差默认值为0.0001,
-   *         对于经纬度数据，需要传入合适的容差值，对于经纬度数据建议先调用setTolerance()接口使用0.000000001作为容差值
-   */
-  async split(geom, line) {
-    try {
-      let { GeometryId } = await SPA.split(
-        this._MGSpaAnalysisId,
-        geom._MGGeometryId,
-        line._MGGeoLineId
-      );
-      var geometry = new Geometry();
-      geometry._MGGeometryId = GeometryId;
-      return geometry;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  /**
-   * 提取几何的边界
-   * @memberOf SpaAnalysis
-   * @param {Geometry} geom 几何对象
-   * @return {Promise.&lt;Geometry>}提取的几何边界对象
-   */
-  async boundary(geom) {
-    try {
-      let { GeometryId } = await SPA.boundary(
-        this._MGSpaAnalysisId,
-        geom._MGGeometryId
-      );
-      var geometry = new Geometry();
-      geometry._MGGeometryId = GeometryId;
-      return geometry;
-    } catch (e) {
-      console.error(e);
-    }
-  }
+	/**
+	 * 提取几何的边界
+	 * @memberOf SpaAnalysis
+	 * @param {Geometry} geom 几何对象
+	 * @return {Promise.&lt;Geometry>}提取的几何边界对象
+	 */
+	async boundary(geom)
+	{
+		try {
+            let {GeometryId} =  await SPA.boundary(this._MGSpaAnalysisId, geom._MGGeometryId);
+            var geometry = new Geometry();
+            geometry._MGGeometryId = GeometryId;
+            return geometry;
+          } catch (e) {
+            console.error(e);
+        }
+	}
 }
 </code></pre>
         </article>
@@ -430,13 +388,13 @@ export default class SpaAnalysis {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AnnClsInfo.html">AnnClsInfo</a></li><li><a href="AnnInfo.html">AnnInfo</a></li><li><a href="Annotation.html">Annotation</a></li><li><a href="AnnotationCls.html">AnnotationCls</a></li><li><a href="AnnotationsOverlay.html">AnnotationsOverlay</a></li><li><a href="AnnotationView.html">AnnotationView</a></li><li><a href="BasCls.html">BasCls</a></li><li><a href="ClassItemValue.html">ClassItemValue</a></li><li><a href="CoordinateConvert.html">CoordinateConvert</a></li><li><a href="CoordinateConvertParameter.html">CoordinateConvertParameter</a></li><li><a href="CrossData.html">CrossData</a></li><li><a href="DataBase.html">DataBase</a></li><li><a href="DataBaseSync.html">DataBaseSync</a></li><li><a href="Document.html">Document</a></li><li><a href="DocumentItem.html">DocumentItem</a></li><li><a href="Dot.html">Dot</a></li><li><a href="Dot3D.html">Dot3D</a></li><li><a href="Dots.html">Dots</a></li><li><a href="Dots3D.html">Dots3D</a></li><li><a href="DownloadDataBaseParmeters.html">DownloadDataBaseParmeters</a></li><li><a href="DownloadLayerOption.html">DownloadLayerOption</a></li><li><a href="ElpParam.html">ElpParam</a></li><li><a href="ElpTransformation.html">ElpTransformation</a></li><li><a href="ElpTransParam.html">ElpTransParam</a></li><li><a href="Environment.html">Environment</a></li><li><a href="ExtField.html">ExtField</a></li><li><a href="FClsInfo.html">FClsInfo</a></li><li><a href="Feature.html">Feature</a></li><li><a href="FeatureEdit.html">FeatureEdit</a></li><li><a href="FeaturePagedResult.html">FeaturePagedResult</a></li><li><a href="FeatureQuery.html">FeatureQuery</a></li><li><a href="FeatureSync.html">FeatureSync</a></li><li><a href="Field.html">Field</a></li><li><a href="Fields.html">Fields</a></li><li><a href="FillStyle.html">FillStyle</a></li><li><a href="GeneralVectorLabel.html">GeneralVectorLabel</a></li><li><a href="GeoAnno.html">GeoAnno</a></li><li><a href="GeoLine.html">GeoLine</a></li><li><a href="GeoLines.html">GeoLines</a></li><li><a href="Geometry.html">Geometry</a></li><li><a href="GeometryExp.html">GeometryExp</a></li><li><a href="GeometryParams.html">GeometryParams</a></li><li><a href="GeomInfo.html">GeomInfo</a></li><li><a href="GeoPoints.html">GeoPoints</a></li><li><a href="GeoPolygon.html">GeoPolygon</a></li><li><a href="GeoPolygons.html">GeoPolygons</a></li><li><a href="GeoVarLine.html">GeoVarLine</a></li><li><a href="Graphic.html">Graphic</a></li><li><a href="GraphicCircle.html">GraphicCircle</a></li><li><a href="GraphicHeatmap.html">GraphicHeatmap</a></li><li><a href="GraphicImage.html">GraphicImage</a></li><li><a href="GraphicMultiPoint.html">GraphicMultiPoint</a></li><li><a href="GraphicPoint.html">GraphicPoint</a></li><li><a href="GraphicPolygon.html">GraphicPolygon</a></li><li><a href="GraphicPolylin.html">GraphicPolylin</a></li><li><a href="GraphicsOverlay.html">GraphicsOverlay</a></li><li><a href="GraphicsOverlays.html">GraphicsOverlays</a></li><li><a href="GraphicStippleLine.html">GraphicStippleLine</a></li><li><a href="GraphicText.html">GraphicText</a></li><li><a href="GroupLayer.html">GroupLayer</a></li><li><a href="HeatmapPoint.html">HeatmapPoint</a></li><li><a href="Image.html">Image</a></li><li><a href="IntUser.html">IntUser</a></li><li><a href="Label.html">Label</a></li><li><a href="LabelInfo.html">LabelInfo</a></li><li><a href="LatLng.html">LatLng</a></li><li><a href="LayerEnum.html">LayerEnum</a></li><li><a href="LinePlaceInfo.html">LinePlaceInfo</a></li><li><a href="LineStyle.html">LineStyle</a></li><li><a href="LinInfo.html">LinInfo</a></li><li><a href="MagnifierOption.html">MagnifierOption</a></li><li><a href="Map.html">Map</a></li><li><a href="MapLayer.html">MapLayer</a></li><li><a href="MapPosition.html">MapPosition</a></li><li><a href="Maps.html">Maps</a></li><li><a href="MapServer.html">MapServer</a></li><li><a href="MapServiceInfo.html">MapServiceInfo</a></li><li><a href="MapServiceLayerInfo.html">MapServiceLayerInfo</a></li><li><a href="MapView.html">MapView</a></li><li><a href="Model.html">Model</a></li><li><a href="ModelsOverlay.html">ModelsOverlay</a></li><li><a href="MultiClassTheme.html">MultiClassTheme</a></li><li><a href="MultiClassThemeInfo.html">MultiClassThemeInfo</a></li><li><a href="OGCWMTSMapServer.html">OGCWMTSMapServer</a></li><li><a href="PntInfo.html">PntInfo</a></li><li><a href="PointF.html">PointF</a></li><li><a href="PointPlaceInfo.html">PointPlaceInfo</a></li><li><a href="PointStyle.html">PointStyle</a></li><li><a href="QueryBound.html">QueryBound</a></li><li><a href="QueryDef.html">QueryDef</a></li><li><a href="RangeTheme.html">RangeTheme</a></li><li><a href="RangeThemeInfo.html">RangeThemeInfo</a></li><li><a href="Record.html">Record</a></li><li><a href="RecordSet.html">RecordSet</a></li><li><a href="Rect.html">Rect</a></li><li><a href="RegInfo.html">RegInfo</a></li><li><a href="RegionPlaceInfo.html">RegionPlaceInfo</a></li><li><a href="ServerLayer.html">ServerLayer</a></li><li><a href="SFeatureCls.html">SFeatureCls</a></li><li><a href="SimpleLabel.html">SimpleLabel</a></li><li><a href="SimpleModelLayer.html">SimpleModelLayer</a></li><li><a href="SimpleModelLayerUtil.html">SimpleModelLayerUtil</a></li><li><a href="SimpleTheme.html">SimpleTheme</a></li><li><a href="SketchEditor.html">SketchEditor</a></li><li><a href="SketchStyle.html">SketchStyle</a></li><li><a href="SnappingOption.html">SnappingOption</a></li><li><a href="SpaAnalysis.html">SpaAnalysis</a></li><li><a href="SpaCalculator.html">SpaCalculator</a></li><li><a href="SpaProjection.html">SpaProjection</a></li><li><a href="SpaRelation.html">SpaRelation</a></li><li><a href="SRefData.html">SRefData</a></li><li><a href="SyncBase.html">SyncBase</a></li><li><a href="SyncDataBaseParmeters.html">SyncDataBaseParmeters</a></li><li><a href="SyncLayerOption.html">SyncLayerOption</a></li><li><a href="TextAnnInfo.html">TextAnnInfo</a></li><li><a href="TextAnno.html">TextAnno</a></li><li><a href="TextStyle.html">TextStyle</a></li><li><a href="Theme.html">Theme</a></li><li><a href="ThemeInfo.html">ThemeInfo</a></li><li><a href="Themes.html">Themes</a></li><li><a href="TileMapServer.html">TileMapServer</a></li><li><a href="UniqueTheme.html">UniqueTheme</a></li><li><a href="UniqueThemeInfo.html">UniqueThemeInfo</a></li><li><a href="VectorCls.html">VectorCls</a></li><li><a href="VectorLabel.html">VectorLabel</a></li><li><a href="VectorLayer.html">VectorLayer</a></li><li><a href="VectorMapServer.html">VectorMapServer</a></li><li><a href="VectorTheme.html">VectorTheme</a></li><li><a href="VectorTileMapServer.html">VectorTileMapServer</a></li><li><a href="VisualMap.html">VisualMap</a></li><li><a href="XClsInfo.html">XClsInfo</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addAnnotation">addAnnotation</a></li><li><a href="global.html#addAnnotations">addAnnotations</a></li><li><a href="global.html#animatePosition">animatePosition</a></li><li><a href="global.html#distanceOfGeometry">distanceOfGeometry</a></li><li><a href="global.html#getAllAnnotations">getAllAnnotations</a></li><li><a href="global.html#getAnnotation">getAnnotation</a></li><li><a href="global.html#getAnnotationCount">getAnnotationCount</a></li><li><a href="global.html#getGeometryByType">getGeometryByType</a></li><li><a href="global.html#indexOf">indexOf</a></li><li><a href="global.html#initialize">initialize</a></li><li><a href="global.html#moveAnnotation">moveAnnotation</a></li><li><a href="global.html#removeAllAnnotations">removeAllAnnotations</a></li><li><a href="global.html#removeAnnotation">removeAnnotation</a></li><li><a href="global.html#removeAnnotationByIndex">removeAnnotationByIndex</a></li><li><a href="global.html#removeAnnotations">removeAnnotations</a></li><li><a href="global.html#requestAuthorization">requestAuthorization</a></li><li><a href="global.html#setBackGroundImage">setBackGroundImage</a></li><li><a href="global.html#setResolution">setResolution</a></li><li><a href="global.html#setScale">setScale</a></li><li><a href="global.html#setSize">setSize</a></li><li><a href="global.html#setSystemLibraryPath">setSystemLibraryPath</a></li><li><a href="global.html#updatePositionbyViewPoint">updatePositionbyViewPoint</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AnnClsInfo.html">AnnClsInfo</a></li><li><a href="AnnInfo.html">AnnInfo</a></li><li><a href="Annotation.html">Annotation</a></li><li><a href="AnnotationCls.html">AnnotationCls</a></li><li><a href="AnnotationsOverlay.html">AnnotationsOverlay</a></li><li><a href="AnnotationView.html">AnnotationView</a></li><li><a href="BasCls.html">BasCls</a></li><li><a href="ClassItemValue.html">ClassItemValue</a></li><li><a href="CoordinateConvert.html">CoordinateConvert</a></li><li><a href="CoordinateConvertParameter.html">CoordinateConvertParameter</a></li><li><a href="CrossData.html">CrossData</a></li><li><a href="DataBase.html">DataBase</a></li><li><a href="DataBaseSync.html">DataBaseSync</a></li><li><a href="Document.html">Document</a></li><li><a href="DocumentItem.html">DocumentItem</a></li><li><a href="Dot.html">Dot</a></li><li><a href="Dot3D.html">Dot3D</a></li><li><a href="Dots.html">Dots</a></li><li><a href="Dots3D.html">Dots3D</a></li><li><a href="DownloadDataBaseParmeters.html">DownloadDataBaseParmeters</a></li><li><a href="DownloadLayerOption.html">DownloadLayerOption</a></li><li><a href="ElpParam.html">ElpParam</a></li><li><a href="ElpTransformation.html">ElpTransformation</a></li><li><a href="ElpTransParam.html">ElpTransParam</a></li><li><a href="Environment.html">Environment</a></li><li><a href="ExtField.html">ExtField</a></li><li><a href="FClsInfo.html">FClsInfo</a></li><li><a href="Feature.html">Feature</a></li><li><a href="FeatureEdit.html">FeatureEdit</a></li><li><a href="FeaturePagedResult.html">FeaturePagedResult</a></li><li><a href="FeatureQuery.html">FeatureQuery</a></li><li><a href="FeatureSync.html">FeatureSync</a></li><li><a href="Field.html">Field</a></li><li><a href="Fields.html">Fields</a></li><li><a href="FillStyle.html">FillStyle</a></li><li><a href="GeneralVectorLabel.html">GeneralVectorLabel</a></li><li><a href="GeoAnno.html">GeoAnno</a></li><li><a href="GeoLine.html">GeoLine</a></li><li><a href="GeoLines.html">GeoLines</a></li><li><a href="Geometry.html">Geometry</a></li><li><a href="GeometryExp.html">GeometryExp</a></li><li><a href="GeometryParams.html">GeometryParams</a></li><li><a href="GeomInfo.html">GeomInfo</a></li><li><a href="GeoPoints.html">GeoPoints</a></li><li><a href="GeoPolygon.html">GeoPolygon</a></li><li><a href="GeoPolygons.html">GeoPolygons</a></li><li><a href="GeoVarLine.html">GeoVarLine</a></li><li><a href="Graphic.html">Graphic</a></li><li><a href="GraphicCircle.html">GraphicCircle</a></li><li><a href="GraphicHeatmap.html">GraphicHeatmap</a></li><li><a href="GraphicImage.html">GraphicImage</a></li><li><a href="GraphicMultiPoint.html">GraphicMultiPoint</a></li><li><a href="GraphicPoint.html">GraphicPoint</a></li><li><a href="GraphicPolygon.html">GraphicPolygon</a></li><li><a href="GraphicPolylin.html">GraphicPolylin</a></li><li><a href="GraphicsOverlay.html">GraphicsOverlay</a></li><li><a href="GraphicsOverlays.html">GraphicsOverlays</a></li><li><a href="GraphicStippleLine.html">GraphicStippleLine</a></li><li><a href="GraphicText.html">GraphicText</a></li><li><a href="GroupLayer.html">GroupLayer</a></li><li><a href="HeatmapPoint.html">HeatmapPoint</a></li><li><a href="Image.html">Image</a></li><li><a href="IntUser.html">IntUser</a></li><li><a href="Label.html">Label</a></li><li><a href="LabelInfo.html">LabelInfo</a></li><li><a href="LatLng.html">LatLng</a></li><li><a href="LayerEnum.html">LayerEnum</a></li><li><a href="LinePlaceInfo.html">LinePlaceInfo</a></li><li><a href="LineStyle.html">LineStyle</a></li><li><a href="LinInfo.html">LinInfo</a></li><li><a href="MagnifierOption.html">MagnifierOption</a></li><li><a href="Map.html">Map</a></li><li><a href="MapLayer.html">MapLayer</a></li><li><a href="MapPosition.html">MapPosition</a></li><li><a href="Maps.html">Maps</a></li><li><a href="MapServer.html">MapServer</a></li><li><a href="MapServiceInfo.html">MapServiceInfo</a></li><li><a href="MapServiceLayerInfo.html">MapServiceLayerInfo</a></li><li><a href="MapView.html">MapView</a></li><li><a href="Model.html">Model</a></li><li><a href="ModelsOverlay.html">ModelsOverlay</a></li><li><a href="MultiClassTheme.html">MultiClassTheme</a></li><li><a href="MultiClassThemeInfo.html">MultiClassThemeInfo</a></li><li><a href="OGCWMTSMapServer.html">OGCWMTSMapServer</a></li><li><a href="PntInfo.html">PntInfo</a></li><li><a href="PointF.html">PointF</a></li><li><a href="PointPlaceInfo.html">PointPlaceInfo</a></li><li><a href="PointStyle.html">PointStyle</a></li><li><a href="QueryBound.html">QueryBound</a></li><li><a href="QueryDef.html">QueryDef</a></li><li><a href="RangeTheme.html">RangeTheme</a></li><li><a href="RangeThemeInfo.html">RangeThemeInfo</a></li><li><a href="Record.html">Record</a></li><li><a href="RecordSet.html">RecordSet</a></li><li><a href="Rect.html">Rect</a></li><li><a href="RegInfo.html">RegInfo</a></li><li><a href="RegionPlaceInfo.html">RegionPlaceInfo</a></li><li><a href="ServerLayer.html">ServerLayer</a></li><li><a href="SFeatureCls.html">SFeatureCls</a></li><li><a href="SimpleLabel.html">SimpleLabel</a></li><li><a href="SimpleModelLayer.html">SimpleModelLayer</a></li><li><a href="SimpleModelLayerUtil.html">SimpleModelLayerUtil</a></li><li><a href="SimpleTheme.html">SimpleTheme</a></li><li><a href="SketchEditor.html">SketchEditor</a></li><li><a href="SketchStyle.html">SketchStyle</a></li><li><a href="SnappingOption.html">SnappingOption</a></li><li><a href="SpaAnalysis.html">SpaAnalysis</a></li><li><a href="SpaCalculator.html">SpaCalculator</a></li><li><a href="SpaProjection.html">SpaProjection</a></li><li><a href="SpaRelation.html">SpaRelation</a></li><li><a href="SRefData.html">SRefData</a></li><li><a href="SyncBase.html">SyncBase</a></li><li><a href="SyncDataBaseParmeters.html">SyncDataBaseParmeters</a></li><li><a href="SyncLayerOption.html">SyncLayerOption</a></li><li><a href="TextAnnInfo.html">TextAnnInfo</a></li><li><a href="TextAnno.html">TextAnno</a></li><li><a href="TextStyle.html">TextStyle</a></li><li><a href="Theme.html">Theme</a></li><li><a href="ThemeInfo.html">ThemeInfo</a></li><li><a href="Themes.html">Themes</a></li><li><a href="TileMapServer.html">TileMapServer</a></li><li><a href="UniqueTheme.html">UniqueTheme</a></li><li><a href="UniqueThemeInfo.html">UniqueThemeInfo</a></li><li><a href="VectorCls.html">VectorCls</a></li><li><a href="VectorLabel.html">VectorLabel</a></li><li><a href="VectorLayer.html">VectorLayer</a></li><li><a href="VectorMapServer.html">VectorMapServer</a></li><li><a href="VectorTheme.html">VectorTheme</a></li><li><a href="VectorTileMapServer.html">VectorTileMapServer</a></li><li><a href="VisualMap.html">VisualMap</a></li><li><a href="XClsInfo.html">XClsInfo</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addAnnotation">addAnnotation</a></li><li><a href="global.html#addAnnotations">addAnnotations</a></li><li><a href="global.html#animatePosition">animatePosition</a></li><li><a href="global.html#distanceOfGeometry">distanceOfGeometry</a></li><li><a href="global.html#getAllAnnotations">getAllAnnotations</a></li><li><a href="global.html#getAnnotation">getAnnotation</a></li><li><a href="global.html#getAnnotationCount">getAnnotationCount</a></li><li><a href="global.html#getGeometryByType">getGeometryByType</a></li><li><a href="global.html#indexOf">indexOf</a></li><li><a href="global.html#initialize">initialize</a></li><li><a href="global.html#moveAnnotation">moveAnnotation</a></li><li><a href="global.html#removeAllAnnotations">removeAllAnnotations</a></li><li><a href="global.html#removeAnnotation">removeAnnotation</a></li><li><a href="global.html#removeAnnotationByIndex">removeAnnotationByIndex</a></li><li><a href="global.html#removeAnnotations">removeAnnotations</a></li><li><a href="global.html#requestAuthorization">requestAuthorization</a></li><li><a href="global.html#setResolution">setResolution</a></li><li><a href="global.html#setScale">setScale</a></li><li><a href="global.html#setSize">setSize</a></li><li><a href="global.html#setSystemLibraryPath">setSystemLibraryPath</a></li><li><a href="global.html#updatePositionbyViewPoint">updatePositionbyViewPoint</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Mon Sep 30 2019 14:41:58 GMT+0800 (GMT+08:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Thu Dec 05 2019 09:27:52 GMT+0800 (GMT+08:00)
 </footer>
 
 <script> prettyPrint(); </script>
