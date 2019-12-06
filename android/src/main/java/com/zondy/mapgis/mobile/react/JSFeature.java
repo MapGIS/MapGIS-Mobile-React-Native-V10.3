@@ -15,7 +15,10 @@ import com.zondy.mapgis.core.geometry.GeometryType;
 import com.zondy.mapgis.core.info.GeomInfo;
 import com.zondy.mapgis.core.object.Enumeration;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -169,16 +172,46 @@ public class JSFeature extends ReactContextBaseJavaModule {
         }
     }
 
-//    public void modifyFeatureValue(String FeatureId, HashMap<String, String> attributes, String geomId, String infoId, Promise promise)
-//    {
-//        try {
-//            Geometry geom = JSGeometry.getObjFromList(geomId);
-//            GeomInfo info = JSGeomInfo.getObjFromList(infoId);
-//            Feature feature = getObjFromList(FeatureId);
-//            int iVal = (int)feature.modifyFeatureValue(, geom, info);
-//            promise.resolve(iVal);
-//        } catch (Exception e) {
-//            promise.reject(e);
-//        }
-//    }
+    @ReactMethod
+    public void modifyFeatureValue(String FeatureId, String attributeJson, String geomId, String infoId, Promise promise)
+    {
+        try {
+            Geometry geom = JSGeometry.getObjFromList(geomId);
+            GeomInfo info = JSGeomInfo.getObjFromList(infoId);
+            Feature feature = getObjFromList(FeatureId);
+            HashMap<String, String> attributesMap = convertJsonToMap(attributeJson);
+
+            int modifyResult = 0;
+            if(feature != null){
+                modifyResult = (int)feature.modifyFeatureValue(attributesMap, geom, info);
+            }
+            promise.resolve(modifyResult);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    // 将json格式的属性转换为HashMap
+    private HashMap<String, String> convertJsonToMap(String json){
+        HashMap<String, String> attributesMap = new HashMap<>();
+        try {
+            if(json != null && !json.isEmpty()){
+                JSONObject jsonObject = new JSONObject(json);
+
+                Iterator<String> it = jsonObject.keys();
+                    while(it.hasNext()){
+                        String key = it.next();
+                        String value = (String) jsonObject.get(key);
+
+                        attributesMap.put(key, value);
+                    }
+           }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return  attributesMap;
+    }
+
 }

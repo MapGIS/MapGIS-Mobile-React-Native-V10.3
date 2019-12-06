@@ -24,6 +24,7 @@ import GraphicText from './GraphicText.js'
 import GraphicHeatmap from './GraphicHeatmap.js'
 import GraphicPolygon from './GraphicPolygon.js'
 import GraphicImage from './GraphicImage.js'
+import Geometry from './Geometry.js';
 
 
 /**
@@ -231,6 +232,24 @@ export default class Feature {
     } catch (e) {
       console.error(e);
     }
-	}
+  }
+  
+  /**
+   * 修改要素值（包括属性信息，图形信息，几何信息）
+   * 
+   * @memberof Feature
+   * @param {String} attribute 属性信息，JSON格式的字符串例{"LayerID":"0","ID":"1"}
+   * @param {Geometry} geometry 图形信息
+   * @param {GeomInfo} geomInfo 几何信息
+   * @returns {Promise<Number>} 大于0成功，否则失败
+   */
+  async modifyFeatureValue(attribute, geometry, geomInfo){
+    try {
+      return await F.modifyFeatureValue(this._MGFeatureId,  attribute, geometry._MGGeometryId, geomInfo._MGGeomInfoId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
 
 }

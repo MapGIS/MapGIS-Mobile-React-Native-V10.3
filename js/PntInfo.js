@@ -305,7 +305,7 @@ export default class PntInfo extends GeomInfo {
   /**
    * 获取可变颜色1
    * @memberOf PntInfo
-   * @return {Promise<Number}可变颜色1
+   * @return {Promise<Number>}可变颜色1
    */
   async getOutClr1() {
     try {

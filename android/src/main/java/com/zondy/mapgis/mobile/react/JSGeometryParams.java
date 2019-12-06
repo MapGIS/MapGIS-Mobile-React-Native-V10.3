@@ -93,7 +93,7 @@ public class JSGeometryParams extends ReactContextBaseJavaModule {
     public void getCurrentIndex(String geometryParamsId, Promise promise){
         try {
             GeometryParams geometryParams = getObjFromList(geometryParamsId);
-            int currentIndex = geometryParams.getmCurrentIndex();
+            int currentIndex = geometryParams.getCurrentIndex();
 
             promise.resolve(currentIndex);
         }catch (Exception e){
@@ -105,7 +105,7 @@ public class JSGeometryParams extends ReactContextBaseJavaModule {
     public void setCurrentIndex(String geometryParamsId, int mCurrentIndex, Promise promise){
         try {
             GeometryParams geometryParams = getObjFromList(geometryParamsId);
-            geometryParams.setmCurrentIndex(mCurrentIndex);
+            geometryParams.setCurrentIndex(mCurrentIndex);
 
             promise.resolve(true);
         }catch (Exception e){
@@ -117,7 +117,7 @@ public class JSGeometryParams extends ReactContextBaseJavaModule {
     public void getPreCurrentTotalVertex(String geometryParamsId, Promise promise){
         try {
             GeometryParams geometryParams = getObjFromList(geometryParamsId);
-            int preCurrentTotalVertex = geometryParams.getmPreCurrentTotalVertex();
+            int preCurrentTotalVertex = geometryParams.getPreCurrentTotalVertex();
 
             promise.resolve(preCurrentTotalVertex);
         }catch (Exception e){
@@ -129,7 +129,7 @@ public class JSGeometryParams extends ReactContextBaseJavaModule {
     public void setPreCurrentTotalVertex(String geometryParamsId, int preCurrentTotalVertex, Promise promise){
         try {
             GeometryParams geometryParams = getObjFromList(geometryParamsId);
-            geometryParams.setmPreCurrentTotalVertex(preCurrentTotalVertex);
+            geometryParams.setPreCurrentTotalVertex(preCurrentTotalVertex);
 
             promise.resolve(true);
         }catch (Exception e){
@@ -141,7 +141,7 @@ public class JSGeometryParams extends ReactContextBaseJavaModule {
     public void getCurrentVertexIndex(String geometryParamsId, Promise promise){
         try {
             GeometryParams geometryParams = getObjFromList(geometryParamsId);
-            int currentVertexIndex = geometryParams.getmCurrentVertexIndex();
+            int currentVertexIndex = geometryParams.getCurrentVertexIndex();
 
             promise.resolve(currentVertexIndex);
         }catch (Exception e){
@@ -153,7 +153,7 @@ public class JSGeometryParams extends ReactContextBaseJavaModule {
     public void setCurrentVertexIndex(String geometryParamsId, int currentVertexIndex, Promise promise){
         try {
             GeometryParams geometryParams = getObjFromList(geometryParamsId);
-            geometryParams.setmCurrentVertexIndex(currentVertexIndex);
+            geometryParams.setCurrentVertexIndex(currentVertexIndex);
 
             promise.resolve(true);
         }catch (Exception e){

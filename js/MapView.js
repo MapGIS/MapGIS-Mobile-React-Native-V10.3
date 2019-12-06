@@ -1460,6 +1460,43 @@ export default class JSMapView {
     }
   }
 
+   /**
+   * 设置缩放按钮的位置 
+   * 
+   * @memberof MapView
+   * @param {PointF} pointF 位置点
+   * @returns {Promise<void>}
+   */
+  async setZoomControlPosition(pointF){
+    try {
+      await MV.setZoomControlPosition(this._MGMapViewId, pointF._MGPointFId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取缩放按钮的位置
+   * 
+   * @memberof MapView
+   * @returns {Promise<PointF>} 缩放按钮的位置
+   */
+  async getZoomControlPosition(pointF){
+    try {
+      let pointFId = await MV.getZoomControlPosition(this._MGMapViewId);
+      let pointF = null;
+      if(pointFId !== null){
+        pointF = new PointF();
+        pointF._MGPointFId = pointFId;
+      }
+
+      return pointF;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+
   /**
    * 获取是否启用了内置的缩放按钮
    * @memberOf MapView

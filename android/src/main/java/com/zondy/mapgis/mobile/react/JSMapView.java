@@ -19,6 +19,7 @@ import com.zondy.mapgis.android.annotation.AnnotationsOverlay;
 import com.zondy.mapgis.android.graphic.Graphic;
 import com.zondy.mapgis.android.graphic.GraphicsOverlay;
 import com.zondy.mapgis.android.graphic.GraphicsOverlays;
+import com.zondy.mapgis.android.internal.chart.json.GsonUtil;
 import com.zondy.mapgis.android.mapview.MagnifierOption;
 import com.zondy.mapgis.android.mapview.MapPosition;
 import com.zondy.mapgis.android.mapview.MapTool;
@@ -1576,6 +1577,35 @@ public class JSMapView extends ReactContextBaseJavaModule {
                 }
             }
         });
+    }
+
+    @ReactMethod
+    public void setZoomControlPosition(String mapViewId, String pointFId, Promise promise){
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            PointF pointF = JSPointF.getObjFromList(pointFId);
+            m_mapView.setZoomControlPosition(pointF);
+
+            promise.resolve(true);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getZoomControlPosition(String mapViewId, Promise promise){
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            PointF pointF = m_mapView.getZoomControlPosition();
+            String pointFId = null;
+            if(pointF != null){
+                pointFId = JSPointF.registerId(pointF);
+            }
+
+            promise.resolve(pointFId);
+        }catch (Exception e){
+            promise.reject(e);
+        }
     }
 
     @ReactMethod
