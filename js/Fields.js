@@ -55,7 +55,7 @@ export default class Fields {
    */
   async setField(index, field) {
     try {
-      await FLDS.setField(this._MGFieldsId, index, field._MGFieldId);
+      return await FLDS.setField(this._MGFieldsId, index, field._MGFieldId);
     } catch (e) {
       console.error(e);
     }

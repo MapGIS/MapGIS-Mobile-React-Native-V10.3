@@ -37,7 +37,7 @@ export default class Record {
    */
   async getFldValByIndex(fldIndex) {
     try {
-      var { value } = await RD.getFldVal(this._MGRecordId, fldIndex);
+      var { value } = await RD.getFldValByIndex(this._MGRecordId, fldIndex);
       return value;
     } catch (e) {
       console.error(e);
@@ -52,7 +52,7 @@ export default class Record {
    */
   async getFldValByName(fldName) {
     try {
-      var { value } = await RD.getFldVal(this._MGRecordId, fldName);
+      var { value } = await RD.getFldValByName(this._MGRecordId, fldName);
       return value;
     } catch (e) {
       console.error(e);
@@ -60,30 +60,49 @@ export default class Record {
   }
 
   /**
-   * 根据字段索引设置字段值
+   * 根据字段索引设置字段值，暂时只支持FieldType.fldStr\fldFloat\fldDouble\fldLong\fldInt64\fldFloat\fldShort\fldTimeStamp\fldDate\fldTime类型
+   * <br/>
+   * 注：fldTimeStamp传递数值的时间戳；fldTime\fldDate可直接传递JS的Date对象
    * @memberOf Record
-   * @param fldIndex 字段索引
-   * @param newVal 字段值
+   * @param {Number} fldIndex 字段索引
+   * @param {Number|String|Object} 字段值(Object为Date)
    * @return {Promise<Number>}大于0成功，否则失败
+   * 
    */
   async setFldValByIndex(fldIndex, newVal) {
     try {
-      return await RD.setFldVal(this._MGRecordId, fldIndex, newVal);
+      let params = newVal;
+      if(typeof newVal !== 'object'){
+        params = {value: newVal};
+      }else{
+        let time = newVal.getTime() + '';        
+        params = {value: time};
+      }
+      return await RD.setFldValByIndex(this._MGRecordId, fldIndex, params);
     } catch (e) {
       console.error(e);
     }
   }
 
   /**
-   * 根据字段名设置字段值
+   * 根据字段名设置字段值，暂时只支持FieldType.fldStr\fldFloat\fldDouble\fldLong\fldInt64\fldFloat\fldShort\fldTimeStamp\fldDate\fldTime类型
+   * <br/>
+   * 注：fldTimeStamp传递数值的时间戳；fldTime\fldDate可直接传递JS的Date对象
    * @memberOf Record
-   * @param fldName 字段名
-   * @param newVal 字段值
+   * @param {String} fldName 字段名
+   * @param {Number|String|Object} newVal 字段值(Object为Date)
    * @return {Promise<Number>}大于0成功，否则失败
    */
   async setFldValByName(fldName, newVal) {
     try {
-      return await RD.setFldVal(this._MGRecordId, fldName, newVal);
+      let params = newVal;
+      if(typeof newVal !== 'object'){
+        params = {value: newVal};
+      }else{
+        let time = newVal.getTime() + '';        
+        params = {value: time};
+      }
+      return await RD.setFldValByName(this._MGRecordId, fldName, params);
     } catch (e) {
       console.error(e);
     }
@@ -127,7 +146,7 @@ export default class Record {
    */
   async isFldNULLOfFldIndex(fldIndex) {
     try {
-      return await RD.isFldNULL(this._MGRecordId, fldIndex);
+      return await RD.isFldNULLOfFldIndex(this._MGRecordId, fldIndex);
     } catch (e) {
       console.error(e);
     }
@@ -141,7 +160,7 @@ export default class Record {
    */
   async isFldNULLOfFldName(fldName) {
     try {
-      return await RD.isFldNULL(this._MGRecordId, fldName);
+      return await RD.isFldNULLOfFldName(this._MGRecordId, fldName);
     } catch (e) {
       console.error(e);
     }
@@ -155,7 +174,7 @@ export default class Record {
    */
   async setFldNULLByIndex(fldIndex) {
     try {
-      return await RD.setFldNULL(this._MGRecordId, fldIndex);
+      return await RD.setFldNULLByIndex(this._MGRecordId, fldIndex);
     } catch (e) {
       console.error(e);
     }
@@ -169,7 +188,7 @@ export default class Record {
    */
   async setFldNULLByName(fldName) {
     try {
-      return await RD.setFldNULL(this._MGRecordId, fldName);
+      return await RD.setFldNULLByName(this._MGRecordId, fldName);
     } catch (e) {
       console.error(e);
     }
@@ -196,7 +215,7 @@ export default class Record {
    */
   async getFieldTypeByIndex(fldIndex) {
     try {
-      return await RD.getFieldType(this._MGRecordId, fldIndex);
+      return await RD.getFieldTypeByIndex(this._MGRecordId, fldIndex);
     } catch (e) {
       console.error(e);
     }
@@ -210,7 +229,7 @@ export default class Record {
    */
   async getFieldTypeByName(fldName) {
     try {
-      return await RD.getFieldType(this._MGRecordId, fldName);
+      return await RD.getFieldTypeByName(this._MGRecordId, fldName);
     } catch (e) {
       console.error(e);
     }

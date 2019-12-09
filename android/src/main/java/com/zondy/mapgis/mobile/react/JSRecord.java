@@ -1,5 +1,7 @@
 package com.zondy.mapgis.mobile.react;
 
+import android.util.Log;
+
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -9,11 +11,13 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.ReadableNativeMap;
 import com.facebook.react.bridge.WritableMap;
+import com.zondy.mapgis.core.attr.Field;
 import com.zondy.mapgis.core.attr.FieldType;
 import com.zondy.mapgis.core.attr.Fields;
 import com.zondy.mapgis.core.attr.Record;
 import com.zondy.mapgis.core.object.Enumeration;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -121,21 +125,26 @@ public class JSRecord extends ReactContextBaseJavaModule {
     }
 
    @ReactMethod
-    public void setFldValByIndex(String recordId, ReadableMap newValinfo, Promise promise)
+    public void setFldValByIndex(String recordId, int recordIndex, ReadableMap newValinfo, Promise promise)
     {
         try {
             Record record = getObjFromList(recordId);
             int result = 0;
-            ReadableMapKeySetIterator iter = newValinfo.keySetIterator();
-            while (iter.hasNextKey()) {
-                String index = iter.nextKey();
-                String value = newValinfo.getString(index);
-                if (value == null) {
-                    result = record.setFldNULL(index);
-                } else {
-                    result = record.setFldVal(index, value);
-                }
+
+            Object value = null;
+            FieldType fieldType = record.getFieldType((short) recordIndex);
+            if(fieldType != null){
+                int fieldTypeValue = fieldType.value();
+                value = getValueFromMap(fieldTypeValue, newValinfo);
+
+           }
+
+            if (value == null) {
+                result = record.setFldNULL((short)recordIndex);
+            } else {
+                result = record.setFldVal((short) recordIndex, value);
             }
+
             promise.resolve(result);
         } catch (Exception e) {
             promise.reject(e);
@@ -143,25 +152,73 @@ public class JSRecord extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setFldValByName(String recordId, ReadableMap newValinfo, Promise promise)
+    public void setFldValByName(String recordId, String recordName, ReadableMap newValinfo, Promise promise)
     {
         try {
             Record record = getObjFromList(recordId);
             int result = 0;
-            ReadableMapKeySetIterator iter = newValinfo.keySetIterator();
-            while (iter.hasNextKey()) {
-                String name = iter.nextKey();
-                String value = newValinfo.getString(name);
-                if (value == null) {
-                    result = record.setFldNULL(name);
-                } else {
-                    result = record.setFldVal(name, value);
-                }
+
+            Object value = null;
+            FieldType fieldType = record.getFieldType(recordName);
+            if(fieldType != null){
+                int fieldTypeValue = fieldType.value();
+                value = getValueFromMap(fieldTypeValue, newValinfo);
+            }
+
+            if (value == null) {
+                result = record.setFldNULL(recordName);
+            } else {
+                result = record.setFldVal(recordName, value);
             }
             promise.resolve(result);
         } catch (Exception e) {
             promise.reject(e);
         }
+    }
+
+    // 从ReadableMap获取value
+    private Object getValueFromMap(int fieldTypeValue, ReadableMap newValinfo){
+        Object value = null;
+        Calendar calendar = Calendar.getInstance();
+
+        // Double、Float、Long、Int64(对于java的long)、short
+        if(fieldTypeValue == FieldType.fldDouble.value() || fieldTypeValue == FieldType.fldFloat.value() || fieldTypeValue == FieldType.fldLong.value() || fieldTypeValue == FieldType.fldInt64.value()
+                || fieldTypeValue == FieldType.fldShort.value())
+        {
+
+            double doubleValue = newValinfo.getDouble("value");
+
+            if(fieldTypeValue == FieldType.fldFloat.value()) // float
+            {
+                value = (float) doubleValue;
+            }else if (fieldTypeValue == FieldType.fldLong.value() || fieldTypeValue == FieldType.fldInt64.value()){ //long
+                value = (long) doubleValue;
+
+            }else if(fieldTypeValue == FieldType.fldShort.value() ){ // short
+                value = (short) doubleValue;
+
+            }
+        }
+
+        //  TimeStamp、fldDate、fldTime
+        if(fieldTypeValue == FieldType.fldTimeStamp.value() || fieldTypeValue == FieldType.fldDate.value() || fieldTypeValue == FieldType.fldTime.value() ){
+            long time = 0;
+            if(fieldTypeValue == FieldType.fldTimeStamp.value()){
+                time = (long) newValinfo.getDouble("value");
+            }else{
+                String timeValue = newValinfo.getString("value");
+                time = Long.parseLong(timeValue);
+            }
+            calendar.setTimeInMillis(time);
+            value = calendar;
+        }
+
+        // str
+        if (fieldTypeValue == FieldType.fldStr.value() ){
+            value = newValinfo.getString("value");
+        }
+
+        return value;
     }
 
     @ReactMethod
@@ -189,7 +246,7 @@ public class JSRecord extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void isFldNULL(String recordId, int fldIndex, Promise promise)
+    public void isFldNULLOfFldIndex(String recordId, int fldIndex, Promise promise)
     {
         try {
             Record record = getObjFromList(recordId);
@@ -201,7 +258,7 @@ public class JSRecord extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void isFldNULL(String recordId, String fldName, Promise promise)
+    public void isFldNULLOfFldName(String recordId, String fldName, Promise promise)
     {
         try {
             Record record = getObjFromList(recordId);
@@ -213,7 +270,7 @@ public class JSRecord extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setFldNULL(String recordId, int fldIndex, Promise promise)
+    public void setFldNULLByIndex(String recordId, int fldIndex, Promise promise)
     {
         try {
             Record record = getObjFromList(recordId);
@@ -225,7 +282,7 @@ public class JSRecord extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setFldNULL(String recordId, String fldName, Promise promise)
+    public void setFldNULLByName(String recordId, String fldName, Promise promise)
     {
         try {
             Record record = getObjFromList(recordId);
@@ -249,7 +306,7 @@ public class JSRecord extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void getFieldType(String recordId, int fldIndex, Promise promise)
+    public void getFieldTypeByIndex(String recordId, int fldIndex, Promise promise)
     {
         try {
             Record record = getObjFromList(recordId);
@@ -262,7 +319,7 @@ public class JSRecord extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void getFieldType(String recordId, String fldName, Promise promise)
+    public void getFieldTypeByName(String recordId, String fldName, Promise promise)
     {
         try {
             Record record = getObjFromList(recordId);
