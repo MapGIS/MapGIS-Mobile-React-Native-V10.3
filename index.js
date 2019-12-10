@@ -128,6 +128,8 @@ import TextStyle from "./js/TextStyle";
 import CoordinateConvert from "./js/CoordinateConvert";
 import CoordinateConvertParameter from "./js/CoordinateConvertParameter";
 
+import ElpParam from "./js/ElpParam";
+import ElpTransParam from "./js/ElpTransParam";
 import ElpTransformation from "./js/ElpTransformation";
 
 import Dots from "./js/Dots";
@@ -292,6 +294,8 @@ export {
   CoordinateConvertParameter,
   CoordinateType,
 
+  ElpParam,
+  ElpTransParam,
   ElpTransformation,
   CoordType,
   LevelType,

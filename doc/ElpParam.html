@@ -48,6 +48,10 @@
 
 
 
+<div class="description">
+    地球椭球参数
+</div>
+
 
 
 
@@ -89,7 +93,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ElpParam.js.html">ElpParam.js</a>, <a href="ElpParam.js.html#line6">line 6</a>
+        <a href="ElpParam.js.html">ElpParam.js</a>, <a href="ElpParam.js.html#line9">line 9</a>
     </li></ul></dd>
     
 
@@ -137,6 +141,747 @@
     
 
     
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".createObj"><span class="type-signature">(async, static) </span>createObj<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="ElpParam.html">ElpParam</a>>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    构造一个新的 ElpParam 对象。
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ElpParam.js.html">ElpParam.js</a>, <a href="ElpParam.js.html#line20">line 20</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;<a href="ElpParam.html">ElpParam</a>></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".fromString"><span class="type-signature">(async, static) </span>fromString<span class="signature">(stringValue)</span><span class="type-signature"> &rarr; {Promise.&lt;Void>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    设置所有成员变量值，字符串中的键请与示例的键保持一致
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>stringValue</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">键值对格式字符串</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ElpParam.js.html">ElpParam.js</a>, <a href="ElpParam.js.html#line105">line 105</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;Void></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// 设置全部变量
+        let obj = { a: 5.0, b: 7.0, af: 9.0, r: 10.0, name: '张三' } 
+        
+        // JSON对象设置全部变量
+        // let obj = {"a": 2.0, "b": 3.0, "af": 4.0, "r": 6.0, "name": "李四"};
+        
+        // 字符串
+        let stringValue = JSON.stringify(obj);
+        let eleParam = new ElpParam();
+        let eleParamObj = await eleParam.createObj();
+        await eleParamObj.fromString(stringValue);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".get"><span class="type-signature">(async, static) </span>get<span class="signature">(key)</span><span class="type-signature"> &rarr; {String|Number}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    通过成员变量的名称获取值 <br>成员变量的名称包括: <br>  'a' --- 地球椭球长轴 <br>  'b' --- 地球椭球短轴 <br>  'af' --- 地球椭球扁率 <br>  'r' --- 等面积球体半径 <br>  'name' --- 地球椭球体名称 <br>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">成员变量的名称</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ElpParam.js.html">ElpParam.js</a>, <a href="ElpParam.js.html#line75">line 75</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    成员变量值
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+|
+
+<span class="param-type">Number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".set"><span class="type-signature">(async, static) </span>set<span class="signature">(key, value)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    通过成员变量的名称设置值 <br> 成员变量的名称 --- 注释: <br>  'a' --- 地球椭球长轴，double <br>  'b' --- 地球椭球短轴，double <br>  'af' --- 地球椭球扁率，double <br>  'r' --- 等面积球体半径，double <br>  'name' --- 地球椭球体名称，String <br>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">成员变量的名称</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+|
+
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">成员变量的值</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ElpParam.js.html">ElpParam.js</a>, <a href="ElpParam.js.html#line53">line 53</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;void></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>let eleParam = new ElpParam();
+        let eleParamObj = await eleParam.createObj();
+        await eleParamObj.set('name', '王五');
+        await eleParamObj.set('a', 20.4);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".toString"><span class="type-signature">(async, static) </span>toString<span class="signature">()</span><span class="type-signature"> &rarr; {String}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    获取所有的成员变量名称和值
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ElpParam.js.html">ElpParam.js</a>, <a href="ElpParam.js.html#line122">line 122</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    json字符串
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+    
 
     
 
@@ -157,7 +902,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Mon Dec 09 2019 20:37:21 GMT+0800 (GMT+08:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Tue Dec 10 2019 17:50:27 GMT+0800 (GMT+08:00)
 </footer>
 
 <script> prettyPrint(); </script>

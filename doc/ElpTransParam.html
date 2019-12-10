@@ -48,6 +48,10 @@
 
 
 
+<div class="description">
+    椭球坐标系变换参数
+</div>
+
 
 
 
@@ -89,7 +93,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ElpTransParam.js.html">ElpTransParam.js</a>, <a href="ElpTransParam.js.html#line6">line 6</a>
+        <a href="ElpTransParam.js.html">ElpTransParam.js</a>, <a href="ElpTransParam.js.html#line8">line 8</a>
     </li></ul></dd>
     
 
@@ -137,6 +141,752 @@
     
 
     
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".createObj"><span class="type-signature">(async, static) </span>createObj<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="ElpTransParam.html">ElpTransParam</a>>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    构造一个新的 ElpTransParam 对象。
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ElpTransParam.js.html">ElpTransParam.js</a>, <a href="ElpTransParam.js.html#line18">line 18</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;<a href="ElpTransParam.html">ElpTransParam</a>></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".fromString"><span class="type-signature">(async, static) </span>fromString<span class="signature">(stringValue)</span><span class="type-signature"> &rarr; {Promise.&lt;Void>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    设置所有成员变量值，字符串中的键请与示例的键保持一致
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>stringValue</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">键值对形式的字符串</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ElpTransParam.js.html">ElpTransParam.js</a>, <a href="ElpTransParam.js.html#line137">line 137</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;Void></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// 设置全部变量
+        let obj = {name: '张三', inCord: 1, inUnit: 5, outCord: 1, outUnit: 7,  type: 0,
+         dx: 8.0, dy: 9.0, dz: 10.0, wx: 11.0, wy: 12.0, wz: 1.2, dm: 1.0 };
+
+        // JSON对象设置全部变量
+        // let obj = {"name": "李四", "inCord": 1, "inUnit": 5, "outCord": 1, "outUnit": 7,  "type": 0,
+        // "dx": 8.0, "dy": 9.0, "dz": 10.0, "wx": 11.0, "wy": 12.0, "wz": 1.2, "dm": 1.0 };
+
+        // 将对象转换成字符串
+        let stringValue = JSON.stringify(obj);
+
+        let elpTransParam = new ElpTransParam();
+        let elpTransParamObj = await elpTransParam.createObj();
+        await elpTransParamObj.fromString(stringValue);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".get"><span class="type-signature">(async, static) </span>get<span class="signature">(key)</span><span class="type-signature"> &rarr; {String|Number}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    通过成员变量的名称获取值 <br>成员变量的名称包括: <br>  'name'  --- 转换名称 <br>  'inCord' --- 源坐标系椭球体编号（从1开始） <br>  'inUnit' --- 输入数据单位 <br>  'outCord' --- 目的坐标系椭球体编号（从1开始） <br>  'outUnit' --- 输出数据单位 <br>  'type' --- 转换类型（0/1：三参数直角平移/七参数）<br>  'dx' --- （三参数/七参数）x方向的平移值（单位：m） <br>  'dy' --- （三参数/七参数）y方向的平移值（单位：m） <br>  'dz' --- （三参数/七参数）z方向的平移值（单位：m）<br>  'wx' --- （七参数）绕x轴的旋转角（单位：弧度）<br>  'wy' --- （七参数）绕y轴的旋转角（单位：弧度） <br>  'wz' --- （七参数）绕z轴的旋转角（单位：弧度） <br>  'dm' --- 七参数尺度比例因子 <br>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">成员变量的名称</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ElpTransParam.js.html">ElpTransParam.js</a>, <a href="ElpTransParam.js.html#line90">line 90</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    成员变量值
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+|
+
+<span class="param-type">Number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".set"><span class="type-signature">(async, static) </span>set<span class="signature">(key, value)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    通过成员变量的名称设置值 <br> 成员变量的名称 --- 注释: <br>  'name'  --- 转换名称，String <br>  'inCord' --- 源坐标系椭球体编号（从1开始），int <br>  'inUnit' --- 输入数据单位，int <br>  'outCord' --- 目的坐标系椭球体编号（从1开始），int <br>  'outUnit' --- 输出数据单位，int <br>  'type' --- 转换类型（0/1：三参数直角平移/七参数），int <br>  'dx' --- （三参数/七参数）x方向的平移值（单位：m），double <br>  'dy' --- （三参数/七参数）y方向的平移值（单位：m），double <br>  'dz' --- （三参数/七参数）z方向的平移值（单位：m），double <br>  'wx' --- （七参数）绕x轴的旋转角（单位：弧度），double <br>  'wy' --- （七参数）绕y轴的旋转角（单位：弧度），double <br>  'wz' --- （七参数）绕z轴的旋转角（单位：弧度），double <br>  'dm' --- 七参数尺度比例因子，double <br>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">成员变量的名称</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+|
+
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">成员变量的值</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ElpTransParam.js.html">ElpTransParam.js</a>, <a href="ElpTransParam.js.html#line60">line 60</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;void></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>let elpTransParam = new ElpTransParam();
+        let elpTransParamObj = await elpTransParam.createObj();
+
+        await elpTransParamObj.set('name', '王五');
+        await elpTransParamObj.set('inCord', 1);
+        await elpTransParamObj.set('dx', 12.9);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".toString"><span class="type-signature">(async, static) </span>toString<span class="signature">()</span><span class="type-signature"> &rarr; {String}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    获取所有的成员变量名称和值
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ElpTransParam.js.html">ElpTransParam.js</a>, <a href="ElpTransParam.js.html#line104">line 104</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    json字符串
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+    
 
     
 
@@ -157,7 +907,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Mon Dec 09 2019 20:37:21 GMT+0800 (GMT+08:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Tue Dec 10 2019 17:50:27 GMT+0800 (GMT+08:00)
 </footer>
 
 <script> prettyPrint(); </script>
