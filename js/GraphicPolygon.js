@@ -55,17 +55,69 @@ export default class GraphicPolygon extends GraphicMultiPoint {
   /**
    * 设置一组坐标点
    * @memberOf GraphicPolygon
-   * @param {Array} pointArray
-   * @param {Array} circlesArray
+   * @param {Array} pointArray 点数组
+   * @param {Array} circlesArray  圈序列数组
    * @returns {Promise<void>}
    */
   async setPoints(pointArray, circlesArray) {
     try {
-      await GP.setPoints(this._MGGraphicMultiPointId, pointArray, circlesArray);
+      let pointArrayJson = JSON.stringify(pointArray);
+
+      let objArray = [];
+      let objArrayJson = null;
+      if(circlesArray !== null && circlesArray.length > 0){
+        for(let i = 0; i < circlesArray.length; i++){
+          let obj = {};
+          obj.c = circlesArray[i];
+          objArray.push(obj);
+        }
+        objArrayJson = JSON.stringify(objArray);
+
+      }
+      
+      await GP.setPoints(this._MGGraphicPolygonId, pointArrayJson, objArrayJson);
     } catch (e) {
       console.error(e);
     }
   }
+
+/**
+   * 通过点序列设置一组坐标点
+   * @memberOf GraphicPolygon
+   * @param {Dots} dots 点序列
+   * @param {Array} circlesArray 圈序列数组
+   * @returns {Promise<void>}
+   * @example
+       let dotArr = [];
+       dotArr.push({x: 114.4, y: 30.4});
+       dotArr.push({x: 114.44, y: 30.41});
+       dotArr.push({x: 114.5, y: 30.5});
+
+       let dotsModule = new Dots();
+       let dots = await dotsModule.createObj();
+       let circles = [1, 2, 3]; // let circles = null;
+       await dots.fromObjectArray(dotArr);
+       await this.graphicPolygon.setPointsByDots(dots, null);
+
+   */
+  async setPointsByDots(dots, circlesArray) {
+    try {
+      let objArray = [];
+      let objArrayJson = null;
+      if(circlesArray !== null && circlesArray.length > 0){
+        for(let i = 0; i < circlesArray.length; i++){
+          let obj = {};
+          obj.c = circlesArray[i];
+          objArray.push(obj);
+        }
+        objArrayJson = JSON.stringify(objArray);
+      }
+      await GP.setPointsByDots(this._MGGraphicPolygonId, dots._MGDotsId, objArrayJson);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
 
   /**
    * 获取圈序列

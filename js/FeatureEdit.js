@@ -19,7 +19,7 @@ export default class FeatureEdit {
    */
   async createObjByVectorLayer(vectorLayer) {
     try {
-      var { FeatureEditId } = await FE.createObj(vectorLayer._MGVectorLayerId);
+      var { FeatureEditId } = await FE.createObjByLayer(vectorLayer._MGVectorLayerId);
       var featureEdit = new FeatureEdit();
       featureEdit._MGFeatureEditId = FeatureEditId;
       return featureEdit;
@@ -36,7 +36,7 @@ export default class FeatureEdit {
    */
   async createObjByCls(cls) {
     try {
-      var { FeatureEditId } = await FE.createObj(cls._MGVectorClsId);
+      var { FeatureEditId } = await FE.createObjByCls(cls._MGVectorClsId);
       var featureEdit = new FeatureEdit();
       featureEdit._MGFeatureEditId = FeatureEditId;
       return featureEdit;
@@ -56,7 +56,7 @@ export default class FeatureEdit {
    */
   async createObjByIGSDoc(strIGServerBaseURL, strDocName, mapID, layerID) {
     try {
-      var { FeatureEditId } = await FE.createObj(
+      var { FeatureEditId } = await FE.createObjByIGSDoc(
         strIGServerBaseURL,
         strDocName,
         mapID,
@@ -79,7 +79,7 @@ export default class FeatureEdit {
    */
   async createObjByIGSData(strIGServerBaseURL, strDataURL) {
     try {
-      var { FeatureEditId } = await FE.createObj(
+      var { FeatureEditId } = await FE.createObjByIGSData(
         strIGServerBaseURL,
         strDataURL
       );
@@ -113,7 +113,7 @@ export default class FeatureEdit {
    */
   async appendFeatures(featureArray) {
     try {
-      return await FE.append(this._MGFeatureEditId, featureArray);
+      return await FE.appendFeatures(this._MGFeatureEditId, featureArray);
     } catch (e) {
       console.error(e);
     }
@@ -141,7 +141,7 @@ export default class FeatureEdit {
    */
   async deleteobjIDs(objIDArray) {
     try {
-      return await FE.delete(this._MGFeatureEditId, objIDArray);
+      return await FE.deleteObjIDs(this._MGFeatureEditId, objIDArray);
     } catch (e) {
       console.error(e);
     }
@@ -174,7 +174,7 @@ export default class FeatureEdit {
    */
   async updateFeatures(featureArray) {
     try {
-      return await FE.update(this._MGFeatureEditId, featureArray);
+      return await FE.updateFeatures(this._MGFeatureEditId, featureArray);
     } catch (e) {
       console.error(e);
     }
@@ -193,7 +193,7 @@ export default class FeatureEdit {
    */
   async createClsBySRef(clsType, name, geomType, srefName, dsName, flds) {
     try {
-      return await FE.createCls(
+      return await FE.createClsBySRef(
         this._MGFeatureEditId,
         clsType,
         name,

@@ -5,6 +5,7 @@
 import { NativeModules } from 'react-native';
 import Graphic from './Graphic';
 import Dot from './Dot';
+import Dots from './Dots';
 let GM = NativeModules.JSGraphicMultiPoint;
 
 /**
@@ -42,29 +43,57 @@ export default class GraphicMultiPoint extends Graphic {
   /**
    * 设置一组坐标点
    * @memberOf GraphicMultiPoint
-   * @param {Object} point
-   * @param {Number} radius
+   * @param {Array} pointArray dot数组
    * @returns {Promise<void>}
    */
   async setPoints(pointArray) {
     try {
-      await GM.setPoints(this._MGGraphicMultiPointId, pointArray);
+      let json = JSON.stringify(pointArray);
+
+      await GM.setPoints(this._MGGraphicMultiPointId, json);
     } catch (e) {
       console.error(e);
     }
   }
 
   /**
-   * 获取是否符号化显示
+   * 通过点序列Dots设置坐标点
    * @memberOf GraphicMultiPoint
-   * @returns {Promise<*>}
+   * @param {Dots} dots dots点序列
+   * @returns {Promise<void>}
+   * @example
+       let dotArr = [];
+       dotArr.push({x: 114.4, y: 30.4});
+       dotArr.push({x: 114.44, y: 30.41});
+       dotArr.push({x: 114.5, y: 30.5});
+
+       let dotsModule = new Dots();
+       let dots = await dotsModule.createObj();
+       await dots.fromObjectArray(dotArr);
+       await this.graphicMultiPoint.setPointsByDots(dots);
+
+
+   */
+  async setPointsByDots(dots) {
+    try {
+      await GM.setPointsByDots(this._MGGraphicMultiPointId, dots._MGDotsId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+
+  /**
+   * 获取一组坐标点
+   * @memberOf GraphicMultiPoint
+   * @returns {Promise<Array>} dot数组
    */
   async getPoints() {
     try {
-      var objArr = [];
+      let objArr = [];
       let dotsArr = await GM.getPoints(this._MGGraphicMultiPointId);
-      for (var i = 0; i < dotsArr.length; i++) {
-        var dot = new Dot();
+      for (let i = 0; i < dotsArr.length; i++) {
+        let dot = new Dot();
         dot._MGDotId = dotsArr[i];
         objArr.push(dot);
       }
@@ -75,9 +104,29 @@ export default class GraphicMultiPoint extends Graphic {
   }
 
   /**
-   * 获取圆边界线的宽度
+   * 获取坐标点序列Dots
+   * 
    * @memberOf GraphicMultiPoint
-   * @returns {Promise<*>}
+   * @returns {Promise<Dots>} 点序列Dots
+   */
+  async getPointsToDots(){
+    try {
+      let dotsId = await GM.getPointsToDots(this._MGGraphicMultiPointId);
+      let dots = null;
+      if(dotsId !== null){
+        dots = new Dots();
+        dots._MGDotsId = dotsId;
+      }
+
+      return dots;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+  /**
+   * 获取坐标点数目
+   * @memberOf GraphicMultiPoint
+   * @returns {Promise<Number>} 坐标点数目
    */
   async getPointCount() {
     try {
@@ -89,7 +138,7 @@ export default class GraphicMultiPoint extends Graphic {
   }
 
   /**
-   *获取指定索引的坐标点
+   * 获取指定索引的坐标点
    * @memberOf GraphicMultiPoint
    * @returns {Promise<Dot>}
    */

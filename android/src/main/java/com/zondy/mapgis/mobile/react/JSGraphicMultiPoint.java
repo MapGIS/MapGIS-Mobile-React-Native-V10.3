@@ -12,10 +12,16 @@ import com.zondy.mapgis.android.graphic.GraphicMultiPoint;
 import com.zondy.mapgis.android.graphic.GraphicPolygon;
 import com.zondy.mapgis.android.graphic.GraphicPolylin;
 import com.zondy.mapgis.core.geometry.Dot;
+import com.zondy.mapgis.core.geometry.Dots;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -69,19 +75,28 @@ public class JSGraphicMultiPoint extends JSGraphic {
     }
 
     @ReactMethod
-    public void setPoints(String GraphicMultiPointId, ReadableArray pointArray, Promise promise) {
+    public void setPoints(String GraphicMultiPointId, String json, Promise promise) {
         try {
-            GraphicMultiPoint GraphicMultiPoint = getGraphicByID(GraphicMultiPointId);
-            ArrayList<Dot> dotLst = new ArrayList();
-            if (GraphicMultiPoint != null) {
-                for (int i = 0; i < pointArray.size(); i++) {
-                    ReadableMap readable = pointArray.getMap(i);
-                    String keyStr = readable.getString("_MGDotId");
-                    dotLst.add(JSDot.getObjFromList(keyStr));
-                }
-
+            GraphicMultiPoint graphicMultiPoint = getGraphicByID(GraphicMultiPointId);
+            if(json != null && !json.isEmpty()){
+                List<Dot> dotLst = convertJsonToDotList(json);
+                graphicMultiPoint.setPoints(dotLst);
+                promise.resolve(true);
+            }else {
+                promise.resolve(false);
             }
-            GraphicMultiPoint.setPoints(dotLst);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void setPointsByDots(String GraphicMultiPointId, String dotsId, Promise promise) {
+        try {
+            GraphicMultiPoint graphicMultiPoint = getGraphicByID(GraphicMultiPointId);
+            Dots dots = JSDots.getObjFromList(dotsId);
+            graphicMultiPoint.setPoints(dots);
+
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -103,6 +118,22 @@ public class JSGraphicMultiPoint extends JSGraphic {
             }
             promise.resolve(dotsArr);
         } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getPointsToDots(String GraphicMultiPointId, Promise promise){
+        try {
+            GraphicMultiPoint graphicMultiPoint = getGraphicByID(GraphicMultiPointId);
+            Dots dots = graphicMultiPoint.getPointsToDots();
+            String dotsId = null;
+            if(dots != null){
+                dotsId = JSDots.registerId(dots);
+            }
+
+            promise.resolve(dotsId);
+        }catch (Exception e){
             promise.reject(e);
         }
     }
@@ -255,5 +286,23 @@ public class JSGraphicMultiPoint extends JSGraphic {
         }
 
         return graphic;
+    }
+
+    public List<Dot> convertJsonToDotList(String json){
+        List<Dot> dotList = new ArrayList<>();
+
+        try {
+            JSONArray jsonArray = new JSONArray(json);
+            for (int i = 0; i < jsonArray.length(); i++){
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                String dotId = jsonObject.getString("_MGDotId");
+                Dot dot = JSDot.getObjFromList(dotId);
+                dotList.add(dot);
+            }
+
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        return dotList;
     }
 }

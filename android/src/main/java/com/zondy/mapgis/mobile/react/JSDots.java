@@ -1,13 +1,22 @@
 package com.zondy.mapgis.mobile.react;
 
+import android.util.Log;
+
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.geometry.Dot;
 import com.zondy.mapgis.core.geometry.Dots;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -133,5 +142,73 @@ public class JSDots extends ReactContextBaseJavaModule {
         } catch (Exception e) {
             promise.reject(e);
         }
+    }
+
+    @ReactMethod
+    public void fromObjectArray(String strDotsId, String jsonStr, Promise promise){
+        try {
+            Dots dots = getObjFromList(strDotsId);
+            dots.clear();
+            int result = 0;
+            if(jsonStr != null && !jsonStr.isEmpty()){
+                Dots dots1 = initDots(jsonStr);
+                result = dots.append(dots1);
+            }
+
+            promise.resolve(result);
+
+        }catch (Exception e){
+
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void toObjectArray(String strDotsId, Promise promise){
+        try {
+            Dots dots = getObjFromList(strDotsId);
+
+            int dotsSize = dots.size();
+            WritableArray writableArray = Arguments.createArray();
+            for (int i = 0; i < dotsSize; i++){
+                Dot dot = dots.get(i);
+                WritableMap writableMap = Arguments.createMap();
+                writableMap.putDouble("x", dot.x);
+                writableMap.putDouble("y", dot.y);
+
+                writableArray.pushMap(writableMap);
+            }
+
+            promise.resolve(writableArray);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    private Dots initDots(String jsonString){
+        Dots dots = new Dots();
+
+        try
+        {
+            JSONArray jsonArray = new JSONArray(jsonString);
+            if (jsonArray != null)
+            {
+                int jsonSize = jsonArray.length();
+                for (int i = 0; i < jsonSize; i++)
+                {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                    double x = jsonObject.getDouble("x");
+                    double y = jsonObject.getDouble("y");
+                    dots.append(new Dot(x, y));
+                }
+            }
+
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
+        return dots;
     }
 }

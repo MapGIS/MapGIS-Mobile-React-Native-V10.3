@@ -81,7 +81,7 @@ public class JSFeatureEdit extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void createObj(String strIGServerBaseURL, String strDocName, int mapID, int layerID, Promise promise) {
+    public void createObjByIGSDoc(String strIGServerBaseURL, String strDocName, int mapID, int layerID, Promise promise) {
         try { ;
             FeatureEdit featureEdit = new FeatureEdit(strIGServerBaseURL, strDocName, mapID, layerID);
             String featureEditId = registerId(featureEdit);
@@ -94,7 +94,7 @@ public class JSFeatureEdit extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void createObj(String strIGServerBaseURL, String strDataURL, Promise promise) {
+    public void createObjByIGSData(String strIGServerBaseURL, String strDataURL, Promise promise) {
         try { ;
             FeatureEdit featureEdit = new FeatureEdit(strIGServerBaseURL, strDataURL);
             String featureEditId = registerId(featureEdit);
@@ -120,7 +120,7 @@ public class JSFeatureEdit extends ReactContextBaseJavaModule {
     }
 
    @ReactMethod
-    public void append(String featureEditId, ReadableArray featureArray, Promise promise)
+    public void appendFeatures(String featureEditId, ReadableArray featureArray, Promise promise)
     {
         try {
             FeatureEdit featureEdit = getObjFromList(featureEditId);
@@ -152,7 +152,7 @@ public class JSFeatureEdit extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void delete(String featureEditId, ReadableArray objIDArray, Promise promise)
+    public void deleteObjIDs(String featureEditId, ReadableArray objIDArray, Promise promise)
     {
         try {
             FeatureEdit featureEdit = getObjFromList(featureEditId);
@@ -183,7 +183,7 @@ public class JSFeatureEdit extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void update(String featureEditId, ReadableArray featureArray, Promise promise)
+    public void updateFeatures(String featureEditId, ReadableArray featureArray, Promise promise)
     {
         try {
             FeatureEdit featureEdit = getObjFromList(featureEditId);
@@ -203,7 +203,7 @@ public class JSFeatureEdit extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void createCls(String featureEditId, int clsType, String name, int geomType, String srefName, String dsName, String fldsId, Promise promise)
+    public void createClsBySRef(String featureEditId, int clsType, String name, int geomType, String srefName, String dsName, String fldsId, Promise promise)
     {
         try {
             FeatureEdit featureEdit = getObjFromList(featureEditId);

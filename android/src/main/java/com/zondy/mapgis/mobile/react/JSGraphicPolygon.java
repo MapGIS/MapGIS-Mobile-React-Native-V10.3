@@ -1,5 +1,7 @@
 package com.zondy.mapgis.mobile.react;
 
+import android.util.Log;
+
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -8,13 +10,20 @@ import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
+import com.zondy.mapgis.core.geometry.Dot;
 import com.zondy.mapgis.mobile.react.utils.ConvertUtil;
 import com.zondy.mapgis.android.graphic.GraphicPolygon;
 import com.zondy.mapgis.core.geometry.Dots;
 import com.zondy.mapgis.core.object.IntList;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -79,30 +88,73 @@ public class JSGraphicPolygon extends JSGraphicMultiPoint {
     }
 
     @ReactMethod
-    public void setPoints(String GraphicPolygonId, ReadableArray pointArray, ReadableArray circlesArray, Promise promise) {
+    public void setPoints(String GraphicPolygonId, String pointArrayJson, String circlesArrayJson, Promise promise) {
         try {
             GraphicPolygon graphicPolygon = getObjFromList(GraphicPolygonId);
-            Dots dotLst = new Dots();
-            IntList intList = new IntList();
-            if (graphicPolygon != null) {
-                for (int i = 0; i < pointArray.size(); i++) {
-                    ReadableMap readable = pointArray.getMap(i);
-                    String keyStr = readable.getString("_MGDotId");
-                    dotLst.append(JSDot.getObjFromList(keyStr));
-                }
-                if (circlesArray != null) {
-                    for (int j = 0; j < circlesArray.size(); j++) {
-                        intList.append(circlesArray.getInt(j));
+            if(graphicPolygon != null){
+                List<Dot> dotList = convertJsonToDotList(pointArrayJson);
+                IntList intList = convertJsonToIntList(circlesArrayJson);
+                int[] circles = null;
+                if (intList != null && intList.size() > 0){
+                    for (int i =0; i < intList.size(); i++){
+                        circles = new int[intList.size()];
+                        circles[i] = intList.get(i);
                     }
-                } else {
-                    intList.append(dotLst.size());
+                }else{
+                    circles = new int[1];
+                    circles[0] = dotList.size();
                 }
+
+                graphicPolygon.setPoints(dotList, circles);
+                promise.resolve(true);
+            }else {
+                promise.reject("0", "GraphicPolygon is null");
             }
-            graphicPolygon.setPoints(dotLst, intList);
-            promise.resolve(true);
+
         } catch (Exception e) {
             promise.reject(e);
         }
+    }
+
+    @ReactMethod
+    public void setPointsByDots(String GraphicPolygonId, String dotsId, String circlesArray, Promise promise) {
+        try {
+            GraphicPolygon graphicPolygon = getObjFromList(GraphicPolygonId);
+
+            Dots dots = JSDots.getObjFromList(dotsId);
+
+            IntList  intList = convertJsonToIntList(circlesArray);
+            if(intList == null){
+                intList = new IntList();
+                intList.append(dots.size());
+            }
+            graphicPolygon.setPoints(dots, intList);
+
+            promise.resolve(true);
+
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    private IntList convertJsonToIntList(String circlesArrayJson){
+        IntList intList = null;
+        try {
+            if(circlesArrayJson != null && !circlesArrayJson.isEmpty()) {
+                intList = new IntList();
+                JSONArray jsonArray = new JSONArray(circlesArrayJson);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    int cInt = jsonObject.getInt("c");
+                    Log.e("cInt", cInt + "");
+                    intList.append(cInt);
+                }
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        return intList;
     }
 
     @ReactMethod

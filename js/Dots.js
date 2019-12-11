@@ -111,4 +111,46 @@ export default class Dots {
       console.error(e);
     }
   }
+
+  /**
+   * 通过包含多个对象的数组，给Dots设置点
+   * 
+   * @memberOf Dots
+   * @param {Array} objArray 包含一系列对象的数组，对象形式{x: Number, y: Number}
+   * @returns {Number} 大于0成功，否则失败
+   * @example 
+    let array = [];
+    array.push({x: 114.63, y: 30.40});
+    array.push({x: 114.33, y: 30.24});
+    array.push({x: 114.22, y: 30.22});
+    array.push({x: 114.15, y: 30.66});
+    let dotsModule = new Dots();
+    let dots = await dotsModule.createObj();
+    await dots.fromObjectArray(array);
+   * 
+   */
+  async fromObjectArray(objArray){
+    try {
+      let json = JSON.stringify(objArray);
+      return await DS.fromObjectArray(this._MGDotsId, json);
+
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 返回Dots的一系列点坐标构成的对象数组
+   * 
+   * @memberOf Dots
+   * @returns {Array} 返回包含由点坐标构成的对象的数组，对象形式{x: Number， y: Number}
+   */
+  async toObjectArray(){
+    try {
+      let dotArray = await DS.toObjectArray(this._MGDotsId);
+      return dotArray;
+    } catch (e) {
+      console.error(e);
+    }
+  }
 }
