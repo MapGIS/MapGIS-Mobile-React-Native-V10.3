@@ -46,7 +46,7 @@ export default class GraphicPoint extends Graphic {
    */
   async setPoint(point) {
     try {
-      await GP.setPoints(this._MGGraphicPointId, point._MGDotId);
+      await GP.setPoint(this._MGGraphicPointId, point._MGDotId);
     } catch (e) {
       console.error(e);
     }

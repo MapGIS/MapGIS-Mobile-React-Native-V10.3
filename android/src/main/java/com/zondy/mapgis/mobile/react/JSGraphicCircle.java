@@ -159,6 +159,7 @@ public class JSGraphicCircle extends JSGraphic {
         }
     }
 
+    @ReactMethod
     public void setRadiusByPixel(String GraphicCircleId, boolean pixel, Promise promise) {
         try {
             GraphicCircle GraphicCircle = getObjFromList(GraphicCircleId);

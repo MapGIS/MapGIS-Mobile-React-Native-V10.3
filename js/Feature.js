@@ -32,16 +32,43 @@ import Geometry from './Geometry.js';
  */
 export default class Feature {
   /**
-   * 构造一个新的 Feature 对象。
+   * 无参构造。构造一个新的 Feature 对象。
+   * 
    * @memberOf Feature
    * @returns {Promise.<Feature>}
    */
   async createObj() {
     try {
-      var { FeatureId } = await F.createObj();
-      var feature = new Feature();
+      let { FeatureId } = await F.createObj();
+      let feature = new Feature();
       feature._MGFeatureId = FeatureId;
       return feature;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+
+  /**
+   * 有参构造。通过attribute、geometry、geomInfo构造一个新的 Feature 对象。
+   * 
+   * @memberOf Feature
+   * @param {Array} attribute 存有属性字段及对应值的数组，不可为null。例：let array = []; array.push("name", "张三");
+   * @param {Geometry} geometry 几何对象
+   * @param {GeomInfo} geomInfo 图形对象
+   * @returns {Promise.<Feature>}
+   * @example
+   */
+  async createObjByParam(attribute, geometry, geomInfo) {
+    try {
+        let attributeJson = null;
+        if(attribute !== null){
+          attributeJson = JSON.stringify(attribute);
+        }
+        let { FeatureId } = await F.createObjByParam(attributeJson, geometry._MGGeometryId, geomInfo._MGGeomInfoId);
+        let feature = new Feature();
+        feature._MGFeatureId = FeatureId;
+        return feature;
     } catch (e) {
       console.error(e);
     }
@@ -238,13 +265,14 @@ export default class Feature {
    * 修改要素值（包括属性信息，图形信息，几何信息）
    * 
    * @memberof Feature
-   * @param {String} attribute 属性信息，JSON格式的字符串例{"LayerID":"0","ID":"1"}
+   * @param {String} attribute 属性信息，JSON格式的字符串，暂不支持null。例{"LayerID":"0","ID":"1"}
    * @param {Geometry} geometry 图形信息
    * @param {GeomInfo} geomInfo 几何信息
    * @returns {Promise<Number>} 大于0成功，否则失败
    */
   async modifyFeatureValue(attribute, geometry, geomInfo){
     try {
+      
       return await F.modifyFeatureValue(this._MGFeatureId,  attribute, geometry._MGGeometryId, geomInfo._MGGeomInfoId);
     } catch (e) {
       console.error(e);

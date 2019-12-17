@@ -1,5 +1,7 @@
 package com.zondy.mapgis.mobile.react;
 
+import android.util.Log;
+
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -67,6 +69,24 @@ public class JSFeature extends ReactContextBaseJavaModule {
             map.putString("FeatureId", FeatureId);
             promise.resolve(map);
         } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void createObjByParam(String jsonAttribute, String geometryId, String geomInfoId, Promise promise){
+        try {
+            HashMap<String, String> attributeMap = convertJsonToMap(jsonAttribute);
+            Geometry geometry = JSGeometry.getObjFromList(geometryId);
+            GeomInfo geomInfo = JSGeomInfo.getObjFromList(geomInfoId);
+
+            Feature feature = new Feature(attributeMap, geometry, geomInfo);
+            String featureId = registerId(feature);
+
+            WritableMap writableMap = Arguments.createMap();
+            writableMap.putString("FeatureId", featureId);
+            promise.resolve(writableMap);
+        }catch (Exception e){
             promise.reject(e);
         }
     }
@@ -192,19 +212,34 @@ public class JSFeature extends ReactContextBaseJavaModule {
     }
 
     // 将json格式的属性转换为HashMap
-    private HashMap<String, String> convertJsonToMap(String json){
-        HashMap<String, String> attributesMap = new HashMap<>();
+    private HashMap<String, String> convertJsonToMap(String attributeJson){
+        HashMap<String, String> attributesMap = null;
         try {
-            if(json != null && !json.isEmpty()){
-                JSONObject jsonObject = new JSONObject(json);
+            if(attributeJson != null && !attributeJson.isEmpty()){
+                String replaceJson = attributeJson;
 
+                attributesMap = new HashMap<>();
+
+                if(attributeJson != null && !attributeJson.isEmpty()){
+                    replaceJson = attributeJson.replaceAll(":null", ":\"null\"");
+
+                    if(replaceJson.contains(":\"\",")){
+                        replaceJson = replaceJson.replaceAll(":\"\"", ":\"null\"");
+                    }
+                }
+
+                JSONObject jsonObject = new JSONObject(replaceJson);
                 Iterator<String> it = jsonObject.keys();
-                    while(it.hasNext()){
-                        String key = it.next();
-                        String value = (String) jsonObject.get(key);
 
+                while(it.hasNext()){
+                    String key = it.next();
+                    String value = (String) jsonObject.get(key);
+                    if("null".equals(value)){
+                        attributesMap.put(key, null);
+                    }else{
                         attributesMap.put(key, value);
                     }
+                }
            }
 
         }catch (Exception e){
