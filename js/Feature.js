@@ -57,7 +57,7 @@ export default class Feature {
    * @param {Geometry} geometry 几何对象
    * @param {GeomInfo} geomInfo 图形对象
    * @returns {Promise.<Feature>}
-   * @example
+   * 
    */
   async createObjByParam(attribute, geometry, geomInfo) {
     try {

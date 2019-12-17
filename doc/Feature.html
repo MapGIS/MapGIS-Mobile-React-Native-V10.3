@@ -153,7 +153,7 @@
 
 
 <div class="description">
-    构造一个新的 Feature 对象。
+    无参构造。构造一个新的 Feature 对象。
 </div>
 
 
@@ -197,7 +197,208 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Feature.js.html">Feature.js</a>, <a href="Feature.js.html#line39">line 39</a>
+        <a href="Feature.js.html">Feature.js</a>, <a href="Feature.js.html#line40">line 40</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;<a href="Feature.html">Feature</a>></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".createObjByParam"><span class="type-signature">(async, static) </span>createObjByParam<span class="signature">(attribute, geometry, geomInfo)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Feature.html">Feature</a>>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    有参构造。通过attribute、geometry、geomInfo构造一个新的 Feature 对象。
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>attribute</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">存有属性字段及对应值的数组，不可为null。例：let array = []; array.push("name", "张三");</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>geometry</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Geometry.html">Geometry</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">几何对象</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>geomInfo</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="GeomInfo.html">GeomInfo</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">图形对象</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Feature.js.html">Feature.js</a>, <a href="Feature.js.html#line62">line 62</a>
     </li></ul></dd>
     
 
@@ -303,7 +504,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Feature.js.html">Feature.js</a>, <a href="Feature.js.html#line68">line 68</a>
+        <a href="Feature.js.html">Feature.js</a>, <a href="Feature.js.html#line95">line 95</a>
     </li></ul></dd>
     
 
@@ -391,7 +592,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Feature.js.html">Feature.js</a>, <a href="Feature.js.html#line82">line 82</a>
+        <a href="Feature.js.html">Feature.js</a>, <a href="Feature.js.html#line109">line 109</a>
     </li></ul></dd>
     
 
@@ -501,7 +702,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Feature.js.html">Feature.js</a>, <a href="Feature.js.html#line55">line 55</a>
+        <a href="Feature.js.html">Feature.js</a>, <a href="Feature.js.html#line82">line 82</a>
     </li></ul></dd>
     
 
@@ -607,7 +808,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Feature.js.html">Feature.js</a>, <a href="Feature.js.html#line123">line 123</a>
+        <a href="Feature.js.html">Feature.js</a>, <a href="Feature.js.html#line150">line 150</a>
     </li></ul></dd>
     
 
@@ -725,7 +926,7 @@
 
             
 
-            <td class="description last">属性信息，JSON格式的字符串例{"LayerID":"0","ID":"1"}</td>
+            <td class="description last">属性信息，JSON格式的字符串，暂不支持null。例{"LayerID":"0","ID":"1"}</td>
         </tr>
 
     
@@ -812,7 +1013,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Feature.js.html">Feature.js</a>, <a href="Feature.js.html#line246">line 246</a>
+        <a href="Feature.js.html">Feature.js</a>, <a href="Feature.js.html#line273">line 273</a>
     </li></ul></dd>
     
 
@@ -922,7 +1123,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Feature.js.html">Feature.js</a>, <a href="Feature.js.html#line228">line 228</a>
+        <a href="Feature.js.html">Feature.js</a>, <a href="Feature.js.html#line255">line 255</a>
     </li></ul></dd>
     
 
@@ -1032,7 +1233,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Feature.js.html">Feature.js</a>, <a href="Feature.js.html#line165">line 165</a>
+        <a href="Feature.js.html">Feature.js</a>, <a href="Feature.js.html#line192">line 192</a>
     </li></ul></dd>
     
 
@@ -1102,7 +1303,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Dec 11 2019 20:33:08 GMT+0800 (GMT+08:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Tue Dec 17 2019 19:31:41 GMT+0800 (GMT+08:00)
 </footer>
 
 <script> prettyPrint(); </script>
