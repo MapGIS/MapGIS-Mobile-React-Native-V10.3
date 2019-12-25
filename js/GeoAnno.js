@@ -13,6 +13,17 @@ let GA = NativeModules.JSGeoAnno;
  * @class GeoAnno
  */
 export default class GeoAnno extends Geometry {
+  constructor() {
+    super();
+    Object.defineProperty(this, '_MGGeoAnnoId', {
+      get: function() {
+        return this._MGGeometryId;
+      },
+      set: function(_MGGeoAnnoId) {
+        this._MGGeometryId = _MGGeoAnnoId;
+      },
+    });
+  }
   /**
    * 拷贝几何信息
    * @memberOf GeoAnno
