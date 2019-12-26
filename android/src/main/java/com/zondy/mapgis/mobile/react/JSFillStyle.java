@@ -8,6 +8,7 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.android.tool.sketcheditor.FillStyle;
 import com.zondy.mapgis.android.tool.sketcheditor.LineStyle;
+import com.zondy.mapgis.mobile.react.utils.ConvertUtil;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -63,10 +64,12 @@ public class JSFillStyle extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void createObjCL(int color, String lineStyleId, Promise promise){
+    public void createObjCL(String color, String lineStyleId, Promise promise){
         try {
             LineStyle lineStyle = JSLineStyle.getObjFromList(lineStyleId);
-            FillStyle fillStyle = new FillStyle(color, lineStyle);
+            int fillColor = ConvertUtil.ColorRGBAToInt(color);
+
+            FillStyle fillStyle = new FillStyle(fillColor, lineStyle);
             String fillStyleId = registerId(fillStyle);
             WritableMap writableMap = Arguments.createMap();
             writableMap.putString("FillStyleId", fillStyleId);
@@ -82,18 +85,20 @@ public class JSFillStyle extends ReactContextBaseJavaModule {
         try {
             FillStyle fillStyle = getObjFromList(fillStyleId);
             int color = fillStyle.getColor();
+            String strColor = ConvertUtil.ColorIntToRGBA(color);
 
-            promise.resolve(color);
+            promise.resolve(strColor);
         }catch (Exception e){
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void setColor(String fillStyleId, int color, Promise promise){
+    public void setColor(String fillStyleId, String color, Promise promise){
         try {
             FillStyle fillStyle = getObjFromList(fillStyleId);
-            fillStyle.setColor(color);
+            int fillColor = ConvertUtil.ColorRGBAToInt(color);
+            fillStyle.setColor(fillColor);
 
             promise.resolve(true);
         }catch (Exception e){

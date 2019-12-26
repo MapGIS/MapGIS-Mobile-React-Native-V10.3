@@ -15,7 +15,7 @@ let PS = NativeModules.JSPointStyle;
 export default class PointStyle {
   /**
    * 构造一个新的PointStyle对象，可通过无参或有参构造。
-   * 有参构造的参数为：颜色（int类型的Number），大小（float类型的Number）
+   * 有参构造的参数为：颜色（string，eg：'rgba(128, 128, 128, 128)'），大小（float类型的Number）
    *
    * @memberof PointStyle
    * @returns {Promise<PointStyle>}
@@ -23,13 +23,14 @@ export default class PointStyle {
   async createObj() {
     try {
       if (
-        typeof arguments[0] === 'number' &&
+        typeof arguments[0] === 'string' &&
         typeof arguments[1] === 'number'
       ) {
         var { PointStyleId } = await PS.createObjByCS(
           arguments[0],
           arguments[1]
         );
+
         var pointStyle = new PointStyle();
         pointStyle._MGPointStyleId = PointStyleId;
         return pointStyle;
@@ -67,7 +68,7 @@ export default class PointStyle {
    * 获取点样式的颜色
    *
    * @memberof PointStyle
-   * @returns {Number} 颜色 （int类型的Number）
+   * @returns {String} 颜色 
    */
   async getColor() {
     try {
@@ -82,7 +83,7 @@ export default class PointStyle {
    * 设置点样式的颜色
    *
    * @memberof PointStyle
-   * @param {Number} color 颜色 （int类型的Number）
+   * @param {String} color 颜色 eg:'rgba(128, 128, 128, 128)'
    * @returns {Promise<Void>}
    */
   async setColor(color) {

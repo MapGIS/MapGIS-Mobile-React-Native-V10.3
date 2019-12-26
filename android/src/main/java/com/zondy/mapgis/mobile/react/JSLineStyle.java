@@ -7,6 +7,7 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.android.tool.sketcheditor.LineStyle;
+import com.zondy.mapgis.mobile.react.utils.ConvertUtil;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -62,9 +63,10 @@ public class JSLineStyle extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void createObjByCW(int color, float width, Promise promise){
+    public void createObjByCW(String color, float width, Promise promise){
         try {
-            LineStyle lineStyle = new LineStyle(color, width);
+            int lineColor = ConvertUtil.ColorRGBAToInt(color);
+            LineStyle lineStyle = new LineStyle(lineColor, width);
             String lineStyleId = registerId(lineStyle);
             WritableMap writableMap = Arguments.createMap();
             writableMap.putString("LineStyleId", lineStyleId);
@@ -80,18 +82,20 @@ public class JSLineStyle extends ReactContextBaseJavaModule {
         try {
             LineStyle lineStyle = getObjFromList(lineStyleId);
             int color = lineStyle.getColor();
+            String strColor = ConvertUtil.ColorIntToRGBA(color);
 
-            promise.resolve(color);
+            promise.resolve(strColor);
         }catch (Exception e){
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void setColor(String lineStyleId, int color, Promise promise){
+    public void setColor(String lineStyleId, String color, Promise promise){
         try {
             LineStyle lineStyle = getObjFromList(lineStyleId);
-            lineStyle.setColor(color);
+            int lineColor = ConvertUtil.ColorRGBAToInt(color);
+            lineStyle.setColor(lineColor);
 
             promise.resolve(true);
         }catch (Exception e){

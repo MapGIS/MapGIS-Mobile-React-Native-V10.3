@@ -7,6 +7,7 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.android.tool.sketcheditor.TextStyle;
+import com.zondy.mapgis.mobile.react.utils.ConvertUtil;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -61,9 +62,10 @@ public class JSTextStyle extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void createObjByCS(int color, float size, Promise promise){
+    public void createObjByCS(String color, float size, Promise promise){
         try {
-            TextStyle textStyle = new TextStyle(color, size);
+            int textColor = ConvertUtil.ColorRGBAToInt(color);
+            TextStyle textStyle = new TextStyle(textColor, size);
             String textStyleId = registerId(textStyle);
             WritableMap writableMap = Arguments.createMap();
             writableMap.putString("TextStyleId", textStyleId);
@@ -79,18 +81,20 @@ public class JSTextStyle extends ReactContextBaseJavaModule {
         try {
             TextStyle textStyle = getObjFromList(textStyleId);
             int color = textStyle.getColor();
+            String strColor = ConvertUtil.ColorIntToRGBA(color);
 
-            promise.resolve(color);
+            promise.resolve(strColor);
         }catch (Exception e){
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void setColor(String textStyleId, int color, Promise promise){
+    public void setColor(String textStyleId, String color, Promise promise){
         try {
             TextStyle textStyle = getObjFromList(textStyleId);
-            textStyle.setColor(color);
+            int textColor = ConvertUtil.ColorRGBAToInt(color);
+            textStyle.setColor(textColor);
 
             promise.resolve(true);
         }catch (Exception e){

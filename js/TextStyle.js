@@ -15,7 +15,7 @@ let TS = NativeModules.JSTextStyle;
 export default class TextStyle {
   /**
    * 构造一个新的TextStyle对象，可通过无参或有参构造。
-   * 有参构造的参数为文本颜色（int类型的Number）、文本大小（float类型的Number）
+   * 有参构造的参数为：文本颜色（String, eg:'rgba(128, 128, 128, 128)'）、文本大小（float类型的Number）
    *
    * @memberof TextStyle
    * @returns {Promise<TextStyle>}
@@ -23,7 +23,7 @@ export default class TextStyle {
   async createObj() {
     try {
       if (
-        typeof arguments[0] === 'number' &&
+        typeof arguments[0] === 'string' &&
         typeof arguments[1] === 'number'
       ) {
         let { TextStyleId } = await TS.createObjByCS(
@@ -69,7 +69,7 @@ export default class TextStyle {
    * 获取颜色
    *
    * @memberof TextStyle
-   * @returns {Number} 颜色（int类型的Number）
+   * @returns {String} 颜色 
    */
   async getColor() {
     try {
@@ -82,7 +82,7 @@ export default class TextStyle {
 
   /**
    * @memberof TextStyle
-   * @param {Number} color 颜色（int类型的Number）
+   * @param {String} color 颜色 eg:'rgba(128, 128, 128, 128)'
    * @returns {Promise<Void>}
    */
   async setColor(color) {

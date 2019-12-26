@@ -16,7 +16,8 @@ let FS = NativeModules.JSFillStyle;
 export default class FillStyle {
   /**
    * 构造一个新的FillStyle对象，包含无参构造和有参构造两种方式。
-   * 有参构造参数为：颜色（int类型的）、线样式（LineStyle类型的Object）。
+   * 有参构造参数为：颜色（String, eg:'rgba(128, 128, 128, 128)'）、线样式（LineStyle类型的Object）。
+   * 
    * @memberof FillStyle
    * @returns {Promise<FillStyle>}
    */
@@ -24,7 +25,7 @@ export default class FillStyle {
     try {
       // 通过颜色、轮廓样式构造一个对象
       if (
-        typeof arguments[0] === 'number' &&
+        typeof arguments[0] === 'string' &&
         typeof arguments[1] === 'object'
       ) {
         let { FillStyleId } = await FS.createObjCL(
@@ -65,7 +66,7 @@ export default class FillStyle {
    * 获取区样式填充色
    *
    * @memberof FillStyle
-   * @returns {Number} 填充色（int类型的Number）
+   * @returns {String} 填充色
    */
   async getColor() {
     try {
@@ -80,7 +81,7 @@ export default class FillStyle {
    * 设置区样式的填充色
    *
    * @memberof FillStyle
-   * @param {Number} color 填充色（int类型的Number）
+   * @param {String} color 填充色 eg:'rgba(128, 128, 128, 128)'
    * @returns {Promise<Void>}
    */
   async setColor(color) {

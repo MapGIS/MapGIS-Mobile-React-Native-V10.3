@@ -7,6 +7,7 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.android.tool.sketcheditor.PointStyle;
+import com.zondy.mapgis.mobile.react.utils.ConvertUtil;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -61,9 +62,10 @@ public class JSPointStyle extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void createObjByCS(int color, float size, Promise promise){
+    public void createObjByCS(String color, float size, Promise promise){
         try {
-            PointStyle pointStyle = new PointStyle(color, size);
+            int pointColor = ConvertUtil.ColorRGBAToInt(color);
+            PointStyle pointStyle = new PointStyle(pointColor, size);
             String pointStyleId = registerId(pointStyle);
 
             WritableMap writableMap = Arguments.createMap();
@@ -79,18 +81,20 @@ public class JSPointStyle extends ReactContextBaseJavaModule {
         try {
             PointStyle pointStyle = getObjFromList(pointStyleId);
             int color = pointStyle.getColor();
+            String strColor = ConvertUtil.ColorIntToRGBA(color);
 
-            promise.resolve(color);
+            promise.resolve(strColor);
         }catch (Exception e){
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void setColor(String pointStyleId, int color, Promise promise){
+    public void setColor(String pointStyleId, String color, Promise promise){
         try {
             PointStyle pointStyle = getObjFromList(pointStyleId);
-            pointStyle.setColor(color);
+            int pointColor = ConvertUtil.ColorRGBAToInt(color);
+            pointStyle.setColor(pointColor);
 
             promise.resolve(true);
         }catch (Exception e){

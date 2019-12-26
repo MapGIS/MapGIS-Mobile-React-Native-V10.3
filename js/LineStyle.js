@@ -15,7 +15,7 @@ let LS = NativeModules.JSLineStyle;
 export default class LineStyle {
   /**
    * 构造一个新的LineStyle对象，可通过无参或有参构造。
-   * 有参构造的参数为：颜色（int类型的Number）、线宽（float类型的Number）
+   * 有参构造的参数为：颜色（string，eg：'rgba(128, 128, 128, 128)'）、线宽（float类型的Number）
    *
    * @memberof LineStyle
    * @returns {Promise<LineStyle>}
@@ -23,7 +23,7 @@ export default class LineStyle {
   async createObj() {
     try {
       if (
-        typeof arguments[0] === 'number' &&
+        typeof arguments[0] === 'string' &&
         typeof arguments[1] === 'number'
       ) {
         let { LineStyleId } = await LS.createObjByCW(
@@ -67,7 +67,7 @@ export default class LineStyle {
    * 获取线的颜色
    *
    * @memberof LineStyle
-   * @returns {Number} 线颜色 （int类型的Number）
+   * @returns {String} 线颜色 
    */
   async getColor() {
     try {
@@ -82,7 +82,7 @@ export default class LineStyle {
    * 设置线颜色
    *
    * @memberof LineStyle
-   * @param {Number} color 线颜色 （int类型的Number）
+   * @param {String} color 线颜色 eg:'rgba(128, 128, 128, 128)'
    * @returns {Promise<Void>}
    */
   async setColor(color) {
