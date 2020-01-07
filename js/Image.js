@@ -89,4 +89,22 @@ export default class Image {
       console.error(e);
     }
   }
+
+  /**
+   * 判断Image对象是否有效
+   * 
+   * @memberof Image
+   * @returns {Boolean} true：有效；false：无效
+   */
+   isValid(){
+    try {
+      if(this._MGImageId === undefined || this._MGImageId === null){
+        return false;
+      } else {
+        return true;
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
 }

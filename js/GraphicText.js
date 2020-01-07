@@ -6,6 +6,7 @@ import { NativeModules } from 'react-native';
 import Graphic from './Graphic';
 import Dot from './Dot';
 import PointF from './PointF';
+import ObjectUtils from './components/ObjectUtils';
 
 let GT = NativeModules.JSGraphicText;
 
@@ -44,12 +45,16 @@ export default class GraphicText extends Graphic {
   /**
    * 设置位置
    * @memberOf GraphicText
-   * @param point 定位点相对于文字的位置
+   * @param {Dot} point 定位点相对于文字的位置
    * @returns {Promise<void>}
    */
   async setPoint(point) {
     try {
-      await GT.setPoint(this._MGGraphicTextId, point._MGDotId);
+      if(this.isValid() && ObjectUtils.isValidObject(point) && point.isValid()){
+        await GT.setPoint(this._MGGraphicTextId, point._MGDotId);
+      } else {
+        console.log('GraphicText or Dot is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
@@ -58,12 +63,16 @@ export default class GraphicText extends Graphic {
   /**
    * 设置文本
    * @memberOf GraphicText
-   * @param text
+   * @param {String} text
    * @returns {Promise<void>}
    */
   async setText(text) {
     try {
-      await GT.setText(this._MGGraphicTextId, text);
+      if(this.isValid()){
+        await GT.setText(this._MGGraphicTextId, text);
+      } else {
+        console.log('GraphicText is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
@@ -72,12 +81,16 @@ export default class GraphicText extends Graphic {
   /**
    * 设置字体大小
    * @memberOf GraphicText
-   * @param fontSize  字体大小
+   * @param {Number} fontSize  字体大小
    * @returns {Promise<void>}
    */
   async setFontSize(fontSize) {
     try {
-      await GT.setFontSize(this._MGGraphicTextId, fontSize);
+      if(this.isValid()){
+        await GT.setFontSize(this._MGGraphicTextId, fontSize);
+      } else {
+        console.log('GraphicText is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
@@ -86,12 +99,16 @@ export default class GraphicText extends Graphic {
   /**
    * 设置是否随地图倾斜
    * @memberOf GraphicText
-   * @param isSlope
+   * @param {boolean} isSlope
    * @returns {Promise<void>}
    */
   async setSlope(isSlope) {
     try {
-      await GT.setSlope(this._MGGraphicTextId, isSlope);
+      if(this.isValid()){
+        await GT.setSlope(this._MGGraphicTextId, isSlope);
+      } else {
+        console.log('GraphicText is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
@@ -104,10 +121,14 @@ export default class GraphicText extends Graphic {
    */
   async getPoint() {
     try {
-      let { dotID } = await GT.getPoint(this._MGGraphicTextId);
-      var dot = new Dot();
-      dot._MGDotId = dotID;
-      return dot;
+      if(this.isValid()){
+        let { point2DId } = await GT.getPoint(this._MGGraphicTextId);
+        let dot = new Dot();
+        dot._MGDotId = point2DId;
+        return dot;
+      } else {
+        console.log('GraphicText is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
@@ -116,12 +137,18 @@ export default class GraphicText extends Graphic {
   /**
    * 获取文本
    * @memberOf GraphicText
-   * @returns {Promise<*>}
+   * @returns {Promise<String>}
    */
   async getText() {
     try {
-      let text = await GT.getText(this._MGGraphicTextId);
-      return text;
+      if(this.isValid()){
+
+        let text = await GT.getText(this._MGGraphicTextId);
+        return text;
+      } else {
+        console.log('GraphicText is invalid !');
+      }
+      
     } catch (e) {
       console.error(e);
     }
@@ -130,12 +157,18 @@ export default class GraphicText extends Graphic {
   /**
    * 获取字体大小
    * @memberOf GraphicText
-   * @returns {Promise<*>}
+   * @returns {Promise<Number>}
    */
   async getFontSize() {
     try {
-      let fontSize = await GT.getFontSize(this._MGGraphicTextId);
-      return fontSize;
+      if(this.isValid()){
+
+        let fontSize = await GT.getFontSize(this._MGGraphicTextId);
+        return fontSize;
+      } else {
+        console.log('GraphicText is invalid !');
+      }
+
     } catch (e) {
       console.error(e);
     }
@@ -144,12 +177,18 @@ export default class GraphicText extends Graphic {
   /**
    * 获取是否随地图倾斜
    * @memberOf GraphicText
-   * @returns {Promise<*>}
+   * @returns {Promise<Boolean>}
    */
   async isSlope() {
     try {
-      let isSlope = await GT.isSlope(this._MGGraphicTextId);
-      return isSlope;
+      if(this.isValid()){
+
+        let isSlope = await GT.isSlope(this._MGGraphicTextId);
+        return isSlope;
+      } else {
+        console.log('GraphicText is invalid !');
+      }
+      
     } catch (e) {
       console.error(e);
     }
@@ -158,12 +197,18 @@ export default class GraphicText extends Graphic {
   /**
    * 获取文本宽度
    * @memberOf GraphicText
-   * @returns {Promise<*|*>}
+   * @returns {Promise<Number>}
    */
   async getTextWidth() {
     try {
-      let textWidth = await GT.getTextWidth(this._MGGraphicTextId);
-      return textWidth;
+      if(this.isValid()){
+
+        let textWidth = await GT.getTextWidth(this._MGGraphicTextId);
+        return textWidth;
+      } else {
+        console.log('GraphicText is invalid !');
+      }
+      
     } catch (e) {
       console.error(e);
     }
@@ -172,12 +217,18 @@ export default class GraphicText extends Graphic {
   /**
    * 获取文本高度
    * @memberOf GraphicText
-   * @returns {Promise<*>}
+   * @returns {Promise<Number>}
    */
   async getTextHeight() {
     try {
-      let textHeight = await GT.getTextHeight(this._MGGraphicTextId);
-      return textHeight;
+      if(this.isValid()){
+
+        let textHeight = await GT.getTextHeight(this._MGGraphicTextId);
+        return textHeight;
+      } else {
+        console.log('GraphicText is invalid !');
+      }
+
     } catch (e) {
       console.error(e);
     }
@@ -186,12 +237,19 @@ export default class GraphicText extends Graphic {
   /**
    * 设置锚点
    * @memberOf GraphicText
-   * @param anchorPoint 文本锚点的位置：左下角为(0,0),右上角为(1,1)
+   * @param {PointF} anchorPoint 文本锚点的位置：左下角为(0,0),右上角为(1,1)
    * @returns {Promise<void>}
    */
   async setAnchorPointByPoint(anchorPoint) {
     try {
-      await GT.setAnchorPoint(this._MGGraphicTextId, anchorPoint._MGPointFId);
+      if(this.isValid() && ObjectUtils.isValidObject(anchorPoint) && anchorPoint.isValid()){
+
+        await GT.setAnchorPoint(this._MGGraphicTextId, anchorPoint._MGPointFId);
+
+      } else {
+        console.log('GraphicText or anchorPoint is invalid !');
+      }
+
     } catch (e) {
       console.error(e);
     }
@@ -200,14 +258,21 @@ export default class GraphicText extends Graphic {
   /**
    * 获取锚点
    * @memberOf GraphicText
-   * @returns {Promise<*>} 文本锚点的位置：左下角为(0,0),右上角为(1,1)
+   * @returns {Promise<PointF>} 文本锚点的位置：左下角为(0,0),右上角为(1,1)
    */
   async getAnchorPoint() {
     try {
-      let { PointFID } = await GT.getAnchorPoint(this._MGGraphicTextId);
-      var pointF = new PointF();
-      pointF._MGPointFId = PointFID;
-      return pointF;
+      if(this.isValid()){
+
+        let { PointFID } = await GT.getAnchorPoint(this._MGGraphicTextId);
+        let pointF = new PointF();
+        pointF._MGPointFId = PointFID;
+        return pointF;
+
+      } else {
+        console.log('GraphicText is invalid !');
+      }
+      
     } catch (e) {
       console.error(e);
     }
@@ -216,26 +281,31 @@ export default class GraphicText extends Graphic {
   /**
    * 设置锚点
    * @memberOf GraphicText
-   * @param referenceWidth    参考宽度
-   * @param referenceHeight   参考高度
-   * @param referenceInterval 参考间隔
-   * @param anchorPoint       文本锚点的位置：左下角为(0,0),右上角为(1,1)
+   * @param {Number} referenceWidth    参考宽度
+   * @param {Number} referenceHeight   参考高度
+   * @param {Number} referenceInterval 参考间隔
+   * @param {PointF} anchorPoint       文本锚点的位置：左下角为(0,0),右上角为(1,1)
    * @returns {Promise<void>}
    */
-  async setAnchorPoint(
+  async setReferenceInfo(
     referenceWidth,
     referenceHeight,
     referenceInterval,
     anchorPoint
   ) {
     try {
-      await GT.setAnchorPoint(
-        this._MGGraphicTextId,
-        referenceWidth,
-        referenceHeight,
-        referenceInterval,
-        anchorPoint._MGPointFId
-      );
+      if(this.isValid() && ObjectUtils.isValidObject(anchorPoint) && anchorPoint.isValid()){
+        await GT.setReferenceInfo(
+          this._MGGraphicTextId,
+          referenceWidth,
+          referenceHeight,
+          referenceInterval,
+          anchorPoint._MGPointFId
+        );
+      } else {
+        console.log('GraphicText or anchorPoint is invalid !');
+      }
+      
     } catch (e) {
       console.error(e);
     }

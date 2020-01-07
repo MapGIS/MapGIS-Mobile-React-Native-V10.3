@@ -97,4 +97,24 @@ export default class Rect {
       console.error(e);
     }
   }
+
+  /**
+   * 判断Rect对象是否有效或是否有用
+   * 
+   * @memberof Rect
+   * @static
+   * @param {Rect} rect
+   * @returns {boolean} true：有效；false：无效
+   */
+  static isValid(rect){
+    try {
+      if(rect === undefined || rect === null || rect._MGRectId === undefined || rect._MGRectId === null){
+        return false;
+      } else {
+        return true;
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
 }

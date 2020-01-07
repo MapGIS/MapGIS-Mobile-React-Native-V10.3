@@ -9,6 +9,7 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.zondy.mapgis.android.mapview.MagnifierOption;
 import com.zondy.mapgis.android.mapview.MapView;
+import com.zondy.mapgis.android.tool.sketcheditor.MeasureOption;
 import com.zondy.mapgis.android.tool.sketcheditor.SketchDataType;
 import com.zondy.mapgis.android.tool.sketcheditor.SketchEditor;
 import com.zondy.mapgis.android.tool.sketcheditor.SketchStyle;
@@ -450,6 +451,40 @@ public class JSSketchEditor extends ReactContextBaseJavaModule {
             WritableMap writableMap = Arguments.createMap();
             writableMap.putString("SRefDataId", srefDataId);
             promise.resolve(writableMap);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void getMeasureOption(String sketchEditorId, Promise promise){
+        try {
+            SketchEditor sketchEditor = getObjFromList(sketchEditorId);
+            MeasureOption measureOption = sketchEditor.getMeasureOption();
+            String measureOptionId = null;
+            if(measureOption != null){
+                measureOptionId = JSMeasureOption.registerId(measureOption);
+            }
+
+            WritableMap writableMap = Arguments.createMap();
+            writableMap.putString("MeasureOptionId", measureOptionId);
+            promise.resolve(writableMap);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void setMeasureOption(String sketchEditorId, String measureOptionId, Promise promise){
+        try {
+            SketchEditor sketchEditor = getObjFromList(sketchEditorId);
+            MeasureOption measureOption = JSMeasureOption.getObjFromList(measureOptionId);
+            if (measureOption != null){
+                sketchEditor.setMeasureOption(measureOption);
+                promise.resolve(true);
+            } else {
+                promise.resolve(false);
+            }
         }catch (Exception e){
             promise.reject(e);
         }

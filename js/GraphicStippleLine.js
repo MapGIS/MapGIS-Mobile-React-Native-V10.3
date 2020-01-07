@@ -5,6 +5,7 @@
 import { NativeModules } from 'react-native';
 import Graphic from './Graphic';
 import Dot from './Dot';
+import ObjectUtils from './components/ObjectUtils';
 let GS = NativeModules.JSGraphicStippleLine;
 
 /**
@@ -49,7 +50,11 @@ export default class GraphicStippleLine extends Graphic {
    */
   async setStartPoint(point) {
     try {
-      await GS.setStartPoint(this._MGGraphicStippleLineId, point._MGDotId);
+      if(this.isValid() && ObjectUtils.isValidObject(point) && point.isValid()){
+        await GS.setStartPoint(this._MGGraphicStippleLineId, point._MGDotId);
+      }else{
+        console.log('GraphicStippleLine or point is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
@@ -63,7 +68,11 @@ export default class GraphicStippleLine extends Graphic {
    */
   async setEndPoint(point) {
     try {
-      await GS.setEndPoint(this._MGGraphicStippleLineId, point._MGDotId);
+      if(this.isValid() && ObjectUtils.isValidObject(point) && point.isValid()){
+        await GS.setEndPoint(this._MGGraphicStippleLineId, point._MGDotId);
+      }else{
+        console.log('GraphicStippleLine or point is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
@@ -72,12 +81,16 @@ export default class GraphicStippleLine extends Graphic {
   /**
    * 设置线宽
    * @memberOf GraphicStippleLine
-   * @param {number} width 线宽 (Double类型的number)
+   * @param {Number} width 线宽 (Double类型的number)
    * @returns {Promise<void>}
    */
   async setLineWidth(width) {
     try {
-      await GS.setLineWidth(this._MGGraphicStippleLineId, width);
+      if(this.isValid()){
+        await GS.setLineWidth(this._MGGraphicStippleLineId, width);
+      }else{
+        console.log('GraphicStippleLine is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
@@ -91,7 +104,12 @@ export default class GraphicStippleLine extends Graphic {
    */
   async setSegLength(len) {
     try {
-      await GS.setSegLength(this._MGGraphicStippleLineId, len);
+      if(this.isValid()){
+        await GS.setSegLength(this._MGGraphicStippleLineId, len);
+      }else{
+        console.log('GraphicStippleLine is invalid !');
+      }
+     
     } catch (e) {
       console.error(e);
     }
@@ -105,7 +123,12 @@ export default class GraphicStippleLine extends Graphic {
    */
   async setIntervalLength(len) {
     try {
-      await GS.setIntervalLength(this._MGGraphicStippleLineId, len);
+      if(this.isValid()){
+        await GS.setIntervalLength(this._MGGraphicStippleLineId, len);
+      }else{
+        console.log('GraphicStippleLine is invalid !');
+      }
+      
     } catch (e) {
       console.error(e);
     }
@@ -117,10 +140,15 @@ export default class GraphicStippleLine extends Graphic {
    */
   async getStartPoint() {
     try {
-      let { DotId } = await GS.getStartPoint(this._MGGraphicStippleLineId);
-      var dot = new Dot();
-      dot._MGDotId = DotId;
-      return dot;
+      if(this.isValid()){
+        let { DotId } = await GS.getStartPoint(this._MGGraphicStippleLineId);
+        let dot = new Dot();
+        dot._MGDotId = DotId;
+        return dot;
+      }else{
+        console.log('GraphicStippleLine is invalid !');
+      }
+      
     } catch (e) {
       console.error(e);
     }
@@ -133,10 +161,15 @@ export default class GraphicStippleLine extends Graphic {
    */
   async getEndPoint() {
     try {
-      let { DotId } = await GS.getEndPoint(this._MGGraphicStippleLineId);
-      var dot = new Dot();
-      dot._MGDotId = DotId;
-      return dot;
+      if(this.isValid()){
+        let { DotId } = await GS.getEndPoint(this._MGGraphicStippleLineId);
+        let dot = new Dot();
+        dot._MGDotId = DotId;
+        return dot;
+      }else{
+        console.log('GraphicStippleLine is invalid !');
+      }
+
     } catch (e) {
       console.error(e);
     }
@@ -149,8 +182,13 @@ export default class GraphicStippleLine extends Graphic {
    */
   async getLineWidth() {
     try {
-      let lineWidth = await GS.getLineWidth(this._MGGraphicStippleLineId);
-      return lineWidth;
+      if(this.isValid()){
+        let lineWidth = await GS.getLineWidth(this._MGGraphicStippleLineId);
+        return lineWidth;
+      }else{
+        console.log('GraphicStippleLine is invalid !');
+      }
+      
     } catch (e) {
       console.error(e);
     }
@@ -163,8 +201,13 @@ export default class GraphicStippleLine extends Graphic {
    */
   async getSegLength() {
     try {
-      let SegLength = await GS.getSegLength(this._MGGraphicStippleLineId);
-      return SegLength;
+      if(this.isValid()){
+        let SegLength = await GS.getSegLength(this._MGGraphicStippleLineId);
+        return SegLength;
+      }else{
+        console.log('GraphicStippleLine is invalid !');
+      }
+
     } catch (e) {
       console.error(e);
     }
@@ -177,10 +220,15 @@ export default class GraphicStippleLine extends Graphic {
    */
   async getIntervalLength() {
     try {
-      let intervalLength = await GS.getIntervalLength(
-        this._MGGraphicStippleLineId
-      );
-      return intervalLength;
+      if(this.isValid()) {
+        let intervalLength = await GS.getIntervalLength(
+          this._MGGraphicStippleLineId
+        );
+        return intervalLength;
+      } else {
+        console.log('GraphicStippleLine is invalid !');
+      }
+      
     } catch (e) {
       console.error(e);
     }
@@ -193,8 +241,13 @@ export default class GraphicStippleLine extends Graphic {
    */
   async getLength() {
     try {
-      let length = await GS.getLength(this._MGGraphicStippleLineId);
-      return length;
+      if(this.isValid()) {
+        let length = await GS.getLength(this._MGGraphicStippleLineId);
+        return length;
+      } else {
+        console.log('GraphicStippleLine is invalid !');
+      }
+      
     } catch (e) {
       console.error(e);
     }

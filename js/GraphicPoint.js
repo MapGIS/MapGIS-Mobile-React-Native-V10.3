@@ -5,6 +5,7 @@
 import { NativeModules } from 'react-native';
 import Graphic from './Graphic';
 import Dot from './Dot';
+import ObjectUtils from './components/ObjectUtils';
 let GP = NativeModules.JSGraphicPoint;
 /**
  * @constructor GraphicPoint
@@ -41,12 +42,16 @@ export default class GraphicPoint extends Graphic {
   /**
    * 设置点的位置
    * @memberOf GraphicPoint
-   * @param {Object} point
+   * @param {Dot} point 点的位置
    * @returns {Promise<void>}
    */
   async setPoint(point) {
     try {
-      await GP.setPoint(this._MGGraphicPointId, point._MGDotId);
+      if(this.isValid() && ObjectUtils.isValidObject(point) && point.isValid()){
+        await GP.setPoint(this._MGGraphicPointId, point._MGDotId);
+      } else {
+        console.log('GraphicPoint or point is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
@@ -55,15 +60,20 @@ export default class GraphicPoint extends Graphic {
   /**
    * 获取点的位置
    * @memberOf GraphicPoint
-   * @returns {Promise<*>}
+   * @returns {Promise<Dot>}
    */
   async getPoint() {
     try {
-      let { pointID } = await GP.getPoint(this._MGGraphicPointId);
-      var dot = new Dot();
-      dot._MGDotId = pointID;
-
-      return dot;
+      if(this.isValid()){
+        let { pointID } = await GP.getPoint(this._MGGraphicPointId);
+        var dot = new Dot();
+        dot._MGDotId = pointID;
+  
+        return dot;
+      } else {
+        console.log('GraphicPoint is invalid !');
+      }
+      
     } catch (e) {
       console.error(e);
     }
@@ -77,7 +87,11 @@ export default class GraphicPoint extends Graphic {
    */
   async setSize(size) {
     try {
-      await GP.setSize(this._MGGraphicPointId, size);
+      if(this.isValid()){
+        await GP.setSize(this._MGGraphicPointId, size);
+      } else {
+        console.log('GraphicPoint is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
@@ -85,12 +99,17 @@ export default class GraphicPoint extends Graphic {
   /**
    * 获取点的大小
    * @memberOf GraphicPoint
-   * @returns {Promise<*>}
+   * @returns {Promise<Number>}
    */
   async getSize() {
     try {
-      let pointSize = await GP.getSize(this._MGGraphicPointId);
-      return pointSize;
+      if(this.isValid()){
+        let pointSize = await GP.getSize(this._MGGraphicPointId);
+        
+        return pointSize;
+      } else {
+        console.log('GraphicPoint is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
@@ -99,13 +118,17 @@ export default class GraphicPoint extends Graphic {
   /**
    * 设置点的位置及大小
    *  @memberOf GraphicPoint
-   * @param {Object} point
+   * @param {Dot} point
    * @param {Number} size
    * @returns {Promise<void>}
    */
   async setPointAndSize(point, size) {
     try {
-      await GP.setPointAndSize(this._MGGraphicPointId, point._MGDotId, size);
+      if(this.isValid() && ObjectUtils.isValidObject(point) && point.isValid()){
+        await GP.setPointAndSize(this._MGGraphicPointId, point._MGDotId, size);
+      } else {
+        console.log('GraphicPoint or point is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }

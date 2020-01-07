@@ -130,4 +130,23 @@ export default class VisualMap {
       console.error(e);
     }
   }
+
+  /**
+   * 判断VisualMap对象是否有效
+   * 
+   * @memberof VisualMap
+   * @returns {Boolean} true：有效；false：无效
+   */
+  isValid(){
+    try {
+      if(this._MGVisualMapId === undefined || this._MGVisualMapId === null){
+        return false;
+      }else{
+        return true;
+      }
+    } catch (e) {
+      console.error(e);
+    }
+
+  }
 }

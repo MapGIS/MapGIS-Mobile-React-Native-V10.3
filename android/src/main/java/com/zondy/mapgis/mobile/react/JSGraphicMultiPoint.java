@@ -9,8 +9,6 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.android.graphic.GraphicMultiPoint;
-import com.zondy.mapgis.android.graphic.GraphicPolygon;
-import com.zondy.mapgis.android.graphic.GraphicPolylin;
 import com.zondy.mapgis.core.geometry.Dot;
 import com.zondy.mapgis.core.geometry.Dots;
 
@@ -19,10 +17,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 /**
  * @author fjl 2019-6-30 下午2:52:36
@@ -30,8 +26,6 @@ import java.util.Map;
  */
 public class JSGraphicMultiPoint extends JSGraphic {
     public static final String REACT_CLASS = "JSGraphicMultiPoint";
-    public static Map<String, GraphicMultiPoint> mGraphicMultiPointList = new HashMap<String, GraphicMultiPoint>();
-
 
     public JSGraphicMultiPoint(ReactApplicationContext context) {
         super(context);
@@ -40,24 +34,6 @@ public class JSGraphicMultiPoint extends JSGraphic {
     @Override
     public String getName() {
         return REACT_CLASS;
-    }
-
-    public static GraphicMultiPoint getObjFromList(String id) {
-        return mGraphicMultiPointList.get(id);
-    }
-
-
-    public static String registerId(GraphicMultiPoint obj) {
-        for (Map.Entry entry : mGraphicMultiPointList.entrySet()) {
-            if (obj.equals(entry.getValue())) {
-                return (String) entry.getKey();
-            }
-        }
-
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
-        mGraphicMultiPointList.put(id, obj);
-        return id;
     }
 
     @ReactMethod
@@ -77,7 +53,7 @@ public class JSGraphicMultiPoint extends JSGraphic {
     @ReactMethod
     public void setPoints(String GraphicMultiPointId, String json, Promise promise) {
         try {
-            GraphicMultiPoint graphicMultiPoint = getGraphicByID(GraphicMultiPointId);
+            GraphicMultiPoint graphicMultiPoint = (GraphicMultiPoint) getObjFromList(GraphicMultiPointId);
             if(json != null && !json.isEmpty()){
                 List<Dot> dotLst = convertJsonToDotList(json);
                 graphicMultiPoint.setPoints(dotLst);
@@ -93,7 +69,7 @@ public class JSGraphicMultiPoint extends JSGraphic {
     @ReactMethod
     public void setPointsByDots(String GraphicMultiPointId, String dotsId, Promise promise) {
         try {
-            GraphicMultiPoint graphicMultiPoint = getGraphicByID(GraphicMultiPointId);
+            GraphicMultiPoint graphicMultiPoint = (GraphicMultiPoint) getObjFromList(GraphicMultiPointId);
             Dots dots = JSDots.getObjFromList(dotsId);
             graphicMultiPoint.setPoints(dots);
 
@@ -106,7 +82,7 @@ public class JSGraphicMultiPoint extends JSGraphic {
     @ReactMethod
     public void getPoints(String GraphicMultiPointId, Promise promise) {
         try {
-            GraphicMultiPoint GraphicMultiPoint = getGraphicByID(GraphicMultiPointId);
+            GraphicMultiPoint GraphicMultiPoint = (GraphicMultiPoint) getObjFromList(GraphicMultiPointId);
             Dot[] dotLst = GraphicMultiPoint.getPoints();
             String dotID = "";
             WritableArray dotsArr = Arguments.createArray();
@@ -125,7 +101,7 @@ public class JSGraphicMultiPoint extends JSGraphic {
     @ReactMethod
     public void getPointsToDots(String GraphicMultiPointId, Promise promise){
         try {
-            GraphicMultiPoint graphicMultiPoint = getGraphicByID(GraphicMultiPointId);
+            GraphicMultiPoint graphicMultiPoint = (GraphicMultiPoint) getObjFromList(GraphicMultiPointId);
             Dots dots = graphicMultiPoint.getPointsToDots();
             String dotsId = null;
             if(dots != null){
@@ -141,7 +117,7 @@ public class JSGraphicMultiPoint extends JSGraphic {
     @ReactMethod
     public void getPointCount(String GraphicMultiPointId, Promise promise) {
         try {
-            GraphicMultiPoint GraphicMultiPoint = getGraphicByID(GraphicMultiPointId);
+            GraphicMultiPoint GraphicMultiPoint = (GraphicMultiPoint) getObjFromList(GraphicMultiPointId);
             int pointCount = GraphicMultiPoint.getPointCount();
 
             promise.resolve(pointCount);
@@ -153,7 +129,7 @@ public class JSGraphicMultiPoint extends JSGraphic {
     @ReactMethod
     public void getPoint(String GraphicMultiPointId, int index, Promise promise) {
         try {
-            GraphicMultiPoint GraphicMultiPoint = getGraphicByID(GraphicMultiPointId);
+            GraphicMultiPoint GraphicMultiPoint = (GraphicMultiPoint) getObjFromList(GraphicMultiPointId);
             Dot dot = GraphicMultiPoint.getPoint(index);
 
             String dotID = JSDot.registerId(dot);
@@ -170,7 +146,7 @@ public class JSGraphicMultiPoint extends JSGraphic {
     @ReactMethod
     public void setPointSize(String GraphicMultiPointId, double size, Promise promise) {
         try {
-            GraphicMultiPoint GraphicMultiPoint = getGraphicByID(GraphicMultiPointId);
+            GraphicMultiPoint GraphicMultiPoint = (GraphicMultiPoint) getObjFromList(GraphicMultiPointId);
             GraphicMultiPoint.setPointSize(size);
             promise.resolve(true);
         } catch (Exception e) {
@@ -181,7 +157,7 @@ public class JSGraphicMultiPoint extends JSGraphic {
     @ReactMethod
     public void getPointSize(String GraphicMultiPointId, Promise promise) {
         try {
-            GraphicMultiPoint GraphicMultiPoint = getGraphicByID(GraphicMultiPointId);
+            GraphicMultiPoint GraphicMultiPoint = (GraphicMultiPoint) getObjFromList(GraphicMultiPointId);
             double pointSize = GraphicMultiPoint.getPointSize();
 
             promise.resolve(pointSize);
@@ -194,10 +170,10 @@ public class JSGraphicMultiPoint extends JSGraphic {
     @ReactMethod
     public void appendPoint(String GraphicMultiPointId, String dotID, Promise promise) {
         try {
-            GraphicMultiPoint GraphicMultiPoint = getGraphicByID(GraphicMultiPointId);
+            GraphicMultiPoint GraphicMultiPoint = (GraphicMultiPoint) getObjFromList(GraphicMultiPointId);
             Dot dot = JSDot.getObjFromList(dotID);
-            GraphicMultiPoint.appendPoint(dot);
-            promise.resolve(true);
+            int result = GraphicMultiPoint.appendPoint(dot);
+            promise.resolve(result);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -206,7 +182,7 @@ public class JSGraphicMultiPoint extends JSGraphic {
     @ReactMethod
     public void appendPoints(String GraphicMultiPointId, ReadableArray pointArray, Promise promise) {
         try {
-            GraphicMultiPoint GraphicMultiPoint = getGraphicByID(GraphicMultiPointId);
+            GraphicMultiPoint GraphicMultiPoint = (GraphicMultiPoint) getObjFromList(GraphicMultiPointId);
 
             if (GraphicMultiPoint != null) {
                 Dot[] dotLst = new Dot[pointArray.size()];
@@ -226,10 +202,10 @@ public class JSGraphicMultiPoint extends JSGraphic {
     @ReactMethod
     public void updatePoint(String GraphicMultiPointId, int index, String dotID, Promise promise) {
         try {
-            GraphicMultiPoint GraphicMultiPoint = getGraphicByID(GraphicMultiPointId);
+            GraphicMultiPoint GraphicMultiPoint = (GraphicMultiPoint) getObjFromList(GraphicMultiPointId);
             Dot dot = JSDot.getObjFromList(dotID);
-            GraphicMultiPoint.updatePoint(index, dot);
-            promise.resolve(true);
+            int result = GraphicMultiPoint.updatePoint(index, dot);
+            promise.resolve(result);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -238,7 +214,7 @@ public class JSGraphicMultiPoint extends JSGraphic {
     @ReactMethod
     public void removePoint(String GraphicMultiPointId, int index, Promise promise) {
         try {
-            GraphicMultiPoint GraphicMultiPoint = getGraphicByID(GraphicMultiPointId);
+            GraphicMultiPoint GraphicMultiPoint = (GraphicMultiPoint) getObjFromList(GraphicMultiPointId);
             GraphicMultiPoint.removePoint(index);
             promise.resolve(true);
         } catch (Exception e) {
@@ -249,7 +225,7 @@ public class JSGraphicMultiPoint extends JSGraphic {
     @ReactMethod
     public void removeAllPoints(String GraphicMultiPointId, Promise promise) {
         try {
-            GraphicMultiPoint GraphicMultiPoint = getGraphicByID(GraphicMultiPointId);
+            GraphicMultiPoint GraphicMultiPoint = (GraphicMultiPoint) getObjFromList(GraphicMultiPointId);
             GraphicMultiPoint.removeAllPoints();
             promise.resolve(true);
         } catch (Exception e) {
@@ -260,32 +236,13 @@ public class JSGraphicMultiPoint extends JSGraphic {
     @ReactMethod
     public void insertPoint(String GraphicMultiPointId, int index, String dotID, Promise promise) {
         try {
-            GraphicMultiPoint GraphicMultiPoint = getGraphicByID(GraphicMultiPointId);
+            GraphicMultiPoint GraphicMultiPoint = (GraphicMultiPoint) getObjFromList(GraphicMultiPointId);
             Dot dot = JSDot.getObjFromList(dotID);
-            GraphicMultiPoint.insertPoint(index, dot);
-            promise.resolve(true);
+            int result = GraphicMultiPoint.insertPoint(index, dot);
+            promise.resolve(result);
         } catch (Exception e) {
             promise.reject(e);
         }
-    }
-
-    public GraphicMultiPoint getGraphicByID(String graphicID) {
-        GraphicMultiPoint graphic = getObjFromList(graphicID);
-        if (graphic != null) {
-            return graphic;
-
-        }
-
-        GraphicPolygon graphicPolygon = JSGraphicPolygon.mGraphicPolygonList.get(graphicID);
-        if (graphicPolygon != null) {
-            return graphicPolygon;
-        }
-        GraphicPolylin graphicPolylin = JSGraphicPolylin.mGraphicPolylinList.get(graphicID);
-        if (graphicPolylin != null) {
-            return graphicPolylin;
-        }
-
-        return graphic;
     }
 
     public List<Dot> convertJsonToDotList(String json){

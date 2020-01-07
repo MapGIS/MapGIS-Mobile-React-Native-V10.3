@@ -20,11 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author fjl 2019-6-30 下午2:52:36
@@ -32,8 +28,6 @@ import java.util.Map;
  */
 public class JSGraphicPolygon extends JSGraphicMultiPoint {
     public static final String REACT_CLASS = "JSGraphicPolygon";
-    public static Map<String, GraphicPolygon> mGraphicPolygonList = new HashMap<String, GraphicPolygon>();
-
 
     public JSGraphicPolygon(ReactApplicationContext context) {
         super(context);
@@ -42,23 +36,6 @@ public class JSGraphicPolygon extends JSGraphicMultiPoint {
     @Override
     public String getName() {
         return REACT_CLASS;
-    }
-
-    public static GraphicPolygon getObjFromList(String id) {
-        return mGraphicPolygonList.get(id);
-    }
-
-
-    public static String registerId(GraphicPolygon obj) {
-        for (Map.Entry entry : mGraphicPolygonList.entrySet()) {
-            if (obj.equals(entry.getValue())) {
-                return (String) entry.getKey();
-            }
-        }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
-        mGraphicPolygonList.put(id, obj);
-        return id;
     }
 
     @ReactMethod
@@ -78,7 +55,7 @@ public class JSGraphicPolygon extends JSGraphicMultiPoint {
     @ReactMethod
     public void getArea(String GraphicPolygonId, Promise promise) {
         try {
-            GraphicPolygon graphicPolygon = getObjFromList(GraphicPolygonId);
+            GraphicPolygon graphicPolygon = (GraphicPolygon) getObjFromList(GraphicPolygonId);
             double area = graphicPolygon.getArea();
 
             promise.resolve(area);
@@ -90,7 +67,7 @@ public class JSGraphicPolygon extends JSGraphicMultiPoint {
     @ReactMethod
     public void setPoints(String GraphicPolygonId, String pointArrayJson, String circlesArrayJson, Promise promise) {
         try {
-            GraphicPolygon graphicPolygon = getObjFromList(GraphicPolygonId);
+            GraphicPolygon graphicPolygon = (GraphicPolygon) getObjFromList(GraphicPolygonId);
             if(graphicPolygon != null){
                 List<Dot> dotList = convertJsonToDotList(pointArrayJson);
                 IntList intList = convertJsonToIntList(circlesArrayJson);
@@ -119,7 +96,7 @@ public class JSGraphicPolygon extends JSGraphicMultiPoint {
     @ReactMethod
     public void setPointsByDots(String GraphicPolygonId, String dotsId, String circlesArray, Promise promise) {
         try {
-            GraphicPolygon graphicPolygon = getObjFromList(GraphicPolygonId);
+            GraphicPolygon graphicPolygon = (GraphicPolygon) getObjFromList(GraphicPolygonId);
 
             Dots dots = JSDots.getObjFromList(dotsId);
 
@@ -160,7 +137,7 @@ public class JSGraphicPolygon extends JSGraphicMultiPoint {
     @ReactMethod
     public void getCirclesToList(String GraphicPolygonId, Promise promise) {
         try {
-            GraphicPolygon GraphicPolygon = getObjFromList(GraphicPolygonId);
+            GraphicPolygon GraphicPolygon = (GraphicPolygon) getObjFromList(GraphicPolygonId);
             IntList intLst = GraphicPolygon.getCirclesToList();
             WritableArray circlesArray = Arguments.createArray();
             for (int i = 0; i < intLst.size(); i++) {
@@ -175,7 +152,7 @@ public class JSGraphicPolygon extends JSGraphicMultiPoint {
     @ReactMethod
     public void getBorderlineWidth(String GraphicPolygonId, Promise promise) {
         try {
-            GraphicPolygon graphicPolygon = getObjFromList(GraphicPolygonId);
+            GraphicPolygon graphicPolygon = (GraphicPolygon) getObjFromList(GraphicPolygonId);
             float borderlineWidth = graphicPolygon.getBorderlineWidth();
 
             promise.resolve(borderlineWidth);
@@ -187,7 +164,7 @@ public class JSGraphicPolygon extends JSGraphicMultiPoint {
     @ReactMethod
     public void setBorderlineWidth(String GraphicPolygonId, Float width, Promise promise) {
         try {
-            GraphicPolygon graphicPolygon = getObjFromList(GraphicPolygonId);
+            GraphicPolygon graphicPolygon = (GraphicPolygon) getObjFromList(GraphicPolygonId);
             graphicPolygon.setBorderlineWidth((float)width);
             promise.resolve(true);
         } catch (Exception e) {
@@ -197,7 +174,7 @@ public class JSGraphicPolygon extends JSGraphicMultiPoint {
     @ReactMethod
     public void setBorderlineColor(String GraphicPolygonId, String color, Promise promise) {
         try {
-            GraphicPolygon graphicPolygon = getObjFromList(GraphicPolygonId);
+            GraphicPolygon graphicPolygon = (GraphicPolygon) getObjFromList(GraphicPolygonId);
             graphicPolygon.setBorderlineColor(ConvertUtil.ColorRGBAToInt(color));
             promise.resolve(true);
         } catch (Exception e) {
@@ -208,7 +185,7 @@ public class JSGraphicPolygon extends JSGraphicMultiPoint {
     @ReactMethod
     public void getBorderlineColor(String GraphicPolygonId, Promise promise) {
         try {
-            GraphicPolygon graphicPolygon = getObjFromList(GraphicPolygonId);
+            GraphicPolygon graphicPolygon = (GraphicPolygon) getObjFromList(GraphicPolygonId);
 
 
             int color = graphicPolygon.getBorderlineColor();

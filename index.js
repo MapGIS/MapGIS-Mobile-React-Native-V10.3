@@ -124,6 +124,7 @@ import SketchEditor from "./js/SketchEditor";
 import SketchStyle from "./js/SketchStyle";
 import SnappingOption from "./js/SnappingOption";
 import TextStyle from "./js/TextStyle";
+import MeasureOption from './js/MeasureOption';
 
 import CoordinateConvert from "./js/CoordinateConvert";
 import CoordinateConvertParameter from "./js/CoordinateConvertParameter";
@@ -289,6 +290,8 @@ export {
   SketchStyle,
   SnappingOption,
   TextStyle,
+  MeasureOption,
+
 
   CoordinateConvert,
   CoordinateConvertParameter,

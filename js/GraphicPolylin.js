@@ -4,6 +4,9 @@
  */
 import { NativeModules } from 'react-native';
 import GraphicMultiPoint from './GraphicMultiPoint';
+import Graphic from './Graphic';
+import Image from './Image';
+import ObjectUtils from './components/ObjectUtils';
 let GP = NativeModules.JSGraphicPolylin;
 
 /**
@@ -41,55 +44,72 @@ export default class GraphicPolylin extends GraphicMultiPoint {
   /**
    * 设置线宽
    * @memberOf GraphicPolylin
-   * @param width
+   * @param {Number} width
    * @returns {Promise<void>}
    */
   async setLineWidth(width) {
     try {
-      await GP.setLineWidth(this._MGGraphicPolylinId, width);
+      if(this.isValid()){
+        await GP.setLineWidth(this._MGGraphicPolylinId, width);
+      } else {
+        console.log('GraphicPolylin is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
   }
 
   /**
-   * 获取圆边界线的宽度
+   * 获取线的宽度
    * @memberOf GraphicPolylin
-   * @returns {Promise<*>}
+   * @returns {Promise<Number>}
    */
   async getLineWidth() {
     try {
-      let lineWidth = await GP.getLineWidth(this._MGGraphicPolylinId);
-      return lineWidth;
+      if(this.isValid()){
+        let lineWidth = await GP.getLineWidth(this._MGGraphicPolylinId);
+        return lineWidth;
+      } else {
+        console.log('GraphicPolylin is invalid !');
+      }
+     
     } catch (e) {
       console.error(e);
     }
   }
 
   /**
-   * 获取长度
+   * 获取线的长度
    * @memberOf GraphicPolylin
-   * @returns {Promise<*>}
+   * @returns {Promise<Number>}
    */
   async getLength() {
     try {
-      let length = await GP.getLength(this._MGGraphicPolylinId);
-      return length;
+      if(this.isValid()){
+        let length = await GP.getLength(this._MGGraphicPolylinId);
+        return length;
+      } else {
+        console.log('GraphicPolylin is invalid !');
+      }
+      
     } catch (e) {
       console.error(e);
     }
   }
 
   /**
-   * 设置线纹理填充
+   * 设置线的填充纹理 要求纹理的宽高为2的幂。
    * @memberOf GraphicPolylin
-   * @param point
-   * @param radius
+   * @param {Image} image 填充图片
    * @returns {Promise<void>}
    */
   async setFillTexture(image) {
     try {
-      await GP.setFillTexture(this._MGGraphicPolylinId, image._MGImageId);
+      if(this.isValid() && ObjectUtils.isValidObject(image) && image.isValid()){
+        await GP.setFillTexture(this._MGGraphicPolylinId, image._MGImageId);
+      } else {
+        console.log('GraphicPolylin or image is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }

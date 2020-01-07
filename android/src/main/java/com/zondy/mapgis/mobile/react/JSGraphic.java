@@ -8,16 +8,8 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
-import com.zondy.mapgis.android.graphic.GraphicText;
 import com.zondy.mapgis.mobile.react.utils.ConvertUtil;
 import com.zondy.mapgis.android.graphic.Graphic;
-import com.zondy.mapgis.android.graphic.GraphicCircle;
-import com.zondy.mapgis.android.graphic.GraphicImage;
-import com.zondy.mapgis.android.graphic.GraphicMultiPoint;
-import com.zondy.mapgis.android.graphic.GraphicPoint;
-import com.zondy.mapgis.android.graphic.GraphicPolygon;
-import com.zondy.mapgis.android.graphic.GraphicPolylin;
-import com.zondy.mapgis.android.graphic.GraphicStippleLine;
 import com.zondy.mapgis.android.graphic.GraphicType;
 import com.zondy.mapgis.core.geometry.Dot;
 import com.zondy.mapgis.core.geometry.Rect;
@@ -36,7 +28,6 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     public static final String REACT_CLASS = "JSGraphic";
     public static Map<String, Graphic> mGraphicList = new HashMap<String, Graphic>();
 
-
     public JSGraphic(ReactApplicationContext context) {
         super(context);
     }
@@ -49,7 +40,6 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     public static Graphic getObjFromList(String id) {
         return mGraphicList.get(id);
     }
-
 
     public static String registerId(Graphic obj) {
         for (Map.Entry entry : mGraphicList.entrySet()) {
@@ -65,23 +55,9 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void createObj(Promise promise) {
-        try {
-            Graphic Graphic = new Graphic();
-            String GraphicId = registerId(Graphic);
-
-            WritableMap map = Arguments.createMap();
-            map.putString("GraphicId", GraphicId);
-            promise.resolve(map);
-        } catch (Exception e) {
-            promise.reject(e);
-        }
-    }
-
-    @ReactMethod
     public void getState(String GraphicId, Promise promise) {
         try {
-            Graphic graphic = getGraphicByID(GraphicId);
+            Graphic graphic = getObjFromList(GraphicId);
             int state = graphic.getState();
 
             promise.resolve(state);
@@ -93,7 +69,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     @ReactMethod
     public void setState(String GraphicId, int state, Promise promise) {
         try {
-            Graphic Graphic = getGraphicByID(GraphicId);
+            Graphic Graphic = getObjFromList(GraphicId);
             Graphic.setState(state);
             promise.resolve(true);
         } catch (Exception e) {
@@ -104,7 +80,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     @ReactMethod
     public void setColor(String GraphicId, String color, Promise promise) {
         try {
-            Graphic graphic = getGraphicByID(GraphicId);
+            Graphic graphic = getObjFromList(GraphicId);
             graphic.setColor(ConvertUtil.ColorRGBAToInt(color));
             promise.resolve(true);
         } catch (Exception e) {
@@ -115,7 +91,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     @ReactMethod
     public void getColor(String GraphicId, Promise promise) {
         try {
-            Graphic graphic = getGraphicByID(GraphicId);
+            Graphic graphic = getObjFromList(GraphicId);
             int color = graphic.getColor();
             String strColor = ConvertUtil.ColorIntToRGBA(color);
             WritableMap map = Arguments.createMap();
@@ -130,7 +106,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     @ReactMethod
     public void getCenterPoint(String GraphicId, Promise promise) {
         try {
-            Graphic Graphic = getGraphicByID(GraphicId);
+            Graphic Graphic = getObjFromList(GraphicId);
             Dot centerDot = Graphic.getCenterPoint();
 
             String point2DId = JSDot.registerId(centerDot);
@@ -149,7 +125,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     @ReactMethod
     public void getBoundingRect(String GraphicId, Promise promise) {
         try {
-            Graphic Graphic = getGraphicByID(GraphicId);
+            Graphic Graphic = getObjFromList(GraphicId);
             Rect rect = Graphic.getBoundingRect();
 
             String rectId = JSRect.registerId(rect);
@@ -164,7 +140,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     @ReactMethod
     public void getGraphicType(String GraphicId, Promise promise) {
         try {
-            Graphic graphic = getGraphicByID(GraphicId);
+            Graphic graphic = getObjFromList(GraphicId);
             GraphicType graphicType = graphic.getGraphicType();
             int type = graphicType.value();
 
@@ -177,7 +153,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     @ReactMethod
     public void setPointByPixel(String GraphicId, boolean pixel, Promise promise) {
         try {
-            Graphic Graphic = getGraphicByID(GraphicId);
+            Graphic Graphic = getObjFromList(GraphicId);
             Graphic.setPointByPixel(pixel);
             promise.resolve(true);
         } catch (Exception e) {
@@ -188,7 +164,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     @ReactMethod
     public void isPointByPixel(String GraphicId, Promise promise) {
         try {
-            Graphic graphic = getGraphicByID(GraphicId);
+            Graphic graphic = getObjFromList(GraphicId);
             boolean isPointByPixel = graphic.isPointByPixel();
 
             promise.resolve(isPointByPixel);
@@ -200,7 +176,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     @ReactMethod
     public void setAttributeValue(String GraphicId, String name, String value, Promise promise) {
         try {
-            Graphic Graphic = getGraphicByID(GraphicId);
+            Graphic Graphic = getObjFromList(GraphicId);
             Graphic.setAttributeValue(name, value);
             promise.resolve(true);
         } catch (Exception e) {
@@ -211,7 +187,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     @ReactMethod
     public void getAttributeNum(String GraphicId, Promise promise) {
         try {
-            Graphic graphic = getGraphicByID(GraphicId);
+            Graphic graphic = getObjFromList(GraphicId);
             int attributeNum = (int)graphic.getAttributeNum();
 
             promise.resolve(attributeNum);
@@ -223,7 +199,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     @ReactMethod
     public void getAttributeName(String GraphicId, int index, Promise promise) {
         try {
-            Graphic graphic = getGraphicByID(GraphicId);
+            Graphic graphic = getObjFromList(GraphicId);
             String attributeName = graphic.getAttributeName(index);
 
             promise.resolve(attributeName);
@@ -236,7 +212,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     public void getAttributeValue(String GraphicId, int index, Promise promise)
     {
         try {
-            Graphic graphic = getGraphicByID(GraphicId);
+            Graphic graphic = getObjFromList(GraphicId);
             String attributeValue = graphic.getAttributeValue(index);
 
             promise.resolve(attributeValue);
@@ -245,9 +221,9 @@ public class JSGraphic extends ReactContextBaseJavaModule {
         }
     }
     @ReactMethod
-    public void getAttributeValue(String GraphicId, String name, Promise promise) {
+    public void getAttributeValueByName(String GraphicId, String name, Promise promise) {
         try {
-            Graphic graphic = getGraphicByID(GraphicId);
+            Graphic graphic = getObjFromList(GraphicId);
             String attributeValue = graphic.getAttributeValue(name);
 
             promise.resolve(attributeValue);
@@ -259,7 +235,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     @ReactMethod
     public void removeAttribute(String GraphicId, String name, Promise promise) {
         try {
-            Graphic graphic = getGraphicByID(GraphicId);
+            Graphic graphic = getObjFromList(GraphicId);
             graphic.removeAttribute(name);
         } catch (Exception e) {
             promise.reject(e);
@@ -269,7 +245,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     @ReactMethod
     public void removeAllAttributes(String GraphicId, Promise promise) {
         try {
-            Graphic graphic = getGraphicByID(GraphicId);
+            Graphic graphic = getObjFromList(GraphicId);
             graphic.removeAllAttributes();
         } catch (Exception e) {
             promise.reject(e);
@@ -303,7 +279,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     public void toGeometry(String graphicID, Promise promise)
     {
         try {
-            Graphic graphic = getGraphicByID(graphicID);
+            Graphic graphic = getObjFromList(graphicID);
             //Geometry geometry = Graphic.toGeometry(graphic);
            // String geometryID = JSGeometry.registerId(geometry);
             WritableMap map = Arguments.createMap();
@@ -324,7 +300,7 @@ public class JSGraphic extends ReactContextBaseJavaModule {
                 for (int i = 0; i < graphicIDArray.size(); i++) {
                     ReadableMap readable = graphicIDArray.getMap(i);
                     String keyStr = readable.getString("_GraphicId");
-                    graphicLst.add(getGraphicByID(keyStr));
+                    graphicLst.add(JSGraphic.getObjFromList(keyStr));
                 }
                // Geometry geometry = Graphic.toGeometry(graphicLst);
                 // String geometryID = JSGeometry.registerId(geometry);
@@ -337,44 +313,4 @@ public class JSGraphic extends ReactContextBaseJavaModule {
         }
     }
 
-    public Graphic getGraphicByID(String graphicID) {
-        Graphic graphic = JSGraphic.mGraphicList.get(graphicID);
-        if (graphic != null) {
-            return graphic;
-
-        }
-        GraphicImage graphicImage = JSGraphicImage.mGraphicImageList.get(graphicID);
-        if (graphicImage != null) {
-            return graphicImage;
-        }
-        GraphicCircle graphicCircle = JSGraphicCircle.mGraphicCircleList.get(graphicID);
-        if (graphicCircle != null) {
-            return graphicCircle;
-        }
-        GraphicMultiPoint graphicMultiPoint = JSGraphicMultiPoint.mGraphicMultiPointList.get(graphicID);
-        if (graphicMultiPoint != null) {
-            return graphicMultiPoint;
-        }
-        GraphicPoint graphicPoint = JSGraphicPoint.mGraphicPointList.get(graphicID);
-        if (graphicPoint != null) {
-            return graphicPoint;
-        }
-        GraphicPolygon graphicPolygon = JSGraphicPolygon.mGraphicPolygonList.get(graphicID);
-        if (graphicPolygon != null) {
-            return graphicPolygon;
-        }
-        GraphicPolylin graphicPolylin = JSGraphicPolylin.mGraphicPolylinList.get(graphicID);
-        if (graphicPolylin != null) {
-            return graphicPolylin;
-        }
-        GraphicStippleLine graphicStippleLine = JSGraphicStippleLine.mGraphicStippleLineList.get(graphicID);
-        if (graphicStippleLine != null) {
-            return graphicStippleLine;
-        }
-        GraphicText graphicText = JSGraphicText.mGraphicTextList.get(graphicID);
-        if (graphicText != null) {
-            return graphicText;
-        }
-        return graphic;
-    }
 }

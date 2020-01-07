@@ -8,18 +8,12 @@ import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.android.graphic.GraphicPoint;
 import com.zondy.mapgis.core.geometry.Dot;
 
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * @content 点图形对象Native组件
  * @authorfjl 2019-6-30 下午2:52:36
  */
 public class JSGraphicPoint extends JSGraphic {
     public static final String REACT_CLASS = "JSGraphicPoint";
-    public static Map<String, GraphicPoint> mGraphicPointList = new HashMap<String, GraphicPoint>();
-
 
     public JSGraphicPoint(ReactApplicationContext context) {
         super(context);
@@ -28,24 +22,6 @@ public class JSGraphicPoint extends JSGraphic {
     @Override
     public String getName() {
         return REACT_CLASS;
-    }
-
-    public static GraphicPoint getObjFromList(String id) {
-        return mGraphicPointList.get(id);
-    }
-
-
-    public static String registerId(GraphicPoint obj) {
-        for (Map.Entry entry : mGraphicPointList.entrySet()) {
-            if (obj.equals(entry.getValue())) {
-                return (String) entry.getKey();
-            }
-        }
-
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
-        mGraphicPointList.put(id, obj);
-        return id;
     }
 
     @ReactMethod
@@ -71,7 +47,7 @@ public class JSGraphicPoint extends JSGraphic {
     @ReactMethod
     public void setPoint(String GraphicPointId, String dotID, Promise promise) {
         try {
-            GraphicPoint graphicPoint = getObjFromList(GraphicPointId);
+            GraphicPoint graphicPoint = (GraphicPoint) getObjFromList(GraphicPointId);
             Dot dot = JSDot.getObjFromList(dotID);
             graphicPoint.setPoint(dot);
             promise.resolve(true);
@@ -88,7 +64,7 @@ public class JSGraphicPoint extends JSGraphic {
     @ReactMethod
     public void getPoint(String GraphicPointId, Promise promise) {
         try {
-            GraphicPoint graphicPoint = getObjFromList(GraphicPointId);
+            GraphicPoint graphicPoint = (GraphicPoint) getObjFromList(GraphicPointId);
             Dot dot = graphicPoint.getPoint();
 
             String pointID = JSDot.registerId(dot);
@@ -109,7 +85,7 @@ public class JSGraphicPoint extends JSGraphic {
     @ReactMethod
     public void getSize(String GraphicPointId, Promise promise) {
         try {
-            GraphicPoint graphicPoint = getObjFromList(GraphicPointId);
+            GraphicPoint graphicPoint = (GraphicPoint) getObjFromList(GraphicPointId);
             float pointSize = graphicPoint.getSize();
 
             promise.resolve(pointSize);
@@ -127,7 +103,7 @@ public class JSGraphicPoint extends JSGraphic {
     @ReactMethod
     public void setSize(String GraphicPointId, float size, Promise promise) {
         try {
-            GraphicPoint graphicPoint = getObjFromList(GraphicPointId);
+            GraphicPoint graphicPoint = (GraphicPoint) getObjFromList(GraphicPointId);
             graphicPoint.setSize(size);
             promise.resolve(true);
         } catch (Exception e) {
@@ -146,7 +122,7 @@ public class JSGraphicPoint extends JSGraphic {
     public void setPointAndSize(String GraphicPointId, String dotID, float size, Promise promise)
     {
         try {
-            GraphicPoint graphicPoint = getObjFromList(GraphicPointId);
+            GraphicPoint graphicPoint = (GraphicPoint) getObjFromList(GraphicPointId);
             Dot dot = JSDot.getObjFromList(dotID);
             graphicPoint.setPointAndSize(dot,size);
             promise.resolve(true);

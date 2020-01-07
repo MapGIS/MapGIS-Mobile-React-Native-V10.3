@@ -4,6 +4,8 @@
  */
 import { NativeModules } from 'react-native';
 import Graphic from './Graphic';
+import Dot from './Dot';
+import ObjectUtils from './components/ObjectUtils';
 let GC = NativeModules.JSGraphicCircle;
 
 /**
@@ -41,17 +43,22 @@ export default class GraphicCircle extends Graphic {
   /**
    * 设置圆心位置和半径
    * @memberOf GraphicCircle
-   * @param point
-   * @param radius
+   * @param {Dot} point 圆心位置
+   * @param {Number} radius 半径
    * @returns {Promise<void>}
    */
   async setCenterAndRadius(point, radius) {
     try {
-      await GC.setCenterAndRadius(
-        this._MGGraphicCircleId,
-        point._MGDotId,
-        radius
-      );
+      if(this.isValid() && ObjectUtils.isValidObject(point) && point.isValid()){
+        await GC.setCenterAndRadius(
+          this._MGGraphicCircleId,
+          point._MGDotId,
+          radius
+        );
+      } else {
+        console.log('GraphicCircle or point is invalid !');
+      }
+      
     } catch (e) {
       console.error(e);
     }
@@ -60,12 +67,18 @@ export default class GraphicCircle extends Graphic {
   /**
    * 设置圆心位置
    * @memberOf GraphicCircle
-   * @param point
+   * @param {Dot} point 圆心位置
    * @returns {Promise<void>}
    */
   async setCenterPoint(point) {
     try {
-      await GC.setCenterPoint(this._MGGraphicCircleId, point._MGDotId);
+      if(this.isValid() && ObjectUtils.isValidObject(point) && point.isValid()){
+
+        await GC.setCenterPoint(this._MGGraphicCircleId, point._MGDotId);
+
+      } else {
+        console.log('GraphicCircle or point is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
@@ -74,26 +87,38 @@ export default class GraphicCircle extends Graphic {
   /**
    * 设置半径
    * @memberOf GraphicCircle
-   * @param radius
+   * @param {Number} radius 半径
    * @returns {Promise<void>}
    */
   async setRadius(radius) {
     try {
-      await GC.setRadius(this._MGGraphicCircleId, radius);
+      if(this.isValid()){
+
+        await GC.setRadius(this._MGGraphicCircleId, radius);
+
+      } else {
+        console.log('GraphicCircle is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
   }
 
   /**
-   * 获取是否符号化显示
+   * 获取半径
    * @memberOf GraphicCircle
-   * @returns {Promise<*>}
+   * @returns {Promise<Number>}
    */
   async getRadius() {
     try {
-      let radius = await GC.getRadius(this._MGGraphicCircleId);
-      return radius;
+      if(this.isValid()){
+        let radius = await GC.getRadius(this._MGGraphicCircleId);
+
+        return radius;
+      } else {
+        console.log('GraphicCircle is invalid !');
+      }
+      
     } catch (e) {
       console.error(e);
     }
@@ -102,12 +127,16 @@ export default class GraphicCircle extends Graphic {
   /**
    * 设置圆边界线的宽度
    * @memberOf GraphicCircle
-   * @param width
+   * @param {Number} width 宽度
    * @returns {Promise<void>}
    */
   async setBorderlineWidth(width) {
     try {
-      await GC.setBorderlineWidth(this._MGGraphicCircleId, width);
+      if(this.isValid()){
+        await GC.setBorderlineWidth(this._MGGraphicCircleId, width);
+      } else {
+        console.log('GraphicCircle is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
@@ -116,14 +145,19 @@ export default class GraphicCircle extends Graphic {
   /**
    * 获取圆边界线的宽度
    * @memberOf GraphicCircle
-   * @returns {Promise<*>}
+   * @returns {Promise<Number>}
    */
   async getBorderlineWidth() {
     try {
-      let borderlineWidth = await GC.getBorderlineWidth(
-        this._MGGraphicCircleId
-      );
-      return borderlineWidth;
+      if(this.isValid()){
+        let borderlineWidth = await GC.getBorderlineWidth(
+          this._MGGraphicCircleId
+        );
+        return borderlineWidth;
+      } else {
+        console.log('GraphicCircle is invalid !');
+      }
+     
     } catch (e) {
       console.error(e);
     }
@@ -132,12 +166,16 @@ export default class GraphicCircle extends Graphic {
   /**
    * 设置圆边界线的颜色
    * @memberOf GraphicCircle
-   * @param color eg:'rgba(128, 128, 128, 0.5)'
+   * @param {String} color 颜色 eg:'rgba(128, 128, 128, 128)'
    * @returns {Promise<void>}
    */
   async setBorderlineColor(color) {
     try {
-      await GC.setBorderlineColor(this._MGGraphicCircleId, color);
+      if(this.isValid()){
+        await GC.setBorderlineColor(this._MGGraphicCircleId, color);
+      } else {
+        console.log('GraphicCircle is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
@@ -145,14 +183,18 @@ export default class GraphicCircle extends Graphic {
   /**
    * 获取圆边界线的颜色
    * @memberOf GraphicCircle
-   * @returns {Promise<*>}
+   * @returns {Promise<String>} 颜色 eg:'rgba(128, 128, 128, 128)'
    */
   async getBorderlineColor() {
     try {
-      let { color } = await GC.getBorderlineColor(
-        this._MGGraphicCircleId
-      );
-      return color;
+      if(this.isValid()){
+        let { color } = await GC.getBorderlineColor(
+          this._MGGraphicCircleId
+        );
+        return color;
+      } else {
+        console.log('GraphicCircle is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
@@ -161,12 +203,16 @@ export default class GraphicCircle extends Graphic {
   /**
    * 设置半径是否为像素单位(默认情况下为地图单位)
    * @memberOf GraphicCircle
-   * @param pixel
+   * @param {boolean} pixel 半径是否为像素单位
    * @returns {Promise<void>}
    */
   async setRadiusByPixel(pixel) {
     try {
-      await GC.setRadiusByPixel(this._MGGraphicCircleId, pixel);
+      if(this.isValid()){
+        await GC.setRadiusByPixel(this._MGGraphicCircleId, pixel);
+      } else {
+        console.log('GraphicCircle is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
@@ -175,12 +221,16 @@ export default class GraphicCircle extends Graphic {
   /**
    * 获取半径是否为像素单位
    * @memberOf GraphicCircle
-   * @returns {Promise<*>}
+   * @returns {Promise<boolean>}
    */
   async isRadiusByPixel() {
     try {
-      let isRadiusByPixel = await GC.isRadiusByPixel(this._MGGraphicCircleId);
-      return isRadiusByPixel;
+      if(this.isValid()){
+        let isRadiusByPixel = await GC.isRadiusByPixel(this._MGGraphicCircleId);
+        return isRadiusByPixel;
+      } else {
+        console.log('GraphicCircle is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }

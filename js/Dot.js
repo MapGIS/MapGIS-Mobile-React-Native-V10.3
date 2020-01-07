@@ -62,4 +62,22 @@ export default class Dot {
       console.error(e);
     }
   }
+
+  /**
+   * 判断Dot对象是否有效或是否可用
+   * 
+   * @memberof Dot
+   * @returns {boolean}  true：有效；false：无效
+   */
+  isValid(){
+    try {
+      if(this._MGDotId === undefined || this._MGDotId === null){
+        return false;
+      } else {
+        return true;
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
 }

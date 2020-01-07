@@ -153,4 +153,22 @@ export default class Dots {
       console.error(e);
     }
   }
+
+  /**
+   * 判断Dots对象是否有效
+   * 
+   * @memberof Dots
+   * @returns {Boolean} true：有效；false：无效 
+   */
+  isValid(){
+    try {
+      if(this._MGDotsId === undefined || this._MGDotsId === null){
+        return false;
+      }else{
+        return true;
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
 }

@@ -9,9 +9,6 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.android.graphic.GraphicPolylin;
 
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author fjl 2019-6-30 下午2:52:36
@@ -19,8 +16,6 @@ import java.util.Map;
  */
 public class JSGraphicPolylin extends JSGraphicMultiPoint {
     public static final String REACT_CLASS = "JSGraphicPolylin";
-    public static Map<String, GraphicPolylin> mGraphicPolylinList = new HashMap<String, GraphicPolylin>();
-
 
     public JSGraphicPolylin(ReactApplicationContext context) {
         super(context);
@@ -29,23 +24,6 @@ public class JSGraphicPolylin extends JSGraphicMultiPoint {
     @Override
     public String getName() {
         return REACT_CLASS;
-    }
-
-    public static GraphicPolylin getObjFromList(String id) {
-        return mGraphicPolylinList.get(id);
-    }
-
-
-    public static String registerId(GraphicPolylin obj) {
-        for (Map.Entry entry : mGraphicPolylinList.entrySet()) {
-            if (obj.equals(entry.getValue())) {
-                return (String) entry.getKey();
-            }
-        }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
-        mGraphicPolylinList.put(id, obj);
-        return id;
     }
 
     @ReactMethod
@@ -66,7 +44,7 @@ public class JSGraphicPolylin extends JSGraphicMultiPoint {
     @ReactMethod
     public void setLineWidth(String GraphicPolylinId, float width, Promise promise) {
         try {
-            GraphicPolylin graphicPolylin = getObjFromList(GraphicPolylinId);
+            GraphicPolylin graphicPolylin = (GraphicPolylin) getObjFromList(GraphicPolylinId);
             graphicPolylin.setLineWidth(width);
             promise.resolve(true);
         } catch (Exception e) {
@@ -77,7 +55,7 @@ public class JSGraphicPolylin extends JSGraphicMultiPoint {
     @ReactMethod
     public void getLineWidth(String GraphicPolylinId, Promise promise) {
         try {
-            GraphicPolylin GraphicPolylin = getObjFromList(GraphicPolylinId);
+            GraphicPolylin GraphicPolylin = (GraphicPolylin) getObjFromList(GraphicPolylinId);
             float lineWidth = GraphicPolylin.getLineWidth();
 
             promise.resolve(lineWidth);
@@ -89,7 +67,7 @@ public class JSGraphicPolylin extends JSGraphicMultiPoint {
     @ReactMethod
     public void getLength(String GraphicPolylinId, Promise promise) {
         try {
-            GraphicPolylin GraphicPolylin = getObjFromList(GraphicPolylinId);
+            GraphicPolylin GraphicPolylin = (GraphicPolylin) getObjFromList(GraphicPolylinId);
             double length = GraphicPolylin.getLength();
 
             promise.resolve(length);
@@ -101,7 +79,7 @@ public class JSGraphicPolylin extends JSGraphicMultiPoint {
     @ReactMethod
     public void setFillTexture(String GraphicPolylinId, String imageID, Promise promise) {
         try {
-            GraphicPolylin graphicPolylin = getObjFromList(GraphicPolylinId);
+            GraphicPolylin graphicPolylin = (GraphicPolylin) getObjFromList(GraphicPolylinId);
             Bitmap bitmap = JSImage.getObjFromList(imageID);
             graphicPolylin.setFillTexture(bitmap);
             promise.resolve(true);

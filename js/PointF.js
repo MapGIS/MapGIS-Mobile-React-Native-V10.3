@@ -63,4 +63,22 @@ export default class PointF {
       console.error(e);
     }
   }
+
+  /**
+   * 判断PointF对象是否有效
+   * 
+   * @memberof PointF
+   * @returns {Boolean} true：有效；false：无效
+   */
+   isValid(){
+    try {
+      if(this._MGPointFId === undefined || this._MGPointFId === null){
+        return false;
+      }else{
+        return true;
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
 }

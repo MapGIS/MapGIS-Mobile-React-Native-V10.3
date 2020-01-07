@@ -10,14 +10,6 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.android.graphic.Graphic;
-import com.zondy.mapgis.android.graphic.GraphicCircle;
-import com.zondy.mapgis.android.graphic.GraphicImage;
-import com.zondy.mapgis.android.graphic.GraphicMultiPoint;
-import com.zondy.mapgis.android.graphic.GraphicPoint;
-import com.zondy.mapgis.android.graphic.GraphicPolygon;
-import com.zondy.mapgis.android.graphic.GraphicPolylin;
-import com.zondy.mapgis.android.graphic.GraphicStippleLine;
-import com.zondy.mapgis.android.graphic.GraphicText;
 import com.zondy.mapgis.android.graphic.GraphicsOverlay;
 
 import java.util.ArrayList;
@@ -128,42 +120,11 @@ public class JSGraphicsOverlay extends ReactContextBaseJavaModule {
         try {
             GraphicsOverlay graphicsOverlay = getObjFromList(GraphicsOverlayId);
             Graphic graphic = JSGraphic.mGraphicList.get(graphicID);
-            if (graphic != null) {
-                graphicsOverlay.addGraphic(graphic);
+            int result = 0;
+            if(graphic != null){
+                result = graphicsOverlay.addGraphic(graphic);
             }
-            GraphicImage graphicImage = JSGraphicImage.mGraphicImageList.get(graphicID);
-            if (graphicImage != null) {
-                graphicsOverlay.addGraphic(graphicImage);
-            }
-            GraphicCircle GraphicCircle = JSGraphicCircle.mGraphicCircleList.get(graphicID);
-            if (GraphicCircle != null) {
-                graphicsOverlay.addGraphic(GraphicCircle);
-            }
-            GraphicMultiPoint GraphicMultiPoint = JSGraphicMultiPoint.mGraphicMultiPointList.get(graphicID);
-            if (GraphicMultiPoint != null) {
-                graphicsOverlay.addGraphic(GraphicMultiPoint);
-            }
-            GraphicPoint GraphicPoint = JSGraphicPoint.mGraphicPointList.get(graphicID);
-            if (GraphicPoint != null) {
-                graphicsOverlay.addGraphic(GraphicPoint);
-            }
-            GraphicPolygon GraphicPolygon = JSGraphicPolygon.mGraphicPolygonList.get(graphicID);
-            if (GraphicPolygon != null) {
-                graphicsOverlay.addGraphic(GraphicPolygon);
-            }
-            GraphicPolylin GraphicPolylin = JSGraphicPolylin.mGraphicPolylinList.get(graphicID);
-            if (GraphicPolylin != null) {
-                graphicsOverlay.addGraphic(GraphicPolylin);
-            }
-            GraphicStippleLine GraphicStippleLine = JSGraphicStippleLine.mGraphicStippleLineList.get(graphicID);
-            if (GraphicStippleLine != null) {
-                graphicsOverlay.addGraphic(GraphicStippleLine);
-            }
-            GraphicText graphicText = JSGraphicText.mGraphicTextList.get(graphicID);
-            if (graphicText != null) {
-                graphicsOverlay.addGraphic(graphicText);
-            }
-            promise.resolve(true);
+            promise.resolve(result);
         } catch (Exception e) {
             promise.reject(e);
         }
@@ -194,9 +155,10 @@ public class JSGraphicsOverlay extends ReactContextBaseJavaModule {
     public void removeGraphic(String GraphicsOverlayId, String graphicID, Promise promise) {
         try {
             GraphicsOverlay graphicsOverlay = getObjFromList(GraphicsOverlayId);
-           // Graphic graphic = JSGraphic.getObjFromList(graphicID);
-            Graphic graphic = getGraphicByID(graphicID);
-            graphicsOverlay.removeGraphic(graphic);
+            Graphic graphic = JSGraphic.getObjFromList(graphicID);
+            if(graphic != null){
+                graphicsOverlay.removeGraphic(graphic);
+            }
             promise.resolve(true);
         } catch (Exception e) {
             promise.reject(e);
@@ -212,9 +174,7 @@ public class JSGraphicsOverlay extends ReactContextBaseJavaModule {
                 for (int i = 0; i < graphiceArray.size(); i++) {
                     ReadableMap innerMap = graphiceArray.getMap(i);
                     String keyStr = innerMap.getString("_MGGraphicId");
-//                    Graphic graphic = JSGraphic.getObjFromList(keyStr);
-                    Graphic graphic = getGraphicByID(keyStr);
-
+                    Graphic graphic = JSGraphic.getObjFromList(keyStr);
                     if (graphic != null) {
                         graphicLst.add(graphic);
                     }
@@ -278,7 +238,7 @@ public class JSGraphicsOverlay extends ReactContextBaseJavaModule {
     {
         try {
             GraphicsOverlay graphicsOverlay = getObjFromList(GraphicsOverlayId);
-            Graphic graphic = getGraphicByID(graphicID);
+            Graphic graphic = JSGraphic.getObjFromList(graphicID);
             int   index = -1;
             if (graphic != null) {
                 index = graphicsOverlay.indexOf(graphic);
@@ -309,7 +269,7 @@ public class JSGraphicsOverlay extends ReactContextBaseJavaModule {
     {
         try {
             GraphicsOverlay graphicsOverlay = getObjFromList(GraphicsOverlayId);
-            Graphic graphic = getGraphicByID(graphicID);
+            Graphic graphic = JSGraphic.getObjFromList(graphicID);
             int  iRes  = -1;
             if (graphic != null) {
                 iRes = graphicsOverlay.insertGraphic(index,graphic);
@@ -376,44 +336,4 @@ public class JSGraphicsOverlay extends ReactContextBaseJavaModule {
         }
     }
 
-    public Graphic getGraphicByID(String graphicID) {
-        Graphic graphic = JSGraphic.mGraphicList.get(graphicID);
-        if (graphic != null) {
-            return graphic;
-
-        }
-        GraphicImage graphicImage = JSGraphicImage.mGraphicImageList.get(graphicID);
-        if (graphicImage != null) {
-            return graphicImage;
-        }
-        GraphicCircle graphicCircle = JSGraphicCircle.mGraphicCircleList.get(graphicID);
-        if (graphicCircle != null) {
-            return graphicCircle;
-        }
-        GraphicMultiPoint graphicMultiPoint = JSGraphicMultiPoint.mGraphicMultiPointList.get(graphicID);
-        if (graphicMultiPoint != null) {
-            return graphicMultiPoint;
-        }
-        GraphicPoint graphicPoint = JSGraphicPoint.mGraphicPointList.get(graphicID);
-        if (graphicPoint != null) {
-            return graphicPoint;
-        }
-        GraphicPolygon graphicPolygon = JSGraphicPolygon.mGraphicPolygonList.get(graphicID);
-        if (graphicPolygon != null) {
-            return graphicPolygon;
-        }
-        GraphicPolylin graphicPolylin = JSGraphicPolylin.mGraphicPolylinList.get(graphicID);
-        if (graphicPolylin != null) {
-            return graphicPolylin;
-        }
-        GraphicStippleLine graphicStippleLine = JSGraphicStippleLine.mGraphicStippleLineList.get(graphicID);
-        if (graphicStippleLine != null) {
-            return graphicStippleLine;
-        }
-        GraphicText graphicText = JSGraphicText.mGraphicTextList.get(graphicID);
-        if (graphicText != null) {
-            return graphicText;
-        }
-        return graphic;
-    }
 }

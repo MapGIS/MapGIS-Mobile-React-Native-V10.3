@@ -33,6 +33,7 @@ import GeoAnno from './GeoAnno';
 // import HtmlAnno from "./HtmlAnno";
 // import ImageAnno from "./ImageAnno";
 import TextAnno from './TextAnno';
+import MeasureOption from './MeasureOption';
 let SE = NativeModules.JSSketchEditor;
 
 /**
@@ -401,7 +402,7 @@ export default class SketchEditor {
   /**
    * 设置编辑数据的空间参考系，用于计算实地距离和面积
    * @memberof SketchEditor
-   * @param {sRefData} 空间参考系
+   * @param {SRefData} 空间参考系
    * @returns {Promise<Void>}
    */
   async setSRS(sRefData) {
@@ -427,6 +428,47 @@ export default class SketchEditor {
       }
 
       return sRefData;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 设置量算参数选项
+   * 
+   * @memberof SketchEditor
+   * @param {MeasureOption} measureOption 量算参数选项
+   * @returns {Promise<Void>}
+   */
+  async setMeasureOption(measureOption){
+    try {
+      if(measureOption === undefined || measureOption === null){
+        console.error('measureOption is undefined or null');
+        return;
+      }
+
+      await SE.setMeasureOption(this._MGSketchEditorId, measureOption._MGMeasureOptionId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取量算参数选项
+   * 
+   * @memberof SketchEditor
+   * @returns {Promise<MeasureOption>}
+   */
+  async getMeasureOption(){
+    try {
+      let {MeasureOptionId} = await SE.getMeasureOption(this._MGSketchEditorId);
+      let measureOption = null;
+      if(MeasureOptionId !== null){
+        measureOption = new MeasureOption();
+        measureOption._MGMeasureOptionId = MeasureOptionId;
+      }
+
+      return measureOption;
     } catch (e) {
       console.error(e);
     }

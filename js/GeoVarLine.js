@@ -6,14 +6,14 @@ import { NativeModules } from 'react-native';
 
 let GVL = NativeModules.JSGeoVarLine;
 
-import GeometryExp from './GeometryExp.js';
+import GeoLine from './GeoLine.js';
 import Dot from './Dot.js';
 import Dot3D from './Dot3D.js';
 
 /**
  * @class GeoVarLine
  */
-export default class GeoVarLine extends GeometryExp {
+export default class GeoVarLine extends GeoLine {
   constructor() {
     super();
     Object.defineProperty(this, '_MGGeoVarLineId', {

@@ -167,10 +167,14 @@ public class JSFeature extends ReactContextBaseJavaModule {
                 WritableArray values = Arguments.createArray();
                 if (graphicLst.size() > 0) {
                     for (int i = 0; i < graphicLst.size(); i++) {
-                        graphicID = JSGraphic.registerId(graphicLst.get(i));
-                        values.pushString(graphicID);
+                        Graphic graphic = graphicLst.get(i);
+                        if(graphic != null){
+                            graphicID = JSGraphic.registerId(graphicLst.get(i));
+                            values.pushString(graphicID);
+                        }
                     }
                 }
+
                 WritableMap map = Arguments.createMap();
                 map.putArray("values", values);
                 promise.resolve(map);

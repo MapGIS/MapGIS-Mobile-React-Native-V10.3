@@ -8,11 +8,25 @@ let GH = NativeModules.JSGraphicHeatmap;
 
 import HeatmapPoint from './HeatmapPoint.js';
 import VisualMap from './VisualMap.js';
+import Graphic from './Graphic.js';
+import ObjectUtils from './components/ObjectUtils.js';
 
 /**
  * @class GraphicHeatmap
  */
-export default class GraphicHeatmap {
+export default class GraphicHeatmap extends Graphic{
+  constructor() {
+    super();
+    Object.defineProperty(this, '_MGGraphicHeatmapId', {
+      get: function() {
+        return this._MGGraphicId;
+      },
+      set: function(_MGGraphicHeatmapId) {
+        this._MGGraphicId = _MGGraphicHeatmapId;
+      },
+    });
+  }
+
   /**
    * 构造一个新的 GraphicHeatmap 对象。
    * @memberOf GraphicHeatmap
@@ -31,34 +45,44 @@ export default class GraphicHeatmap {
 
   /**
    * 设置热力点。
-   * @memberOf {Array} HeatmapPoints
+   * @memberOf GraphicHeatmap
+   * @param {Array<HeatmapPoint>} pointArray
    * @returns {Promise.<GraphicHeatmap>}
    */
   async setHeatmapPoints(pointArray) {
     try {
-      await GH.setHeatmapPoints(this._MGGraphicHeatmapId, pointArray);
+      if(this.isValid()){
+        await GH.setHeatmapPoints(this._MGGraphicHeatmapId, pointArray);
+      } else {
+        console.log('GraphicHeatmap is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
   }
 
   /**
-   * 设置热力点。
+   * 获取热力点。
    * @memberOf GraphicHeatmap
-   * @returns {Promise.<HeatmapPoint>}
+   * @returns {Promise.<Array<HeatmapPoint>>}
    */
   async getHeatmapPoints() {
     try {
-      var objArr = [];
-      let { HeatmapPointArr } = await GH.getHeatmapPoints(
-        this._MGGraphicHeatmapId
-      );
-      for (var i = 0; i < HeatmapPointArr.length; i++) {
-        var heatmapPoint = new HeatmapPoint();
-        heatmapPoint._MGHeatmapPointId = HeatmapPointArr[i];
-        objArr.push(heatmapPoint);
+      if(this.isValid()){
+        let objArr = [];
+        let { HeatmapPointArr } = await GH.getHeatmapPoints(
+          this._MGGraphicHeatmapId
+        );
+        for (let i = 0; i < HeatmapPointArr.length; i++) {
+          let heatmapPoint = new HeatmapPoint();
+          heatmapPoint._MGHeatmapPointId = HeatmapPointArr[i];
+          objArr.push(heatmapPoint);
+        }
+        return objArr;
+      } else {
+        console.log('GraphicHeatmap is invalid !');
       }
-      return objArr;
+      
     } catch (e) {
       console.error(e);
     }
@@ -67,12 +91,16 @@ export default class GraphicHeatmap {
   /**
    * 设置视觉映射
    * @memberOf GraphicHeatmap
-   * @param {Object} visualMap
+   * @param {VisualMap} visualMap
    * @returns {Promise<void>}
    */
   async setVisualMap(visualMap) {
     try {
-      await GH.setVisualMap(this._MGGraphicHeatmapId, visualMap._MGVisualMapId);
+      if(this.isValid() && ObjectUtils.isValidObject(visualMap) && visualMap.isValid()){
+        await GH.setVisualMap(this._MGGraphicHeatmapId, visualMap._MGVisualMapId);
+      } else {
+        console.log('GraphicHeatmap or VisualMap is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
@@ -81,15 +109,19 @@ export default class GraphicHeatmap {
   /**
    *  获取视觉映射
    * @memberOf GraphicHeatmap
-   * @returns {Promise<*>}
+   * @returns {Promise<VisualMap>}
    */
   async getVisualMap() {
     try {
-      let VisualMapId = await GH.getVisualMap(this._MGGraphicHeatmapId);
-      var visualMap = new VisualMap();
-      visualMap._MGVisualMapId = VisualMapId;
-
-      return visualMap;
+      if(this.isValid()){
+        let {VisualMapId} = await GH.getVisualMap(this._MGGraphicHeatmapId);
+        var visualMap = new VisualMap();
+        visualMap._MGVisualMapId = VisualMapId;
+  
+        return visualMap;
+      } else {
+        console.log('GraphicHeatmap is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
@@ -103,7 +135,11 @@ export default class GraphicHeatmap {
    */
   async setPointSize(size) {
     try {
-      await GH.setPointSize(this._MGGraphicHeatmapId, size);
+      if(this.isValid()){
+        await GH.setPointSize(this._MGGraphicHeatmapId, size);
+      } else {
+        console.log('GraphicHeatmap is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
@@ -112,12 +148,17 @@ export default class GraphicHeatmap {
   /**
    *  获取热力点大小
    * @memberOf GraphicHeatmap
-   * @returns {Promise<*>}
+   * @returns {Promise<Number>}
    */
   async getPointSize() {
     try {
-      let pointSize = await GH.getPointSize(this._MGGraphicHeatmapId);
-      return pointSize;
+      if(this.isValid()){
+        let pointSize = await GH.getPointSize(this._MGGraphicHeatmapId);
+
+        return pointSize;
+      } else {
+        console.log('GraphicHeatmap is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
@@ -131,7 +172,11 @@ export default class GraphicHeatmap {
    */
   async setMinAlpha(minAlpha) {
     try {
-      await GH.setMinAlpha(this._MGGraphicHeatmapId, minAlpha);
+      if(this.isValid()){
+        await GH.setMinAlpha(this._MGGraphicHeatmapId, minAlpha);
+      } else {
+        console.log('GraphicHeatmap is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
@@ -140,12 +185,17 @@ export default class GraphicHeatmap {
   /**
    * 获取热力点最小透明度,默认值为0:不透明
    * @memberOf GraphicHeatmap
-   * @returns {Promise<*>}
+   * @returns {Promise<Number>}
    */
   async getMinAlpha() {
     try {
-      let minAlpha = await GH.getMinAlpha(this._MGGraphicHeatmapId);
-      return minAlpha;
+      if(this.isValid()){
+        let minAlpha = await GH.getMinAlpha(this._MGGraphicHeatmapId);
+
+        return minAlpha;
+      } else {
+        console.log('GraphicHeatmap is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
@@ -159,7 +209,11 @@ export default class GraphicHeatmap {
    */
   async setMaxAlpha(maxAlpha) {
     try {
-      await GH.setMaxAlpha(this._MGGraphicHeatmapId, maxAlpha);
+      if(this.isValid()){
+        await GH.setMaxAlpha(this._MGGraphicHeatmapId, maxAlpha);
+      } else {
+        console.log('GraphicHeatmap is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
@@ -168,12 +222,17 @@ export default class GraphicHeatmap {
   /**
    * 获取热力点最大透明度,默认值为100:全透明
    * @memberOf GraphicHeatmap
-   * @returns {Promise<*>}
+   * @returns {Promise<Number>}
    */
   async getMaxAlpha() {
     try {
-      let maxAlpha = await GH.getMaxAlpha(this._MGGraphicHeatmapId);
-      return maxAlpha;
+      if(this.isValid()){
+        let maxAlpha = await GH.getMaxAlpha(this._MGGraphicHeatmapId);
+        return maxAlpha;
+
+      } else {
+        console.log('GraphicHeatmap is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }

@@ -12,17 +12,14 @@ import com.zondy.mapgis.android.graphic.GraphicHeatmap;
 import com.zondy.mapgis.android.graphic.HeatmapPoint;
 import com.zondy.mapgis.android.graphic.VisualMap;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 /**
  *
  */
 public class JSGraphicHeatmap extends JSGraphic {
     public static final String REACT_CLASS = "JSGraphicHeatmap";
-    public static Map<String, GraphicHeatmap> mGraphicHeatmapList = new HashMap<String, GraphicHeatmap>();
 
     public JSGraphicHeatmap(ReactApplicationContext context) {
         super(context);
@@ -30,21 +27,6 @@ public class JSGraphicHeatmap extends JSGraphic {
     @Override
     public String getName() {
         return REACT_CLASS;
-    }
-    public static GraphicHeatmap getObjFromList(String id) {
-        return mGraphicHeatmapList.get(id);
-    }
-
-    public static String registerId(GraphicHeatmap obj) {
-        for (Map.Entry entry : mGraphicHeatmapList.entrySet()) {
-            if (obj.equals(entry.getValue())) {
-                return (String) entry.getKey();
-            }
-        }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
-        mGraphicHeatmapList.put(id, obj);
-        return id;
     }
 
     @ReactMethod
@@ -64,7 +46,7 @@ public class JSGraphicHeatmap extends JSGraphic {
     public void setHeatmapPoints(String GraphicHeatmapId, ReadableArray heatmapPointArray, Promise promise)
     {
         try {
-            GraphicHeatmap graphicHeatmap = getObjFromList(GraphicHeatmapId);
+            GraphicHeatmap graphicHeatmap = (GraphicHeatmap) getObjFromList(GraphicHeatmapId);
             ArrayList<HeatmapPoint> heatmapPointLst = new ArrayList();
             if (graphicHeatmap != null) {
                 for (int i = 0; i < heatmapPointArray.size(); i++) {
@@ -84,7 +66,7 @@ public class JSGraphicHeatmap extends JSGraphic {
     public void getHeatmapPoints(String GraphicHeatmapId, Promise promise)
     {
         try {
-            GraphicHeatmap graphicHeatmap = getObjFromList(GraphicHeatmapId);
+            GraphicHeatmap graphicHeatmap = (GraphicHeatmap) getObjFromList(GraphicHeatmapId);
             List<HeatmapPoint> heatmapPointList = graphicHeatmap.getHeatmapPoints();
             String strHeatmapPointId = "";
             WritableArray arr = Arguments.createArray();
@@ -106,7 +88,7 @@ public class JSGraphicHeatmap extends JSGraphic {
     public void setVisualMap(String GraphicHeatmapId, String visualMapId, Promise promise)
     {
         try {
-            GraphicHeatmap graphicHeatmap = getObjFromList(GraphicHeatmapId);
+            GraphicHeatmap graphicHeatmap = (GraphicHeatmap) getObjFromList(GraphicHeatmapId);
             VisualMap  visualMap = JSVisualMap.getObjFromList(visualMapId);
             if (visualMap != null) {
                 graphicHeatmap.setVisualMap(visualMap);
@@ -121,7 +103,7 @@ public class JSGraphicHeatmap extends JSGraphic {
     public void getVisualMap(String GraphicHeatmapId, Promise promise)
     {
         try {
-            GraphicHeatmap graphicHeatmap = getObjFromList(GraphicHeatmapId);
+            GraphicHeatmap graphicHeatmap = (GraphicHeatmap) getObjFromList(GraphicHeatmapId);
             VisualMap visualMap = graphicHeatmap.getVisualMap();
 
             String strVisualMapId = JSVisualMap.registerId(visualMap);
@@ -137,7 +119,7 @@ public class JSGraphicHeatmap extends JSGraphic {
     public void setPointSize(String GraphicHeatmapId, int size, Promise promise)
     {
         try {
-            GraphicHeatmap graphicHeatmap = getObjFromList(GraphicHeatmapId);
+            GraphicHeatmap graphicHeatmap = (GraphicHeatmap) getObjFromList(GraphicHeatmapId);
             graphicHeatmap.setPointSize(size);
             promise.resolve(true);
         } catch (Exception e) {
@@ -149,7 +131,7 @@ public class JSGraphicHeatmap extends JSGraphic {
     public void getPointSize(String GraphicHeatmapId, Promise promise)
     {
         try {
-            GraphicHeatmap graphicHeatmap = getObjFromList(GraphicHeatmapId);
+            GraphicHeatmap graphicHeatmap = (GraphicHeatmap) getObjFromList(GraphicHeatmapId);
             int size = graphicHeatmap.getPointSize();
             promise.resolve(size);
         } catch (Exception e) {
@@ -161,7 +143,7 @@ public class JSGraphicHeatmap extends JSGraphic {
     public void setMinAlpha(String GraphicHeatmapId, double minAlpha, Promise promise)
     {
         try {
-            GraphicHeatmap graphicHeatmap = getObjFromList(GraphicHeatmapId);
+            GraphicHeatmap graphicHeatmap = (GraphicHeatmap) getObjFromList(GraphicHeatmapId);
             graphicHeatmap.setMinAlpha(minAlpha);
             promise.resolve(true);
         } catch (Exception e) {
@@ -173,7 +155,7 @@ public class JSGraphicHeatmap extends JSGraphic {
     public void getMinAlpha(String GraphicHeatmapId, Promise promise)
     {
         try {
-            GraphicHeatmap graphicHeatmap = getObjFromList(GraphicHeatmapId);
+            GraphicHeatmap graphicHeatmap = (GraphicHeatmap) getObjFromList(GraphicHeatmapId);
             double minAlpha = graphicHeatmap.getMinAlpha();
             promise.resolve(minAlpha);
         } catch (Exception e) {
@@ -185,7 +167,7 @@ public class JSGraphicHeatmap extends JSGraphic {
     public void setMaxAlpha(String GraphicHeatmapId, double maxAlpha, Promise promise)
     {
         try {
-            GraphicHeatmap graphicHeatmap = getObjFromList(GraphicHeatmapId);
+            GraphicHeatmap graphicHeatmap = (GraphicHeatmap) getObjFromList(GraphicHeatmapId);
             graphicHeatmap.setMaxAlpha(maxAlpha);
             promise.resolve(true);
         } catch (Exception e) {
@@ -197,7 +179,7 @@ public class JSGraphicHeatmap extends JSGraphic {
     public void getMaxAlpha(String GraphicHeatmapId, Promise promise)
     {
         try {
-            GraphicHeatmap graphicHeatmap = getObjFromList(GraphicHeatmapId);
+            GraphicHeatmap graphicHeatmap = (GraphicHeatmap) getObjFromList(GraphicHeatmapId);
             double maxAlpha = graphicHeatmap.getMaxAlpha();
             promise.resolve(maxAlpha);
         } catch (Exception e) {

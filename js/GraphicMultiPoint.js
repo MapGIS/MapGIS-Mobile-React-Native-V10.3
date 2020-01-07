@@ -6,6 +6,7 @@ import { NativeModules } from 'react-native';
 import Graphic from './Graphic';
 import Dot from './Dot';
 import Dots from './Dots';
+import ObjectUtils from './components/ObjectUtils';
 let GM = NativeModules.JSGraphicMultiPoint;
 
 /**
@@ -43,14 +44,18 @@ export default class GraphicMultiPoint extends Graphic {
   /**
    * 设置一组坐标点
    * @memberOf GraphicMultiPoint
-   * @param {Array} pointArray dot数组
+   * @param {Array<Dot>} pointArray dot数组
    * @returns {Promise<void>}
    */
   async setPoints(pointArray) {
     try {
-      let json = JSON.stringify(pointArray);
+      if(this.isValid()){
+        let json = JSON.stringify(pointArray);
+        await GM.setPoints(this._MGGraphicMultiPointId, json);
+      } else {
+        console.log('GraphicMultiPoint is invalid !');
+      }
 
-      await GM.setPoints(this._MGGraphicMultiPointId, json);
     } catch (e) {
       console.error(e);
     }
@@ -76,7 +81,11 @@ export default class GraphicMultiPoint extends Graphic {
    */
   async setPointsByDots(dots) {
     try {
-      await GM.setPointsByDots(this._MGGraphicMultiPointId, dots._MGDotsId);
+      if(this.isValid() && ObjectUtils.isValidObject(dots) && dots.isValid()){
+        await GM.setPointsByDots(this._MGGraphicMultiPointId, dots._MGDotsId);
+      } else {
+        console.log('GraphicMultiPoint or dots is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
@@ -90,14 +99,19 @@ export default class GraphicMultiPoint extends Graphic {
    */
   async getPoints() {
     try {
-      let objArr = [];
-      let dotsArr = await GM.getPoints(this._MGGraphicMultiPointId);
-      for (let i = 0; i < dotsArr.length; i++) {
-        let dot = new Dot();
-        dot._MGDotId = dotsArr[i];
-        objArr.push(dot);
+      if(this.isValid()){
+        let objArr = [];
+        let dotsArr = await GM.getPoints(this._MGGraphicMultiPointId);
+        for (let i = 0; i < dotsArr.length; i++) {
+          let dot = new Dot();
+          dot._MGDotId = dotsArr[i];
+          objArr.push(dot);
+        }
+        return objArr;
+      } else {
+        console.log('GraphicMultiPoint is invalid !');
       }
-      return objArr;
+     
     } catch (e) {
       console.error(e);
     }
@@ -111,14 +125,19 @@ export default class GraphicMultiPoint extends Graphic {
    */
   async getPointsToDots(){
     try {
-      let dotsId = await GM.getPointsToDots(this._MGGraphicMultiPointId);
-      let dots = null;
-      if(dotsId !== null){
-        dots = new Dots();
-        dots._MGDotsId = dotsId;
+      if(this.isValid()){
+        let dotsId = await GM.getPointsToDots(this._MGGraphicMultiPointId);
+        let dots = null;
+        if(dotsId !== null){
+          dots = new Dots();
+          dots._MGDotsId = dotsId;
+        }
+  
+        return dots;
+      } else {
+        console.log('GraphicMultiPoint is invalid !');
       }
-
-      return dots;
+     
     } catch (e) {
       console.error(e);
     }
@@ -130,8 +149,13 @@ export default class GraphicMultiPoint extends Graphic {
    */
   async getPointCount() {
     try {
-      let pointCount = await GM.getPointCount(this._MGGraphicMultiPointId);
-      return pointCount;
+      if(this.isValid()){
+        let pointCount = await GM.getPointCount(this._MGGraphicMultiPointId);
+
+        return pointCount;
+      } else {
+        console.log('GraphicMultiPoint is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
@@ -140,41 +164,54 @@ export default class GraphicMultiPoint extends Graphic {
   /**
    * 获取指定索引的坐标点
    * @memberOf GraphicMultiPoint
+   * @param {Number} index 索引
    * @returns {Promise<Dot>}
    */
   async getPoint(index) {
     try {
-      let { dotID } = await GM.getPoint(this._MGGraphicMultiPointId, index);
-      var dot = new Dot();
-      dot._MGDotId = dotID;
-      return dot;
+      if(this.isValid()){
+        let { dotID } = await GM.getPoint(this._MGGraphicMultiPointId, index);
+        var dot = new Dot();
+        dot._MGDotId = dotID;
+        return dot;
+      } else {
+        console.log('GraphicMultiPoint is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
   }
 
   /**
-   *设置点的大小
+   * 设置点的大小
    * @memberOf GraphicMultiPoint
    * @param {Number} size
    * @returns {Promise<void>}
    */
   async setPointSize(size) {
     try {
-      await GM.setPointSize(this._MGGraphicMultiPointId, size);
+      if(this.isValid()){
+        await GM.setPointSize(this._MGGraphicMultiPointId, size);
+      } else {
+        console.log('GraphicMultiPoint is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
   }
   /**
-   * 获取圆边界线的颜色
+   * 获取点的大小
    * @memberOf GraphicMultiPoint
-   * @returns {Promise<*>}
+   * @returns {Promise<Number>}
    */
   async getPointSize() {
     try {
-      let pointSize = await GM.getPointSize(this._MGGraphicMultiPointId);
-      return pointSize;
+      if(this.isValid()){
+        let pointSize = await GM.getPointSize(this._MGGraphicMultiPointId);
+        return pointSize;
+      } else {
+        console.log('GraphicMultiPoint is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
@@ -183,12 +220,17 @@ export default class GraphicMultiPoint extends Graphic {
   /**
    * 追加一个点
    * @memberOf GraphicMultiPoint
-   * @param {Object} point
-   * @returns {Promise<void>}
+   * @param {Dot} point
+   * @returns {Promise<Number>} 追加点的索引
    */
   async appendPoint(point) {
     try {
-      await GM.appendPoint(this._MGGraphicMultiPointId, point._MGDotId);
+      if(this.isValid() && ObjectUtils.isValidObject(point) && point.isValid()){
+        let result = await GM.appendPoint(this._MGGraphicMultiPointId, point._MGDotId);
+        return result;
+      } else {
+        console.log('GraphicMultiPoint or point is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
@@ -197,12 +239,16 @@ export default class GraphicMultiPoint extends Graphic {
   /**
    * 追加一组点
    * @memberOf GraphicMultiPoint
-   * @param {Object} pointArr
+   * @param {Array<Dot>} pointArr
    * @returns {Promise<void>}
    */
   async appendPoints(pointArr) {
     try {
-      await GM.appendPoints(this._MGGraphicMultiPointId, pointArr);
+      if(this.isValid()){
+        await GM.appendPoints(this._MGGraphicMultiPointId, pointArr);
+      } else {
+        console.log('GraphicMultiPoint is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
@@ -211,13 +257,18 @@ export default class GraphicMultiPoint extends Graphic {
   /**
    * 更新指定索引处的点
    * @memberOf GraphicMultiPoint
-   * @param index
-   * @param point
-   * @returns {Promise<void>}
+   * @param {Number} index 索引
+   * @param {Dot} point 更新的点
+   * @returns {Promise<Number>} 成功返回更新的索引,失败返回-1
    */
   async updatePoint(index, point) {
     try {
-      await GM.updatePoint(this._MGGraphicMultiPointId, index, point._MGDotId);
+      if(this.isValid() && ObjectUtils.isValidObject(point) && point.isValid()){
+        let result = await GM.updatePoint(this._MGGraphicMultiPointId, index, point._MGDotId);
+        return result;
+      } else {
+        console.log('GraphicMultiPoint or point is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
@@ -226,12 +277,16 @@ export default class GraphicMultiPoint extends Graphic {
   /**
    * 移除指定索引的点
    * @memberOf GraphicMultiPoint
-   * @param index
+   * @param {Number} index 索引
    * @returns {Promise<void>}
    */
   async removePoint(index) {
     try {
-      await GM.removePoint(this._MGGraphicMultiPointId, index);
+      if(this.isValid()){
+        await GM.removePoint(this._MGGraphicMultiPointId, index);
+      } else {
+        console.log('GraphicMultiPoint is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
@@ -244,7 +299,11 @@ export default class GraphicMultiPoint extends Graphic {
    */
   async removeAllPoints() {
     try {
-      await GM.removeAllPoints(this._MGGraphicMultiPointId);
+      if(this.isValid()){
+        await GM.removeAllPoints(this._MGGraphicMultiPointId);
+      } else {
+        console.log('GraphicMultiPoint is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
@@ -253,13 +312,18 @@ export default class GraphicMultiPoint extends Graphic {
   /**
    * 在指定索引处插入点
    * @memberOf GraphicMultiPoint
-   * @param index
-   * @param point
-   * @returns {Promise<void>}
+   * @param {Number} index 索引
+   * @param {Dot} point 插入的点
+   * @returns {Promise<Number>} 
    */
   async insertPoint(index, point) {
     try {
-      await GM.insertPoint(this._MGGraphicMultiPointId, index, point._MGDotId);
+      if(this.isValid() && ObjectUtils.isValidObject(point) && point.isValid()){
+        let result = await GM.insertPoint(this._MGGraphicMultiPointId, index, point._MGDotId);
+        return result;
+      } else {
+        console.log('GraphicMultiPoint or point is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }

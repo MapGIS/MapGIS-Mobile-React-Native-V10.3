@@ -4,6 +4,8 @@
  */
 import { NativeModules } from 'react-native';
 import GraphicMultiPoint from './GraphicMultiPoint';
+import Graphic from './Graphic';
+import ObjectUtils from './components/ObjectUtils';
 let GP = NativeModules.JSGraphicPolygon;
 
 /**
@@ -41,12 +43,17 @@ export default class GraphicPolygon extends GraphicMultiPoint {
   /**
    * 获取面积
    * @memberOf GraphicPolygon
-   * @returns {Promise<*>}
+   * @returns {Promise<Number>}
    */
   async getArea() {
     try {
-      let area = await GP.getArea(this._MGGraphicPolygonId);
-      return area;
+      if(this.isValid()){
+        let area = await GP.getArea(this._MGGraphicPolygonId);
+
+        return area;
+      } else {
+        console.log('GraphicPolygon is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
@@ -55,27 +62,32 @@ export default class GraphicPolygon extends GraphicMultiPoint {
   /**
    * 设置一组坐标点
    * @memberOf GraphicPolygon
-   * @param {Array} pointArray 点数组
-   * @param {Array} circlesArray  圈序列数组
+   * @param {Array<Dot>} pointArray 点数组
+   * @param {Array<Number>} circlesArray  圈序列数组 (int类型的Number)
    * @returns {Promise<void>}
    */
   async setPoints(pointArray, circlesArray) {
     try {
-      let pointArrayJson = JSON.stringify(pointArray);
+      if(this.isValid()){
+        let pointArrayJson = JSON.stringify(pointArray);
 
-      let objArray = [];
-      let objArrayJson = null;
-      if(circlesArray !== null && circlesArray.length > 0){
-        for(let i = 0; i < circlesArray.length; i++){
-          let obj = {};
-          obj.c = circlesArray[i];
-          objArray.push(obj);
+        let objArray = [];
+        let objArrayJson = null;
+        if(circlesArray !== null && circlesArray.length > 0){
+          for(let i = 0; i < circlesArray.length; i++){
+            let obj = {};
+            obj.c = circlesArray[i];
+            objArray.push(obj);
+          }
+          objArrayJson = JSON.stringify(objArray);
+  
         }
-        objArrayJson = JSON.stringify(objArray);
-
+        
+        await GP.setPoints(this._MGGraphicPolygonId, pointArrayJson, objArrayJson);
+      } else {
+        console.log('GraphicPolygon is invalid !');
       }
-      
-      await GP.setPoints(this._MGGraphicPolygonId, pointArrayJson, objArrayJson);
+     
     } catch (e) {
       console.error(e);
     }
@@ -85,7 +97,7 @@ export default class GraphicPolygon extends GraphicMultiPoint {
    * 通过点序列设置一组坐标点
    * @memberOf GraphicPolygon
    * @param {Dots} dots 点序列
-   * @param {Array} circlesArray 圈序列数组
+   * @param {Array<Number>} circlesArray 圈序列数组 （int类型的Number）
    * @returns {Promise<void>}
    * @example
        let dotArr = [];
@@ -102,17 +114,22 @@ export default class GraphicPolygon extends GraphicMultiPoint {
    */
   async setPointsByDots(dots, circlesArray) {
     try {
-      let objArray = [];
-      let objArrayJson = null;
-      if(circlesArray !== null && circlesArray.length > 0){
-        for(let i = 0; i < circlesArray.length; i++){
-          let obj = {};
-          obj.c = circlesArray[i];
-          objArray.push(obj);
+      if(this.isValid() && ObjectUtils.isValidObject(dots) && dots.isValid()){
+        let objArray = [];
+        let objArrayJson = null;
+        if(circlesArray !== null && circlesArray.length > 0){
+          for(let i = 0; i < circlesArray.length; i++){
+            let obj = {};
+            obj.c = circlesArray[i];
+            objArray.push(obj);
+          }
+          objArrayJson = JSON.stringify(objArray);
         }
-        objArrayJson = JSON.stringify(objArray);
+        await GP.setPointsByDots(this._MGGraphicPolygonId, dots._MGDotsId, objArrayJson);
+      } else {
+        console.log('GraphicPolygon or dots is invalid !');
       }
-      await GP.setPointsByDots(this._MGGraphicPolygonId, dots._MGDotsId, objArrayJson);
+     
     } catch (e) {
       console.error(e);
     }
@@ -126,24 +143,33 @@ export default class GraphicPolygon extends GraphicMultiPoint {
    */
   async getCirclesToList() {
     try {
-      let circlesArray = await GP.getCirclesToList(
-        this._MGGraphicPolygonId
-      );
-      return circlesArray;
+      if(this.isValid()){
+        let circlesArray = await GP.getCirclesToList(
+          this._MGGraphicPolygonId
+        );
+        return circlesArray;
+      } else {
+        console.log('GraphicPolygon is invalid !');
+      }
+     
     } catch (e) {
       console.error(e);
     }
   }
 
   /**
-   * 设置点的位置
+   * 设置边界线的宽度
    * @memberOf GraphicPolygon
-   * @param {Object} point
+   * @param {Number} width
    * @returns {Promise<void>}
    */
   async setBorderlineWidth(width) {
     try {
-      await GP.setBorderlineWidth(this._MGGraphicPolygonId, width);
+      if(this.isValid()){
+        await GP.setBorderlineWidth(this._MGGraphicPolygonId, width);
+      } else {
+        console.log('GraphicPolygon is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
@@ -152,45 +178,56 @@ export default class GraphicPolygon extends GraphicMultiPoint {
   /**
    * 获取边界线的宽度
    * @memberOf GraphicPolygon
-   * @returns {Promise<void>}
+   * @returns {Promise<Number>}
    */
   async getBorderlineWidth() {
     try {
-      let { borderlineWidth } = await GP.getBorderlineWidth(
-        this._MGGraphicPolygonId
-      );
-      return borderlineWidth;
+      if(this.isValid()){
+        let borderlineWidth = await GP.getBorderlineWidth(this._MGGraphicPolygonId);
+        return borderlineWidth;
+      } else {
+        console.log('GraphicPolygon is invalid !');
+      }
+     
     } catch (e) {
       console.error(e);
     }
   }
 
   /**
-   * 获取点的位置
+   *  获取边界线的颜色
    * @memberOf GraphicPolygon
-   * @returns {Promise<*>}
+   * @returns {Promise<String>} 颜色。eg:'rgba(128, 128, 128, 128)'
    */
   async getBorderlineColor() {
     try {
-      let { borderlineColor } = await GP.getBorderlineColor(
-        this._MGGraphicPolygonId
-      );
-
-      return borderlineColor;
+      if(this.isValid()){
+        let { borderlineColor } = await GP.getBorderlineColor(
+          this._MGGraphicPolygonId
+        );
+  
+        return borderlineColor;
+      } else {
+        console.log('GraphicPolygon is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
   }
 
   /**
-   * 设置圆边界线的颜色
+   * 设置边界线的颜色
    * @memberOf GraphicPolygon
-   * @param color eg:'rgba(128, 128, 128, 0.5)'
+   * @param {String} color eg:'rgba(128, 128, 128, 128)'
    * @returns {Promise<void>}
    */
   async setBorderlineColor(color) {
     try {
-      await GP.setBorderlineColor(this._MGGraphicPolygonId, color);
+      if(this.isValid()){
+        await GP.setBorderlineColor(this._MGGraphicPolygonId, color);
+      } else {
+        console.log('GraphicPolygon is invalid !');
+      }
     } catch (e) {
       console.error(e);
     }
