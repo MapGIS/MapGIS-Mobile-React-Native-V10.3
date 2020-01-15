@@ -36,9 +36,9 @@ export default class FeatureQuery {
    * @param {IVectorCls} cls 矢量类对象基类
    * @returns {Promise.<FeatureEdit>} eatureEdit 对象。
    */
-  async createObjByCls(cls) {
+  async createObjByVectorCls(cls) {
     try {
-      var { FeatureQueryId } = await F.createObjByCls(cls._MGVectorClsId);
+      var { FeatureQueryId } = await F.createObjByVectorCls(cls._MGVectorClsId);
       var featureQuery = new FeatureQuery();
       featureQuery._MGFeatureQueryId = FeatureQueryId;
       return featureQuery;

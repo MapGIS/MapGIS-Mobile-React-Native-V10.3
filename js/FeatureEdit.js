@@ -19,7 +19,7 @@ export default class FeatureEdit {
    */
   async createObjByVectorLayer(vectorLayer) {
     try {
-      var { FeatureEditId } = await FE.createObjByLayer(vectorLayer._MGVectorLayerId);
+      var { FeatureEditId } = await FE.createObjByVectorLayer(vectorLayer._MGVectorLayerId);
       var featureEdit = new FeatureEdit();
       featureEdit._MGFeatureEditId = FeatureEditId;
       return featureEdit;
@@ -34,9 +34,9 @@ export default class FeatureEdit {
    * @param {IVectorCls} cls 矢量类对象基类
    * @returns {Promise.<FeatureEdit>} eatureEdit 对象。
    */
-  async createObjByCls(cls) {
+  async createObjByVectorCls(cls) {
     try {
-      var { FeatureEditId } = await FE.createObjByCls(cls._MGVectorClsId);
+      var { FeatureEditId } = await FE.createObjByVectorCls(cls._MGVectorClsId);
       var featureEdit = new FeatureEdit();
       featureEdit._MGFeatureEditId = FeatureEditId;
       return featureEdit;

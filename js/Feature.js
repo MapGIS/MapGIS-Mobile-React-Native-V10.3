@@ -272,8 +272,11 @@ export default class Feature {
    */
   async modifyFeatureValue(attribute, geometry, geomInfo){
     try {
-      
-      return await F.modifyFeatureValue(this._MGFeatureId,  attribute, geometry._MGGeometryId, geomInfo._MGGeomInfoId);
+      let attributeJson = null;
+        if(attribute !== null){
+          attributeJson = JSON.stringify(attribute);
+        }
+      return await F.modifyFeatureValue(this._MGFeatureId,  attributeJson, geometry._MGGeometryId, geomInfo._MGGeomInfoId);
     } catch (e) {
       console.error(e);
     }

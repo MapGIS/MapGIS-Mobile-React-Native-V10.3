@@ -4,6 +4,7 @@ import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.geometry.DistanceType;
 import com.zondy.mapgis.core.geometry.Dot;
@@ -158,15 +159,15 @@ public class JSGeoPolygon extends JSGeometryExp{
     }
 
     @ReactMethod
-    public void setDots(String geoPolygonId, String dotsId, int[] numList, Promise promise)
+    public void setDots(String geoPolygonId, String dotsId, ReadableArray numArray, Promise promise)
     {
         try {
             GeoPolygon geoPolygon = getObjFromList(geoPolygonId);
             Dots dots = JSDots.getObjFromList(dotsId);
             IntList iNumList = new IntList();
-            for (int i = 0;i < numList.length;i++)
+            for (int i = 0;i < numArray.size(); i++)
             {
-                iNumList.append(numList[i]);
+                iNumList.append(numArray.getInt(i));
             }
             int iVal = (int)geoPolygon.setDots(dots,iNumList);
             promise.resolve(iVal);

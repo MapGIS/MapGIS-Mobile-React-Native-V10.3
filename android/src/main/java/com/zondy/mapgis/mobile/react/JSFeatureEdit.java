@@ -53,7 +53,7 @@ public class JSFeatureEdit extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void createObjByLayer(String vectorLayerId, Promise promise) {
+    public void createObjByVectorLayer(String vectorLayerId, Promise promise) {
         try {
             VectorLayer vectorLayer = (VectorLayer)JSVectorLayer.getObjFromList(vectorLayerId);
             FeatureEdit featureEdit = new FeatureEdit(vectorLayer);
@@ -67,7 +67,7 @@ public class JSFeatureEdit extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void createObjByCls(String vectorClsId, Promise promise) {
+    public void createObjByVectorCls(String vectorClsId, Promise promise) {
         try { ;
             IVectorCls cls = (IVectorCls)JSVectorCls.getObjFromList(vectorClsId);
             FeatureEdit featureEdit = new FeatureEdit(cls);
