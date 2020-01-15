@@ -118,7 +118,7 @@ public class JSGraphicStippleLine extends JSGraphic {
     public void getEndPoint(String GraphicStippleLineId, Promise promise) {
         try {
             GraphicStippleLine graphicStippleLine = (GraphicStippleLine) getObjFromList(GraphicStippleLineId);
-            Dot dot = graphicStippleLine.GetEndPoint();
+            Dot dot = graphicStippleLine.getEndPoint();
 
             String dotID = JSDot.registerId(dot);
             WritableMap map = Arguments.createMap();
