@@ -29,6 +29,7 @@ let VectorLayerType = NativeModules.JSVectorLayerType;
 let MeasureType = NativeModules.JSMeasureType;
 let SketchDataType = NativeModules.JSSketchDataType;
 let CoordinateType = NativeModules.JSCoordinateType;
+let SketchMeasureUnitType = NativeModules.JSSketchMeasureUnitType;
 
 let CoordType = NativeModules.JSCoordType;
 let LevelType = NativeModules.JSLevelType;
@@ -125,6 +126,7 @@ import SketchStyle from "./js/SketchStyle";
 import SnappingOption from "./js/SnappingOption";
 import TextStyle from "./js/TextStyle";
 import MeasureOption from './js/MeasureOption';
+import MeasureContentWillChangeListener from './js/MeasureContentWillChangeListener';
 
 import CoordinateConvert from "./js/CoordinateConvert";
 import CoordinateConvertParameter from "./js/CoordinateConvertParameter";
@@ -291,6 +293,8 @@ export {
   SnappingOption,
   TextStyle,
   MeasureOption,
+  MeasureContentWillChangeListener,
+  SketchMeasureUnitType,
 
 
   CoordinateConvert,

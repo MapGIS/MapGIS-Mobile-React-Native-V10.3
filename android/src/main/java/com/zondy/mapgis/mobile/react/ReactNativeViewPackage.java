@@ -156,7 +156,9 @@ public class ReactNativeViewPackage implements ReactPackage {
         modules.add(new JSSnappingOption(reactContext));
         modules.add(new JSTextStyle(reactContext));
         modules.add(new JSMeasureOption(reactContext));
-		
+        modules.add(new JSSketchMeasureUnitType(reactContext));
+        modules.add(new JSMeasureContentWillChangeListener(reactContext));
+
 		modules.add(new JSCoordinateConvertParameter(reactContext));
         modules.add(new JSCoordinateType(reactContext));
         modules.add(new JSCoordinateConvert(reactContext));

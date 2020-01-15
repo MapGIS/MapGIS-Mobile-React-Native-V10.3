@@ -1,6 +1,7 @@
 
 import { NativeModules } from 'react-native';
 let MO = NativeModules.JSMeasureOption;
+import MeasureContentWillChangeListener from './MeasureContentWillChangeListener';
 
 /**
  * @class MeasureOption
@@ -58,12 +59,35 @@ export default class MeasureOption{
      * 设置量算结果内容变化监听
      * 
      * @memberof MeasureOption
-     * @private
+     * @param {MeasureContentWillChangeListener} measureContentWillChangeListener
      * @returns {Promise<Void>}
      */
-    async setContentWillChangeListener(){
+    async setContentWillChangeListener(measureContentWillChangeListener){
         try {
-            await MO.setContentWillChangeListener(this._MGMeasureOptionId);
+
+            await MO.setContentWillChangeListener(this._MGMeasureOptionId, measureContentWillChangeListener._MGMeasureListenerId);
+
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    /**
+     * 获取量算结果内容变化监听
+     * 
+     * @memberof MeasureOption
+     * @returns {Promise<MeasureContentWillChangeListener>}
+     */
+    async getMeasureContentWillChangeListener(){
+        try {
+            let measureListenerId = await MO.getMeasureContentWillChangeListener(this._MGMeasureListenerId);
+            let measureContentWillChangeListener = null;
+            if(measureListenerId != null){
+                measureContentWillChangeListener = new MeasureContentWillChangeListener();
+                measureContentWillChangeListener._MGMeasureListenerId = measureListenerId;
+            }
+            
+            return measureContentWillChangeListener;
         } catch (e) {
             console.error(e);
         }

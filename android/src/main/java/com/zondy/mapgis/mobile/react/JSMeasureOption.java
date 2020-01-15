@@ -1,5 +1,7 @@
 package com.zondy.mapgis.mobile.react;
 
+import android.util.Log;
+
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.Promise;
@@ -29,7 +31,7 @@ public class JSMeasureOption extends ReactContextBaseJavaModule {
     private boolean mIsAutoChangeDistanceUnit = true; // 是否自动改变长度单位
     private boolean mIsAutoChangeAreaUnit = true; // 是否自动改变面积单位
 
-    private MeasureResultContentWillChangeListener mAutoChangeListener = null; // 最初的自动改变单位的监听
+    private String mJSMeasureContentWillChangeListenerId = null; // 最初的自动改变单位的监听
 
     public JSMeasureOption(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -95,29 +97,32 @@ public class JSMeasureOption extends ReactContextBaseJavaModule {
         }
     }
 
-
     @ReactMethod
-    public void setContentWillChangeListener(String measureOptionId, Promise promise){
+    public void setContentWillChangeListener(String measureOptionId, String contentWillChangeListenerId, Promise promise){
         try {
             MeasureOption measureOption = getObjFromList(measureOptionId);
-            MeasureResultContentWillChangeListener measureResultContentWillChangeListener = new MeasureResultContentWillChangeListener() {
-                @Override
-                public String onDistanceContentWillChange(double dDistance) {
+            mJSMeasureContentWillChangeListenerId = contentWillChangeListenerId;
 
-                   return String.valueOf(dDistance);
-                }
-
-                @Override
-                public String onAreaContentWillChange(double dArea) {
-                    return String.valueOf(dArea);
-                }
-            };
+            JSMeasureContentWillChangeListener jsMeasureContentWillChangeListener = JSMeasureContentWillChangeListener.getObjFromList(contentWillChangeListenerId);
+            MeasureResultContentWillChangeListener measureResultContentWillChangeListener = jsMeasureContentWillChangeListener.getMeasureResultContentWillChangeListener();
 
             measureOption.setContentWillChangeListener(measureResultContentWillChangeListener);
-
             promise.resolve(true);
         }catch (Exception e) {
             promise.reject(e);
         }
     }
+
+    @ReactMethod
+    public void getMeasureContentWillChangeListener(String measureOptionId, Promise promise){
+        try {
+            MeasureOption measureOption = getObjFromList(measureOptionId);
+
+            promise.resolve(mJSMeasureContentWillChangeListenerId);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+
 }
