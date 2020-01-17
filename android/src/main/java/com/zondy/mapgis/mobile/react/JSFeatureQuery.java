@@ -12,18 +12,17 @@ import com.zondy.mapgis.core.geodatabase.IVectorCls;
 import com.zondy.mapgis.core.map.MapLayer;
 import com.zondy.mapgis.core.map.VectorLayer;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author fjl 2019-6-25 下午2:52:36
  * @content 要素对象Native组件
  */
 public class JSFeatureQuery extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "JSFeatureQuery";
-    public static Map<String, FeatureQuery> mFeatureQueryList = new HashMap<String, FeatureQuery>();
-
+    private static final String REACT_CLASS = "JSFeatureQuery";
+    private static Map<String, FeatureQuery> mFeatureQueryList = new HashMap<String, FeatureQuery>();
 
     public JSFeatureQuery(ReactApplicationContext context) {
         super(context);
@@ -46,8 +45,7 @@ public class JSFeatureQuery extends ReactContextBaseJavaModule {
             }
         }
 
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mFeatureQueryList.put(id, obj);
         return id;
     }
@@ -55,7 +53,7 @@ public class JSFeatureQuery extends ReactContextBaseJavaModule {
     @ReactMethod
     public void createObjByVectorLayer(String layerID, Promise promise) {
         try {
-            MapLayer mapLayer = JSMapLayer.mMapLayerList.get(layerID);
+            MapLayer mapLayer = JSMapLayer.getObjFromList(layerID);
             FeatureQuery FeatureQuery = new FeatureQuery((VectorLayer) mapLayer);
             String FeatureQueryId = registerId(FeatureQuery);
             WritableMap map = Arguments.createMap();
@@ -135,7 +133,7 @@ public class JSFeatureQuery extends ReactContextBaseJavaModule {
     public void setQueryBound(String FeatureQueryId, String queryBoundID, Promise promise) {
         try {
             FeatureQuery FeatureQuery = getObjFromList(FeatureQueryId);
-            com.zondy.mapgis.core.featureservice.FeatureQuery.QueryBound queryBound = JSQueryBound.mQueryBoundList.get(queryBoundID);
+            com.zondy.mapgis.core.featureservice.FeatureQuery.QueryBound queryBound = JSQueryBound.getObjFromList(queryBoundID);
             FeatureQuery.setQueryBound(queryBound);
             promise.resolve(true);
         } catch (Exception e) {
@@ -331,7 +329,7 @@ public class JSFeatureQuery extends ReactContextBaseJavaModule {
             MapLayer mapLayer = JSMapLayer.getObjFromList(vectorLayerID);
             if(mapLayer instanceof VectorLayer )
             {
-                com.zondy.mapgis.core.featureservice.FeatureQuery.QueryBound queryBound = JSQueryBound.mQueryBoundList.get(queryBoundID);
+                com.zondy.mapgis.core.featureservice.FeatureQuery.QueryBound queryBound = JSQueryBound.getObjFromList(queryBoundID);
 
                 FeaturePagedResult featurePagedResult =  FeatureQuery.query((VectorLayer) mapLayer,strWhereClause,queryBound,spatialRel,returnGeometry,returnAttribute,returnGeoInfo,strOutFields,pageSize);
 

@@ -1,7 +1,5 @@
 package com.zondy.mapgis.mobile.react;
 
-import android.view.Display;
-
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -11,11 +9,9 @@ import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.android.model.Model;
 import com.zondy.mapgis.core.geometry.Dot3D;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.annotation.Nullable;
+import java.util.UUID;
 
 /**
  * 模型Native功能组件
@@ -23,7 +19,7 @@ import javax.annotation.Nullable;
  */
 public class JSModel extends ReactContextBaseJavaModule {
     private static final String REACT_CLASS = "JSModel";
-    public static Map<String, Model> mModelList = new HashMap<>();
+    private static Map<String, Model> mModelList = new HashMap<>();
 
     public JSModel(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -46,8 +42,7 @@ public class JSModel extends ReactContextBaseJavaModule {
             }
         }
 
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mModelList.put(id, obj);
         return id;
     }

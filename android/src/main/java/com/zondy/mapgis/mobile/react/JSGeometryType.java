@@ -4,13 +4,12 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.zondy.mapgis.core.geometry.GeometryType;
 import com.zondy.mapgis.core.object.Enumeration;
-import com.zondy.mapgis.core.srs.CoordType;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class JSGeometryType extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS="JSGeometryType";
+    private static final String REACT_CLASS="JSGeometryType";
 
     public JSGeometryType(ReactApplicationContext context){
         super(context);

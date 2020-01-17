@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class JSGeometryDimension extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS="JSGeometryDimension";
+    private static final String REACT_CLASS="JSGeometryDimension";
 
     public JSGeometryDimension(ReactApplicationContext context){
         super(context);

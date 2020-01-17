@@ -13,14 +13,14 @@ import com.zondy.mapgis.core.geometry.Geometry;
 import com.zondy.mapgis.core.geometry.Rect;
 import com.zondy.mapgis.core.spatial.SpaRelation;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSSpaRelation extends ReactContextBaseJavaModule {
 
-    public static final String REACT_CLASS = "JSSpaRelation";
-    public static Map<String, SpaRelation> mSpaRelationList = new HashMap<String, SpaRelation>();
+    private static final String REACT_CLASS = "JSSpaRelation";
+    private static Map<String, SpaRelation> mSpaRelationList = new HashMap<String, SpaRelation>();
 
     public JSSpaRelation(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -41,8 +41,7 @@ public class JSSpaRelation extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mSpaRelationList.put(id, obj);
         return id;
     }

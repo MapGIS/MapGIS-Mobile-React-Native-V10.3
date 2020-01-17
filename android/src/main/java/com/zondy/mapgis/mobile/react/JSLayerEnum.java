@@ -12,14 +12,14 @@ import com.zondy.mapgis.core.map.LayerEnum;
 import com.zondy.mapgis.core.map.MapLayer;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSLayerEnum extends ReactContextBaseJavaModule {
     private static final String REACT_CLASS = "JSLayerEnum";
-    public static Map<String, LayerEnum> mLayerEnumList = new HashMap<>();
+    private static Map<String, LayerEnum> mLayerEnumList = new HashMap<>();
     public JSLayerEnum(ReactApplicationContext reactContext) {
         super(reactContext);
     }
@@ -40,8 +40,7 @@ public class JSLayerEnum extends ReactContextBaseJavaModule {
                 return id;
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mLayerEnumList.put(id,obj);
         return id;
     }

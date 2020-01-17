@@ -14,15 +14,12 @@ import com.zondy.mapgis.core.geometry.GeometryDimension;
 import com.zondy.mapgis.core.geometry.GeometryType;
 import com.zondy.mapgis.core.object.Enumeration;
 
-import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSGeoPoints extends JSGeometryExp{
+    private static final String REACT_CLASS = "JSGeoPoints";
 
-    public static final String REACT_CLASS = "JSGeoPoints";
-    //public static Map<String, GeoPoints> mGeoPointsList = new HashMap<String, GeoPoints>();
-    GeoPoints m_GeoPoints;
     public JSGeoPoints(ReactApplicationContext reactContext) {
         super(reactContext);
     }
@@ -42,8 +39,7 @@ public class JSGeoPoints extends JSGeometryExp{
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mGeometryList.put(id, obj);
         return id;
     }

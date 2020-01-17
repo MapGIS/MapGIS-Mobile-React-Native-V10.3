@@ -12,7 +12,7 @@ import com.zondy.mapgis.core.object.Enumeration;
 
 public class JSFClsInfo extends JSXClsInfo{
 
-    public static final String REACT_CLASS = "JSFClsInfo";
+    private static final String REACT_CLASS = "JSFClsInfo";
 
     public JSFClsInfo(ReactApplicationContext reactContext) {
         super(reactContext);

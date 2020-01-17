@@ -139,7 +139,7 @@ export default class SpaAnalysis{
 	async clipWithType(geom, clipPoly, flag)
 	{
 		try {
-            let {GeometryId} =  await SPA.clip(this._MGSpaAnalysisId, geom._MGGeometryId, clipPoly._MGGeoPolygonId, flag);
+            let {GeometryId} =  await SPA.clipWithType(this._MGSpaAnalysisId, geom._MGGeometryId, clipPoly._MGGeoPolygonId, flag);
             var geometry = new Geometry();
             geometry._MGGeometryId = GeometryId;
             return geometry;

@@ -10,11 +10,9 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.zondy.mapgis.android.utils.CoordinateConvert;
 import com.zondy.mapgis.android.utils.CoordinateConvertParameter;
 import com.zondy.mapgis.core.geometry.Dot;
-import com.zondy.mapgis.core.map.ServerLayer;
-
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 坐标转换类Native功能组件
@@ -22,7 +20,7 @@ import java.util.Map;
  */
 public class JSCoordinateConvert extends ReactContextBaseJavaModule {
     private static final String REACT_CLASS = "JSCoordinateConvert";
-    public static Map<String, CoordinateConvert> mCoordinateConvertList = new HashMap<>();
+    private static Map<String, CoordinateConvert> mCoordinateConvertList = new HashMap<>();
     private static final String CONVERT_FAILED = "com.mapgis.RN.CoordinateConvert.convert_failed";
     private static final String CONVERT_SUCCESS = "com.mapgis.RN.CoordinateConvert.convert_success";
     private ReactApplicationContext mReactContext;
@@ -50,8 +48,7 @@ public class JSCoordinateConvert extends ReactContextBaseJavaModule {
             }
         }
 
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mCoordinateConvertList.put(id, obj);
         return id;
     }

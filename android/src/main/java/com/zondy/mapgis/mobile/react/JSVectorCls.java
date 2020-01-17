@@ -4,7 +4,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 
 public class JSVectorCls extends JSBasCls{
 
-    public static final String REACT_CLASS = "JSVectorCls";
+    private static final String REACT_CLASS = "JSVectorCls";
 
     public JSVectorCls(ReactApplicationContext reactContext) {
         super(reactContext);

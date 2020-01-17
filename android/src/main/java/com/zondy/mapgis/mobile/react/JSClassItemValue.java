@@ -9,16 +9,15 @@ import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.map.ClassItemType;
 import com.zondy.mapgis.core.map.ClassItemValue;
 import com.zondy.mapgis.core.object.Enumeration;
-
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.annotation.RegEx;
 
 public class JSClassItemValue extends ReactContextBaseJavaModule {
     private static final String REACT_CLASS = "JSClassItemValue";
-    public static Map<String, ClassItemValue> mClassItemValueList = new HashMap<>();
+    private static Map<String, ClassItemValue> mClassItemValueList = new HashMap<>();
 
     public JSClassItemValue(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -40,8 +39,7 @@ public class JSClassItemValue extends ReactContextBaseJavaModule {
                 return id;
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mClassItemValueList.put(id,obj);
         return id;
     }

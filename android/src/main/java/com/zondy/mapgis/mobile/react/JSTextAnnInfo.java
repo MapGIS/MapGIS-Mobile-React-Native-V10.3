@@ -9,11 +9,10 @@ import com.zondy.mapgis.core.geometry.AnnType;
 import com.zondy.mapgis.core.geometry.GeomType;
 import com.zondy.mapgis.core.info.TextAnnInfo;
 import com.zondy.mapgis.core.object.Enumeration;
-import com.zondy.mapgis.mobile.react.utils.ConvertUtil;
 
 public class JSTextAnnInfo extends JSAnnInfo{
 
-    public static final String REACT_CLASS = "JSTextAnnInfo";
+    private static final String REACT_CLASS = "JSTextAnnInfo";
 
     public JSTextAnnInfo(ReactApplicationContext reactContext) {
         super(reactContext);

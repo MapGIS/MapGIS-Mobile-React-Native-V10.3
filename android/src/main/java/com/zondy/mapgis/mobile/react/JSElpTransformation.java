@@ -14,16 +14,9 @@ import com.zondy.mapgis.core.srs.ElpTransParam;
 import com.zondy.mapgis.core.srs.ElpTransformation;
 import com.zondy.mapgis.core.srs.Pnt3Struct;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 public class JSElpTransformation extends ReactContextBaseJavaModule {
 
-    public static final String REACT_CLASS = "JSElpTransformation";
-    public static Map<String, ElpTransformation> mElpTransformationList = new HashMap<String, ElpTransformation>();
+    private static final String REACT_CLASS = "JSElpTransformation";
 
     public JSElpTransformation(ReactApplicationContext reactContext) {
         super(reactContext);

@@ -14,9 +14,9 @@ import com.zondy.mapgis.android.tool.sketcheditor.SketchStyle;
 import com.zondy.mapgis.android.tool.sketcheditor.TextStyle;
 import com.zondy.mapgis.core.object.Enumeration;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 草图显示样式（进行编辑的几何或新采集的几何的外观表现）Native功能组件
@@ -24,7 +24,7 @@ import java.util.Map;
  */
 public class JSSketchStyle extends ReactContextBaseJavaModule {
     private static final String REACT_CLASS = "JSSketchStyle";
-    public static Map<String, SketchStyle> mSketchStyleList = new HashMap<>();
+    private static Map<String, SketchStyle> mSketchStyleList = new HashMap<>();
     public JSSketchStyle(ReactApplicationContext reactContext) {
         super(reactContext);
     }
@@ -45,8 +45,7 @@ public class JSSketchStyle extends ReactContextBaseJavaModule {
                 return id;
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mSketchStyleList.put(id,obj);
         return id;
     }

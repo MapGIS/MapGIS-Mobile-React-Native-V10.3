@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class JSSpheroidType extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS="JSSpheroidType";
+    private static final String REACT_CLASS="JSSpheroidType";
 
     public JSSpheroidType(ReactApplicationContext context){
         super(context);

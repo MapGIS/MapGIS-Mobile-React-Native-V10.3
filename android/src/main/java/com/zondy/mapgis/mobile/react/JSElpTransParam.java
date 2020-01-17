@@ -9,17 +9,15 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.android.internal.chart.json.GsonUtil;
-import com.zondy.mapgis.android.internal.gson.Gson;
-import com.zondy.mapgis.core.srs.ElpParam;
 import com.zondy.mapgis.core.srs.ElpTransParam;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSElpTransParam extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "JSElpTransParam";
-    public static Map<String, ElpTransParam> mElpTransParamList = new HashMap<String, ElpTransParam>();
+    private static final String REACT_CLASS = "JSElpTransParam";
+    private static Map<String, ElpTransParam> mElpTransParamList = new HashMap<String, ElpTransParam>();
 
     public JSElpTransParam(ReactApplicationContext context) {
         super(context);
@@ -41,8 +39,7 @@ public class JSElpTransParam extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mElpTransParamList.put(id, obj);
         return id;
     }

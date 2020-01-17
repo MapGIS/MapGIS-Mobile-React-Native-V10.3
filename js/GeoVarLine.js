@@ -18,10 +18,10 @@ export default class GeoVarLine extends GeoLine {
     super();
     Object.defineProperty(this, '_MGGeoVarLineId', {
       get: function() {
-        return this._MGGeometryId;
+        return this._MGGeoLineId;
       },
       set: function(_MGGeoVarLineId) {
-        this._MGGeometryId = _MGGeoVarLineId;
+        this._MGGeoLineId = _MGGeoVarLineId;
       },
     });
   }

@@ -9,9 +9,9 @@ import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.android.tool.sketcheditor.PointStyle;
 import com.zondy.mapgis.mobile.react.utils.ConvertUtil;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 点样式（实心圆点）Native功能组件
@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public class JSPointStyle extends ReactContextBaseJavaModule {
     private static final String REACT_CLASS = "JSPointStyle";
-    public static Map<String, PointStyle> mPointStyleList = new HashMap<>();
+    private static Map<String, PointStyle> mPointStyleList = new HashMap<>();
 
     public JSPointStyle(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -41,8 +41,7 @@ public class JSPointStyle extends ReactContextBaseJavaModule {
                 return id;
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mPointStyleList.put(id,obj);
         return id;
     }

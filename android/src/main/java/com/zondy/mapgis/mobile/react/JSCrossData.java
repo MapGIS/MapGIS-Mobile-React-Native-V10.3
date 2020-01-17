@@ -8,15 +8,14 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.geometry.Dot;
 import com.zondy.mapgis.core.spatial.CrossData;
-
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSCrossData extends ReactContextBaseJavaModule {
 
-    public static final String REACT_CLASS = "JSCrossData";
-    public static Map<String, CrossData> mCrossDataList = new HashMap<String, CrossData>();
+    private static final String REACT_CLASS = "JSCrossData";
+    private static Map<String, CrossData> mCrossDataList = new HashMap<String, CrossData>();
 
     public JSCrossData(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -37,8 +36,7 @@ public class JSCrossData extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mCrossDataList.put(id, obj);
         return id;
     }

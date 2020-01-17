@@ -14,14 +14,13 @@ import com.zondy.mapgis.core.geometry.GeoPolygon;
 import com.zondy.mapgis.core.geometry.Rect;
 import com.zondy.mapgis.core.object.Enumeration;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSQueryDef extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "JSQueryDef";
-    public static Map<String, QueryDef> mQueryDefList = new HashMap<String, QueryDef>();
-
+    private static final String REACT_CLASS = "JSQueryDef";
+    private static Map<String, QueryDef> mQueryDefList = new HashMap<String, QueryDef>();
 
     public JSQueryDef(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -42,8 +41,7 @@ public class JSQueryDef extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mQueryDefList.put(id, obj);
         return id;
     }

@@ -17,11 +17,77 @@ import GroupLayer from './GroupLayer.js';
 import SimpleModelLayer from './SimpleModelLayer.js';
 import ServerLayer from './ServerLayer.js';
 
+import Graphic from './Graphic';
+import GraphicPoint from './GraphicPoint.js'
+import GraphicCircle from './GraphicCircle.js'
+import GraphicMultiPoint from './GraphicMultiPoint.js'
+import GraphicPolylin from './GraphicPolylin.js'
+import GraphicStippleLine from './GraphicStippleLine.js'
+import GraphicText from './GraphicText.js'
+import GraphicHeatmap from './GraphicHeatmap.js'
+import GraphicPolygon from './GraphicPolygon.js'
+import GraphicImage from './GraphicImage.js'
+
 /**
  * @class Map
  * @description 地图类，负责地图显示环境的管理。
  */
 export default class Map {
+
+  static async getGraphics(values)
+  {
+    let objArr = [];
+    for (let i = 0; i < values.length; i++) {
+      let graphic = new Graphic();
+      graphic._MGGraphicId = values[i];
+      let type = await graphic.getGraphicType();
+      let graphicBase = null;
+      switch(type)
+      {
+        case 1:
+          graphicBase = new GraphicPoint();
+          graphicBase._MGGraphicId = values[i];
+          break;
+          case 2:
+            graphicBase = new GraphicCircle();
+            graphicBase._MGGraphicId = values[i];
+          break;
+          case 3:
+            graphicBase = new GraphicPolylin();
+            graphicBase._MGGraphicId = values[i];
+          break;
+          case 4:
+            graphicBase = new GraphicPolygon();
+            graphicBase._MGGraphicId = values[i];
+          break;
+          case 5:
+            graphicBase = new GraphicImage();
+            graphicBase._MGGraphicId = values[i];
+            break;
+          case 6:
+            graphicBase = new GraphicText();
+            graphicBase._MGGraphicId = values[i];
+            break;
+          case 7:
+            graphicBase = new GraphicMultiPoint();
+            graphicBase._MGGraphicId = values[i];
+            break;
+          case 8:
+            graphicBase = new GraphicStippleLine();
+            graphicBase._MGGraphicId = values[i];
+            break;
+          case 19:
+            graphicBase = new GraphicHeatmap();
+            graphicBase._MGGraphicId = values[i];
+            break;
+          default:
+            break;
+      }
+      objArr.push(graphicBase);
+    }
+    return objArr;
+  }
+
   static async creatMapLayerInstanceByID(mapLayerID) {
     try {
       let mapLayer;

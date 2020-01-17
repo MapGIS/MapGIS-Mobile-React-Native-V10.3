@@ -6,19 +6,16 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
-import com.zondy.mapgis.core.attr.ExtField;
 import com.zondy.mapgis.core.attr.Field;
-import com.zondy.mapgis.core.attr.FieldType;
 import com.zondy.mapgis.core.attr.Fields;
-import com.zondy.mapgis.core.object.Enumeration;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSFields extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "JSFields";
-    public static Map<String, Fields> mFieldsList = new HashMap<String, Fields>();
+    private static final String REACT_CLASS = "JSFields";
+    private static Map<String, Fields> mFieldsList = new HashMap<String, Fields>();
 
     public JSFields(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -39,8 +36,7 @@ public class JSFields extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mFieldsList.put(id, obj);
         return id;
     }

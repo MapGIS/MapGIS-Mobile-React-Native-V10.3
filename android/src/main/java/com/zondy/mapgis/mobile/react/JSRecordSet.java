@@ -15,13 +15,13 @@ import com.zondy.mapgis.core.geometry.Rect;
 import com.zondy.mapgis.core.info.GeomInfo;
 import com.zondy.mapgis.core.object.Enumeration;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSRecordSet extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "JSRecordSet";
-    public static Map<String, RecordSet> mRecordSetList = new HashMap<String, RecordSet>();
+    private static final String REACT_CLASS = "JSRecordSet";
+    private static Map<String, RecordSet> mRecordSetList = new HashMap<String, RecordSet>();
 
     public JSRecordSet(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -43,8 +43,7 @@ public class JSRecordSet extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mRecordSetList.put(id, obj);
         return id;
     }

@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class JSLevelType extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS="JSLevelType";
+    private static final String REACT_CLASS="JSLevelType";
 
     public JSLevelType(ReactApplicationContext context){
         super(context);

@@ -3,20 +3,11 @@ package com.zondy.mapgis.mobile.react;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.map.GroupLayer;
 import com.zondy.mapgis.core.map.LayerEnum;
 import com.zondy.mapgis.core.map.MapLayer;
-import com.zondy.mapgis.core.map.ServerLayer;
-import com.zondy.mapgis.core.map.SimpleModelLayer;
-import com.zondy.mapgis.core.map.VectorLayer;
-import com.zondy.mapgis.jni.core.map.NativeMap;
-
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 组图层对象Native组件
@@ -24,7 +15,6 @@ import java.util.Map;
  */
 public class JSGroupLayer extends JSMapLayer {
     private static final String REACT_CLASS = "JSGroupLayer";
-//    public static Map<String, GroupLayer> mGroupLayerList = new HashMap<>();
 
     public JSGroupLayer(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -34,23 +24,6 @@ public class JSGroupLayer extends JSMapLayer {
     public String getName() {
         return REACT_CLASS;
     }
-
-//    public static GroupLayer getObjFromList(String groupLayerId){
-//        return mGroupLayerList.get(groupLayerId);
-//    }
-
-//    public static String registerId(GroupLayer obj){
-//        for(Map.Entry entry : mGroupLayerList.entrySet()){
-//            if(obj.equals(entry.getValue())){
-//                String id = (String) entry.getKey();
-//                return id;
-//            }
-//        }
-//        Calendar calendar = Calendar.getInstance();
-//        String id = Long.toString(calendar.getTimeInMillis());
-//        mGroupLayerList.put(id,obj);
-//        return id;
-//    }
 
     @ReactMethod
     public void createObj(Promise promise){

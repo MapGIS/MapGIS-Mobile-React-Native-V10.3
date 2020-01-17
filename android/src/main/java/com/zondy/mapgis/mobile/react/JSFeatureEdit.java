@@ -18,14 +18,14 @@ import com.zondy.mapgis.core.map.VectorLayer;
 import com.zondy.mapgis.core.object.Enumeration;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSFeatureEdit extends ReactContextBaseJavaModule {
 
-    public static final String REACT_CLASS = "JSFeatureEdit";
-    public static Map<String, FeatureEdit> mFeatureEditList = new HashMap<String, FeatureEdit>();
+    private static final String REACT_CLASS = "JSFeatureEdit";
+    private static Map<String, FeatureEdit> mFeatureEditList = new HashMap<String, FeatureEdit>();
 
     public JSFeatureEdit(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -46,8 +46,7 @@ public class JSFeatureEdit extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mFeatureEditList.put(id, obj);
         return id;
     }

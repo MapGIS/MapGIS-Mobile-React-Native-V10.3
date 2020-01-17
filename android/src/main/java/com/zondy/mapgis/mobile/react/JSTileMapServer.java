@@ -12,17 +12,12 @@ import com.zondy.mapgis.core.geometry.IntUser;
 import com.zondy.mapgis.core.map.TileMapServer;
 import com.zondy.mapgis.core.map.TileSliceType;
 
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * 瓦片地图服务Native功能组件
  * Created by xiaoying on 2019/9/4.
  */
 public class JSTileMapServer extends JSMapServer {
     private static final String REACT_CLASS = "JSTileMapServer";
-//    public static Map<String, TileMapServer> mTileMapServerList = new HashMap<>();
 
     public JSTileMapServer(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -32,24 +27,6 @@ public class JSTileMapServer extends JSMapServer {
     public String getName() {
         return REACT_CLASS;
     }
-
-//    public static TileMapServer getObjFromList(String id){
-//        return mTileMapServerList.get(id);
-//    }
-//
-//    public static String registerId(TileMapServer obj){
-//        for (Map.Entry entry : mTileMapServerList.entrySet()) {
-//            if (obj.equals(entry.getValue())) {
-//                String id = (String) entry.getKey();
-//                return id;
-//            }
-//        }
-//
-//        Calendar calendar = Calendar.getInstance();
-//        String id = Long.toString(calendar.getTimeInMillis());
-//        mTileMapServerList.put(id, obj);
-//        return id;
-//    }
 
     @ReactMethod
     public void createObj(Promise promise){

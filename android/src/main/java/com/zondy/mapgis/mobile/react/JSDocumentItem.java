@@ -8,10 +8,9 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.map.DocItemType;
 import com.zondy.mapgis.core.map.DocumentItem;
-
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by xiaoying on 2019/8/28.
@@ -19,7 +18,7 @@ import java.util.Map;
  */
 public class JSDocumentItem extends ReactContextBaseJavaModule {
     private static final String REACT_CLASS = "JSDocumentItem";
-    public static Map<String, DocumentItem> mDocumentItemList = new HashMap<>();
+    private static Map<String, DocumentItem> mDocumentItemList = new HashMap<>();
 
     public JSDocumentItem(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -42,8 +41,7 @@ public class JSDocumentItem extends ReactContextBaseJavaModule {
            }
        }
 
-       Calendar calendar =  Calendar.getInstance();
-       String id = Long.toString(calendar.getTimeInMillis());
+       String id = UUID.randomUUID().toString().substring(24);
        mDocumentItemList.put(id,obj);
        return id;
     }

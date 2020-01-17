@@ -8,14 +8,14 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.featureservice.MapServiceLayerInfo;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSMapServiceLayerInfo extends ReactContextBaseJavaModule {
 
-    public static final String REACT_CLASS = "JSMapServiceLayerInfo";
-    public static Map<String, MapServiceLayerInfo> mMapServiceLayerInfoList = new HashMap<String, MapServiceLayerInfo>();
+    private static final String REACT_CLASS = "JSMapServiceLayerInfo";
+    private static Map<String, MapServiceLayerInfo> mMapServiceLayerInfoList = new HashMap<String, MapServiceLayerInfo>();
 
     public JSMapServiceLayerInfo(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -36,8 +36,7 @@ public class JSMapServiceLayerInfo extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mMapServiceLayerInfoList.put(id, obj);
         return id;
     }

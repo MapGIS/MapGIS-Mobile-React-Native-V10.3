@@ -23,7 +23,7 @@ export default class SpaCalculator {
    */
   static async anglePIOfDot(xy0, xy1) {
     try {
-      return await SPC.anglePI(xy0._MGDotId, xy1._MGDotId);
+      return await SPC.anglePIOfDot(xy0._MGDotId, xy1._MGDotId);
     } catch (e) {
       console.error(e);
     }
@@ -40,7 +40,7 @@ export default class SpaCalculator {
    */
   static async anglePIOfXY(x0, y0, x1, y1) {
     try {
-      return await SPC.anglePI(x0, y0, x1, y1);
+      return await SPC.anglePIOfXY(x0, y0, x1, y1);
     } catch (e) {
       console.error(e);
     }
@@ -55,7 +55,7 @@ export default class SpaCalculator {
    */
   static async angle2PIOfDot(xy0, xy1) {
     try {
-      return await SPC.angle2PI(xy0._MGDotId, xy1._MGDotId);
+      return await SPC.angle2PIOfDot(xy0._MGDotId, xy1._MGDotId);
     } catch (e) {
       console.error(e);
     }
@@ -72,7 +72,7 @@ export default class SpaCalculator {
    */
   static async angle2PIOfXY(x0, y0, x1, y1) {
     try {
-      return await SPC.angle2PI(x0, y0, x1, y1);
+      return await SPC.angle2PIOfXY(x0, y0, x1, y1);
     } catch (e) {
       console.error(e);
     }
@@ -87,7 +87,7 @@ export default class SpaCalculator {
    */
   static async distanceOfDot(xy0, xy1) {
     try {
-      return await SPC.distance(xy0._MGDotId, xy1._MGDotId);
+      return await SPC.distanceOfDot(xy0._MGDotId, xy1._MGDotId);
     } catch (e) {
       console.error(e);
     }
@@ -104,7 +104,7 @@ export default class SpaCalculator {
    */
   static async distanceOfXY(x0, y0, x1, y1) {
     try {
-      return await SPC.distance(x0, y0, x1, y1);
+      return await SPC.distanceOfXY(x0, y0, x1, y1);
     } catch (e) {
       console.error(e);
     }
@@ -129,7 +129,7 @@ export default class SpaCalculator {
    */
   static async distanceOfGeometry(geom1, geom2, type) {
     try {
-      return await SPC.distance(geom1._MGGeometryId, geom2._MGGeometryId, type);
+      return await SPC.distanceOfGeometry(geom1._MGGeometryId, geom2._MGGeometryId, type);
     } catch (e) {
       console.error(e);
     }

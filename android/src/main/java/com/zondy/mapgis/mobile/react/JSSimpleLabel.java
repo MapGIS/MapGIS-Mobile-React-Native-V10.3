@@ -8,10 +8,6 @@ import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.map.LabelInfo;
 import com.zondy.mapgis.core.map.SimpleLabel;
 
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * 简单标注Native功能组件
  * Created by xiaoying on 2019/9/3.

@@ -7,17 +7,12 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.map.UniqueThemeInfo;
 
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * 唯一值专题图项Native功能组件
  * Created by xiaoying on 2019/9/4.
  */
 public class JSUniqueThemeInfo extends JSThemeInfo {
     private static final String REACT_CLASS = "JSUniqueThemeInfo";
-//    public static Map<String, UniqueThemeInfo> mUniqueThemeInfoList = new HashMap<>();
 
     public JSUniqueThemeInfo(ReactApplicationContext reactContext) {
         super(reactContext);

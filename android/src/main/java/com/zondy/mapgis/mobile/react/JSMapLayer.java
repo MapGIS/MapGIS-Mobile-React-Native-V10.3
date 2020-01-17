@@ -10,27 +10,24 @@ import com.zondy.mapgis.core.geodatabase.IBasCls;
 import com.zondy.mapgis.core.geodatabase.XClsType;
 import com.zondy.mapgis.core.geometry.GeomType;
 import com.zondy.mapgis.core.geometry.Rect;
-import com.zondy.mapgis.core.map.GroupLayer;
 import com.zondy.mapgis.core.map.Label;
 import com.zondy.mapgis.core.map.LayerState;
 import com.zondy.mapgis.core.map.MapLayer;
 import com.zondy.mapgis.core.map.Themes;
-import com.zondy.mapgis.core.map.VectorLayer;
 import com.zondy.mapgis.core.object.Enumeration;
 import com.zondy.mapgis.core.srs.SRefData;
-import com.zondy.mapgis.jni.core.map.NativeMap;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author fjl 2019-6-24 下午2:52:36
  * @content 覆盖物对象Native组件
  */
 public class JSMapLayer extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "JSMapLayer";
-    public static Map<String, MapLayer> mMapLayerList = new HashMap<String, MapLayer>();
+    private static final String REACT_CLASS = "JSMapLayer";
+    private static Map<String, MapLayer> mMapLayerList = new HashMap<String, MapLayer>();
 
     public JSMapLayer(ReactApplicationContext context) {
         super(context);
@@ -53,8 +50,7 @@ public class JSMapLayer extends ReactContextBaseJavaModule {
             }
         }
 
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mMapLayerList.put(id, obj);
         return id;
     }

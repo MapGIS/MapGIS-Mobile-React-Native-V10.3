@@ -14,13 +14,14 @@ import com.zondy.mapgis.android.mapview.MagnifierOption;
 import com.zondy.mapgis.android.mapview.MapPosition;
 import com.zondy.mapgis.core.geometry.Dot;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSAnnotation extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "JSAnnotation";
-    public static Map<String, Annotation> mAnnotationList = new HashMap<String, Annotation>();
+    private static final String REACT_CLASS = "JSAnnotation";
+    private static Map<String, Annotation> mAnnotationList = new HashMap<String, Annotation>();
+
     public JSAnnotation(ReactApplicationContext reactContext) {
         super(reactContext);
     }
@@ -40,9 +41,10 @@ public class JSAnnotation extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+
+        String id = UUID.randomUUID().toString().substring(24);
         mAnnotationList.put(id, obj);
+
         return id;
     }
 

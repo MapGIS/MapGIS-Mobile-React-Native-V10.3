@@ -4,13 +4,11 @@ import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.geometry.Rect;
 import com.zondy.mapgis.core.map.MapServer;
 import com.zondy.mapgis.core.map.MapServerAccessMode;
 import com.zondy.mapgis.core.map.ServerLayer;
-import com.zondy.mapgis.core.map.TilePreFetchListener;
 import com.zondy.mapgis.core.object.Enumeration;
 
 /**

@@ -7,17 +7,12 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.map.RangeThemeInfo;
 
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * 范围专题图项Native功能组件
  * Created by xiaoying on 2019/9/3.
  */
 public class JSRangeThemeInfo extends JSThemeInfo {
     private static final String REACT_CLASS = "JSRangeThemeInfo";
-    public static Map<String, RangeThemeInfo> mRangeThemeInfoList = new HashMap<>();
 
     public JSRangeThemeInfo(ReactApplicationContext reactContext) {
         super(reactContext);

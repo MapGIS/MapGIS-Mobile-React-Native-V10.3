@@ -9,16 +9,15 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.android.mapview.MagnifierOption;
-import com.zondy.mapgis.core.geometry.Dot;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSMagnifierOption extends ReactContextBaseJavaModule {
 
-    public static final String REACT_CLASS = "JSMagnifierOption";
-    public static Map<String, MagnifierOption> mMagnifierOptionList = new HashMap<String, MagnifierOption>();
+    private static final String REACT_CLASS = "JSMagnifierOption";
+    private static Map<String, MagnifierOption> mMagnifierOptionList = new HashMap<String, MagnifierOption>();
 
     public JSMagnifierOption(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -39,8 +38,7 @@ public class JSMagnifierOption extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mMagnifierOptionList.put(id, obj);
         return id;
     }

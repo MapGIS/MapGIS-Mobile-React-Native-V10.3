@@ -1,30 +1,25 @@
 package com.zondy.mapgis.mobile.react;
 
-import android.util.Log;
-
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
-import com.facebook.react.bridge.ReadableMapKeySetIterator;
-import com.facebook.react.bridge.ReadableNativeMap;
 import com.facebook.react.bridge.WritableMap;
-import com.zondy.mapgis.core.attr.Field;
 import com.zondy.mapgis.core.attr.FieldType;
 import com.zondy.mapgis.core.attr.Fields;
 import com.zondy.mapgis.core.attr.Record;
 import com.zondy.mapgis.core.object.Enumeration;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSRecord extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "JSRecord";
-    public static Map<String, Record> mRecordList = new HashMap<String, Record>();
+    private static final String REACT_CLASS = "JSRecord";
+    private static Map<String, Record> mRecordList = new HashMap<String, Record>();
 
     public JSRecord(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -45,8 +40,7 @@ public class JSRecord extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mRecordList.put(id, obj);
         return id;
     }
@@ -196,7 +190,6 @@ public class JSRecord extends ReactContextBaseJavaModule {
 
             }else if(fieldTypeValue == FieldType.fldShort.value() ){ // short
                 value = (short) doubleValue;
-
             }
         }
 

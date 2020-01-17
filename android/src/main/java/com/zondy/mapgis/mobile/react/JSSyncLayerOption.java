@@ -8,14 +8,14 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.featureservice.SyncLayerOption;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSSyncLayerOption extends ReactContextBaseJavaModule {
 
-    public static final String REACT_CLASS = "JSSyncLayerOption";
-    public static Map<String, SyncLayerOption> mSyncLayerOptionList = new HashMap<String, SyncLayerOption>();
+    private static final String REACT_CLASS = "JSSyncLayerOption";
+    private static Map<String, SyncLayerOption> mSyncLayerOptionList = new HashMap<String, SyncLayerOption>();
 
     public JSSyncLayerOption(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -37,8 +37,7 @@ public class JSSyncLayerOption extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mSyncLayerOptionList.put(id, obj);
         return id;
     }

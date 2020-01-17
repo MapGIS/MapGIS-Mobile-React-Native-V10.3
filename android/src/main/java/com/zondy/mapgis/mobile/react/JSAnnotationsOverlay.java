@@ -17,14 +17,15 @@ import com.zondy.mapgis.android.graphic.HeatmapPoint;
 import com.zondy.mapgis.core.geometry.Dot;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSAnnotationsOverlay extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "JSAnnotationsOverlay";
-    public static Map<String, AnnotationsOverlay> mAnnotationsOverlayList = new HashMap<String, AnnotationsOverlay>();
+    private static final String REACT_CLASS = "JSAnnotationsOverlay";
+    private static Map<String, AnnotationsOverlay> mAnnotationsOverlayList = new HashMap<String, AnnotationsOverlay>();
+
     public JSAnnotationsOverlay(ReactApplicationContext reactContext) {
         super(reactContext);
     }
@@ -44,8 +45,7 @@ public class JSAnnotationsOverlay extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mAnnotationsOverlayList.put(id, obj);
         return id;
     }

@@ -1,27 +1,24 @@
 package com.zondy.mapgis.mobile.react;
 
-import android.graphics.Bitmap;
-
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.WritableMap;;
-import com.zondy.mapgis.core.geometry.Dot;
+import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.geometry.Geometry;
 import com.zondy.mapgis.core.geometry.GeometryDimension;
-import com.zondy.mapgis.core.geometry.GeometryType;
 import com.zondy.mapgis.core.geometry.Rect;
 import com.zondy.mapgis.core.object.Enumeration;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSGeometry extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "JSGeometry";
-    public static Map<String, Geometry> mGeometryList = new HashMap<String, Geometry>();
+    private static final String REACT_CLASS = "JSGeometry";
+    protected static Map<String, Geometry> mGeometryList = new HashMap<String, Geometry>();
+
     public JSGeometry(ReactApplicationContext reactContext) {
         super(reactContext);
     }
@@ -41,8 +38,7 @@ public class JSGeometry extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mGeometryList.put(id, obj);
         return id;
     }

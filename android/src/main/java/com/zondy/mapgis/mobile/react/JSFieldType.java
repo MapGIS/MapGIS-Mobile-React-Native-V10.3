@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class JSFieldType extends ReactContextBaseJavaModule {
 
-    public static final String REACT_CLASS="JSFieldType";
+    private static final String REACT_CLASS="JSFieldType";
 
     public JSFieldType(ReactApplicationContext reactContext) {
         super(reactContext);

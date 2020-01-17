@@ -11,9 +11,9 @@ import com.zondy.mapgis.core.map.RegPlaceType;
 import com.zondy.mapgis.core.map.RegionPlaceInfo;
 import com.zondy.mapgis.core.object.Enumeration;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 区标注Native功能组件
@@ -21,7 +21,7 @@ import java.util.Map;
  */
 public class JSRegionPlaceInfo extends ReactContextBaseJavaModule {
     private static final String REACT_CLASS = "JSRegionPlaceInfo";
-    public static Map<String, RegionPlaceInfo> mRegionPlaceInfoList = new HashMap<>();
+    private static Map<String, RegionPlaceInfo> mRegionPlaceInfoList = new HashMap<>();
 
     public JSRegionPlaceInfo(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -43,8 +43,7 @@ public class JSRegionPlaceInfo extends ReactContextBaseJavaModule {
                 return id;
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mRegionPlaceInfoList.put(id,obj);
         return id;
     }

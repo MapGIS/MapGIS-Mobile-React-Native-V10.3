@@ -7,25 +7,22 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
-import com.zondy.mapgis.android.internal.chart.json.GsonUtil;
-import com.zondy.mapgis.core.attr.Field;
 import com.zondy.mapgis.core.attr.Fields;
 import com.zondy.mapgis.core.featureservice.Feature;
 import com.zondy.mapgis.core.featureservice.FeaturePagedResult;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author fjl 2019-6-18 下午2:52:36
  * @content 要素查询结果Native组件
  */
 public class JSFeaturePagedResult extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "JSFeaturePagedResult";
-    public static Map<String, FeaturePagedResult> mFeaturePagedResultList = new HashMap<String, FeaturePagedResult>();
-
+    private static final String REACT_CLASS = "JSFeaturePagedResult";
+    private static Map<String, FeaturePagedResult> mFeaturePagedResultList = new HashMap<String, FeaturePagedResult>();
 
     public JSFeaturePagedResult(ReactApplicationContext context) {
         super(context);
@@ -48,8 +45,7 @@ public class JSFeaturePagedResult extends ReactContextBaseJavaModule {
             }
         }
 
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mFeaturePagedResultList.put(id, obj);
         return id;
     }

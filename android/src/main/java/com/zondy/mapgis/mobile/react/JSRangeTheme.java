@@ -3,10 +3,8 @@ package com.zondy.mapgis.mobile.react;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
-import com.zondy.mapgis.android.internal.chart.Geo;
 import com.zondy.mapgis.core.info.GeomInfo;
 import com.zondy.mapgis.core.map.AllOtherDataItemInfoSource;
 import com.zondy.mapgis.core.map.RangeTheme;
@@ -14,18 +12,12 @@ import com.zondy.mapgis.core.map.RangeThemeInfo;
 import com.zondy.mapgis.core.map.ThemeInfo;
 import com.zondy.mapgis.core.object.Enumeration;
 
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * 范围专题图Native功能组件
  * Created by xiaoying on 2019/9/3.
  */
 public class JSRangeTheme extends JSVectorTheme {
     private static final String REACT_CLASS = "JSRangeTheme";
-    public static Map<String, RangeTheme> mRangeThemeList = new HashMap<>();
-
 
     public JSRangeTheme(ReactApplicationContext reactContext) {
         super(reactContext);

@@ -13,15 +13,12 @@ import com.zondy.mapgis.core.geometry.GeometryDimension;
 import com.zondy.mapgis.core.geometry.GeometryType;
 import com.zondy.mapgis.core.object.Enumeration;
 
-import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSGeoPolygons extends JSGeometryExp{
+    private static final String REACT_CLASS = "JSGeoPolygons";
 
-    public static final String REACT_CLASS = "JSGeoPolygons";
-   // public static Map<String, GeoPolygons> mGeoPolygonsList = new HashMap<String, GeoPolygons>();
-    GeoPolygons m_GeoPolygons;
     public JSGeoPolygons(ReactApplicationContext reactContext) {
         super(reactContext);
     }
@@ -41,8 +38,7 @@ public class JSGeoPolygons extends JSGeometryExp{
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mGeometryList.put(id, obj);
         return id;
     }

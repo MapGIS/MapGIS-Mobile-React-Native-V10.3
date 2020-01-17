@@ -14,7 +14,7 @@ import com.zondy.mapgis.core.geometry.Dot;
  * @content 虚线图形对象Native组件
  */
 public class JSGraphicStippleLine extends JSGraphic {
-    public static final String REACT_CLASS = "JSGraphicStippleLine";
+    private static final String REACT_CLASS = "JSGraphicStippleLine";
 
     public JSGraphicStippleLine(ReactApplicationContext context) {
         super(context);

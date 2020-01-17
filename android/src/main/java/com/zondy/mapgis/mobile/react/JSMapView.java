@@ -4,7 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.PointF;
 import android.net.Uri;
-import android.os.Environment;
+
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -19,10 +19,8 @@ import com.zondy.mapgis.android.annotation.AnnotationsOverlay;
 import com.zondy.mapgis.android.graphic.Graphic;
 import com.zondy.mapgis.android.graphic.GraphicsOverlay;
 import com.zondy.mapgis.android.graphic.GraphicsOverlays;
-import com.zondy.mapgis.android.internal.chart.json.GsonUtil;
 import com.zondy.mapgis.android.mapview.MagnifierOption;
 import com.zondy.mapgis.android.mapview.MapPosition;
-import com.zondy.mapgis.android.mapview.MapTool;
 import com.zondy.mapgis.android.mapview.MapView;
 import com.zondy.mapgis.android.mapview.MapView.MapViewAnimationCallback;
 import com.zondy.mapgis.android.model.Model;
@@ -31,21 +29,17 @@ import com.zondy.mapgis.core.geometry.Dot;
 import com.zondy.mapgis.core.geometry.Dots;
 import com.zondy.mapgis.core.geometry.Rect;
 import com.zondy.mapgis.core.map.Document;
-import com.zondy.mapgis.core.map.GroupLayer;
 import com.zondy.mapgis.core.map.MapLayer;
-import com.zondy.mapgis.core.map.ServerLayer;
 import com.zondy.mapgis.core.map.SimpleModelLayer;
-import com.zondy.mapgis.core.map.VectorLayer;
 import com.zondy.mapgis.mobile.react.utils.ConvertUtil;
 
 import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author fjl 2019-6-16 下午2:52:36
@@ -97,8 +91,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mapViewList.put(id, mapView);
         System.out.print(id);
         return id;
@@ -391,7 +384,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     public void mapPointToViewPoint(String mapViewId, String dotID, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
-            Dot dot = JSDot.m_Point2DList.get(dotID);
+            Dot dot = JSDot.getObjFromList(dotID);
             PointF pointf = m_mapView.mapPointToViewPoint(dot);
 
             String pointFId = JSPointF.registerId(pointf);
@@ -409,7 +402,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     public void viewPointToMapPoint(String mapViewId, String pointFID, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
-            PointF pointf = JSPointF.mPointfList.get(pointFID);
+            PointF pointf = JSPointF.getObjFromList(pointFID);
             Dot dot = m_mapView.viewPointToMapPoint(pointf);
 
             String dotID = JSDot.registerId(dot);
@@ -534,7 +527,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     public void panToCenter(String mapViewId, String mapCenterID, boolean animated, Promise promise) {
         try {
             MapView mapView = mapViewList.get(mapViewId);
-            Dot point2D = JSDot.m_Point2DList.get(mapCenterID);
+            Dot point2D = JSDot.getObjFromList(mapCenterID);
             mapView.panToCenter(point2D, animated);
             promise.resolve(true);
         } catch (Exception e) {
@@ -555,8 +548,8 @@ public class JSMapView extends ReactContextBaseJavaModule {
     public void panToCenterWithView(String mapViewId, String mapCenterID, String viewCenterID, boolean animated, Promise promise) {
         try {
             MapView mapView = mapViewList.get(mapViewId);
-            Dot mapPoint2D = JSDot.m_Point2DList.get(mapCenterID);
-            PointF viewPoint2D = JSPointF.mPointfList.get(viewCenterID);
+            Dot mapPoint2D = JSDot.getObjFromList(mapCenterID);
+            PointF viewPoint2D = JSPointF.getObjFromList(viewCenterID);
             mapView.panToCenter(mapPoint2D, viewPoint2D, animated);
             promise.resolve(true);
         } catch (Exception e) {
@@ -579,7 +572,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     public void zoomToCenter(String mapViewId, String mapCenterID, double resolution, boolean animated, Promise promise) {
         try {
             MapView mapView = mapViewList.get(mapViewId);
-            Dot mapPoint2D = JSDot.m_Point2DList.get(mapCenterID);
+            Dot mapPoint2D = JSDot.getObjFromList(mapCenterID);
             mapView.zoomToCenter(mapPoint2D, resolution, animated);
             promise.resolve(true);
         } catch (Exception e) {
@@ -591,8 +584,8 @@ public class JSMapView extends ReactContextBaseJavaModule {
     public void zoomToCenterWithView(String mapViewId, String mapCenterID, String viewCenterID, double resolution, boolean animated, Promise promise) {
         try {
             MapView mapView = mapViewList.get(mapViewId);
-            Dot mapPoint2D = JSDot.m_Point2DList.get(mapCenterID);
-            PointF viewPoint2D = JSPointF.mPointfList.get(viewCenterID);
+            Dot mapPoint2D = JSDot.getObjFromList(mapCenterID);
+            PointF viewPoint2D = JSPointF.getObjFromList(viewCenterID);
             mapView.zoomToCenter(mapPoint2D, viewPoint2D, resolution, animated);
             promise.resolve(true);
         } catch (Exception e) {
@@ -604,7 +597,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     public void zoomToRange(String mapViewId, String dispRange, boolean animated, Promise promise) {
         try {
             MapView mapView = mapViewList.get(mapViewId);
-            Rect rect = JSRect.mRectList.get(dispRange);
+            Rect rect = JSRect.getObjFromList(dispRange);
             mapView.zoomToRange(rect, animated);
             promise.resolve(true);
         } catch (Exception e) {
@@ -649,7 +642,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     public void setRotateCenterAndAngle(String mapViewId, String rotateCenter, float rotateAngle, boolean animated, Promise promise) {
         try {
             MapView mapView = mapViewList.get(mapViewId);
-            Dot dot = JSDot.m_Point2DList.get(rotateCenter);
+            Dot dot = JSDot.getObjFromList(rotateCenter);
             mapView.setRotateCenterAndAngle(dot, rotateAngle, animated);
             promise.resolve(true);
         } catch (Exception e) {
@@ -661,7 +654,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     {
         try {
             MapView mapView = mapViewList.get(mapViewId);
-            Dot dot = JSDot.m_Point2DList.get(rotateCenter);
+            Dot dot = JSDot.getObjFromList(rotateCenter);
             mapView.setRotateCenter(dot);
             promise.resolve(true);
         } catch (Exception e) {
@@ -1065,6 +1058,29 @@ public class JSMapView extends ReactContextBaseJavaModule {
             promise.reject(e);
         }
     }
+    // 获取视图宽度
+    @ReactMethod
+    public void getWidth(String mapViewId, Promise promise) {
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            int width = m_mapView.getWidth();
+            promise.resolve(width);
+        }catch (Exception e){
+            promise.reject(e);
+        }
+    }
+
+    // 获取视图高度
+    @ReactMethod
+    public void getHeight(String mapViewId, Promise promise){
+        try {
+            m_mapView = mapViewList.get(mapViewId);
+            int height = m_mapView.getHeight();
+            promise.resolve(height);
+        } catch (Exception e){
+            promise.reject(e);
+        }
+    }
     ////////////////////////////////
     @ReactMethod
     public void getScreenSnapshot(String mapViewId, final String path, final Promise promise)
@@ -1375,7 +1391,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     public void setNorthArrowPosition(String mapViewId, String pointFID, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
-            PointF pointf = JSPointF.mPointfList.get(pointFID);
+            PointF pointf = JSPointF.getObjFromList(pointFID);
             m_mapView.setNorthArrowPosition(pointf);
             promise.resolve(true);
         } catch (Exception e) {
@@ -1405,7 +1421,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     public void setNorthArrowImage(String mapViewId, String bitmapID, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
-            Bitmap bitmap = JSImage.mBitmapList.get(bitmapID);
+            Bitmap bitmap = JSImage.getObjFromList(bitmapID);
             m_mapView.setNorthArrowImage(bitmap);
 //            Bitmap mBitmap = BitmapFactory.decodeResource(mReactContext.getResources(), android.R.drawable.alert_dark_frame);
 //            m_mapView.setNorthArrowImage(mBitmap);
@@ -1497,7 +1513,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     public void setScaleBarPoistion(String mapViewId, String pointFID, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
-            PointF pointf = JSPointF.mPointfList.get(pointFID);
+            PointF pointf = JSPointF.getObjFromList(pointFID);
             m_mapView.setScaleBarPoistion(pointf);
             promise.resolve(true);
 
@@ -1528,7 +1544,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     public void setSkyImage(String mapViewId, String bitmapID, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
-            Bitmap bitmap = JSImage.mBitmapList.get(bitmapID);
+            Bitmap bitmap = JSImage.getObjFromList(bitmapID);
             m_mapView.setSkyImage(bitmap);
             promise.resolve(true);
 

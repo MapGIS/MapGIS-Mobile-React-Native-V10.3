@@ -18,15 +18,12 @@ import com.zondy.mapgis.core.object.Enumeration;
 import com.zondy.mapgis.core.object.IntList;
 import com.zondy.mapgis.core.srs.SRefData;
 
-import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSGeoPolygon extends JSGeometryExp{
+    private static final String REACT_CLASS = "JSGeoPolygon";
 
-    public static final String REACT_CLASS = "JSGeoPolygon";
-    //public static Map<String, GeoPolygon> mGeoPolygonList = new HashMap<String, GeoPolygon>();
-    GeoPolygon m_GeoPolygon;
     public JSGeoPolygon(ReactApplicationContext reactContext) {
         super(reactContext);
     }
@@ -46,8 +43,7 @@ public class JSGeoPolygon extends JSGeometryExp{
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mGeometryList.put(id, obj);
         return id;
     }
@@ -192,7 +188,7 @@ public class JSGeoPolygon extends JSGeometryExp{
     }
 
     @ReactMethod
-    public void calArea(String geoPolygonId, String sRefId, Promise promise)
+    public void calAreaOfSRef(String geoPolygonId, String sRefId, Promise promise)
     {
         try {
             GeoPolygon geoPolygon = getObjFromList(geoPolygonId);

@@ -5,9 +5,9 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
-import com.zondy.mapgis.mobile.react.utils.ConvertUtil;
 import com.zondy.mapgis.android.graphic.GraphicCircle;
 import com.zondy.mapgis.core.geometry.Dot;
+import com.zondy.mapgis.mobile.react.utils.ConvertUtil;
 
 
 /**
@@ -15,7 +15,7 @@ import com.zondy.mapgis.core.geometry.Dot;
  * @content 圆图形对象Native组件
  */
 public class JSGraphicCircle extends JSGraphic {
-    public static final String REACT_CLASS = "JSGraphicCircle";
+    private static final String REACT_CLASS = "JSGraphicCircle";
 
     public JSGraphicCircle(ReactApplicationContext context) {
         super(context);

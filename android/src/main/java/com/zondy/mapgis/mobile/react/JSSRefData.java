@@ -8,22 +8,19 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
-import com.facebook.react.bridge.WritableNativeArray;
 import com.zondy.mapgis.core.srs.SRefData;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.annotation.Nullable;
+import java.util.UUID;
 
 /**
  * @author xiaoying 2019-08-22 下午16:30:30
  * @content 空间参照系对象Native组件
  */
 public class JSSRefData extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "JSSRefData";
-    public static Map<String, SRefData> mSrefDataList = new HashMap<>();
+    private static final String REACT_CLASS = "JSSRefData";
+    private static Map<String, SRefData> mSrefDataList = new HashMap<>();
 
     public JSSRefData(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -43,8 +40,7 @@ public class JSSRefData extends ReactContextBaseJavaModule {
                 return id;
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mSrefDataList.put(id,obj);
         return id;
     }

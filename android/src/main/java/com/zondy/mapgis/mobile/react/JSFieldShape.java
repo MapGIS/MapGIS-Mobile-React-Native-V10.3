@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class JSFieldShape extends ReactContextBaseJavaModule {
 
-    public static final String REACT_CLASS="JSFieldShape";
+    private static final String REACT_CLASS="JSFieldShape";
 
     public JSFieldShape(ReactApplicationContext reactContext) {
         super(reactContext);

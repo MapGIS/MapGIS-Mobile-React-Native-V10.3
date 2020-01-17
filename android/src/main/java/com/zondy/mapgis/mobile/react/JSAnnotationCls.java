@@ -20,12 +20,8 @@ import com.zondy.mapgis.core.geometry.Rect;
 import com.zondy.mapgis.core.info.GeomInfo;
 import com.zondy.mapgis.core.object.Enumeration;
 
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
-
 public class JSAnnotationCls extends JSVectorCls {
-    public static final String REACT_CLASS = "JSAnnotationCls";
+    private static final String REACT_CLASS = "JSAnnotationCls";
 
     public JSAnnotationCls(ReactApplicationContext reactContext) {
         super(reactContext);

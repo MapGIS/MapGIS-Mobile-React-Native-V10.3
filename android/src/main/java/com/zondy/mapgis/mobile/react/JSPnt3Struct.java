@@ -8,13 +8,13 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.srs.Pnt3Struct;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSPnt3Struct extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "JSPnt3Struct";
-    public static Map<String, Pnt3Struct> mPnt3StructList = new HashMap<String, Pnt3Struct>();
+    private static final String REACT_CLASS = "JSPnt3Struct";
+    private static Map<String, Pnt3Struct> mPnt3StructList = new HashMap<String, Pnt3Struct>();
 
     public JSPnt3Struct(ReactApplicationContext context) {
         super(context);
@@ -36,8 +36,7 @@ public class JSPnt3Struct extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mPnt3StructList.put(id, obj);
         return id;
     }

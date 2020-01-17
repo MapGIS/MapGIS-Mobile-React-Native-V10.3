@@ -2,6 +2,7 @@ package com.zondy.mapgis.mobile.react;
 
 import android.graphics.Bitmap;
 import android.graphics.PointF;
+
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -16,7 +17,7 @@ import com.zondy.mapgis.core.geometry.Dot;
  * @content 圆图形对象Native组件
  */
 public class JSGraphicImage extends JSGraphic {
-    public static final String REACT_CLASS = "JSGraphicImage";
+    private static final String REACT_CLASS = "JSGraphicImage";
     ReactContext mReactContext;
 
     public JSGraphicImage(ReactApplicationContext context) {

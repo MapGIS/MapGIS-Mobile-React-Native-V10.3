@@ -1,6 +1,5 @@
 package com.zondy.mapgis.mobile.react;
 
-import com.facebook.react.bridge.NativeMap;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.zondy.mapgis.core.map.LineRepeatType;

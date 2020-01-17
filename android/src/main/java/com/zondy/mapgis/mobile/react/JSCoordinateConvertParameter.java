@@ -9,9 +9,9 @@ import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.android.utils.CoordinateConvertParameter;
 import com.zondy.mapgis.android.utils.CoordinateType;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 坐标转换参数的Native功能组件
@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public class JSCoordinateConvertParameter extends ReactContextBaseJavaModule {
     private static final String REACT_CLASS = "JSCoordinateConvertParameter";
-    public static Map<String, CoordinateConvertParameter> mCoordinateConvertParameterList = new HashMap<>();
+    private static Map<String, CoordinateConvertParameter> mCoordinateConvertParameterList = new HashMap<>();
 
     public JSCoordinateConvertParameter(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -42,8 +42,7 @@ public class JSCoordinateConvertParameter extends ReactContextBaseJavaModule {
             }
         }
 
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mCoordinateConvertParameterList.put(id, obj);
         return id;
     }

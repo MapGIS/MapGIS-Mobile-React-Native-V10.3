@@ -4,14 +4,14 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.zondy.mapgis.core.geodatabase.IXClsInfo;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSXClsInfo extends ReactContextBaseJavaModule {
 
-    public static final String REACT_CLASS = "JSXClsInfo";
-    public static Map<String, IXClsInfo> mXClsInfoList = new HashMap<String, IXClsInfo>();
+    private static final String REACT_CLASS = "JSXClsInfo";
+    private static Map<String, IXClsInfo> mXClsInfoList = new HashMap<String, IXClsInfo>();
 
     public JSXClsInfo(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -32,9 +32,10 @@ public class JSXClsInfo extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+
+        String id = UUID.randomUUID().toString().substring(24);
         mXClsInfoList.put(id, obj);
+
         return id;
     }
 }

@@ -5,7 +5,6 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
-import com.zondy.mapgis.android.graphic.GraphicPoint;
 import com.zondy.mapgis.core.geometry.Dot;
 import com.zondy.mapgis.core.geometry.GeoAnno;
 import com.zondy.mapgis.core.geometry.Geometry;
@@ -15,15 +14,12 @@ import com.zondy.mapgis.core.object.Enumeration;
 import com.zondy.mapgis.core.srs.ElpTransParam;
 import com.zondy.mapgis.core.srs.SRefData;
 
-import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSGeoAnno extends JSGeometry{
 
-    public static final String REACT_CLASS = "JSGeoAnno";
-   // public static Map<String, GeoAnno> mGeoAnnoList = new HashMap<String, GeoAnno>();
-    GeoAnno m_GeoAnno;
+    private static final String REACT_CLASS = "JSGeoAnno";
 
     public JSGeoAnno(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -45,8 +41,7 @@ public class JSGeoAnno extends JSGeometry{
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mGeometryList.put(id, obj);
         return id;
     }

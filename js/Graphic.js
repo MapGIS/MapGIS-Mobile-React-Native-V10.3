@@ -5,6 +5,8 @@
 import { NativeModules } from 'react-native';
 import Dot from './Dot.js';
 import Rect from './Rect.js';
+import Map from './Map.js';
+import { SketchEditor } from '@mapgis/mobile-react-native';
 
 let G = NativeModules.JSGraphic;
 /**
@@ -332,6 +334,58 @@ export default class Graphic {
       } else {
         console.log('Graphic is invalid !');
       }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 将几何对象转换为图形对象.
+   * 常用于将查询出的要素转换为图形，在地图上做高亮显示.一个几何对象可能会转换出一个或多个图形对象
+   * @static
+   * @param {Geoemtry} geometry  待转换的几何对象
+   * @returns {Promise<Graphics>} 转换出的图形列表
+   */
+  static async toGraphicsFromGeometry(geometry)
+  {
+    try {
+      let { GraphicArr } = await G.toGraphicsFromGeometry(geometry._MGGeometryId);
+      let objArr = Map.getGraphics(GraphicArr);
+      return objArr;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 将图形对象转换为几何对象
+   * @static
+   * @param {Graphic} graphic 
+   * @returns {Promise<Geometry>}
+   */
+  static async toGeometry(graphic)
+  {
+    try {
+      let { GeometryId, GeometryType, GeometryAnnoType } = await G.toGeometry(graphic._MGGraphicId);
+      let geometry = SketchEditor.getGeometryByType(GeometryId, GeometryType, GeometryAnnoType);
+      return geometry;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 将一组同类型的图形对象转换为多几何对象(GeoPolygons、GeoPoints、GeoLines)
+   * @statics
+   * @param {Graphics} graphicArray 
+   * @returns {Promise<Geometry>}
+   */
+  static async toGeometrys(graphicArray)
+  {
+    try {
+      let { GeometryId, GeometryType, GeometryAnnoType } = await G.toGeometrys(graphicArray);
+      let geometry = SketchEditor.getGeometryByType(GeometryId, GeometryType, GeometryAnnoType);
+      return geometry;
     } catch (e) {
       console.error(e);
     }

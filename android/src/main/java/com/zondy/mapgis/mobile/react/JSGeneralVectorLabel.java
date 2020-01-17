@@ -3,18 +3,12 @@ package com.zondy.mapgis.mobile.react;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.info.GeomInfo;
-import com.zondy.mapgis.core.map.ClassItemValue;
 import com.zondy.mapgis.core.map.GeneralVectorLabel;
 import com.zondy.mapgis.core.map.LabelBackType;
 import com.zondy.mapgis.core.object.Enumeration;
-
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by xiaoying on 2019/8/28.

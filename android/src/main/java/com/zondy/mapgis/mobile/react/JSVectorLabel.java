@@ -1,23 +1,16 @@
 package com.zondy.mapgis.mobile.react;
 
-import android.graphics.Point;
-
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
-import com.zondy.mapgis.android.internal.chart.series.Line;
 import com.zondy.mapgis.core.map.LabelGeomType;
 import com.zondy.mapgis.core.map.LinePlaceInfo;
 import com.zondy.mapgis.core.map.PointPlaceInfo;
 import com.zondy.mapgis.core.map.RegionPlaceInfo;
 import com.zondy.mapgis.core.map.VectorLabel;
 import com.zondy.mapgis.core.object.Enumeration;
-
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 矢量标注Native功能组件

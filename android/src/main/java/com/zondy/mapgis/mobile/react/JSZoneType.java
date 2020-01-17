@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class JSZoneType extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS="JSZoneType";
+    private static final String REACT_CLASS="JSZoneType";
 
     public JSZoneType(ReactApplicationContext context){
         super(context);

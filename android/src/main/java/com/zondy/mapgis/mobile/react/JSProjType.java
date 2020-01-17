@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class JSProjType extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS="JSProjType";
+    private static final String REACT_CLASS="JSProjType";
 
     public JSProjType(ReactApplicationContext context){
         super(context);

@@ -9,14 +9,13 @@ import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.geometry.Dot;
 import com.zondy.mapgis.core.geometry.Dot3D;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSDot3D extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "JSDot3D";
-    public static Map<String, Dot3D> m_Dot3DList = new HashMap<String, Dot3D>();
-    Dot m_Point2D;
+    private static final String REACT_CLASS = "JSDot3D";
+    private static Map<String, Dot3D> m_Dot3DList = new HashMap<String, Dot3D>();
 
     public JSDot3D(ReactApplicationContext context) {
         super(context);
@@ -38,8 +37,7 @@ public class JSDot3D extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         m_Dot3DList.put(id, obj);
         return id;
     }

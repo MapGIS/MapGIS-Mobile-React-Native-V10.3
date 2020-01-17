@@ -7,26 +7,28 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
-import com.zondy.mapgis.mobile.react.utils.ConvertUtil;
 import com.zondy.mapgis.android.graphic.Graphic;
 import com.zondy.mapgis.android.graphic.GraphicType;
 import com.zondy.mapgis.core.geometry.Dot;
+import com.zondy.mapgis.core.geometry.Geometry;
 import com.zondy.mapgis.core.geometry.Rect;
+import com.zondy.mapgis.mobile.react.utils.ConvertUtil;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author fjl 2019-6-18 下午2:52:36
  * @content 图形对象Native组件
  */
 public class JSGraphic extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "JSGraphic";
-    public static Map<String, Graphic> mGraphicList = new HashMap<String, Graphic>();
+    private static final String REACT_CLASS = "JSGraphic";
+    private static Map<String, Graphic> mGraphicList = new HashMap<String, Graphic>();
 
     public JSGraphic(ReactApplicationContext context) {
         super(context);
@@ -48,9 +50,12 @@ public class JSGraphic extends ReactContextBaseJavaModule {
             }
         }
 
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        // 修改说明：使用UUID.randomUUID()作为对象id的标识（通用唯一识别码）。
+        //     根据维基百科，关于随机UUID中重复的概率：仅在未来100年内每秒产生10亿个UUID之后，仅创建一个副本的概率将约为50％。
+        // 修改人：王宁 2020-01-16
+        String id = UUID.randomUUID().toString().substring(24);
         mGraphicList.put(id, obj);
+
         return id;
     }
 
@@ -255,35 +260,19 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     @ReactMethod
     public void toGraphicsFromGeometry(String geometryID, Promise promise)
     {
-//        try {
-//            //GraphicHeatmap graphicHeatmap = getObjFromList(geometryID);
-//           // Geometry   geometry = JSGeometry.getObjFromList(geometryID);
-//            List<Graphic> graphicList = Graphic.toGraphicsFromGeometry();
-//            String strGraphicID = "";
-//            WritableArray arr = Arguments.createArray();
-//            if (graphicList.size() > 0) {
-//                for (int i = 0; i < graphicList.size(); i++) {
-//                    strGraphicID = registerId(graphicList.get(i));
-//                    arr.pushString(strGraphicID);
-//                }
-//            }
-//            WritableMap map = Arguments.createMap();
-//            map.putArray("GraphicArr", arr);
-//            promise.resolve(map);
-//        } catch (Exception e) {
-//            promise.reject(e);
-//        }
-    }
-
-    @ReactMethod
-    public void toGeometry(String graphicID, Promise promise)
-    {
         try {
-            Graphic graphic = getObjFromList(graphicID);
-            //Geometry geometry = Graphic.toGeometry(graphic);
-           // String geometryID = JSGeometry.registerId(geometry);
+            Geometry   geometry = JSGeometry.getObjFromList(geometryID);
+            List<Graphic> graphicList = Graphic.toGraphicsFromGeometry(geometry);
+            String strGraphicID = "";
+            WritableArray arr = Arguments.createArray();
+            if (graphicList.size() > 0) {
+                for (int i = 0; i < graphicList.size(); i++) {
+                    strGraphicID = registerId(graphicList.get(i));
+                    arr.pushString(strGraphicID);
+                }
+            }
             WritableMap map = Arguments.createMap();
-            //map.putString("GeometryID", geometryID);
+            map.putArray("GraphicArr", arr);
             promise.resolve(map);
         } catch (Exception e) {
             promise.reject(e);
@@ -291,7 +280,20 @@ public class JSGraphic extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void toGeometry(ReadableArray graphicIDArray, Promise promise)
+    public void toGeometry(String graphicID, Promise promise)
+    {
+        try {
+            Graphic graphic = getObjFromList(graphicID);
+            Geometry geometry = Graphic.toGeometry(graphic);
+            WritableMap map = JSSketchEditor.getGeometryWritableMap(geometry);
+            promise.resolve(map);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void toGeometrys(ReadableArray graphicIDArray, Promise promise)
     {
         try {
             if(graphicIDArray.size() > 0)
@@ -299,18 +301,15 @@ public class JSGraphic extends ReactContextBaseJavaModule {
                 ArrayList<Graphic> graphicLst = new ArrayList();
                 for (int i = 0; i < graphicIDArray.size(); i++) {
                     ReadableMap readable = graphicIDArray.getMap(i);
-                    String keyStr = readable.getString("_GraphicId");
-                    graphicLst.add(JSGraphic.getObjFromList(keyStr));
+                    String keyStr = readable.getString("_MGGraphicId");
+                    graphicLst.add(getObjFromList(keyStr));
                 }
-               // Geometry geometry = Graphic.toGeometry(graphicLst);
-                // String geometryID = JSGeometry.registerId(geometry);
-                WritableMap map = Arguments.createMap();
-                //map.putString("GeometryID", geometryID);
+                Geometry geometry = Graphic.toGeometry(graphicLst);
+                WritableMap map = JSSketchEditor.getGeometryWritableMap(geometry);
                 promise.resolve(map);
             }
         } catch (Exception e) {
             promise.reject(e);
         }
     }
-
 }

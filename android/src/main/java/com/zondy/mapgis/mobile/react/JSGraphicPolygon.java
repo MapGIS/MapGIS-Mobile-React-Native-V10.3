@@ -6,15 +6,13 @@ import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.ReadableArray;
-import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
-import com.zondy.mapgis.core.geometry.Dot;
-import com.zondy.mapgis.mobile.react.utils.ConvertUtil;
 import com.zondy.mapgis.android.graphic.GraphicPolygon;
+import com.zondy.mapgis.core.geometry.Dot;
 import com.zondy.mapgis.core.geometry.Dots;
 import com.zondy.mapgis.core.object.IntList;
+import com.zondy.mapgis.mobile.react.utils.ConvertUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,7 +25,7 @@ import java.util.List;
  * @content 区图形对象Native组件
  */
 public class JSGraphicPolygon extends JSGraphicMultiPoint {
-    public static final String REACT_CLASS = "JSGraphicPolygon";
+    private static final String REACT_CLASS = "JSGraphicPolygon";
 
     public JSGraphicPolygon(ReactApplicationContext context) {
         super(context);

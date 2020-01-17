@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class JSSpaQueryMode extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS="JSSpaQueryMode";
+    private static final String REACT_CLASS="JSSpaQueryMode";
 
     public JSSpaQueryMode(ReactApplicationContext reactContext) {
         super(reactContext);

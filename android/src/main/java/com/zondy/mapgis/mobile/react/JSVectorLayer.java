@@ -11,9 +11,6 @@ import com.zondy.mapgis.core.map.VectorLayer;
 import com.zondy.mapgis.core.map.VectorLayerType;
 import com.zondy.mapgis.core.object.Enumeration;
 
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -21,9 +18,7 @@ import java.util.UUID;
  * @content 覆盖物对象Native组件
  */
 public class JSVectorLayer extends JSMapLayer {
-    public static final String REACT_CLASS = "JSVectorLayer";
-    public static Map<String, VectorLayer> mVectorLayerList = new HashMap<String, VectorLayer>();
-
+    private static final String REACT_CLASS = "JSVectorLayer";
 
     public JSVectorLayer(ReactApplicationContext context) {
         super(context);
@@ -33,25 +28,6 @@ public class JSVectorLayer extends JSMapLayer {
     public String getName() {
         return REACT_CLASS;
     }
-
-//    public static VectorLayer getObjFromList(String id) {
-//        return mVectorLayerList.get(id);
-//    }
-//
-//    public static String registerId(VectorLayer obj) {
-//        for (Map.Entry entry : mVectorLayerList.entrySet()) {
-//            if (obj.equals(entry.getValue())) {
-//                String id = (String) entry.getKey();
-//                mVectorLayerList.put(id, obj);
-//                return (String) entry.getKey();
-//            }
-//        }
-//
-//        Calendar calendar = Calendar.getInstance();
-//        String id = Long.toString(calendar.getTimeInMillis());
-//        mVectorLayerList.put(id, obj);
-//        return id;
-//    }
 
     @ReactMethod
     public void createObj(int vectorLayerType, Promise promise) {

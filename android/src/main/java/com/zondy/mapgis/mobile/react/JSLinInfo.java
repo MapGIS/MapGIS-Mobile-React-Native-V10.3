@@ -13,7 +13,7 @@ import com.zondy.mapgis.mobile.react.utils.ConvertUtil;
 
 public class JSLinInfo extends JSGeomInfo{
 
-    public static final String REACT_CLASS = "JSLinInfo";
+    private static final String REACT_CLASS = "JSLinInfo";
 
     public JSLinInfo(ReactApplicationContext reactContext) {
         super(reactContext);

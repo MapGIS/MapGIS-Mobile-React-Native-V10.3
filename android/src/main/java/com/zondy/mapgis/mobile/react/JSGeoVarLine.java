@@ -9,19 +9,15 @@ import com.zondy.mapgis.core.geometry.Dot;
 import com.zondy.mapgis.core.geometry.Dot3D;
 import com.zondy.mapgis.core.geometry.Dots;
 import com.zondy.mapgis.core.geometry.Dots3D;
-import com.zondy.mapgis.core.geometry.GeoPolygons;
 import com.zondy.mapgis.core.geometry.GeoVarLine;
 import com.zondy.mapgis.core.geometry.GeometryType;
 import com.zondy.mapgis.core.object.Enumeration;
 
-import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSGeoVarLine extends JSGeoLine{
-
-    public static final String REACT_CLASS = "JSGeoVarLine";
-    //public static Map<String, GeoVarLine> mGeoVarLineList = new HashMap<String, GeoVarLine>();
+    private static final String REACT_CLASS = "JSGeoVarLine";
 
     public JSGeoVarLine(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -42,8 +38,7 @@ public class JSGeoVarLine extends JSGeoLine{
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mGeometryList.put(id, obj);
         return id;
     }

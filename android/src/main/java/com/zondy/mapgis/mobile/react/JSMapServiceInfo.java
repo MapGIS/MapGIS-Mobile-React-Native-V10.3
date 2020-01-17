@@ -10,15 +10,15 @@ import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.featureservice.MapServiceInfo;
 import com.zondy.mapgis.core.featureservice.MapServiceLayerInfo;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSMapServiceInfo extends ReactContextBaseJavaModule {
 
     private static final String REACT_CLASS = "JSMapServiceInfo";
-    public static Map<String, MapServiceInfo> mMapServiceInfoList = new HashMap<String, MapServiceInfo>();
+    private static Map<String, MapServiceInfo> mMapServiceInfoList = new HashMap<String, MapServiceInfo>();
 
     public JSMapServiceInfo(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -40,8 +40,7 @@ public class JSMapServiceInfo extends ReactContextBaseJavaModule {
             }
         }
 
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mMapServiceInfoList.put(id, obj);
         return id;
     }

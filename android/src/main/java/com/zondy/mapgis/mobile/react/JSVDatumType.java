@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class JSVDatumType extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS="JSVDatumType";
+    private static final String REACT_CLASS="JSVDatumType";
 
     public JSVDatumType(ReactApplicationContext context){
         super(context);

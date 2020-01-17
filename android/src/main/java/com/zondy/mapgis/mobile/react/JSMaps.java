@@ -1,23 +1,15 @@
 package com.zondy.mapgis.mobile.react;
 
-import android.annotation.SuppressLint;
-import android.os.Environment;
-
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.map.Maps;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 地图列表对象Native组件
@@ -25,7 +17,7 @@ import java.util.Map;
  */
 public class JSMaps extends JSDocumentItem {
     private static final String REACT_CLASS = "JSMaps";
-    public static Map<String, Maps> mMapsList = new HashMap<>();
+    private static Map<String, Maps> mMapsList = new HashMap<>();
 
     public JSMaps(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -47,8 +39,7 @@ public class JSMaps extends JSDocumentItem {
                 return id;
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mMapsList.put(id,obj);
         return id;
     }

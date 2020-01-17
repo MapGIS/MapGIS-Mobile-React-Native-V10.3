@@ -11,9 +11,9 @@ import com.zondy.mapgis.core.info.GeomInfo;
 import com.zondy.mapgis.core.map.ThemeInfo;
 import com.zondy.mapgis.core.object.Enumeration;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 专题图Native功能组件
@@ -21,7 +21,7 @@ import java.util.Map;
  */
 public class JSThemeInfo extends ReactContextBaseJavaModule {
     private static final String REACT_CLASS = "JSThemeInfo";
-    public static Map<String, ThemeInfo> mThemeInfoList = new HashMap<>();
+    private static Map<String, ThemeInfo> mThemeInfoList = new HashMap<>();
 
     public JSThemeInfo(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -43,8 +43,7 @@ public class JSThemeInfo extends ReactContextBaseJavaModule {
                 return id;
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mThemeInfoList.put(id,obj);
         return id;
     }

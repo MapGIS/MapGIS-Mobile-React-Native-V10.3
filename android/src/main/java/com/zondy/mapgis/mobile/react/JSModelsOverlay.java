@@ -12,10 +12,10 @@ import com.zondy.mapgis.android.model.Model;
 import com.zondy.mapgis.android.model.ModelsOverlay;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 模型层Native功能组件
@@ -23,7 +23,7 @@ import java.util.Map;
  */
 public class JSModelsOverlay extends ReactContextBaseJavaModule {
     private static final String REACT_CLASS = "JSModelsOverlay";
-    public static Map<String, ModelsOverlay> mModelsOverlayList = new HashMap<>();
+    private static Map<String, ModelsOverlay> mModelsOverlayList = new HashMap<>();
 
     public JSModelsOverlay(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -45,8 +45,7 @@ public class JSModelsOverlay extends ReactContextBaseJavaModule {
                 return id;
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mModelsOverlayList.put(id,obj);
         return id;
     }

@@ -11,6 +11,7 @@ import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.android.graphic.GraphicHeatmap;
 import com.zondy.mapgis.android.graphic.HeatmapPoint;
 import com.zondy.mapgis.android.graphic.VisualMap;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ import java.util.List;
  *
  */
 public class JSGraphicHeatmap extends JSGraphic {
-    public static final String REACT_CLASS = "JSGraphicHeatmap";
+    private static final String REACT_CLASS = "JSGraphicHeatmap";
 
     public JSGraphicHeatmap(ReactApplicationContext context) {
         super(context);

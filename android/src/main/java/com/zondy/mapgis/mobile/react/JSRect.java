@@ -8,18 +8,17 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.geometry.Rect;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author fjl 2019-6-18 下午2:52:36
  * @content 矩形对象Native组件
  */
 public class JSRect extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "JSRect";
-    public static Map<String, Rect> mRectList = new HashMap<String, Rect>();
-
+    private static final String REACT_CLASS = "JSRect";
+    private static Map<String, Rect> mRectList = new HashMap<String, Rect>();
 
     public JSRect(ReactApplicationContext context) {
         super(context);
@@ -41,8 +40,7 @@ public class JSRect extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mRectList.put(id, obj);
         return id;
     }

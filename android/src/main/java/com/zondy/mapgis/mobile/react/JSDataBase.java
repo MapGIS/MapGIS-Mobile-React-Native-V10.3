@@ -17,15 +17,13 @@ import com.zondy.mapgis.core.geodatabase.IXClsInfo;
 import com.zondy.mapgis.core.geodatabase.XClsType;
 import com.zondy.mapgis.core.object.Enumeration;
 import com.zondy.mapgis.core.object.IntList;
-
-import java.io.File;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSDataBase extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "JSDataBase";
-    public static Map<String, DataBase> mDataBaseList = new HashMap<String, DataBase>();
+    private static final String REACT_CLASS = "JSDataBase";
+    private static Map<String, DataBase> mDataBaseList = new HashMap<String, DataBase>();
     private ReactApplicationContext mReactContext;
     private static final String DATABASE_OFFLINE_UPDATEING = "com.mapgis.RN.DataBase.onUpdating";
     private static final String DATABASE_OFFLINE_UPDATEFINISH = "com.mapgis.RN.DataBase.onUpdateFinish";
@@ -50,8 +48,7 @@ public class JSDataBase extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mDataBaseList.put(id, obj);
         return id;
     }

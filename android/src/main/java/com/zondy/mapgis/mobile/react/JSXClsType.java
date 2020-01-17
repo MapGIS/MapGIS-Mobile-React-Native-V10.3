@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class JSXClsType extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS="JSXClsType";
+    private static final String REACT_CLASS="JSXClsType";
 
     public JSXClsType(ReactApplicationContext reactContext) {
         super(reactContext);

@@ -15,7 +15,7 @@ import com.zondy.mapgis.android.graphic.GraphicPolylin;
  * @content 线图形对象Native组件
  */
 public class JSGraphicPolylin extends JSGraphicMultiPoint {
-    public static final String REACT_CLASS = "JSGraphicPolylin";
+     static final String REACT_CLASS = "JSGraphicPolylin";
 
     public JSGraphicPolylin(ReactApplicationContext context) {
         super(context);

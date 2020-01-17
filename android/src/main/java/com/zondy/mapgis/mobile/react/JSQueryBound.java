@@ -13,9 +13,9 @@ import com.zondy.mapgis.core.featureservice.FeatureQuery;
 import com.zondy.mapgis.core.geometry.Dot;
 import com.zondy.mapgis.core.geometry.Rect;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 
 /**
@@ -23,9 +23,8 @@ import java.util.Map;
  * @content 要素查询空间范围Native组件
  */
 public class JSQueryBound extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "JSQueryBound";
-    public static Map<String, FeatureQuery.QueryBound> mQueryBoundList = new HashMap<String, FeatureQuery.QueryBound>();
-
+    private static final String REACT_CLASS = "JSQueryBound";
+    private static Map<String, FeatureQuery.QueryBound> mQueryBoundList = new HashMap<String, FeatureQuery.QueryBound>();
 
     public JSQueryBound(ReactApplicationContext context) {
         super(context);
@@ -47,8 +46,7 @@ public class JSQueryBound extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mQueryBoundList.put(id, obj);
         return id;
     }

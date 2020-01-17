@@ -6,10 +6,9 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.zondy.mapgis.core.map.Label;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.PriorityQueue;
+import java.util.UUID;
 
 /**
  * 标签Native功能组件
@@ -17,7 +16,7 @@ import java.util.PriorityQueue;
  */
 public class JSLabel extends ReactContextBaseJavaModule {
     private static final String REACT_CLASS = "JSLabel";
-    public static Map<String, Label> mLabelList = new HashMap<>();
+    private static Map<String, Label> mLabelList = new HashMap<>();
 
     public JSLabel(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -39,9 +38,10 @@ public class JSLabel extends ReactContextBaseJavaModule {
                 return id;
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+
+        String id = UUID.randomUUID().toString().substring(24);
         mLabelList.put(id,obj);
+
         return id;
     }
 

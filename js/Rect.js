@@ -10,7 +10,9 @@ let X = NativeModules.JSRect;
  */
 export default class Rect {
   /**
-   * 构造一个新的 Rect 对象。
+   * 构造一个新的 Rect 对象。可通过无参构造和有参构造
+   * 
+   * 有参参数，参数为xMin, yMin, xMax, yMax，均为Number类型
    * @memberOf Rect
    * @returns {Promise.<Rect>}
    */

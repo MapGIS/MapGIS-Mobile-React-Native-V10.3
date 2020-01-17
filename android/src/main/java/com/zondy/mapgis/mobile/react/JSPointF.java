@@ -9,18 +9,17 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author fjl 2019-6-18 下午2:52:36
  * @content 视图对象Native组件
  */
 public class JSPointF extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "JSPointF";
-    public static Map<String, PointF> mPointfList = new HashMap<String, PointF>();
-    PointF m_Point2D;
+    private static final String REACT_CLASS = "JSPointF";
+    private static Map<String, PointF> mPointfList = new HashMap<String, PointF>();
 
     public JSPointF(ReactApplicationContext context) {
         super(context);
@@ -42,9 +41,10 @@ public class JSPointF extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+
+        String id = UUID.randomUUID().toString().substring(24);
         mPointfList.put(id, obj);
+
         return id;
     }
 

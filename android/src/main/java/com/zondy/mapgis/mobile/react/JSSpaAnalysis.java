@@ -16,16 +16,16 @@ import com.zondy.mapgis.core.spatial.SpaAnalysis;
 import com.zondy.mapgis.core.srs.SRefData;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 
 public class JSSpaAnalysis extends ReactContextBaseJavaModule {
 
-    public static final String REACT_CLASS = "JSSpaAnalysis";
-    public static Map<String, SpaAnalysis> mSpaAnalysisList = new HashMap<String, SpaAnalysis>();
+    private static final String REACT_CLASS = "JSSpaAnalysis";
+    private static Map<String, SpaAnalysis> mSpaAnalysisList = new HashMap<String, SpaAnalysis>();
 
     public JSSpaAnalysis(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -46,8 +46,7 @@ public class JSSpaAnalysis extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mSpaAnalysisList.put(id, obj);
         return id;
     }
@@ -128,7 +127,7 @@ public class JSSpaAnalysis extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void clip(String spaAnalysisId, String geomId, String clipPolyId, int flag, Promise promise)
+    public void clipWithType(String spaAnalysisId, String geomId, String clipPolyId, int flag, Promise promise)
     {
         try {
             SpaAnalysis spaAnalysis = getObjFromList(spaAnalysisId);

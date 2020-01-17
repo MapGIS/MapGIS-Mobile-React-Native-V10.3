@@ -7,13 +7,11 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.android.tool.sketcheditor.GeometryParams;
-import com.zondy.mapgis.core.geometry.GeoAnno;
 import com.zondy.mapgis.core.geometry.Geometry;
-import com.zondy.mapgis.core.geometry.GeometryType;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 几何对象参数Native功能组件
@@ -21,7 +19,7 @@ import java.util.Map;
  */
 public class JSGeometryParams extends ReactContextBaseJavaModule {
     private static final String REACT_CLASS = "JSGeometryParams";
-    public static Map<String, GeometryParams> mGeometryParamsList = new HashMap<>();
+    private static Map<String, GeometryParams> mGeometryParamsList = new HashMap<>();
 
     public JSGeometryParams(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -43,8 +41,7 @@ public class JSGeometryParams extends ReactContextBaseJavaModule {
                 return id;
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mGeometryParamsList.put(id,obj);
         return id;
     }

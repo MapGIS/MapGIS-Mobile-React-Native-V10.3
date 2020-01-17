@@ -9,18 +9,16 @@ import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.info.TextAnnInfo;
 import com.zondy.mapgis.core.map.LabelInfo;
 
-import org.w3c.dom.Text;
-
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by xiaoying on 2019/9/2.
  */
 public class JSLabelInfo extends ReactContextBaseJavaModule {
     private  static final String REACT_CLASS = "JSLabelInfo";
-    public static Map<String, LabelInfo> mLableInfoList = new HashMap<>();
+    private static Map<String, LabelInfo> mLableInfoList = new HashMap<>();
 
     public JSLabelInfo(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -42,8 +40,7 @@ public class JSLabelInfo extends ReactContextBaseJavaModule {
                 return id;
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mLableInfoList.put(id,obj);
         return id;
     }

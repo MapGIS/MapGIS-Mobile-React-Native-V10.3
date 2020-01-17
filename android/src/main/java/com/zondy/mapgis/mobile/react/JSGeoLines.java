@@ -8,21 +8,18 @@ import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.geometry.DistanceType;
 import com.zondy.mapgis.core.geometry.GeoLine;
 import com.zondy.mapgis.core.geometry.GeoLines;
-import com.zondy.mapgis.core.geometry.GeoPolygon;
 import com.zondy.mapgis.core.geometry.Geometry;
 import com.zondy.mapgis.core.geometry.GeometryDimension;
 import com.zondy.mapgis.core.geometry.GeometryType;
 import com.zondy.mapgis.core.object.Enumeration;
 import com.zondy.mapgis.core.srs.SRefData;
 
-import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSGeoLines extends JSGeometryExp{
-    public static final String REACT_CLASS = "JSGeoLines";
-   // public static Map<String, GeoLines> mGeoLinesList = new HashMap<String, GeoLines>();
-    GeoLines m_GeoLines;
+    private static final String REACT_CLASS = "JSGeoLines";
+
     public JSGeoLines(ReactApplicationContext reactContext) {
         super(reactContext);
     }
@@ -42,8 +39,7 @@ public class JSGeoLines extends JSGeometryExp{
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mGeometryList.put(id, obj);
         return id;
     }

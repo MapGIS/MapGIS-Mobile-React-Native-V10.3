@@ -9,17 +9,12 @@ import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.map.VectorMapServer;
 
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * 矢量地图服务Native功能组件
  * Created by xiaoying on 2019/9/4.
  */
 public class JSVectorMapServer extends JSMapServer {
     private static final String REACT_CLASS = "JSVectorMapServer";
-//    public static Map<String, VectorMapServer> mVectorMapServerList = new HashMap<>();
 
     public JSVectorMapServer(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -29,24 +24,6 @@ public class JSVectorMapServer extends JSMapServer {
     public String getName() {
         return REACT_CLASS;
     }
-
-//    public static VectorMapServer getObjFromList(String id){
-//        return mVectorMapServerList.get(id);
-//    }
-//
-//    public static String registerId(VectorMapServer obj){
-//        for (Map.Entry entry : mVectorMapServerList.entrySet()) {
-//            if (obj.equals(entry.getValue())) {
-//                String id = (String) entry.getKey();
-//                return id;
-//            }
-//        }
-//
-//        Calendar calendar = Calendar.getInstance();
-//        String id = Long.toString(calendar.getTimeInMillis());
-//        mVectorMapServerList.put(id, obj);
-//        return id;
-//    }
 
     @ReactMethod
     public void createObj(Promise promise){

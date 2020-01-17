@@ -10,15 +10,12 @@ import com.zondy.mapgis.core.geometry.Dots3D;
 import com.zondy.mapgis.core.geometry.GeoLine;
 import com.zondy.mapgis.core.srs.SRefData;
 
-import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSGeoLine extends JSGeometryExp{
+    private static final String REACT_CLASS = "JSGeoLine";
 
-    public static final String REACT_CLASS = "JSGeoLine";
-    //public static Map<String, GeoLine> mGeoLineList = new HashMap<String, GeoLine>();
-    GeoLine m_GeoLine;
     public JSGeoLine(ReactApplicationContext reactContext) {
         super(reactContext);
     }
@@ -38,8 +35,7 @@ public class JSGeoLine extends JSGeometryExp{
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mGeometryList.put(id, obj);
         return id;
     }
@@ -76,7 +72,7 @@ public class JSGeoLine extends JSGeometryExp{
     }
 
     @ReactMethod
-    public void calLength(String geoLineId, String sRefId, Promise promise)
+    public void calLengthOfSRef(String geoLineId, String sRefId, Promise promise)
     {
         try {
             GeoLine geoLine = getObjFromList(geoLineId);

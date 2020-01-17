@@ -5,15 +5,14 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.geometry.Rect;
 import com.zondy.mapgis.core.map.MapServer;
 import com.zondy.mapgis.core.srs.SRefData;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.annotation.Nullable;
 
@@ -23,9 +22,7 @@ import javax.annotation.Nullable;
  */
 public class JSMapServer extends ReactContextBaseJavaModule {
     private static final String REACT_CLASS = "JSMapServer";
-    public static Map<String, MapServer> mMapServerList = new HashMap<>();
-
-
+    private static Map<String, MapServer> mMapServerList = new HashMap<>();
 
     public JSMapServer(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -53,8 +50,7 @@ public class JSMapServer extends ReactContextBaseJavaModule {
                 return id;
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mMapServerList.put(id,obj);
         return id;
     }

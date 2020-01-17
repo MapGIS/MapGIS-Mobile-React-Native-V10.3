@@ -5,7 +5,6 @@
 import { NativeModules } from 'react-native';
 
 let F = NativeModules.JSFeature;
-import Graphic from './Graphic';
 import GeoPoints from './GeoPoints.js'
 import GeoVarLine from './GeoVarLine.js'
 import GeoPolygon from './GeoPolygon.js'
@@ -15,16 +14,8 @@ import PntInfo from './PntInfo.js'
 import LinInfo from './LinInfo.js'
 import RegInfo from './RegInfo.js'
 import TextAnnInfo from './TextAnnInfo.js'
-import GraphicPoint from './GraphicPoint.js'
-import GraphicCircle from './GraphicCircle.js'
-import GraphicMultiPoint from './GraphicMultiPoint.js'
-import GraphicPolylin from './GraphicPolylin.js'
-import GraphicStippleLine from './GraphicStippleLine.js'
-import GraphicText from './GraphicText.js'
-import GraphicHeatmap from './GraphicHeatmap.js'
-import GraphicPolygon from './GraphicPolygon.js'
-import GraphicImage from './GraphicImage.js'
 import Geometry from './Geometry.js';
+import Map from './Map.js';
 
 
 /**
@@ -192,55 +183,7 @@ export default class Feature {
   async toGraphics() {
     try {
       let { values } = await F.toGraphics(this._MGFeatureId);
-      let objArr = [];
-      for (let i = 0; i < values.length; i++) {
-        let graphic = new Graphic();
-        graphic._MGGraphicId = values[i];
-        let type = await graphic.getGraphicType();
-        let graphicBase = null;
-        switch(type)
-        {
-          case 1:
-            graphicBase = new GraphicPoint();
-            graphicBase._MGGraphicId = values[i];
-            break;
-            case 2:
-              graphicBase = new GraphicCircle();
-              graphicBase._MGGraphicId = values[i];
-            break;
-            case 3:
-              graphicBase = new GraphicPolylin();
-              graphicBase._MGGraphicId = values[i];
-            break;
-            case 4:
-              graphicBase = new GraphicPolygon();
-              graphicBase._MGGraphicId = values[i];
-            break;
-            case 5:
-              graphicBase = new GraphicImage();
-              graphicBase._MGGraphicId = values[i];
-              break;
-            case 6:
-              graphicBase = new GraphicText();
-              graphicBase._MGGraphicId = values[i];
-              break;
-            case 7:
-              graphicBase = new GraphicMultiPoint();
-              graphicBase._MGGraphicId = values[i];
-              break;
-            case 8:
-              graphicBase = new GraphicStippleLine();
-              graphicBase._MGGraphicId = values[i];
-              break;
-            case 19:
-              graphicBase = new GraphicHeatmap();
-              graphicBase._MGGraphicId = values[i];
-              break;
-            default:
-              break;
-        }
-        objArr.push(graphicBase);
-      }
+      let objArr = Map.getGraphics(values);
       return objArr;
     } catch (e) {
       console.error(e);

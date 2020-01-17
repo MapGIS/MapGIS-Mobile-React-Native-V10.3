@@ -10,18 +10,18 @@ import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.android.graphic.GraphicsOverlay;
 import com.zondy.mapgis.android.graphic.GraphicsOverlays;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author fjl 2019-6-18 下午2:52:36
  * @content 覆盖物对象Native组件
  */
 public class JSGraphicsOverlays extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "JSGraphicsOverlays";
-    public static Map<String, GraphicsOverlays> mGraphicsOverlaysList = new HashMap<String, GraphicsOverlays>();
+    private static final String REACT_CLASS = "JSGraphicsOverlays";
+    private static Map<String, GraphicsOverlays> mGraphicsOverlaysList = new HashMap<String, GraphicsOverlays>();
 
 
     public JSGraphicsOverlays(ReactApplicationContext context) {
@@ -44,8 +44,7 @@ public class JSGraphicsOverlays extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mGraphicsOverlaysList.put(id, obj);
         return id;
     }
@@ -69,7 +68,7 @@ public class JSGraphicsOverlays extends ReactContextBaseJavaModule {
     public void add(String GraphicsOverlaysId, String graphicsOverlayId, Promise promise) {
         try {
             GraphicsOverlays graphicsOverlays = getObjFromList(GraphicsOverlaysId);
-            GraphicsOverlay graphicsOverlay = JSGraphicsOverlay.mGraphicsOverlayList.get(graphicsOverlayId);
+            GraphicsOverlay graphicsOverlay = JSGraphicsOverlay.getObjFromList(graphicsOverlayId);
             graphicsOverlays.add(graphicsOverlay);
             promise.resolve(true);
         } catch (Exception e) {
@@ -106,7 +105,7 @@ public class JSGraphicsOverlays extends ReactContextBaseJavaModule {
     public void indexOf(String GraphicsOverlaysId, String graphicsOverlayID, Promise promise) {
         try {
             GraphicsOverlays graphicsOverlays = getObjFromList(GraphicsOverlaysId);
-            GraphicsOverlay graphicsOverlay = JSGraphicsOverlay.mGraphicsOverlayList.get(graphicsOverlayID);
+            GraphicsOverlay graphicsOverlay = JSGraphicsOverlay.getObjFromList(graphicsOverlayID);
             int index = graphicsOverlays.indexOf(graphicsOverlay);
 
             promise.resolve(index);
@@ -154,7 +153,7 @@ public class JSGraphicsOverlays extends ReactContextBaseJavaModule {
     public void insert(String GraphicsOverlaysId, int index, String graphicsOverlayID, Promise promise) {
         try {
             GraphicsOverlays graphicsOverlays = getObjFromList(GraphicsOverlaysId);
-            GraphicsOverlay graphicsOverlay = JSGraphicsOverlay.mGraphicsOverlayList.get(graphicsOverlayID);
+            GraphicsOverlay graphicsOverlay = JSGraphicsOverlay.getObjFromList(graphicsOverlayID);
             int result = graphicsOverlays.insert(index, graphicsOverlay);
 
             promise.resolve(result);

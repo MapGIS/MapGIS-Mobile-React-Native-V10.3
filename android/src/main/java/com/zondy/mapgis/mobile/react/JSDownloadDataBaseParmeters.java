@@ -11,15 +11,15 @@ import com.zondy.mapgis.core.featureservice.DownloadDataBaseParmeters;
 import com.zondy.mapgis.core.featureservice.DownloadLayerOption;
 import com.zondy.mapgis.core.geometry.Rect;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSDownloadDataBaseParmeters extends ReactContextBaseJavaModule {
 
-    public static final String REACT_CLASS = "JSDownloadDataBaseParmeters";
-    public static Map<String, DownloadDataBaseParmeters> mDownloadDataBaseParmetersList = new HashMap<String, DownloadDataBaseParmeters>();
+    private static final String REACT_CLASS = "JSDownloadDataBaseParmeters";
+    private static Map<String, DownloadDataBaseParmeters> mDownloadDataBaseParmetersList = new HashMap<String, DownloadDataBaseParmeters>();
 
     public JSDownloadDataBaseParmeters(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -40,8 +40,7 @@ public class JSDownloadDataBaseParmeters extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mDownloadDataBaseParmetersList.put(id, obj);
         return id;
     }

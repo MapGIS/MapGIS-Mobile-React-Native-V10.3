@@ -13,7 +13,7 @@ import com.zondy.mapgis.mobile.react.utils.ConvertUtil;
 
 public class JSPntInfo extends JSGeomInfo{
 
-    public static final String REACT_CLASS = "JSPntInfo";
+    private static final String REACT_CLASS = "JSPntInfo";
 
     public JSPntInfo(ReactApplicationContext reactContext) {
         super(reactContext);

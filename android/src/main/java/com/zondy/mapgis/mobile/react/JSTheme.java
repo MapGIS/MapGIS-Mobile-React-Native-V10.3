@@ -6,9 +6,9 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.zondy.mapgis.core.map.Theme;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 专题图Native功能组件
@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public class JSTheme extends ReactContextBaseJavaModule {
     private static final String REACT_CLASS = "JSTheme";
-    public static Map<String, Theme> mThemeList = new HashMap<>();
+    private static Map<String, Theme> mThemeList = new HashMap<>();
 
     public JSTheme(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -39,8 +39,7 @@ public class JSTheme extends ReactContextBaseJavaModule {
             }
         }
 
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mThemeList.put(id, obj);
         return id;
     }

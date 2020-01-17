@@ -3,15 +3,10 @@ package com.zondy.mapgis.mobile.react;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.map.SimpleTheme;
 import com.zondy.mapgis.core.map.ThemeInfo;
-
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 简单专题图Native功能组件
@@ -19,7 +14,6 @@ import java.util.Map;
  */
 public class JSSimpleTheme extends JSVectorTheme {
     private  static final String REACT_CLASS = "JSSimpleTheme";
-    public static Map<String, SimpleTheme> mSimpleThemeList = new HashMap<>();
 
     public JSSimpleTheme(ReactApplicationContext reactContext) {
         super(reactContext);

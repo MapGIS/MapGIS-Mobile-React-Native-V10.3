@@ -13,18 +13,18 @@ import com.zondy.mapgis.android.graphic.Graphic;
 import com.zondy.mapgis.android.graphic.GraphicsOverlay;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author fjl 2019-6-18 下午2:52:36
  * @content 覆盖物对象Native组件
  */
 public class JSGraphicsOverlay extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "JSGraphicsOverlay";
-    public static Map<String, GraphicsOverlay> mGraphicsOverlayList = new HashMap<String, GraphicsOverlay>();
+    private static final String REACT_CLASS = "JSGraphicsOverlay";
+    private static Map<String, GraphicsOverlay> mGraphicsOverlayList = new HashMap<String, GraphicsOverlay>();
 
 
     public JSGraphicsOverlay(ReactApplicationContext context) {
@@ -47,8 +47,7 @@ public class JSGraphicsOverlay extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mGraphicsOverlayList.put(id, obj);
         return id;
     }
@@ -58,7 +57,6 @@ public class JSGraphicsOverlay extends ReactContextBaseJavaModule {
         try {
             GraphicsOverlay GraphicsOverlay = new GraphicsOverlay();
             String GraphicsOverlayId = registerId(GraphicsOverlay);
-
             WritableMap map = Arguments.createMap();
             map.putString("GraphicsOverlayId", GraphicsOverlayId);
             promise.resolve(map);
@@ -119,7 +117,7 @@ public class JSGraphicsOverlay extends ReactContextBaseJavaModule {
     public void addGraphic(String GraphicsOverlayId, String graphicID, Promise promise) {
         try {
             GraphicsOverlay graphicsOverlay = getObjFromList(GraphicsOverlayId);
-            Graphic graphic = JSGraphic.mGraphicList.get(graphicID);
+            Graphic graphic = JSGraphic.getObjFromList(graphicID);
             int result = 0;
             if(graphic != null){
                 result = graphicsOverlay.addGraphic(graphic);

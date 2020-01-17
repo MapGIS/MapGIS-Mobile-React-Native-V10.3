@@ -21,9 +21,9 @@ import com.zondy.mapgis.core.geometry.GeometryType;
 import com.zondy.mapgis.core.object.Enumeration;
 import com.zondy.mapgis.core.srs.SRefData;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 草图编辑器Native功能组件
@@ -31,7 +31,7 @@ import java.util.Map;
  */
 public class JSSketchEditor extends ReactContextBaseJavaModule {
     private static final String REACT_CLASS = "JSSketchEditor";
-    public static Map<String, SketchEditor> mSketchEditorList = new HashMap<>();
+    private static Map<String, SketchEditor> mSketchEditorList = new HashMap<>();
     private SketchEditor.SketchStateChangedListener mSketchStateChangedListener = null;
     private static final String GEOMETRYCHANGED = "com.mapgis.RN.SketchEditor.geometry_changed";
     private static final String VERTEXSELECTED = "com.mapgis.RN.SketchEditor.vertex_selected";
@@ -61,8 +61,7 @@ public class JSSketchEditor extends ReactContextBaseJavaModule {
                 return id;
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mSketchEditorList.put(id,obj);
         return id;
     }

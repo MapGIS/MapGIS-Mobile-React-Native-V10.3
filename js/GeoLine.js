@@ -14,6 +14,19 @@ import Dots3D from './Dots3D.js';
  * @class GeoLine
  */
 export default class GeoLine extends GeometryExp {
+
+  constructor() {
+    super();
+    Object.defineProperty(this, '_MGGeoLineId', {
+      get: function() {
+        return this._MGGeometryId;
+      },
+      set: function(_MGGeoLineId) {
+        this._MGGeometryId = _MGGeoLineId;
+      },
+    });
+  }
+
   /**
    * 获取线中的二维点序列
    * @memberOf GeoLine
@@ -54,7 +67,7 @@ export default class GeoLine extends GeometryExp {
    */
   async calLengthOfSRef(sRef) {
     try {
-      return GL.calLength(this._MGGeoLineId, sRef._MGSRefDataId);
+      return GL.calLengthOfSRef(this._MGGeoLineId, sRef._MGSRefDataId);
     } catch (e) {
       console.error(e);
     }

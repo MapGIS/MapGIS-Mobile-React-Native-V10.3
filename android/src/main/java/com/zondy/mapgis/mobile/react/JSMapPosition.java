@@ -9,17 +9,17 @@ import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.android.mapview.MapPosition;
 import com.zondy.mapgis.core.geometry.Dot;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author fjl 2019-7-30 下午2:52:36
  * @content 地图位置组件
  */
 public class JSMapPosition extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "JSMapPosition";
-    public static Map<String, MapPosition> mMapPositionList = new HashMap<String, MapPosition>();
+    private static final String REACT_CLASS = "JSMapPosition";
+    private static Map<String, MapPosition> mMapPositionList = new HashMap<String, MapPosition>();
 
     public JSMapPosition(ReactApplicationContext context) {
         super(context);
@@ -41,8 +41,7 @@ public class JSMapPosition extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mMapPositionList.put(id, obj);
         return id;
     }

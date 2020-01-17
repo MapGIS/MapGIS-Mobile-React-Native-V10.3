@@ -17,15 +17,11 @@ import com.zondy.mapgis.core.object.Enumeration;
 import com.zondy.mapgis.core.spatial.CrossData;
 import com.zondy.mapgis.core.spatial.SpaCalculator;
 
-import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class JSSpaCalculator extends ReactContextBaseJavaModule {
 
-    public static final String REACT_CLASS = "JSSpaCalculator";
-//    public static Map<String, SpaCalculator> mSpaCalculatorList = new HashMap<String, SpaCalculator>();
+    private static final String REACT_CLASS = "JSSpaCalculator";
 
     public JSSpaCalculator(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -36,42 +32,13 @@ public class JSSpaCalculator extends ReactContextBaseJavaModule {
         return REACT_CLASS;
     }
 
-//    public static SpaCalculator getObjFromList(String id) {
-//        return mSpaCalculatorList.get(id);
-//    }
-
-//    public static String registerId(SpaCalculator obj) {
-//        for (Map.Entry entry : mSpaCalculatorList.entrySet()) {
-//            if (obj.equals(entry.getValue())) {
-//                return (String) entry.getKey();
-//            }
-//        }
-//        Calendar calendar = Calendar.getInstance();
-//        String id = Long.toString(calendar.getTimeInMillis());
-//        mSpaCalculatorList.put(id, obj);
-//        return id;
-//    }
-
-//    @ReactMethod
-//    public void createObj(Promise promise) {
-//        try {
-//            SpaCalculator spaCalculator = new SpaCalculator();
-//            String spaCalculatorId = registerId(spaCalculator);
-//            WritableMap map = Arguments.createMap();
-//            map.putString("SpaCalculatorId", spaCalculatorId);
-//            promise.resolve(map);
-//        } catch (Exception e) {
-//            promise.reject(e);
-//        }
-//    }
-
     @ReactMethod
-    public static void anglePI(String xy0Id, String xy1Id, Promise promise)
+    public static void anglePIOfDot(String xy0Id, String xy1Id, Promise promise)
     {
         try {
             Dot xy0 = JSDot.getObjFromList(xy0Id);
             Dot xy1 = JSDot.getObjFromList(xy1Id);
-            double anglePI = (int)SpaCalculator.anglePI(xy0, xy1);
+            double anglePI = SpaCalculator.anglePI(xy0, xy1);
             promise.resolve(anglePI);
         } catch (Exception e) {
             promise.reject(e);
@@ -79,10 +46,10 @@ public class JSSpaCalculator extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public static void anglePI(double x0, double y0, double x1, double y1, Promise promise)
+    public static void anglePIOfXY(double x0, double y0, double x1, double y1, Promise promise)
     {
         try {
-            double anglePI = (int)SpaCalculator.anglePI(x0, y0, x1, y1);
+            double anglePI = SpaCalculator.anglePI(x0, y0, x1, y1);
             promise.resolve(anglePI);
         } catch (Exception e) {
             promise.reject(e);
@@ -90,12 +57,12 @@ public class JSSpaCalculator extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public static void angle2PI(String xy0Id, String xy1Id, Promise promise)
+    public static void angle2PIOfDot(String xy0Id, String xy1Id, Promise promise)
     {
         try {
             Dot xy0 = JSDot.getObjFromList(xy0Id);
             Dot xy1 = JSDot.getObjFromList(xy1Id);
-            double angle2PI = (int)SpaCalculator.angle2PI(xy0, xy1);
+            double angle2PI = SpaCalculator.angle2PI(xy0, xy1);
             promise.resolve(angle2PI);
         } catch (Exception e) {
             promise.reject(e);
@@ -103,10 +70,10 @@ public class JSSpaCalculator extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public static void angle2PI(double x0, double y0, double x1, double y1, Promise promise)
+    public static void angle2PIOfXY(double x0, double y0, double x1, double y1, Promise promise)
     {
         try {
-            double angle2PI = (int)SpaCalculator.angle2PI(x0, y0, x1, y1);
+            double angle2PI = SpaCalculator.angle2PI(x0, y0, x1, y1);
             promise.resolve(angle2PI);
         } catch (Exception e) {
             promise.reject(e);
@@ -114,12 +81,12 @@ public class JSSpaCalculator extends ReactContextBaseJavaModule {
     }
 
    @ReactMethod
-    public static void distance(String xy0Id, String xy1Id, Promise promise)
+    public static void distanceOfDot(String xy0Id, String xy1Id, Promise promise)
     {
         try {
             Dot xy0 = JSDot.getObjFromList(xy0Id);
             Dot xy1 = JSDot.getObjFromList(xy1Id);
-            double distance = (int)SpaCalculator.distance(xy0, xy1);
+            double distance = SpaCalculator.distance(xy0, xy1);
             promise.resolve(distance);
         } catch (Exception e) {
             promise.reject(e);
@@ -127,10 +94,10 @@ public class JSSpaCalculator extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public static void distance(double x0, double y0, double x1, double y1, Promise promise)
+    public static void distanceOfXY(double x0, double y0, double x1, double y1, Promise promise)
     {
         try {
-            double distance = (int)SpaCalculator.distance(x0, y0, x1, y1);
+            double distance = SpaCalculator.distance(x0, y0, x1, y1);
             promise.resolve(distance);
         } catch (Exception e) {
             promise.reject(e);
@@ -138,13 +105,13 @@ public class JSSpaCalculator extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public static void distance(String geom1Id, String geom2Id, int distanceType, Promise promise)
+    public static void distanceOfGeometry(String geom1Id, String geom2Id, int distanceType, Promise promise)
     {
         try {
             Geometry geom1 = JSGeometry.getObjFromList(geom1Id);
             Geometry geom2 = JSGeometry.getObjFromList(geom2Id);
             DistanceType type = (DistanceType) Enumeration.parse(DistanceType.class, distanceType);
-            double distance = (int)SpaCalculator.distance(geom1, geom2, type);
+            double distance = SpaCalculator.distance(geom1, geom2, type);
             promise.resolve(distance);
         } catch (Exception e) {
             promise.reject(e);
@@ -158,6 +125,10 @@ public class JSSpaCalculator extends ReactContextBaseJavaModule {
             GeoVarLine line1 = JSGeoVarLine.getObjFromList(line1Id);
             GeoVarLine line2 = JSGeoVarLine.getObjFromList(line2Id);
             Dot[]  linesInters = SpaCalculator.calLinesInters(line1, line2);
+            if(linesInters == null)
+            {
+                return;
+            }
             String point2DId = "";
             WritableArray linesIntersArray = Arguments.createArray();
             for (int i = 0; i < linesInters.length; i++) {

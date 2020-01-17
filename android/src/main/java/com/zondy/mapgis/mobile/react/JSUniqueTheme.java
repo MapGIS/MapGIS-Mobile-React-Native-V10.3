@@ -3,7 +3,6 @@ package com.zondy.mapgis.mobile.react;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.map.AllOtherDataItemInfoSource;
@@ -12,17 +11,13 @@ import com.zondy.mapgis.core.map.UniqueTheme;
 import com.zondy.mapgis.core.map.UniqueThemeInfo;
 import com.zondy.mapgis.core.object.Enumeration;
 
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * 唯一值专题图Native功能组件
  * Created by xiaoying on 2019/9/4.
  */
 public class JSUniqueTheme extends JSVectorTheme {
     private static final String REACT_CLASS = "JSUniqueTheme";
-    public static Map<String, UniqueTheme> mUniqueThemeList = new HashMap<>();
+
     public JSUniqueTheme(ReactApplicationContext reactContext) {
         super(reactContext);
     }

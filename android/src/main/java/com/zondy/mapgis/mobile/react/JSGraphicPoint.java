@@ -13,7 +13,7 @@ import com.zondy.mapgis.core.geometry.Dot;
  * @authorfjl 2019-6-30 下午2:52:36
  */
 public class JSGraphicPoint extends JSGraphic {
-    public static final String REACT_CLASS = "JSGraphicPoint";
+    private static final String REACT_CLASS = "JSGraphicPoint";
 
     public JSGraphicPoint(ReactApplicationContext context) {
         super(context);

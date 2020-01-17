@@ -2,14 +2,9 @@ package com.zondy.mapgis.mobile.react;
 
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.zondy.mapgis.core.map.ThemeType;
 import com.zondy.mapgis.core.map.VectorTheme;
-
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 矢量专题图
@@ -17,7 +12,6 @@ import java.util.Map;
  */
 public class JSVectorTheme extends JSTheme {
     private static final String REACT_CLASS = "JSVectorTheme";
-    public static Map<String, VectorTheme> mVectorThemeList = new HashMap<>();
 
     public JSVectorTheme(ReactApplicationContext reactContext) {
         super(reactContext);

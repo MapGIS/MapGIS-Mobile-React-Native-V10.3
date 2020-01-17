@@ -9,7 +9,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.NinePatchDrawable;
 import android.net.Uri;
-import android.os.Environment;
 import android.os.StrictMode;
 import android.text.TextUtils;
 
@@ -19,15 +18,14 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.annotation.Nullable;
 
@@ -38,8 +36,8 @@ import sun.misc.BASE64Decoder;
  * @content 图片对象Native组件
  */
 public class JSImage extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "JSImage";
-    public static Map<String, Bitmap> mBitmapList = new HashMap<String, Bitmap>();
+    private static final String REACT_CLASS = "JSImage";
+    private static Map<String, Bitmap> mBitmapList = new HashMap<String, Bitmap>();
     private static final String FILE_SCHEME = "file";
     Context m_Context = null;
     private Map<String, Integer> mResourceDrawableIdMap;
@@ -65,8 +63,7 @@ public class JSImage extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mBitmapList.put(id, obj);
         return id;
     }

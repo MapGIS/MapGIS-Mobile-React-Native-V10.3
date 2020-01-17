@@ -6,21 +6,17 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.geometry.AnnType;
-import com.zondy.mapgis.core.geometry.GeoPoints;
 import com.zondy.mapgis.core.geometry.GeometryType;
 import com.zondy.mapgis.core.geometry.TextAnno;
 import com.zondy.mapgis.core.info.TextAnnInfo;
 import com.zondy.mapgis.core.object.Enumeration;
 
-import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSTextAnno extends JSGeoAnno{
 
-    public static final String REACT_CLASS = "JSTextAnno";
-   // public static Map<String, TextAnno> mGeoAnnoList = new HashMap<String, TextAnno>();
-    TextAnno m_TextAnno;
+    private static final String REACT_CLASS = "JSTextAnno";
 
     public JSTextAnno(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -41,8 +37,7 @@ public class JSTextAnno extends JSGeoAnno{
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mGeometryList.put(id, obj);
         return id;
     }

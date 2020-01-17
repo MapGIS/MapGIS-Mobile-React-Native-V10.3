@@ -14,7 +14,6 @@ import com.zondy.mapgis.core.geodatabase.QueryDef;
 import com.zondy.mapgis.core.geodatabase.RecordSet;
 import com.zondy.mapgis.core.geodatabase.SFeatureCls;
 import com.zondy.mapgis.core.geodatabase.XClsType;
-import com.zondy.mapgis.core.geometry.AnnType;
 import com.zondy.mapgis.core.geometry.GeomType;
 import com.zondy.mapgis.core.geometry.Geometry;
 import com.zondy.mapgis.core.geometry.GeometryType;
@@ -22,12 +21,9 @@ import com.zondy.mapgis.core.geometry.Rect;
 import com.zondy.mapgis.core.info.GeomInfo;
 import com.zondy.mapgis.core.object.Enumeration;
 
-import java.util.Calendar;
-import java.util.Map;
-
 public class JSSFeatureCls extends JSVectorCls{
 
-    public static final String REACT_CLASS = "JSSFeatureCls";
+    private static final String REACT_CLASS = "JSSFeatureCls";
 
     public JSSFeatureCls(ReactApplicationContext reactContext) {
         super(reactContext);

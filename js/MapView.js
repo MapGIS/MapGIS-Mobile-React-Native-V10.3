@@ -1028,6 +1028,32 @@ export default class JSMapView {
   }
 
   /**
+   * 获取地图视图宽度
+   * @memberOf MapView
+   * @returns {Promise<Number>} 返回宽度
+   */
+  async getWidth(){
+    try {
+      return await MV.getWidth(this._MGMapViewId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
+   * 获取地图视图高度
+   * @memberOf MapView
+   * @returns {Promise<Number>} 返回高度
+   */
+  async getHeight(){
+    try {
+      return await MV.getHeight(this._MGMapViewId);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  /**
    * 获取当前地图视图的快照（截图）并返回图片路径
    * @memberOf MapView
    * @param path 截图存储的文件夹路径

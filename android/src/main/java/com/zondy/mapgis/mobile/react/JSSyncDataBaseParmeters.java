@@ -10,15 +10,15 @@ import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.featureservice.SyncDataBaseParmeters;
 import com.zondy.mapgis.core.featureservice.SyncLayerOption;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSSyncDataBaseParmeters extends ReactContextBaseJavaModule {
 
-    public static final String REACT_CLASS = "JSSyncDataBaseParmeters";
-    public static Map<String, SyncDataBaseParmeters> mSyncDataBaseParmetersList = new HashMap<String, SyncDataBaseParmeters>();
+    private static final String REACT_CLASS = "JSSyncDataBaseParmeters";
+    private static Map<String, SyncDataBaseParmeters> mSyncDataBaseParmetersList = new HashMap<String, SyncDataBaseParmeters>();
 
     public JSSyncDataBaseParmeters(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -39,8 +39,7 @@ public class JSSyncDataBaseParmeters extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mSyncDataBaseParmetersList.put(id, obj);
         return id;
     }

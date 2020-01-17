@@ -13,9 +13,9 @@ import com.zondy.mapgis.core.map.PointPlaceInfo;
 import com.zondy.mapgis.core.map.PointPlaceType;
 import com.zondy.mapgis.core.object.Enumeration;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 点标注信息Native功能组件
@@ -23,7 +23,7 @@ import java.util.Map;
  */
 public class JSPointPlaceInfo extends ReactContextBaseJavaModule {
     private static final String REACT_CLASS = "JSPointPlaceInfo";
-    public static Map<String, PointPlaceInfo> mPointPlaceInfoList = new HashMap<>();
+    private static Map<String, PointPlaceInfo> mPointPlaceInfoList = new HashMap<>();
 
     public JSPointPlaceInfo(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -45,8 +45,7 @@ public class JSPointPlaceInfo extends ReactContextBaseJavaModule {
                 return id;
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mPointPlaceInfoList.put(id,obj);
         return id;
     }

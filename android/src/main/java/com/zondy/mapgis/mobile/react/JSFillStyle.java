@@ -10,11 +10,9 @@ import com.zondy.mapgis.android.tool.sketcheditor.FillStyle;
 import com.zondy.mapgis.android.tool.sketcheditor.LineStyle;
 import com.zondy.mapgis.mobile.react.utils.ConvertUtil;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.PropertyResourceBundle;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.UUID;
 
 /**
  * 区样式（纯色填充）Native功能组件
@@ -22,7 +20,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class JSFillStyle extends ReactContextBaseJavaModule {
     private static final String REACT_CLASS = "JSFillStyle";
-    public static Map<String, FillStyle> mFillStyleList = new HashMap<>();
+    private static Map<String, FillStyle> mFillStyleList = new HashMap<>();
 
     public JSFillStyle(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -44,8 +42,7 @@ public class JSFillStyle extends ReactContextBaseJavaModule {
                 return id;
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mFillStyleList.put(id,obj);
         return id;
     }

@@ -1,9 +1,6 @@
 package com.zondy.mapgis.mobile.react;
 
-import android.util.Log;
-
 import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -11,10 +8,9 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.android.tool.sketcheditor.MeasureOption;
 import com.zondy.mapgis.android.tool.sketcheditor.MeasureResultContentWillChangeListener;
-import com.zondy.mapgis.mobile.react.utils.ConvertUtil;
 
-import java.util.Calendar;
 import java.util.HashMap;
+import java.util.UUID;
 
 /**
  * 量算参数选项类
@@ -44,8 +40,7 @@ public class JSMeasureOption extends ReactContextBaseJavaModule {
                 return id;
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mMeasureOptionList.put(id, obj);
         return id;
     }

@@ -5,21 +5,17 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
-import com.zondy.mapgis.core.geometry.GeoAnno;
 import com.zondy.mapgis.core.geometry.Geometry;
 import com.zondy.mapgis.core.geometry.GeometryExp;
 import com.zondy.mapgis.core.srs.ElpTransParam;
 import com.zondy.mapgis.core.srs.SRefData;
 
-import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSGeometryExp extends  JSGeometry{
+    private static final String REACT_CLASS = "JSGeometryExp";
 
-    public static final String REACT_CLASS = "JSGeometryExp";
-   // public static Map<String, GeometryExp> mGeometryExpList = new HashMap<String, GeometryExp>();
-    GeometryExp m_GeometryExp;
     public JSGeometryExp(ReactApplicationContext reactContext) {
         super(reactContext);
     }
@@ -39,8 +35,7 @@ public class JSGeometryExp extends  JSGeometry{
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mGeometryList.put(id, obj);
         return id;
     }

@@ -10,9 +10,9 @@ import com.zondy.mapgis.core.map.ClassItemValue;
 import com.zondy.mapgis.core.map.Document;
 import com.zondy.mapgis.core.map.Maps;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 文档对象Native组件
@@ -20,7 +20,7 @@ import java.util.Map;
  */
 public class JSDocument extends JSDocumentItem {
     private static final String REACT_CLASS = "JSDocument";
-    public static Map<String, Document> mDocumentList = new HashMap<>();
+    private static Map<String, Document> mDocumentList = new HashMap<>();
 
     public JSDocument(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -42,8 +42,7 @@ public class JSDocument extends JSDocumentItem {
                 return id;
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mDocumentList.put(id,obj);
         return id;
     }

@@ -3,15 +3,14 @@ package com.zondy.mapgis.mobile.react;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.zondy.mapgis.core.geodatabase.IBasCls;
-
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSBasCls extends ReactContextBaseJavaModule {
 
-    public static final String REACT_CLASS = "JSBasCls";
-    public static Map<String, IBasCls> mBasClsList = new HashMap<String, IBasCls>();
+    private static final String REACT_CLASS = "JSBasCls";
+    private static Map<String, IBasCls> mBasClsList = new HashMap<String, IBasCls>();
 
     public JSBasCls(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -32,9 +31,10 @@ public class JSBasCls extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+
+        String id = UUID.randomUUID().toString().substring(24);
         mBasClsList.put(id, obj);
+
         return id;
     }
 }

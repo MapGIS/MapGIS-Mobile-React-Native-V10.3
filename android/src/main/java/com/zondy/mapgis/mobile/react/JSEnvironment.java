@@ -1,6 +1,7 @@
 package com.zondy.mapgis.mobile.react;
 
 import android.app.Activity;
+
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -10,18 +11,17 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.android.environment.Environment;
 
-import java.io.File;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author fjl 2019-6-20 下午2:52:36
  * @content 图片对象Native组件
  */
 public class JSEnvironment extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "JSEnvironment";
-    public static Map<String, Environment> mEnvironmentList = new HashMap<String, Environment>();
+    private static final String REACT_CLASS = "JSEnvironment";
+    private static Map<String, Environment> mEnvironmentList = new HashMap<String, Environment>();
     private ReactContext mContext;
 
     public JSEnvironment(ReactApplicationContext context) {
@@ -46,8 +46,7 @@ public class JSEnvironment extends ReactContextBaseJavaModule {
             }
         }
 
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mEnvironmentList.put(id, obj);
         return id;
     }

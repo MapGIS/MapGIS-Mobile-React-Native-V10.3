@@ -15,19 +15,13 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.zondy.mapgis.android.annotation.Annotation;
 import com.zondy.mapgis.android.annotation.AnnotationView;
-import com.zondy.mapgis.android.mapview.MapView;
-
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSAnnotationView extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "JSAnnotationView";
-    public static Map<String, AnnotationView> mAnnotationViewList = new HashMap<String, AnnotationView>();
-    AnnotationView                            m_AnnotationView;
-    ViewGroup                                 m_rootView;
-    View                                      m_leftView;
-    View                                      m_rightView;
+    private static final String REACT_CLASS = "JSAnnotationView";
+    private static Map<String, AnnotationView> mAnnotationViewList = new HashMap<String, AnnotationView>();
 
     public JSAnnotationView(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -48,8 +42,7 @@ public class JSAnnotationView extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mAnnotationViewList.put(id, obj);
         return id;
     }

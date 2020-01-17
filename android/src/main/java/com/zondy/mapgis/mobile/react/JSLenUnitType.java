@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class JSLenUnitType extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS="JSLenUnitType";
+    private static final String REACT_CLASS="JSLenUnitType";
 
     public JSLenUnitType(ReactApplicationContext context){
         super(context);

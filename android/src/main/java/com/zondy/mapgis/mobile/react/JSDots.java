@@ -18,14 +18,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSDots extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "JSDots";
-    public static Map<String, Dots> mDotsList = new HashMap<String, Dots>();
-
+    private static final String REACT_CLASS = "JSDots";
+    private static Map<String, Dots> mDotsList = new HashMap<String, Dots>();
 
     public JSDots(ReactApplicationContext context) {
         super(context);
@@ -47,8 +46,7 @@ public class JSDots extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mDotsList.put(id, obj);
         return id;
     }

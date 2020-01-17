@@ -1,7 +1,5 @@
 package com.zondy.mapgis.mobile.react;
 
-import android.util.Log;
-
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -30,9 +28,8 @@ import java.util.UUID;
  * @content 要素对象Native组件
  */
 public class JSFeature extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "JSFeature";
-    public static Map<String, Feature> mFeatureList = new HashMap<String, Feature>();
-
+    private static final String REACT_CLASS = "JSFeature";
+    private static Map<String, Feature> mFeatureList = new HashMap<String, Feature>();
 
     public JSFeature(ReactApplicationContext context) {
         super(context);

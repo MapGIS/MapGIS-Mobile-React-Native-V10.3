@@ -7,15 +7,14 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.featureservice.DownloadLayerOption;
-
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSDownloadLayerOption extends ReactContextBaseJavaModule {
 
-    public static final String REACT_CLASS = "JSDownloadLayerOption";
-    public static Map<String, DownloadLayerOption> mDownloadLayerOptionList = new HashMap<String, DownloadLayerOption>();
+    private static final String REACT_CLASS = "JSDownloadLayerOption";
+    private static Map<String, DownloadLayerOption> mDownloadLayerOptionList = new HashMap<String, DownloadLayerOption>();
 
     public JSDownloadLayerOption(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -36,8 +35,7 @@ public class JSDownloadLayerOption extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mDownloadLayerOptionList.put(id, obj);
         return id;
     }

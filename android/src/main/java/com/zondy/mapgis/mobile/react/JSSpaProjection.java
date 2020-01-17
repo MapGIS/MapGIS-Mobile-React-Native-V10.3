@@ -11,14 +11,14 @@ import com.zondy.mapgis.core.spatial.SpaProjection;
 import com.zondy.mapgis.core.srs.ElpTransParam;
 import com.zondy.mapgis.core.srs.SRefData;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSSpaProjection extends ReactContextBaseJavaModule {
 
-    public static final String REACT_CLASS = "JSSpaProjection";
-    public static Map<String, SpaProjection> mSpaProjectionList = new HashMap<String, SpaProjection>();
+    private static final String REACT_CLASS = "JSSpaProjection";
+    private static Map<String, SpaProjection> mSpaProjectionList = new HashMap<String, SpaProjection>();
 
     public JSSpaProjection(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -39,8 +39,7 @@ public class JSSpaProjection extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mSpaProjectionList.put(id, obj);
         return id;
     }

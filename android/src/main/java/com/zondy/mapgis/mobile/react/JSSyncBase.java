@@ -7,10 +7,8 @@ import com.facebook.react.bridge.ReactMethod;
 import com.zondy.mapgis.core.featureservice.SyncBase;
 
 public class JSSyncBase extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "JSSyncBase";
+    private static final String REACT_CLASS = "JSSyncBase";
     private static ReactApplicationContext mReactContext;
-
-//    public static Map<String, SyncBase> mSyncBaseList = new HashMap<String, SyncBase>();
 
     public JSSyncBase(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -21,22 +19,6 @@ public class JSSyncBase extends ReactContextBaseJavaModule {
     public String getName() {
         return REACT_CLASS;
     }
-
-//    public static SyncBase getObjFromList(String id) {
-//        return mSyncBaseList.get(id);
-//    }
-//
-//    public static String registerId(SyncBase obj) {
-//        for (Map.Entry entry : mSyncBaseList.entrySet()) {
-//            if (obj.equals(entry.getValue())) {
-//                return (String) entry.getKey();
-//            }
-//        }
-//        Calendar calendar = Calendar.getInstance();
-//        String id = Long.toString(calendar.getTimeInMillis());
-//        mSyncBaseList.put(id, obj);
-//        return id;
-//    }
 
     @ReactMethod
     public static void setFinishedListener(Promise promise)

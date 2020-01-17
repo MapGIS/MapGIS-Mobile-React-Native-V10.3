@@ -1,21 +1,15 @@
 package com.zondy.mapgis.mobile.react;
 
-import android.util.Log;
-
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.zondy.mapgis.android.internal.tool.sketcheditor.MeasureResultContentWillChangeListenerDefault;
-import com.zondy.mapgis.android.tool.sketcheditor.MeasureOption;
 import com.zondy.mapgis.android.tool.sketcheditor.MeasureResultContentWillChangeListener;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Map;
-
-import javax.annotation.Nullable;
 
 /**
  * Created by xiaoying on 2020/1/13.

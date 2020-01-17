@@ -1,10 +1,8 @@
 package com.zondy.mapgis.mobile.react;
 
-import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.featureservice.FeatureSync;
 import com.zondy.mapgis.core.geodatabase.DataBase;
 import com.zondy.mapgis.core.geodatabase.IVectorCls;
@@ -12,12 +10,8 @@ import com.zondy.mapgis.core.geodatabase.XClsType;
 import com.zondy.mapgis.core.geometry.Rect;
 import com.zondy.mapgis.core.object.Enumeration;
 
-import java.io.File;
-
 public class JSFeatureSync extends JSSyncBase{
     private static final String REACT_CLASS = "JSFeatureSync";
-
-    private ReactApplicationContext mReactContext;
 
     public JSFeatureSync(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -26,20 +20,6 @@ public class JSFeatureSync extends JSSyncBase{
     public String getName() {
         return REACT_CLASS;
     }
-
-//    @ReactMethod
-//    public void createObj(Promise promise){
-//        try {
-//            FeatureSync featureSync = new FeatureSync();
-//            String featureSyncId = registerId(featureSync);
-//
-//            WritableMap writableMap = Arguments.createMap();
-//            writableMap.putString("FeatureSyncId", featureSyncId);
-//            promise.resolve(writableMap);
-//        }catch (Exception e){
-//            promise.reject(e);
-//        }
-//    }
 
    @ReactMethod
     public static void downloadASync(final String strIGServerBaseURL, final String strDataURL, final String extentId, final String whereClause, final String databaseId, final int clsType, final String clsName, Promise promise)

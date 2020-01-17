@@ -11,14 +11,14 @@ import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.android.graphic.VisualMap;
 import com.zondy.mapgis.mobile.react.utils.ConvertUtil;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSVisualMap extends ReactContextBaseJavaModule {
 
-    public static final String REACT_CLASS = "JSVisualMap";
-    public static Map<String, VisualMap> mVisualMapPointList = new HashMap<String, VisualMap>();
+    private static final String REACT_CLASS = "JSVisualMap";
+    private static Map<String, VisualMap> mVisualMapPointList = new HashMap<String, VisualMap>();
 
     public JSVisualMap(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -39,8 +39,7 @@ public class JSVisualMap extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mVisualMapPointList.put(id, obj);
         return id;
     }

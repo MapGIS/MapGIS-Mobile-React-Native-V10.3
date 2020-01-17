@@ -13,16 +13,16 @@ import com.zondy.mapgis.core.map.LineRestrictType;
 import com.zondy.mapgis.core.map.LineSpreadType;
 import com.zondy.mapgis.core.object.Enumeration;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by xiaoying on 2019/9/2.
  */
 public class JSLinePlaceInfo extends ReactContextBaseJavaModule {
     private static final String REACT_CLASS = "JSLinePlaceInfo";
-    public static Map<String, LinePlaceInfo> mLinePlaceInfoList = new HashMap<>();
+    private static Map<String, LinePlaceInfo> mLinePlaceInfoList = new HashMap<>();
 
     public JSLinePlaceInfo(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -44,8 +44,7 @@ public class JSLinePlaceInfo extends ReactContextBaseJavaModule {
                 return id;
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mLinePlaceInfoList.put(id,obj);
         return id;
     }

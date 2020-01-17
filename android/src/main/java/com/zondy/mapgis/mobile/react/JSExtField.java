@@ -11,13 +11,13 @@ import com.zondy.mapgis.core.attr.FieldShape;
 import com.zondy.mapgis.core.attr.FieldType;
 import com.zondy.mapgis.core.object.Enumeration;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSExtField extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "JSExtField";
-    public static Map<String, ExtField> mExtFieldList = new HashMap<String, ExtField>();
+    private static final String REACT_CLASS = "JSExtField";
+    private static Map<String, ExtField> mExtFieldList = new HashMap<String, ExtField>();
 
     public JSExtField(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -38,8 +38,7 @@ public class JSExtField extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mExtFieldList.put(id, obj);
         return id;
     }

@@ -9,9 +9,9 @@ import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.android.tool.sketcheditor.TextStyle;
 import com.zondy.mapgis.mobile.react.utils.ConvertUtil;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 文本样式Native功能组件
@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public class JSTextStyle extends ReactContextBaseJavaModule {
     private static final String REACT_CLASS = "JSTextStyle";
-    public static Map<String, TextStyle> mTextStyleList = new HashMap<>();
+    private static Map<String, TextStyle> mTextStyleList = new HashMap<>();
 
     public JSTextStyle(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -41,8 +41,7 @@ public class JSTextStyle extends ReactContextBaseJavaModule {
                 return id;
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mTextStyleList.put(id,obj);
         return id;
     }

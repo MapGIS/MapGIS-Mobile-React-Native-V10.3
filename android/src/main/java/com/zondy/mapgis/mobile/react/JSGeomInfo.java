@@ -4,13 +4,14 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.zondy.mapgis.core.info.GeomInfo;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class JSGeomInfo extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS = "JSGeomInfo";
-    public static Map<String, GeomInfo> mGeomInfoList = new HashMap<String, GeomInfo>();
+    private static final String REACT_CLASS = "JSGeomInfo";
+    private static Map<String, GeomInfo> mGeomInfoList = new HashMap<String, GeomInfo>();
+
     public JSGeomInfo(ReactApplicationContext reactContext) {
         super(reactContext);
     }
@@ -30,8 +31,7 @@ public class JSGeomInfo extends ReactContextBaseJavaModule {
                 return (String) entry.getKey();
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mGeomInfoList.put(id, obj);
         return id;
     }

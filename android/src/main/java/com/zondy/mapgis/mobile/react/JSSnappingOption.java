@@ -8,9 +8,9 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.android.tool.sketcheditor.SnappingOption;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 捕捉选项Native功能组件
@@ -18,7 +18,7 @@ import java.util.Map;
  */
 public class JSSnappingOption extends ReactContextBaseJavaModule {
     private static final String REACT_CLASS = "JSSnappingOption";
-    public static Map<String, SnappingOption> mSnappingOptionList = new HashMap<>();
+    private static Map<String, SnappingOption> mSnappingOptionList = new HashMap<>();
 
     public JSSnappingOption(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -40,8 +40,7 @@ public class JSSnappingOption extends ReactContextBaseJavaModule {
                 return id;
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mSnappingOptionList.put(id,obj);
         return id;
     }

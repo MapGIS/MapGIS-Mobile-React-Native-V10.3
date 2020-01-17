@@ -13,11 +13,9 @@ import com.zondy.mapgis.core.map.ClassItemValue;
 import com.zondy.mapgis.core.map.MultiClassThemeInfo;
 import com.zondy.mapgis.core.object.Enumeration;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.annotation.Nullable;
+import java.util.UUID;
 
 /**
  * 多表达式分段专题图项Native功能组件
@@ -25,7 +23,7 @@ import javax.annotation.Nullable;
  */
 public class JSMultiClassThemeInfo extends ReactContextBaseJavaModule {
     private static final String REACT_CLASS = "JSMultiClassThemeInfo";
-    public static Map<String, MultiClassThemeInfo> mMultiClassThemeInfoList = new HashMap<>();
+    private static Map<String, MultiClassThemeInfo> mMultiClassThemeInfoList = new HashMap<>();
 
     public JSMultiClassThemeInfo(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -47,8 +45,7 @@ public class JSMultiClassThemeInfo extends ReactContextBaseJavaModule {
                 return id;
             }
         }
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mMultiClassThemeInfoList.put(id, obj);
         return id;
     }

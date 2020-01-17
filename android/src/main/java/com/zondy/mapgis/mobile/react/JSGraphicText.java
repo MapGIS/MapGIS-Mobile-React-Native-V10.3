@@ -15,7 +15,7 @@ import com.zondy.mapgis.core.geometry.Dot;
  * @content 文本图形对象Native组件
  */
 public class JSGraphicText extends JSGraphic {
-    public static final String REACT_CLASS = "JSGraphicText";
+    private static final String REACT_CLASS = "JSGraphicText";
 
     public JSGraphicText(ReactApplicationContext context) {
         super(context);

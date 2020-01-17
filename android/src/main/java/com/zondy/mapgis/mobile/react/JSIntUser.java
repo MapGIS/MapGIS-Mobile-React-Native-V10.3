@@ -8,9 +8,9 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.zondy.mapgis.core.geometry.IntUser;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 整数对象Native功能组件
@@ -18,7 +18,7 @@ import java.util.Map;
  */
 public class JSIntUser extends ReactContextBaseJavaModule {
     private static final String REACT_CLASS = "JSIntUser";
-    public static Map<String, IntUser> mIntUserList = new HashMap<>();
+    private static Map<String, IntUser> mIntUserList = new HashMap<>();
 
     public JSIntUser(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -41,8 +41,7 @@ public class JSIntUser extends ReactContextBaseJavaModule {
             }
         }
 
-        Calendar calendar = Calendar.getInstance();
-        String id = Long.toString(calendar.getTimeInMillis());
+        String id = UUID.randomUUID().toString().substring(24);
         mIntUserList.put(id, obj);
         return id;
     }

@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class JSDistanceType extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS="JSDistanceType";
+    private static final String REACT_CLASS="JSDistanceType";
 
     public JSDistanceType(ReactApplicationContext context){
         super(context);

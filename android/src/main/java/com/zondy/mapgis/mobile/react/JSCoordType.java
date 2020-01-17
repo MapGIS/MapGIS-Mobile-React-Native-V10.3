@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class JSCoordType extends ReactContextBaseJavaModule {
-    public static final String REACT_CLASS="JSCoordType";
+    private static final String REACT_CLASS="JSCoordType";
 
     public JSCoordType(ReactApplicationContext context){
         super(context);

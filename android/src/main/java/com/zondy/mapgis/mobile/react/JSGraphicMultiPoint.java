@@ -25,7 +25,7 @@ import java.util.List;
  * @content 多点图形对象Native组件
  */
 public class JSGraphicMultiPoint extends JSGraphic {
-    public static final String REACT_CLASS = "JSGraphicMultiPoint";
+    private static final String REACT_CLASS = "JSGraphicMultiPoint";
 
     public JSGraphicMultiPoint(ReactApplicationContext context) {
         super(context);
@@ -41,7 +41,6 @@ public class JSGraphicMultiPoint extends JSGraphic {
         try {
             GraphicMultiPoint GraphicMultiPoint = new GraphicMultiPoint();
             String GraphicMultiPointId = registerId(GraphicMultiPoint);
-
             WritableMap map = Arguments.createMap();
             map.putString("GraphicMultiPointId", GraphicMultiPointId);
             promise.resolve(map);

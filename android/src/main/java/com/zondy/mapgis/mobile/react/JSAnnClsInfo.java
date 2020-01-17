@@ -9,14 +9,9 @@ import com.zondy.mapgis.core.geodatabase.AnnClsInfo;
 import com.zondy.mapgis.core.geodatabase.XClsType;
 import com.zondy.mapgis.core.geometry.AnnType;
 import com.zondy.mapgis.core.object.Enumeration;
-import com.zondy.mapgis.core.object.TimeStamp;
-
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 
 public class JSAnnClsInfo extends JSXClsInfo {
-    public static final String REACT_CLASS = "JSAnnClsInfo";
+    private static final String REACT_CLASS = "JSAnnClsInfo";
 
     public JSAnnClsInfo(ReactApplicationContext reactContext) {
         super(reactContext);
