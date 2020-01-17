@@ -224,17 +224,18 @@ public class JSFeature extends ReactContextBaseJavaModule {
                 if(attributeJson != null && !attributeJson.isEmpty()){
                     replaceJson = attributeJson.replaceAll(":null", ":\"null\"");
 
-                    if(replaceJson.contains(":\"\",")){
-                        replaceJson = replaceJson.replaceAll(":\"\"", ":\"null\"");
-                    }
+//                    if(replaceJson.contains(":\"\",")){
+//                        replaceJson = replaceJson.replaceAll(":\"\"", ":\"null\"");
+//                    }
                 }
+
 
                 JSONObject jsonObject = new JSONObject(replaceJson);
                 Iterator<String> it = jsonObject.keys();
 
                 while(it.hasNext()){
                     String key = it.next();
-                    String value = (String) jsonObject.get(key);
+                    String value = jsonObject.getString(key);
                     if("null".equals(value)){
                         attributesMap.put(key, null);
                     }else{

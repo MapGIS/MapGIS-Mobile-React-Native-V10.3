@@ -44,7 +44,7 @@ export default class Feature {
    * 有参构造。通过attribute、geometry、geomInfo构造一个新的 Feature 对象。
    * 
    * @memberOf Feature
-   * @param {Array} attribute 存有属性字段及对应值的数组，不可为null。例：let array = []; array.push("name", "张三");
+   * @param {Object} attribute 存有属性字段及对应值的对象，不可为null。例：let array = {name: '张三', age: 14};
    * @param {Geometry} geometry 几何对象
    * @param {GeomInfo} geomInfo 图形对象
    * @returns {Promise.<Feature>}
@@ -208,7 +208,7 @@ export default class Feature {
    * 修改要素值（包括属性信息，图形信息，几何信息）
    * 
    * @memberof Feature
-   * @param {String} attribute 属性信息，JSON格式的字符串，暂不支持null。例{"LayerID":"0","ID":"1"}
+   * @param {Object} attribute 属性信息，JSON格式的字符串，暂不支持null。例let attribute = {"LayerID":"0","ID":"1"}
    * @param {Geometry} geometry 图形信息
    * @param {GeomInfo} geomInfo 几何信息
    * @returns {Promise<Number>} 大于0成功，否则失败

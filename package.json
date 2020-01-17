@@ -1,6 +1,6 @@
 {
   "name": "@mapgis/mobile-react-native",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "MapGIS Mobile for React Native，是MapGIS推出的一款基于React-Native的跨平台移动开发框架，用户可以基于它使用JavaScript开发出在Android和iOS平台下运行的原生移动GIS应用。",
   "main": "index.js",
   "scripts": {
