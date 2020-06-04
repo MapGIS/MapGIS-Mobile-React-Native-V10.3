@@ -58,6 +58,20 @@ public class JSGraphic extends ReactContextBaseJavaModule {
 
         return id;
     }
+    
+    @ReactMethod
+    public void createObj(Promise promise) {
+        try {
+            Graphic Graphid = new Graphic();
+            String GraphicId = registerId(Graphid);
+
+            WritableMap map = Arguments.createMap();
+            map.putString("GraphicId", GraphicId);
+            promise.resolve(map);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
 
     @ReactMethod
     public void getState(String GraphicId, Promise promise) {

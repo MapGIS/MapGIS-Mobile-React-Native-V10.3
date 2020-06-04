@@ -58,7 +58,7 @@ public class JSGeometryExp extends  JSGeometry{
     }
 
     @ReactMethod
-    public void transSRS(String geometryExpId, String origSRefId, String destSRefId, String paramId, Promise promise)
+    public void transSRSOfParam(String geometryExpId, String origSRefId, String destSRefId, String paramId, Promise promise)
     {
         try {
             GeometryExp geometryExp = getObjFromList(geometryExpId);
