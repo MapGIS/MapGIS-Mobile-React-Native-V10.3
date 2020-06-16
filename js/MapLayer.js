@@ -453,4 +453,19 @@ export default class MapLayer {
       console.error(e);
     }
   }
+
+  /**
+   * 设置动态注记
+   * @memberof MapLayer
+   * @param {*} LabelId 
+   */
+  async setLabel(LabelId) {
+    try {
+      let result = await ML.setLabel(this._MGMapLayerId,LabelId);
+      return result;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
 }

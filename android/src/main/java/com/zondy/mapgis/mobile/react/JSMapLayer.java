@@ -245,7 +245,7 @@ public class JSMapLayer extends ReactContextBaseJavaModule {
             MapLayer mapLayer = getObjFromList(MapLayerId);
             Rect rect = mapLayer.getRange();
             String rectId = null;
-            if(rect != null){
+            if (rect != null) {
                 rectId = JSRect.registerId(rect);
             }
             WritableMap map = Arguments.createMap();
@@ -257,169 +257,188 @@ public class JSMapLayer extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void getSrefInfo(String MapLayerId, Promise promise){
+    public void getSrefInfo(String MapLayerId, Promise promise) {
         try {
             MapLayer mapLayer = getObjFromList(MapLayerId);
             SRefData sRefData = mapLayer.getSrefInfo();
             String sRefInfoId = JSSRefData.registerId(sRefData);
-            if(sRefData != null){
+            if (sRefData != null) {
                 sRefInfoId = JSSRefData.registerId(sRefData);
             }
 
             WritableMap map = Arguments.createMap();
-            map.putString("SRefDataId",sRefInfoId);
+            map.putString("SRefDataId", sRefInfoId);
             promise.resolve(map);
-        }catch (Exception e){
+        } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void getClsType(String MapLayerId, Promise promise){
+    public void getClsType(String MapLayerId, Promise promise) {
         try {
             MapLayer mapLayer = getObjFromList(MapLayerId);
             XClsType xClsType = mapLayer.getClsType();
 
             promise.resolve(xClsType.value());
-        }catch (Exception e){
+        } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void GetGeometryType(String MapLayerId, Promise promise){
+    public void GetGeometryType(String MapLayerId, Promise promise) {
         try {
             MapLayer mapLayer = getObjFromList(MapLayerId);
             GeomType geomType = mapLayer.GetGeometryType();
 
             promise.resolve(geomType.value());
-        }catch (Exception e){
+        } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void getLabel(String MapLayerId, Promise promise){
+    public void getLabel(String MapLayerId, Promise promise) {
         try {
             MapLayer mapLayer = getObjFromList(MapLayerId);
             Label label = mapLayer.getLabel();
             WritableMap writableMap = Arguments.createMap();
             String labelId = null;
             int type = -1;
-            if (label != null){
-                 labelId = JSLabel.registerId(label);
-                 type = label.getType().value();
+            if (label != null) {
+                labelId = JSLabel.registerId(label);
+                type = label.getType().value();
             }
             writableMap.putString("LabelId", labelId);
             writableMap.putInt("LabelType", type);
             promise.resolve(writableMap);
-        }catch (Exception e){
+        } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void getThemes(String MapLayerId, Promise promise){
+    public void getThemes(String MapLayerId, Promise promise) {
         try {
             MapLayer mapLayer = getObjFromList(MapLayerId);
             Themes themes = mapLayer.getThemes();
             String themesId = null;
-            if(themes != null){
+            if (themes != null) {
                 themesId = JSThemes.registerId(themes);
             }
 
             WritableMap writableMap = Arguments.createMap();
             writableMap.putString("ThemesId", themesId);
             promise.resolve(writableMap);
-        }catch (Exception e){
+        } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void clone(String MapLayerId, Promise promise){
+    public void clone(String MapLayerId, Promise promise) {
         try {
             MapLayer mapLayer = getObjFromList(MapLayerId);
             MapLayer cloneMapLayer = mapLayer.clone();
             String cloneMapLayerId = null;
-            if(cloneMapLayer != null){
+            if (cloneMapLayer != null) {
                 cloneMapLayerId = registerId(cloneMapLayer);
             }
 
             WritableMap writableMap = Arguments.createMap();
             writableMap.putString("MapLayerId", cloneMapLayerId);
             promise.resolve(writableMap);
-        }catch (Exception e){
+        } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void attachData(String MapLayerId, String iBasClsId, Promise promise){
+    public void attachData(String MapLayerId, String iBasClsId, Promise promise) {
         try {
             MapLayer mapLayer = getObjFromList(MapLayerId);
             IBasCls iBasCls = JSBasCls.getObjFromList(iBasClsId);
+            if (iBasCls == null) {
+                iBasCls = JSVectorCls.getObjFromList(iBasClsId);
+            }
+            if (iBasCls == null) {
+                iBasCls = JSSFeatureCls.getObjFromList(iBasClsId);
+            }
+            if (iBasCls == null) {
+                iBasCls = JSAnnotationCls.getObjFromList(iBasClsId);
+            }
             boolean result = mapLayer.attachData(iBasCls);
 
             promise.resolve(result);
-        }catch (Exception e){
+        } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void detachData(String MapLayerId, Promise promise){
+    public void detachData(String MapLayerId, Promise promise) {
         try {
             MapLayer mapLayer = getObjFromList(MapLayerId);
             boolean result = mapLayer.detachData();
 
             promise.resolve(result);
-        }catch (Exception e){
+        } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void getData(String MapLayerId, Promise promise)
-    {
+    public void getData(String MapLayerId, Promise promise) {
         try {
             MapLayer mapLayer = getObjFromList(MapLayerId);
             IBasCls iBasCls = mapLayer.getData();
             String iBasClsId = null;
-            if(iBasCls != null){
+            if (iBasCls != null) {
                 iBasClsId = JSBasCls.registerId(iBasCls);
             }
             WritableMap writableMap = Arguments.createMap();
             writableMap.putString("IBasClsId", iBasClsId);
             promise.resolve(writableMap);
-        }catch (Exception e){
+        } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void toXML(String MapLayerId, boolean onlyStyle, Promise promise){
+    public void toXML(String MapLayerId, boolean onlyStyle, Promise promise) {
         try {
             MapLayer mapLayer = getObjFromList(MapLayerId);
             String toXml = mapLayer.toXML(onlyStyle);
 
             promise.resolve(toXml);
-        }catch (Exception e){
+        } catch (Exception e) {
             promise.reject(e);
         }
     }
 
     @ReactMethod
-    public void fromXML(String MapLayerId, String strXML, boolean onlyStyle, Promise promise){
+    public void fromXML(String MapLayerId, String strXML, boolean onlyStyle, Promise promise) {
         try {
             MapLayer mapLayer = getObjFromList(MapLayerId);
             int result = (int) mapLayer.fromXML(strXML, onlyStyle);
 
             promise.resolve(result);
-        }catch (Exception e){
+        } catch (Exception e) {
             promise.reject(e);
         }
     }
 
+    @ReactMethod
+    public void setLabel(String MapLayerId, String LabelId, Promise promise) {
+        try {
+            MapLayer mapLayer = getObjFromList(MapLayerId);
+            Label label = JSLabel.getObjFromList(LabelId);
+            String result = String.valueOf(mapLayer.setLabel(label));
+            promise.resolve(result);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
 
 }

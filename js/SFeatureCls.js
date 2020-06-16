@@ -36,8 +36,9 @@ export default class SFeatureCls extends VectorCls {
       get: function() {
         return this._MGVectorClsId;
       },
-      set: function(_MGSFeatureClsId) {
+      set: function (_MGSFeatureClsId) {
         this._MGVectorClsId = _MGSFeatureClsId;
+        this._MGBasClsId = _MGSFeatureClsId;
       },
     });
   }
