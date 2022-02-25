@@ -23,6 +23,7 @@ public class MapListener implements MapView.MapViewDoubleTapListener, MapView.Ma
 
     private ReactContext reactContext;
     private MapView mMapView;
+    private String mMapViewId;
 
     private static final String DOUBLE_TAP_EVENT = "com.mapgis.RN.Mapview.double_tap_event";
     private static final String SINGLE_TAP_EVENT = "com.mapgis.RN.Mapview.single_tap_event";
@@ -45,10 +46,10 @@ public class MapListener implements MapView.MapViewDoubleTapListener, MapView.Ma
 
 
 
-    public MapListener(MapView mapView, ReactContext reactContext) {
-        this.mMapView = mapView;
+    public MapListener(String mapViewId, ReactContext reactContext) {
+        this.mMapViewId = mapViewId;
+        this.mMapView = JSMapView.getObjById(mapViewId);
         this.reactContext = reactContext;
-
     }
 
     @Override
@@ -72,11 +73,9 @@ public class MapListener implements MapView.MapViewDoubleTapListener, MapView.Ma
 
 
     private void sendEvent(MapView mapView, String eventName, WritableMap params) {
-
-        reactContext
-                .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+        params.putString("ObjId", mMapViewId);
+        reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
                 .emit(eventName, params);
-
     }
 
     @Override
