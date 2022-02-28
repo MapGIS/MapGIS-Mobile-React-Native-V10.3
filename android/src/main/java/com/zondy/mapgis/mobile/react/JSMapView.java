@@ -1027,7 +1027,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     {
         try {
             m_mapView = mapViewList.get(mapViewId);
-            MapViewMapTool mapTool = new MapViewMapTool(m_mapView, mReactContext);
+            MapViewMapTool mapTool = new MapViewMapTool(mapViewId, mReactContext);
             m_mapView.setMapTool(mapTool);
             promise.resolve(true);
         } catch (Exception e) {
@@ -1851,7 +1851,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     public void registerTapListener(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
-            MapListener mapListener = new MapListener(m_mapView, mReactContext);
+            MapListener mapListener = new MapListener(mapViewId, mReactContext);
             m_mapView.setTapListener(mapListener);
             promise.resolve(true);
         } catch (Exception e) {
@@ -1874,7 +1874,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     public void registerLongTapListener(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
-            MapListener mapListener = new MapListener(m_mapView, mReactContext);
+            MapListener mapListener = new MapListener(mapViewId, mReactContext);
             m_mapView.setLongTapListener(mapListener);
             promise.resolve(true);
         } catch (Exception e) {
@@ -1897,7 +1897,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     public void registerDoubleTapListener(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
-            MapListener mapListener = new MapListener(m_mapView, mReactContext);
+            MapListener mapListener = new MapListener(mapViewId, mReactContext);
             m_mapView.setDoubleTapListener(mapListener);
             promise.resolve(true);
         } catch (Exception e) {
@@ -1920,7 +1920,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     public void registerTouchListener(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
-            MapListener mapListener = new MapListener(m_mapView, mReactContext);
+            MapListener mapListener = new MapListener(mapViewId, mReactContext);
             m_mapView.setTouchListener(mapListener);
             promise.resolve(true);
         } catch (Exception e) {
@@ -1943,7 +1943,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     public void registerZoomChangedListener(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
-            MapListener mapListener = new MapListener(m_mapView, mReactContext);
+            MapListener mapListener = new MapListener(mapViewId, mReactContext);
             m_mapView.setZoomChangedListener(mapListener);
             promise.resolve(true);
         } catch (Exception e) {
@@ -1966,7 +1966,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     public void registerCenterChangedListener(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
-            MapListener mapListener = new MapListener(m_mapView, mReactContext);
+            MapListener mapListener = new MapListener(mapViewId, mReactContext);
             m_mapView.setCenterChangedListener(mapListener);
             promise.resolve(true);
 
@@ -1990,7 +1990,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     public void registerRotateChangedListener(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
-            MapListener mapListener = new MapListener(m_mapView, mReactContext);
+            MapListener mapListener = new MapListener(mapViewId, mReactContext);
             m_mapView.setRotateChangedListener(mapListener);
             promise.resolve(true);
 
@@ -2015,7 +2015,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     {
         try {
             m_mapView = mapViewList.get(mapViewId);
-            MapListener mapListener = new MapListener(m_mapView, mReactContext);
+            MapListener mapListener = new MapListener(mapViewId, mReactContext);
             m_mapView.setPositionChangedListener(mapListener);
             promise.resolve(true);
 
@@ -2040,7 +2040,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     public void registerAnimationListener(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
-            MapListener mapListener = new MapListener(m_mapView, mReactContext);
+            MapListener mapListener = new MapListener(mapViewId, mReactContext);
             m_mapView.setAnimationListener(mapListener);
             promise.resolve(true);
 
@@ -2064,7 +2064,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     public void registerRefreshListener(String mapViewId, Promise promise) {
         try {
             m_mapView = mapViewList.get(mapViewId);
-            MapListener mapListener = new MapListener(m_mapView, mReactContext);
+            MapListener mapListener = new MapListener(mapViewId, mReactContext);
             m_mapView.setRefreshListener(mapListener);
             promise.resolve(true);
 
@@ -2089,7 +2089,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
         try {
 
             m_mapView = mapViewList.get(mapViewId);
-            MapListener mapListener = new MapListener(m_mapView, mReactContext);
+            MapListener mapListener = new MapListener(mapViewId, mReactContext);
             m_mapView.setMapLoadListener(mapListener);
             promise.resolve(true);
         } catch (Exception e) {
@@ -2113,7 +2113,7 @@ public class JSMapView extends ReactContextBaseJavaModule {
     {
         try {
             m_mapView = mapViewList.get(mapViewId);
-            MapListener mapListener = new MapListener(m_mapView, mReactContext);
+            MapListener mapListener = new MapListener(mapViewId, mReactContext);
             m_mapView.setAnnotationListener(mapListener);
             promise.resolve(true);
 
