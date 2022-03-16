@@ -5,6 +5,48 @@ import com.facebook.react.bridge.JavaScriptModule;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
+import com.zondy.mapgis.mobile.react.scene.JSAltitudeMode;
+import com.zondy.mapgis.mobile.react.scene.JSDistanceMeasurement;
+import com.zondy.mapgis.mobile.react.scene.JSDriverType;
+import com.zondy.mapgis.mobile.react.scene.JSFeature3D;
+import com.zondy.mapgis.mobile.react.scene.JSFeaturePagedResult3D;
+import com.zondy.mapgis.mobile.react.scene.JSFeatureQuery3D;
+import com.zondy.mapgis.mobile.react.scene.JSFlyManager;
+import com.zondy.mapgis.mobile.react.scene.JSFlyStatus;
+import com.zondy.mapgis.mobile.react.scene.JSGeoElement;
+import com.zondy.mapgis.mobile.react.scene.JSGeometry3D;
+import com.zondy.mapgis.mobile.react.scene.JSGraphic3D;
+import com.zondy.mapgis.mobile.react.scene.JSGraphic3DsOverlay;
+import com.zondy.mapgis.mobile.react.scene.JSGraphic3DsOverlays;
+import com.zondy.mapgis.mobile.react.scene.JSGraphicImage3DAlignmentMode;
+import com.zondy.mapgis.mobile.react.scene.JSGraphicMultiPoint3D;
+import com.zondy.mapgis.mobile.react.scene.JSGraphicPlaceMarker;
+import com.zondy.mapgis.mobile.react.scene.JSGraphicPoint3D;
+import com.zondy.mapgis.mobile.react.scene.JSGraphicPolygon3D;
+import com.zondy.mapgis.mobile.react.scene.JSGraphicPolyline3D;
+import com.zondy.mapgis.mobile.react.scene.JSGraphicState;
+import com.zondy.mapgis.mobile.react.scene.JSGraphicText3DAlignmentMode;
+import com.zondy.mapgis.mobile.react.scene.JSGraphicType3D;
+import com.zondy.mapgis.mobile.react.scene.JSGroupLayer3D;
+import com.zondy.mapgis.mobile.react.scene.JSIdentifyLayerResult;
+import com.zondy.mapgis.mobile.react.scene.JSLayer3D;
+import com.zondy.mapgis.mobile.react.scene.JSLayer3DEnum;
+import com.zondy.mapgis.mobile.react.scene.JSLayer3DType;
+import com.zondy.mapgis.mobile.react.scene.JSMeasurementChangedEvent;
+import com.zondy.mapgis.mobile.react.scene.JSModelCacheLayer3D;
+import com.zondy.mapgis.mobile.react.scene.JSQueryBound3D;
+import com.zondy.mapgis.mobile.react.scene.JSRect3D;
+import com.zondy.mapgis.mobile.react.scene.JSSRSType;
+import com.zondy.mapgis.mobile.react.scene.JSScene;
+import com.zondy.mapgis.mobile.react.scene.JSSceneview;
+import com.zondy.mapgis.mobile.react.scene.JSSelectionProperties;
+import com.zondy.mapgis.mobile.react.scene.JSSelectionStyle;
+import com.zondy.mapgis.mobile.react.scene.JSServerLayer3D;
+import com.zondy.mapgis.mobile.react.scene.JSSunLightingMode;
+import com.zondy.mapgis.mobile.react.scene.JSTerrainAnalysis;
+import com.zondy.mapgis.mobile.react.scene.JSTerrainLayer3D;
+import com.zondy.mapgis.mobile.react.scene.JSVectorLayer3D;
+import com.zondy.mapgis.mobile.react.scene.JSViewpoint;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -197,6 +239,49 @@ public class ReactNativeViewPackage implements ReactPackage {
         modules.add(new JSSyncDataBaseParmeters(reactContext));
         modules.add(new JSSyncLayerOption(reactContext));
 
+        modules.add(new JSSceneview(reactContext));
+        modules.add(new JSSunLightingMode(reactContext));
+        modules.add(new JSScene(reactContext));
+        modules.add(new JSLayer3DEnum(reactContext));
+        modules.add(new JSDriverType(reactContext));
+        modules.add(new JSSRSType(reactContext));
+        modules.add(new JSLayer3D(reactContext));
+        modules.add(new JSRect3D(reactContext));
+        modules.add(new JSLayer3DType(reactContext));
+        modules.add(new JSVectorLayer3D(reactContext));
+        modules.add(new JSServerLayer3D(reactContext));
+        modules.add(new JSTerrainLayer3D(reactContext));
+        modules.add(new JSGroupLayer3D(reactContext));
+        modules.add(new JSModelCacheLayer3D(reactContext));
+        modules.add(new JSSelectionStyle(reactContext));
+        modules.add(new JSSelectionProperties(reactContext));
+        modules.add(new JSViewpoint(reactContext));
+        modules.add(new JSFlyStatus(reactContext));
+        modules.add(new JSFlyManager(reactContext));
+        modules.add(new JSGeoElement(reactContext));
+        modules.add(new JSIdentifyLayerResult(reactContext));
+        modules.add(new JSGeometry3D(reactContext));
+        modules.add(new JSFeature3D(reactContext));
+        modules.add(new JSFeaturePagedResult3D(reactContext));
+        modules.add(new JSFeatureQuery3D(reactContext));
+        modules.add(new JSQueryBound3D(reactContext));
+        modules.add(new JSAltitudeMode(reactContext));
+        modules.add(new JSGraphic3D(reactContext));
+        modules.add(new JSGraphicType3D(reactContext));
+        modules.add(new JSGraphicState(reactContext));
+        modules.add(new JSGraphic3DsOverlay(reactContext));
+        modules.add(new JSGraphic3DsOverlays(reactContext));
+        modules.add(new JSGraphicMultiPoint3D(reactContext));
+        modules.add(new JSGraphicPoint3D(reactContext));
+        modules.add(new JSGraphicPolygon3D(reactContext));
+        modules.add(new JSGraphicPolyline3D(reactContext));
+        modules.add(new JSGraphicPlaceMarker(reactContext));
+        modules.add(new JSGraphicImage3DAlignmentMode(reactContext));
+        modules.add(new JSGraphicText3DAlignmentMode(reactContext));
+        modules.add(new JSTerrainAnalysis(reactContext));
+        modules.add(new JSMeasurementChangedEvent(reactContext));
+        modules.add(new JSDistanceMeasurement(reactContext));
+
 		return modules;
     }
 
@@ -210,6 +295,7 @@ public class ReactNativeViewPackage implements ReactPackage {
 
         List<ViewManager> viewManagerLst = new ArrayList<>();
         viewManagerLst.add(new MapViewManager());
+        viewManagerLst.add(new SceneViewManager());
         return viewManagerLst;
     }
 }

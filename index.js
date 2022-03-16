@@ -47,7 +47,19 @@ let FieldType = NativeModules.JSFieldType;
 let SpaQueryMode = NativeModules.JSSpaQueryMode;
 let XClsType = NativeModules.JSXClsType;
 
+let SunLightingMode = NativeModules.JSSunLightingMode;
+let DriverType = NativeModules.JSDriverType;
+let SRSType = NativeModules.JSSRSType;
+let Layer3DType = NativeModules.JSLayer3DType;
+let FlyStatus = NativeModules.JSFlyStatus;
+let AltitudeMode = NativeModules.JSAltitudeMode;
+let GraphicState = NativeModules.JSGraphicState;
+let GraphicType3D = NativeModules.JSGraphicType3D;
+let GraphicImage3DAlignmentMode = NativeModules.JSGraphicImage3DAlignmentMode;
+let GraphicText3DAlignmentMode = NativeModules.JSGraphicText3DAlignmentMode;
+
 import MGMapView from "./js/components/MGSMapViewUI";
+import MGSSceneView from "./js/components/MGSSceneViewUI"
 import MapPosition from "./js/MapPosition";
 import Environment from "./js/Environment";
 import Dot from "./js/Dot";
@@ -192,8 +204,41 @@ import Annotation from "./js/Annotation"
 import AnnotationsOverlay from "./js/AnnotationsOverlay"
 import AnnotationView from "./js/AnnotationView"
 
+import Layer3D from "./js/scene/Layer3D"
+import Layer3DEnum from "./js/scene/Layer3DEnum"
+import Rect3D from "./js/scene/Rect3D"
+import Scene from "./js/scene/Scene"
+import SceneView from "./js/scene/SceneView"
+import VectorLayer3D from "./js/scene/VectorLayer3D"
+import ServerLayer3D from "./js/scene/ServerLayer3D"
+import TerrainLayer3D from "./js/scene/TerrainLayer3D"
+import GroupLayer3D from "./js/scene/GroupLayer3D"
+import ModelCacheLayer3D from "./js/scene/ModelCacheLayer3D"
+import SelectionStyle from "./js/scene/SelectionStyle"
+import SelectionProperties from "./js/scene/SelectionProperties"
+import Viewpoint from "./js/scene/Viewpoint"
+import FlyManager from "./js/scene/FlyManager"
+import GeoElement from "./js/scene/GeoElement"
+import IdentifyLayerResult from "./js/scene/IdentifyLayerResult"
+import Feature3D from "./js/scene/Feature3D"
+import Geometry3D from "./js/scene/Geometry3D"
+import FeaturePagedResult3D from "./js/scene/FeaturePagedResult3D"
+import FeatureQuery3D from "./js/scene/FeatureQuery3D"
+import QueryBound3D from "./js/scene/QueryBound3D"
+import Graphic3D from "./js/scene/Graphic3D"
+import Graphic3DsOverlay from "./js/scene/Graphic3DsOverlay"
+import Graphic3DsOverlays from "./js/scene/Graphic3DsOverlays"
+import GraphicMultiPoint3D from "./js/scene/GraphicMultiPoint3D"
+import GraphicPoint3D from "./js/scene/GraphicPoint3D"
+import GraphicPolygon3D from "./js/scene/GraphicPolygon3D" 
+import GraphicPolyline3D from "./js/scene/GraphicPolyline3D"
+import GraphicPlaceMarker from "./js/scene/GraphicPlaceMarker"
+import TerrainAnalysis from "./js/scene/TerrainAnalysis"
+import MeasurementChangedEvent from "./js/scene/MeasurementChangedEvent"
+
 export {
   MGMapView,
+  MGSSceneView,
   MapPosition,
   Environment,
   Dot,
@@ -374,4 +419,46 @@ export {
   Annotation,
   AnnotationsOverlay,
   AnnotationView,
+
+  DriverType,
+  Layer3DType,
+  SRSType,
+  SunLightingMode,
+  FlyStatus,
+  Layer3D,
+  Layer3DEnum,
+  Rect3D,
+  Scene,
+  SceneView,
+  VectorLayer3D,
+  ServerLayer3D,
+  TerrainLayer3D,
+  GroupLayer3D,
+  ModelCacheLayer3D,
+  SelectionStyle,
+  SelectionProperties,
+  Viewpoint,
+  FlyManager,
+  GeoElement,
+  IdentifyLayerResult,
+  Feature3D,
+  Geometry3D,
+  FeaturePagedResult3D,
+  FeatureQuery3D,
+  QueryBound3D,
+  AltitudeMode,
+  GraphicState,
+  GraphicType3D,
+  Graphic3D,
+  Graphic3DsOverlay,
+  Graphic3DsOverlays,
+  GraphicMultiPoint3D,
+  GraphicPoint3D,
+  GraphicPolygon3D,
+  GraphicPolyline3D,
+  GraphicImage3DAlignmentMode,
+  GraphicText3DAlignmentMode,
+  GraphicPlaceMarker,
+  TerrainAnalysis,
+  MeasurementChangedEvent,
 };

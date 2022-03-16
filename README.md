@@ -1,4 +1,4 @@
-# MapGIS-Mobile-React-Native
+# MapGIS-Mobile-React-Native-V10.3
 
 MapGIS Mobile for React Native，是MapGIS推出的一款基于React Native的跨平台移动开发框架，用户可以基于它使用JavaScript开发出在Android和iOS平台下运行的原生移动GIS应用。
 
@@ -7,9 +7,9 @@ MapGIS Mobile for React Native，是MapGIS推出的一款基于React Native的�
 在React Native项目中安装 `@mapgis/mobile-react-native` 包。
 
 ```bash
-yarn add @mapgis/mobile-react-native
+yarn add @mapgis/mobile-react-native@1.1.4
 # or with npm
-# npm install @mapgis/mobile-react-native
+# npm install @mapgis/mobile-react-native@1.1.4
 ```
 
 ### 链接原生库
