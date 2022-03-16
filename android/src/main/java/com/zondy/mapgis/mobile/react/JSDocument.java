@@ -20,7 +20,7 @@ import java.util.UUID;
  */
 public class JSDocument extends JSDocumentItem {
     private static final String REACT_CLASS = "JSDocument";
-    private static Map<String, Document> mDocumentList = new HashMap<>();
+    public static Map<String, Document> mDocumentList = new HashMap<>();
 
     public JSDocument(ReactApplicationContext reactContext) {
         super(reactContext);

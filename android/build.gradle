@@ -46,4 +46,5 @@ dependencies {
     
     implementation files('libs/MapGIS_Mobile_Map.jar')
     implementation files('libs/MapGIS_Mobile_Base.jar')
+    implementation files('libs/MapGIS_Mobile_Scene.jar')
 }

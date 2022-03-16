@@ -46,11 +46,11 @@ import java.util.UUID;
  * @content 地图视图组件
  */
 public class JSMapView extends ReactContextBaseJavaModule {
-    private static MapView              curMapView = null;
-    private static Map<String, MapView> mapViewList = new HashMap<String, MapView>();
-    Context                             m_Context = null;
-    MapView                             m_mapView;
-    ReactContext                        mReactContext;
+    private static MapView curMapView = null;
+    public static Map<String, MapView> mapViewList = new HashMap<String, MapView>();
+    Context m_Context = null;
+    MapView m_mapView;
+    ReactContext mReactContext;
     /**
      * 手机sdcard路径
      **/
@@ -95,6 +95,19 @@ public class JSMapView extends ReactContextBaseJavaModule {
         mapViewList.put(id, mapView);
         System.out.print(id);
         return id;
+    }
+
+    public static void removeByObj(MapView mapView) {
+        String key = null;
+        for (Map.Entry entry : mapViewList.entrySet()) {
+            if (mapView.equals(entry.getValue())) {
+                key = (String) entry.getKey();
+                break;
+            }
+        }
+        if (key != null) {
+            mapViewList.remove(key);
+        }
     }
 
     /**

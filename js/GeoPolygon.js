@@ -185,7 +185,7 @@ export default class GeoPolygon extends GeometryExp {
    */
   async calAreaOfSRef(sRef) {
     try {
-      return await GPG.calArea(this._MGGeoPolygonId, sRef._MGSRefDataId);
+      return await GPG.calAreaOfSRef(this._MGGeoPolygonId, sRef._MGSRefDataId);
     } catch (e) {
       console.error(e);
     }

@@ -147,6 +147,11 @@ public class JSSketchEditor extends ReactContextBaseJavaModule {
                     writableMap.putBoolean("redoResult", b);
                     sendEvent(REDOSTATECHANGED, writableMap);
                 }
+
+                @Override
+                public void onEditStateStateChanged(boolean b) {
+
+                }
             };
             SketchEditor sketchEditor = getObjFromList(sketchEditorId);
             sketchEditor.addStateChangedListener(mSketchStateChangedListener);

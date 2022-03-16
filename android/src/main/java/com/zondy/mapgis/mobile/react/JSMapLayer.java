@@ -359,6 +359,15 @@ public class JSMapLayer extends ReactContextBaseJavaModule {
         try {
             MapLayer mapLayer = getObjFromList(MapLayerId);
             IBasCls iBasCls = JSBasCls.getObjFromList(iBasClsId);
+            if (iBasCls == null) {
+                iBasCls = JSVectorCls.getObjFromList(iBasClsId);
+            }
+            if (iBasCls == null) {
+                iBasCls = JSSFeatureCls.getObjFromList(iBasClsId);
+            }
+            if (iBasCls == null) {
+                iBasCls = JSAnnotationCls.getObjFromList(iBasClsId);
+            }
             boolean result = mapLayer.attachData(iBasCls);
 
             promise.resolve(result);
@@ -421,5 +430,16 @@ public class JSMapLayer extends ReactContextBaseJavaModule {
         }
     }
 
+    @ReactMethod
+    public void setLabel(String MapLayerId, String LabelId, Promise promise) {
+        try {
+            MapLayer mapLayer = getObjFromList(MapLayerId);
+            Label label = JSLabel.getObjFromList(LabelId);
+            String result = String.valueOf(mapLayer.setLabel(label));
+            promise.resolve(result);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
 
 }
